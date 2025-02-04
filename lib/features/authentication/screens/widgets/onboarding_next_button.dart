@@ -15,14 +15,14 @@ class OnboardingNextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final dark = THelperFunctions.isDarkMode(context);
+    final dark = JHelperFunctions.isDarkMode(context);
 
     return Positioned(
-      right: TSizes.defaultSpace,
+      right: JSizes.defaultSpace,
       bottom: TDeviceUtils.getBottomNavigationBarHeight(),
       child: ElevatedButton(
         onPressed: () => OnboardingController.instance.nextPage(),
-        style: ElevatedButton.styleFrom(shape: CircleBorder(), backgroundColor: dark ? TColors.primary : Colors.black),
+        style: ElevatedButton.styleFrom(shape: CircleBorder(), backgroundColor: dark ? JColors.primary : Colors.black),
         child: Icon(Iconsax.arrow_right_3),
       ),
     );

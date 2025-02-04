@@ -15,12 +15,12 @@ class OnBoardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding : const EdgeInsets.all(TSizes.defaultSpace),
+      padding : const EdgeInsets.all(JSizes.defaultSpace),
       child: Column(
         children: [
           Image(
-              width: THelperFunctions.screenWidth() * 0.8,
-              height: THelperFunctions.screenHeight() * 0.6,
+              width: JHelperFunctions.screenWidth() * 0.8,
+              height: JHelperFunctions.screenHeight() * 0.6,
               image: AssetImage(image)
           ),
           Text(
@@ -28,7 +28,7 @@ class OnBoardingPage extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: JSizes.spaceBtwItems),
           Text(
             subtitle,
             style: Theme.of(context).textTheme.bodyMedium,

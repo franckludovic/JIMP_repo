@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/features/Applications/screens/applications/application.dart';
 import 'package:project_bc_tuto/features/Applications/screens/home/home.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
@@ -11,7 +12,7 @@ class NavigationMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
-    final darkMode = THelperFunctions.isDarkMode(context);
+    final darkMode = JHelperFunctions.isDarkMode(context);
     
     return Scaffold(
       bottomNavigationBar: Obx(
@@ -20,8 +21,8 @@ class NavigationMenu extends StatelessWidget {
             elevation: 0,
             selectedIndex: controller.selectedIndex.value,
             onDestinationSelected: (index) => controller.selectedIndex.value = index,
-            backgroundColor: darkMode? TColors.black: TColors.white,
-            indicatorColor: darkMode? TColors.white.withAlpha((0.1 * 255).toInt()) : TColors.black.withAlpha((0.1 * 255).toInt()),
+            backgroundColor: darkMode? JColors.black: JColors.white,
+            indicatorColor: darkMode? JColors.white.withAlpha((0.1 * 255).toInt()) : JColors.black.withAlpha((0.1 * 255).toInt()),
             destinations: [
               const NavigationDestination(icon: Icon(Iconsax.home_15, color: Colors.blueAccent,) , label:"Home"),
               const NavigationDestination(icon: Icon(Iconsax.message5, color: Colors.greenAccent) , label:"Chat"),
@@ -40,5 +41,5 @@ class NavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [ const HomeScreen(), Container(color: Colors.greenAccent), Container(color: Colors.orangeAccent), Container(color: Colors.yellow), Container(color: Colors.purpleAccent)];
+  final screens = [ const HomeScreen(), Container(color: Colors.greenAccent), const Application(), Container(color: Colors.yellow), Container(color: Colors.purpleAccent)];
 }

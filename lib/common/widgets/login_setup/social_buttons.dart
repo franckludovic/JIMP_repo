@@ -16,27 +16,27 @@ class TSocialButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          decoration: BoxDecoration(border: Border.all(color: TColors.grey), borderRadius: BorderRadius.circular(100)),
+          decoration: BoxDecoration(border: Border.all(color: JColors.grey), borderRadius: BorderRadius.circular(100)),
           child: IconButton(
             onPressed: () {},
             icon: const Image(
-              width: TSizes.iconMd,
-              height: TSizes.iconMd,
-              image: AssetImage(TImages.google),
+              width: JSizes.iconMd,
+              height: JSizes.iconMd,
+              image: AssetImage(JImages.google),
             ),
 
           ),
         ),
-        const SizedBox(width: TSizes.spaceBtwItems),
+        const SizedBox(width: JSizes.spaceBtwItems),
 
         Container(
-          decoration: BoxDecoration(border: Border.all(color: TColors.grey), borderRadius: BorderRadius.circular(100)),
+          decoration: BoxDecoration(border: Border.all(color: JColors.grey), borderRadius: BorderRadius.circular(100)),
           child: IconButton(
             onPressed: () {},
             icon: const Image(
-              width: TSizes.iconMd,
-              height: TSizes.iconMd,
-              image: AssetImage(TImages.facebook),
+              width: JSizes.iconMd,
+              height: JSizes.iconMd,
+              image: AssetImage(JImages.facebook),
             ),
 
           ),

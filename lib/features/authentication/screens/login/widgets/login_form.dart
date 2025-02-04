@@ -20,7 +20,7 @@ class TLoginForm extends StatelessWidget {
     return Form(
 
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: TSizes.spaceBtwSections),
+        padding: const EdgeInsets.symmetric(vertical: JSizes.spaceBtwSections),
         child: Column(
           children: [
             ///email
@@ -30,7 +30,7 @@ class TLoginForm extends StatelessWidget {
                   labelText: TTexts.email
               ),
             ),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
+            const SizedBox(height: JSizes.spaceBtwInputFields),
 
             ///password
             TextFormField(
@@ -40,7 +40,7 @@ class TLoginForm extends StatelessWidget {
                 suffixIcon: Icon(Iconsax.eye_slash),
               ),
             ),
-            const SizedBox(height: TSizes.spaceBtwInputFields / 2),
+            const SizedBox(height: JSizes.spaceBtwInputFields / 2),
 
             ///remember me and forget password
             Row(
@@ -60,7 +60,7 @@ class TLoginForm extends StatelessWidget {
 
             ///sign in button
             SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.off(() => const NavigationMenu()), child: Text(TTexts.signIn))),
-            const SizedBox(height: TSizes.spaceBtwItems),
+            const SizedBox(height: JSizes.spaceBtwItems),
 
             ///create account button
             SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() => const SignupScreen()), child: Text(TTexts.createAccount))),

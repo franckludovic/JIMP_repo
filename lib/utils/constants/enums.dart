@@ -8,7 +8,9 @@ enum AppRole { admin, user }
 
 enum TransactionType { buy, sell }
 
-enum ProductType { single, variable }
+enum ApplicationType { job, internship }
+
+enum JobType { part_time, full_time }
 
 enum ProductVisibility { published, hidden }
 

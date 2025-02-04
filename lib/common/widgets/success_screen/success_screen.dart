@@ -24,19 +24,19 @@ class SuccessScreen extends StatelessWidget {
 
               Image(
                   image: AssetImage(image),
-                  width: THelperFunctions.screenWidth() * 0.6),
-              const SizedBox(height: TSizes.spaceBtwSections),
+                  width: JHelperFunctions.screenWidth() * 0.6),
+              const SizedBox(height: JSizes.spaceBtwSections),
 
               ///Tittle and subtitle
               Text(title,
                   style: Theme.of(context).textTheme.headlineMedium,
                   textAlign: TextAlign.center),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems),
 
               Text(subTitle,
                   style: Theme.of(context).textTheme.labelMedium,
                   textAlign: TextAlign.center),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: JSizes.spaceBtwSections),
 
               ///Buttons
               SizedBox(
@@ -44,7 +44,7 @@ class SuccessScreen extends StatelessWidget {
                   child: ElevatedButton(
                       onPressed: onPressed,
                       child: const Text(TTexts.tContinue))),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems),
             ],
           ),
         ),

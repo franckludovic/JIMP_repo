@@ -6,11 +6,13 @@ import '../../../utils/constants/colors.dart';
 
 class NotificationCounterIcon extends StatelessWidget {
   const NotificationCounterIcon({
-    super.key, required this.onPressed, required this.iconColor,
+    super.key,
+    required this.onPressed,
+    this.iconColor,
   });
 
   final VoidCallback onPressed;
-  final Color iconColor;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +25,11 @@ class NotificationCounterIcon extends StatelessWidget {
             width: 18,
             height: 18,
             decoration: BoxDecoration(
-              color: TColors.black.withAlpha((0.5 * 255).toInt()),
+              color: JColors.black.withAlpha((0.5 * 255).toInt()),
               borderRadius: BorderRadius.circular(100),
             ) ,
             child: Center(
-              child: Text("2", style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.white, fontSizeFactor: 0.8)),
+              child: Text("10", style: Theme.of(context).textTheme.labelLarge!.apply(color: JColors.white, fontSizeFactor: 0.8)),
             ),
           ),
         )

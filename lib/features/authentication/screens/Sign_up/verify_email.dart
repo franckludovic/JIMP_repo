@@ -26,43 +26,43 @@ class VerifyEmailScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(TSizes.defaultSpace),
+          padding: EdgeInsets.all(JSizes.defaultSpace),
           child: Column(
             children: [
               ///Image
               Image(
-                  image: const AssetImage(TImages.deliveredEmailIllustration),
-                  width: THelperFunctions.screenWidth() * 0.6),
-              const SizedBox(height: TSizes.spaceBtwSections),
+                  image: const AssetImage(JImages.deliveredEmailIllustration),
+                  width: JHelperFunctions.screenWidth() * 0.6),
+              const SizedBox(height: JSizes.spaceBtwSections),
 
               ///Tittle and subtitle
               Text(TTexts.confirmEmail,
                   style: Theme.of(context).textTheme.headlineMedium,
                   textAlign: TextAlign.center),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems),
 
               Text("Metatiel@gsky.com",
                   style: Theme.of(context).textTheme.labelLarge,
                   textAlign: TextAlign.center),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems),
 
               Text(TTexts.confirmEmailSubTitle,
                   style: Theme.of(context).textTheme.labelMedium,
                   textAlign: TextAlign.center),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: JSizes.spaceBtwSections),
 
               ///Buttons
               SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () => Get.to(() => SuccessScreen(
-                        image: TImages.staticSuccessIllustration,
+                        image: JImages.staticSuccessIllustration,
                         title: TTexts.yourAccountCreatedTitle,
                         subTitle: TTexts.yourAccountCreatedSubTitle,
                         onPressed: () => Get.to(() => const LoginScreen()),
                       )),
                       child: const Text(TTexts.tContinue))),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems),
 
               SizedBox(
                   width: double.infinity,

@@ -33,7 +33,7 @@ class TSignupForm extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(width: TSizes.spaceBtwInputFields),
+              const SizedBox(width: JSizes.spaceBtwInputFields),
 
               Expanded(
                 child: TextFormField(
@@ -44,7 +44,7 @@ class TSignupForm extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: TSizes.spaceBtwInputFields),
+          const SizedBox(height: JSizes.spaceBtwInputFields),
 
           ///Username
           TextFormField(
@@ -52,7 +52,7 @@ class TSignupForm extends StatelessWidget {
             decoration: const InputDecoration(labelText: TTexts.username, prefixIcon: Icon(Iconsax.user_edit)),
           ),
 
-          const SizedBox(height: TSizes.spaceBtwInputFields),
+          const SizedBox(height: JSizes.spaceBtwInputFields),
 
           ///Email
           TextFormField(
@@ -60,7 +60,7 @@ class TSignupForm extends StatelessWidget {
             decoration: const InputDecoration(labelText: TTexts.email, prefixIcon: Icon(Iconsax.direct)),
           ),
 
-          const SizedBox(height: TSizes.spaceBtwInputFields),
+          const SizedBox(height: JSizes.spaceBtwInputFields),
 
           ///Phone number
           TextFormField(
@@ -68,7 +68,7 @@ class TSignupForm extends StatelessWidget {
             decoration: const InputDecoration(labelText: TTexts.phoneNo, prefixIcon: Icon(Iconsax.call)),
           ),
 
-          const SizedBox(height: TSizes.spaceBtwInputFields),
+          const SizedBox(height: JSizes.spaceBtwInputFields),
 
           ///Password
           TextFormField(
@@ -80,12 +80,12 @@ class TSignupForm extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: TSizes.spaceBtwInputFields),
+          const SizedBox(height: JSizes.spaceBtwInputFields),
 
           ///Term & conditions
           const TermandConditions(),
 
-          const SizedBox(height: TSizes.spaceBtwSections),
+          const SizedBox(height: JSizes.spaceBtwSections),
 
           ///Sign up button
           SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const VerifyEmailScreen() ), child: const Text(TTexts.createAccount))),

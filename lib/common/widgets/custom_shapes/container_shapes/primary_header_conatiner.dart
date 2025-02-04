@@ -16,12 +16,12 @@ class PrimaryHeaderContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CurvedEdgeswidgets(
       child: Container(
-        color: TColors.primary,
+        color: JColors.primary,
         padding: const EdgeInsets.only(bottom: 0),
       
         ///if [size.idFinite: is not true.in Stack] error occured -> README.ad file
         child: SizedBox(
-          height: 350,
+          height: 370,
           ///--background custom shapes
           child: Stack(
             children: [
@@ -29,12 +29,12 @@ class PrimaryHeaderContainer extends StatelessWidget {
                   top: -180,
                   right: -250,
                   child: CircularContainer(
-                      backgroundColor: TColors.textWhite.withAlpha((0.1 * 255).toInt()))),
+                      backgroundColor: JColors.textWhite.withAlpha((0.1 * 255).toInt()))),
               Positioned(
                   top: 90,
                   right: -300,
                   child: CircularContainer(
-                      backgroundColor: TColors.textWhite.withAlpha((0.1 * 255).toInt()))),
+                      backgroundColor: JColors.textWhite.withAlpha((0.1 * 255).toInt()))),
               child,
             ],
           ),

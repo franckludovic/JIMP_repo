@@ -11,14 +11,14 @@ class TElevatedButtonTheme {
   static final lightElevatedButtonTheme  = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       elevation: 0,
-      foregroundColor: TColors.light,
-      backgroundColor: TColors.primary,
-      disabledForegroundColor: TColors.darkGrey,
-      disabledBackgroundColor: TColors.buttonDisabled,
-      side: const BorderSide(color: TColors.primary),
-      padding: const EdgeInsets.symmetric(vertical: TSizes.buttonHeight),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(TSizes.buttonRadius)),
-      textStyle: const TextStyle(fontSize: 16, color: TColors.textWhite, fontWeight: FontWeight.w500, fontFamily: 'Urbanist'),
+      foregroundColor: JColors.light,
+      backgroundColor: JColors.primary,
+      disabledForegroundColor: JColors.darkGrey,
+      disabledBackgroundColor: JColors.buttonDisabled,
+      side: const BorderSide(color: JColors.primary),
+      padding: const EdgeInsets.symmetric(vertical: JSizes.buttonHeight),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(JSizes.buttonRadius)),
+      textStyle: const TextStyle(fontSize: 16, color: JColors.textWhite, fontWeight: FontWeight.w500, fontFamily: 'Urbanist'),
     ),
   );
 
@@ -26,14 +26,14 @@ class TElevatedButtonTheme {
   static final darkElevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       elevation: 0,
-      foregroundColor: TColors.light,
-      backgroundColor: TColors.primary,
-      disabledForegroundColor: TColors.darkGrey,
-      disabledBackgroundColor: TColors.darkerGrey,
-      side: const BorderSide(color: TColors.primary),
-      padding: const EdgeInsets.symmetric(vertical: TSizes.buttonHeight),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(TSizes.buttonRadius)),
-      textStyle: const TextStyle(fontSize: 16, color: TColors.textWhite, fontWeight: FontWeight.w600, fontFamily: 'Urbanist'),
+      foregroundColor: JColors.light,
+      backgroundColor: JColors.primary,
+      disabledForegroundColor: JColors.darkGrey,
+      disabledBackgroundColor: JColors.darkerGrey,
+      side: const BorderSide(color: JColors.primary),
+      padding: const EdgeInsets.symmetric(vertical: JSizes.buttonHeight),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(JSizes.buttonRadius)),
+      textStyle: const TextStyle(fontSize: 16, color: JColors.textWhite, fontWeight: FontWeight.w600, fontFamily: 'Urbanist'),
     ),
   );
 }

@@ -5,8 +5,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/utils/device/device_utility.dart';
 import '../../../utils/constants/sizes.dart';
 
-class Appbar extends StatelessWidget implements PreferredSizeWidget {
-  const Appbar({
+class JAppbar extends StatelessWidget implements PreferredSizeWidget {
+  const JAppbar({
     super.key,
     this.title,
     this.actions,
@@ -24,7 +24,7 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: TSizes.md),
+      padding: const EdgeInsets.symmetric(horizontal: JSizes.md),
       child: AppBar(
            automaticallyImplyLeading: false,
         leading: showBackArrow
