@@ -32,7 +32,7 @@ class JSearchContainer extends StatelessWidget {
       child: Padding(
         padding: padding,
         child: Container(
-          width: TDeviceUtils.getScreenWidth(context),
+          width: JDeviceUtils.getScreenWidth(context),
           padding: EdgeInsets.all(JSizes.md),
           decoration: BoxDecoration(
               color: showBackground

@@ -13,7 +13,7 @@ class OnboardingSkip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-        top: TDeviceUtils.getAppBarHeight(),
+        top: JDeviceUtils.getAppBarHeight(),
         right: JSizes.defaultSpace,
         child: TextButton(onPressed: () => OnboardingController.instance.skipPage(), child:  const Text('Skip'))
     );

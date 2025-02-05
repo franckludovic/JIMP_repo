@@ -87,7 +87,7 @@ class HomeScreen extends StatelessWidget {
 
 
                     ///applications in grid in 2 : n should be removed and replaced with horizontal layout in 1 : n
-                    JGridLayout(itemCount: 6, itemBuilder: (_, index) => const ApplicationsCardVertical(), )
+                    JGridLayout(itemCount: 6, itemBuilder: (_, index) => const JApplicationsCardVertical(), )
                   ],
                 )
             )

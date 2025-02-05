@@ -4,11 +4,15 @@ import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/ro
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/search_container.dart';
 import 'package:project_bc_tuto/common/widgets/layout/grid_layout.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
+import 'package:project_bc_tuto/features/Applications/screens/applications/Widgets/category.dart';
 import 'package:project_bc_tuto/utils/constants/enums.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
 import '../../../../common/widgets/Images/Jcircular_image.dart';
+import '../../../../common/widgets/appbar/tab_bar.dart';
+import '../../../../common/widgets/companies/compagny_cards.dart';
+import '../../../../common/widgets/companies/compagny_schocase.dart';
 import '../../../../common/widgets/notifications/notifications_icon.dart';
 import '../../../../common/widgets/texts/compagny_title_with_verified_icon.dart';
 import '../../../../utils/constants/colors.dart';
@@ -67,19 +71,14 @@ class Application extends StatelessWidget {
                             itemCount: 4,
                             mainAxisExtend: 80,
                             itemBuilder: (_, index) {
-                              return JCompagnyCard();
+                              return JCompagnyCard(showBorder: false);
                             })
                       ],
                     ),
                   ),
 
                   ///tabs
-                  bottom:  TabBar(
-
-                    isScrollable: true,
-                    indicatorColor: JColors.primary,
-                    unselectedLabelColor: JColors.darkGrey,
-                    labelColor: JHelperFunctions.isDarkMode(context) ? JColors.white : JColors.primary,
+                  bottom: const JTabBar(
                     tabs: [
                       Tab(child: Text("Data Analyst")),
                       Tab(child: Text("Designer")),
@@ -87,62 +86,13 @@ class Application extends StatelessWidget {
                       Tab(child: Text("Accountant")),
                       Tab(child: Text("DB Administrator")),
                       Tab(child: Text("Network Administrator")),
-                    ]
+                    ],
                   ),
                 ),
               ];
             },
-            body: Container()),
-      ),
-    );
-  }
-}
-
-class JCompagnyCard extends StatelessWidget {
-  const JCompagnyCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: JRoundedContainer(
-        padding: const EdgeInsets.all(JSizes.xs),
-        showBorder: true,
-        backgroundColor: Colors.transparent,
-        child: Row(
-          children: [
-            ///icon
-            Flexible(
-              child: JCircularImage(
-                isNetworkImage: false,
-                image: JImages.clothIcon,
-                backgroundColor: Colors.transparent,
-                overlayColor: JHelperFunctions.isDarkMode(context)
-                    ? JColors.white
-                    : JColors.black,
-              ),
-            ),
-            const SizedBox(height: JSizes.spaceBtwItems / 2),
-
-            /// --text
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  JCompagnyTittleVerifications(
-                      title: "CBC", compagnyTextSize: TextSizes.large),
-                  Text(
-                    '256 Applications',
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.labelMedium,
-                  )
-                ],
-              ),
+            body: TabBarView(children: [JCategory(), JCategory(), JCategory(), JCategory(), JCategory(), JCategory(),]
             )
-          ],
         ),
       ),
     );

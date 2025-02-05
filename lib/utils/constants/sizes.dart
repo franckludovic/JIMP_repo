@@ -73,6 +73,7 @@ class JSizes {
   static const int tabletScreenSize = 768;
   static const int mobileScreenSize = 360;
   static const int customScreenSize = 1100;
+
 }
 
 

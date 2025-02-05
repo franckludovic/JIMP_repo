@@ -18,7 +18,7 @@ class OnboardingDotNavigation extends StatelessWidget {
     final dark = JHelperFunctions.isDarkMode(context);
 
     return Positioned(
-      bottom: TDeviceUtils.getBottomNavigationBarHeight() + 25,
+      bottom: JDeviceUtils.getBottomNavigationBarHeight() + 25,
       left: JSizes.defaultSpace,
 
       child: SmoothPageIndicator(

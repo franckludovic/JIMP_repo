@@ -12,8 +12,8 @@ import '../../texts/application_price_text.dart';
 import '../../texts/applications_title_text.dart';
 import '../../texts/compagny_title_with_verified_icon.dart';
 
-class ApplicationsCardVertical extends StatelessWidget {
-  const ApplicationsCardVertical({super.key});
+class JApplicationsCardVertical extends StatelessWidget {
+  const JApplicationsCardVertical({super.key});
 
   @override
   Widget build(BuildContext context) {

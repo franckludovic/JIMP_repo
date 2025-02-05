@@ -19,7 +19,7 @@ class OnboardingNextButton extends StatelessWidget {
 
     return Positioned(
       right: JSizes.defaultSpace,
-      bottom: TDeviceUtils.getBottomNavigationBarHeight(),
+      bottom: JDeviceUtils.getBottomNavigationBarHeight(),
       child: ElevatedButton(
         onPressed: () => OnboardingController.instance.nextPage(),
         style: ElevatedButton.styleFrom(shape: CircleBorder(), backgroundColor: dark ? JColors.primary : Colors.black),
