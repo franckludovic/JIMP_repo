@@ -26,18 +26,18 @@ class OnboardingScreen extends StatelessWidget {
             children:  [
               OnBoardingPage(
                   image: JImages.onBoardingImages1,
-                  title: TTexts.onBoardingTitle1,
-                  subtitle: TTexts.onBoardingSubTitle1
+                  title: JTexts.onBoardingTitle1,
+                  subtitle: JTexts.onBoardingSubTitle1
               ),
               OnBoardingPage(
                   image: JImages.onBoardingImages2,
-                  title: TTexts.onBoardingTitle2,
-                  subtitle: TTexts.onBoardingSubTitle2
+                  title: JTexts.onBoardingTitle2,
+                  subtitle: JTexts.onBoardingSubTitle2
               ),
               OnBoardingPage(
                   image: JImages.onBoardingImages3,
-                  title: TTexts.onBoardingTitle3,
-                  subtitle: TTexts.onBoardingSubTitle3
+                  title: JTexts.onBoardingTitle3,
+                  subtitle: JTexts.onBoardingSubTitle3
               ),
             ],
           ),

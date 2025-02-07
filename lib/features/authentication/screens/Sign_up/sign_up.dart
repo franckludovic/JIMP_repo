@@ -20,7 +20,7 @@ class SignupScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ///Title
-              Text(TTexts.signupTitle,
+              Text(JTexts.signupTitle,
                   style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(height: JSizes.spaceBtwSections),
 
@@ -30,7 +30,7 @@ class SignupScreen extends StatelessWidget {
               const SizedBox(height: JSizes.spaceBtwSections),
 
               ///Divider
-              TFormDivider(dividerText: TTexts.orSignUpWith.capitalize!),
+              TFormDivider(dividerText: JTexts.orSignUpWith.capitalize!),
 
               const SizedBox(height: JSizes.spaceBtwSections),
 

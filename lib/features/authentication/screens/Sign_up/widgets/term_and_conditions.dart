@@ -21,17 +21,17 @@ class TermandConditions extends StatelessWidget {
         const SizedBox(width: JSizes.spaceBtwItems),
         Text.rich(
             TextSpan(children: [
-              TextSpan(text: '${TTexts.iAgreeTo}', style: Theme.of(context).textTheme.bodySmall),
+              TextSpan(text: '${JTexts.iAgreeTo}', style: Theme.of(context).textTheme.bodySmall),
 
-              TextSpan(text: ' ${TTexts.privacyPolicy}', style: Theme.of(context).textTheme.bodyMedium!.apply(
+              TextSpan(text: ' ${JTexts.privacyPolicy}', style: Theme.of(context).textTheme.bodyMedium!.apply(
                 color: dark ? JColors.white : JColors.primary,
                 decoration: TextDecoration.underline,
                 decorationColor:  dark ? JColors.white : JColors.primary,
               ) ),
 
-              TextSpan(text: ' ${TTexts.and} ', style: Theme.of(context).textTheme.bodySmall),
+              TextSpan(text: ' ${JTexts.and} ', style: Theme.of(context).textTheme.bodySmall),
 
-              TextSpan(text: TTexts.termsOfUse, style: Theme.of(context).textTheme.bodyMedium!.apply(
+              TextSpan(text: JTexts.termsOfUse, style: Theme.of(context).textTheme.bodyMedium!.apply(
                 color: dark ? JColors.white : JColors.primary,
                 decoration: TextDecoration.underline,
                 decorationColor:  dark ? JColors.white : JColors.primary,

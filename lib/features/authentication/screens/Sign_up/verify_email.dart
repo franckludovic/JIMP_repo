@@ -36,7 +36,7 @@ class VerifyEmailScreen extends StatelessWidget {
               const SizedBox(height: JSizes.spaceBtwSections),
 
               ///Tittle and subtitle
-              Text(TTexts.confirmEmail,
+              Text(JTexts.confirmEmail,
                   style: Theme.of(context).textTheme.headlineMedium,
                   textAlign: TextAlign.center),
               const SizedBox(height: JSizes.spaceBtwItems),
@@ -46,7 +46,7 @@ class VerifyEmailScreen extends StatelessWidget {
                   textAlign: TextAlign.center),
               const SizedBox(height: JSizes.spaceBtwItems),
 
-              Text(TTexts.confirmEmailSubTitle,
+              Text(JTexts.confirmEmailSubTitle,
                   style: Theme.of(context).textTheme.labelMedium,
                   textAlign: TextAlign.center),
               const SizedBox(height: JSizes.spaceBtwSections),
@@ -57,17 +57,17 @@ class VerifyEmailScreen extends StatelessWidget {
                   child: ElevatedButton(
                       onPressed: () => Get.to(() => SuccessScreen(
                         image: JImages.staticSuccessIllustration,
-                        title: TTexts.yourAccountCreatedTitle,
-                        subTitle: TTexts.yourAccountCreatedSubTitle,
+                        title: JTexts.yourAccountCreatedTitle,
+                        subTitle: JTexts.yourAccountCreatedSubTitle,
                         onPressed: () => Get.to(() => const LoginScreen()),
                       )),
-                      child: const Text(TTexts.tContinue))),
+                      child: const Text(JTexts.tContinue))),
               const SizedBox(height: JSizes.spaceBtwItems),
 
               SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                      onPressed: () {}, child: const Text(TTexts.resendEmail))),
+                      onPressed: () {}, child: const Text(JTexts.resendEmail))),
             ],
           ),
         ),
