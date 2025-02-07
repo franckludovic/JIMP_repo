@@ -22,9 +22,9 @@ class TLoginHeader extends StatelessWidget {
           height: 150,
           image: AssetImage(dark ? JImages.lightAppLogo : JImages.darkAppLogo),
         ),
-        Text(TTexts.loginTitle, style: Theme.of(context).textTheme.headlineMedium),
+        Text(JTexts.loginTitle, style: Theme.of(context).textTheme.headlineMedium),
         const SizedBox(height: JSizes.sm),
-        Text(TTexts.loginSubTitle, style: Theme.of(context).textTheme.bodyMedium),
+        Text(JTexts.loginSubTitle, style: Theme.of(context).textTheme.bodyMedium),
       ],
     );
   }

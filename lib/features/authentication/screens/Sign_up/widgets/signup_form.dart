@@ -29,7 +29,7 @@ class TSignupForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   expands: false,
-                  decoration: const InputDecoration(labelText: TTexts.firstName, prefixIcon: Icon(Iconsax.user)),
+                  decoration: const InputDecoration(labelText: JTexts.firstName, prefixIcon: Icon(Iconsax.user)),
                 ),
               ),
 
@@ -38,7 +38,7 @@ class TSignupForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   expands: false,
-                  decoration: const InputDecoration(labelText: TTexts.lastName, prefixIcon: Icon(Iconsax.user)),
+                  decoration: const InputDecoration(labelText: JTexts.lastName, prefixIcon: Icon(Iconsax.user)),
                 ),
               ),
             ],
@@ -49,7 +49,7 @@ class TSignupForm extends StatelessWidget {
           ///Username
           TextFormField(
             expands: false,
-            decoration: const InputDecoration(labelText: TTexts.username, prefixIcon: Icon(Iconsax.user_edit)),
+            decoration: const InputDecoration(labelText: JTexts.username, prefixIcon: Icon(Iconsax.user_edit)),
           ),
 
           const SizedBox(height: JSizes.spaceBtwInputFields),
@@ -57,7 +57,7 @@ class TSignupForm extends StatelessWidget {
           ///Email
           TextFormField(
             expands: false,
-            decoration: const InputDecoration(labelText: TTexts.email, prefixIcon: Icon(Iconsax.direct)),
+            decoration: const InputDecoration(labelText: JTexts.email, prefixIcon: Icon(Iconsax.direct)),
           ),
 
           const SizedBox(height: JSizes.spaceBtwInputFields),
@@ -65,7 +65,7 @@ class TSignupForm extends StatelessWidget {
           ///Phone number
           TextFormField(
             expands: false,
-            decoration: const InputDecoration(labelText: TTexts.phoneNo, prefixIcon: Icon(Iconsax.call)),
+            decoration: const InputDecoration(labelText: JTexts.phoneNo, prefixIcon: Icon(Iconsax.call)),
           ),
 
           const SizedBox(height: JSizes.spaceBtwInputFields),
@@ -74,7 +74,7 @@ class TSignupForm extends StatelessWidget {
           TextFormField(
             obscureText: true,
             decoration: const InputDecoration(
-              labelText: TTexts.password,
+              labelText: JTexts.password,
               prefixIcon: Icon(Iconsax.password_check),
               suffixIcon: Icon(Iconsax.eye_slash),
             ),
@@ -88,7 +88,7 @@ class TSignupForm extends StatelessWidget {
           const SizedBox(height: JSizes.spaceBtwSections),
 
           ///Sign up button
-          SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const VerifyEmailScreen() ), child: const Text(TTexts.createAccount))),
+          SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const VerifyEmailScreen() ), child: const Text(JTexts.createAccount))),
         ],
       ),
     );

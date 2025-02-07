@@ -1,18 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:project_bc_tuto/common/widgets/applications/applications_cards/applications_card_vertical.dart';
-import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/Cirular_shape.dart';
 
 import 'package:project_bc_tuto/features/Applications/screens/home/widgets/home_categories.dart';
 import 'package:project_bc_tuto/features/Applications/screens/home/widgets/promo_slider.dart';
-import 'package:project_bc_tuto/utils/constants/colors.dart';
+
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 
 import '../../../../common/widgets/custom_shapes/container_shapes/primary_header_conatiner.dart';
 import '../../../../common/widgets/custom_shapes/container_shapes/search_container.dart';
 
 import '../../../../common/widgets/layout/grid_layout.dart';
-import '../../../../common/widgets/Images/rounded_image.dart';
+
 import '../../../../common/widgets/texts/section_heading.dart';
 
 import '../../../../utils/constants/sizes.dart';

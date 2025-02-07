@@ -15,8 +15,8 @@ class HomeAppbar extends StatelessWidget {
     return JAppbar(title: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(TTexts.homeAppbarTitle, style: Theme.of(context).textTheme.labelMedium!.apply(color: JColors.grey)),
-        Text(TTexts.homeAppbarSubTitle, style: Theme.of(context).textTheme.headlineSmall!.apply(color: JColors.white)),
+        Text(JTexts.homeAppbarTitle, style: Theme.of(context).textTheme.labelMedium!.apply(color: JColors.grey)),
+        Text(JTexts.homeAppbarSubTitle, style: Theme.of(context).textTheme.headlineSmall!.apply(color: JColors.white)),
       ],
     ),
       actions: [

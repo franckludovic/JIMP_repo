@@ -27,7 +27,7 @@ class TLoginForm extends StatelessWidget {
             TextFormField(
               decoration: const InputDecoration(
                   prefixIcon: Icon(Iconsax.direct_right),
-                  labelText: TTexts.email
+                  labelText: JTexts.email
               ),
             ),
             const SizedBox(height: JSizes.spaceBtwInputFields),
@@ -36,7 +36,7 @@ class TLoginForm extends StatelessWidget {
             TextFormField(
               decoration: const InputDecoration(
                 prefixIcon: Icon(Iconsax.password_check),
-                labelText: TTexts.password,
+                labelText: JTexts.password,
                 suffixIcon: Icon(Iconsax.eye_slash),
               ),
             ),
@@ -50,20 +50,20 @@ class TLoginForm extends StatelessWidget {
                 Row(
                   children: [
                     Checkbox(value: true, onChanged: (value){}), // Corrected onChanged
-                    const Text(TTexts.rememberMe),
+                    const Text(JTexts.rememberMe),
                   ],
                 ),
                 /// forgot password
-                TextButton(onPressed: () => Get.to(() => const ForgetPassword()), child: const Text(TTexts.forgetPassword)),
+                TextButton(onPressed: () => Get.to(() => const ForgetPassword()), child: const Text(JTexts.forgetPassword)),
               ],
             ),
 
             ///sign in button
-            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.off(() => const NavigationMenu()), child: Text(TTexts.signIn))),
+            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.off(() => const NavigationMenu()), child: Text(JTexts.signIn))),
             const SizedBox(height: JSizes.spaceBtwItems),
 
             ///create account button
-            SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() => const SignupScreen()), child: Text(TTexts.createAccount))),
+            SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() => const SignupScreen()), child: Text(JTexts.createAccount))),
           ],
         ),
       ),
