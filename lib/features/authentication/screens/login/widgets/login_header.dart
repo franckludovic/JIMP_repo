@@ -18,9 +18,13 @@ class TLoginHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image(
-          height: 150,
-          image: AssetImage(dark ? JImages.lightAppLogo : JImages.darkAppLogo),
+        Container(
+          padding: EdgeInsets.all(20),
+          margin: EdgeInsets.only(bottom: 20),
+          child: Image(
+            height: 100,
+            image: AssetImage(dark ? JImages.lightAppLogo : JImages.darkAppLogo),
+          ),
         ),
         Text(JTexts.loginTitle, style: Theme.of(context).textTheme.headlineMedium),
         const SizedBox(height: JSizes.sm),

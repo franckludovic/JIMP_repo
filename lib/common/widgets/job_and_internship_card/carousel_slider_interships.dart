@@ -27,17 +27,15 @@ class JobCarousel extends StatelessWidget {
       child: Column(
         children: [
         CarouselSlider(
-        items: jobs, // Pass the list of JIntershipCard widgets
+        items: jobs,
         options: CarouselOptions(
             height: 200,
-            // Adjust height as needed
             enlargeCenterPage: true,
             autoPlay: true,
-            // Enables auto-scrolling
             autoPlayInterval: const Duration(seconds: 7),
             autoPlayAnimationDuration: const Duration(milliseconds: 1200),
             enableInfiniteScroll: true,
-            viewportFraction: 0.95,
+            viewportFraction: 0.90,
             onPageChanged: (index, _) => controller.updatePageIndicator(index)
         ),
       ),

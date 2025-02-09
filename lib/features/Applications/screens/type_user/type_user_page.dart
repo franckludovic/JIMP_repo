@@ -1,66 +1,83 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 
-import '../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
+import '../../../../common/widgets/Type_user/selection_type_user_card.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
+import '../../../../utils/helpers/helper_functions.dart';
+import '../../../authentication/screens/login/login.dart';
 
 class JTypeUser extends StatelessWidget {
   const JTypeUser({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final dark = JHelperFunctions.isDarkMode(context);
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.black,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+        
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(top: JSizes.sm),
+              child: Image.asset(
+                dark ? JImages.logo_dark : JImages.logo_light,
+                height: 380,
+                width: 380,
+              ),
             ),
-            padding: const EdgeInsets.all(20),
-            child: Image.asset(
-              "assets/logos/logo_dark6.png",
-              height: 60,
-              width: 60,
-            ),
-          ),
-
-          Text("Continue as", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: JColors.black)),
-          SizedBox(height: 25),
-
-
-          JRoundedContainer(
-            showBorder: true,
-            borderColor: JColors.darkerGrey,
-            padding: const EdgeInsets.all(JSizes.md),
-            backgroundColor: Colors.transparent,
-            margin: const EdgeInsets.only(bottom: JSizes.spaceBtwItems),
-            child: Row(
-              children: [
-                Image.asset(
-                  JImages.company_user,
-                  width: 20,
-                  height: 20,
-                  fit: BoxFit.cover,
-                ),
-
-                Column(
+        
+        
+           Container(
+             margin: EdgeInsets.all(10),
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+        
                   children: [
-                    Text("Company"),
-                    Text(JTexts.compagnytText),
+                    Text ("Continue as",
+                      style: Theme.of(context).textTheme.headlineLarge!.apply(color: JColors.primary) ,
+                      textAlign: TextAlign.left,
+                    ),
+                    Text("Here to find an Opportunity? we got you, here to find a special candidate guess what? we still got you covered",
+                      style: dark ?  Theme.of(context).textTheme.bodyMedium!.apply(color: JColors.grey) : Theme.of(context).textTheme.bodyMedium ,
+                      textAlign: TextAlign.left
+                    ),
                   ],
-                )
-              ],
-            )
-          ),
-        ],
+              ),
+           ),
+            Container(
+              margin: EdgeInsets.all(30),
+              child: Column(
+                children: [
+                  SelectionCard(
+                    title: "Compagny",
+                    subtitle: JTexts.compagnytText,
+                    image: JImages.company_user,
+                  ),
+                  SizedBox(height: JSizes.spaceBtwSections),
+        
+                  SelectionCard(
+                    title: "Candidate",
+                    subtitle: JTexts.candidateText,
+                    image: JImages.candidate_user,
+                    onTapNavigate:() => Get.off( const CandidateLoginScreen()),
+                  ),
+        
+        
+                ],
+              ),
+            ),
+        
+          ],
+        ),
       ),
     );
   }
 }
-  
+
+
+
 

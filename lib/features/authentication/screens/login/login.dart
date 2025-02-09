@@ -14,8 +14,8 @@ import '../../../../common/widgets/login_setup/social_buttons.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class CandidateLoginScreen extends StatelessWidget {
+  const CandidateLoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

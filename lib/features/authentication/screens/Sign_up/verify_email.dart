@@ -19,7 +19,7 @@ class VerifyEmailScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-              onPressed: () => Get.offAll(() => const LoginScreen()),
+              onPressed: () => Get.offAll(() => const CandidateLoginScreen()),
               icon: const Icon(CupertinoIcons.clear))
         ],
       ),
@@ -58,7 +58,7 @@ class VerifyEmailScreen extends StatelessWidget {
                         image: JImages.staticSuccessIllustration,
                         title: JTexts.yourAccountCreatedTitle,
                         subTitle: JTexts.yourAccountCreatedSubTitle,
-                        onPressed: () => Get.to(() => const LoginScreen()),
+                        onPressed: () => Get.to(() => const CandidateLoginScreen()),
                       )),
                       child: const Text(JTexts.tContinue))),
               const SizedBox(height: JSizes.spaceBtwItems),
