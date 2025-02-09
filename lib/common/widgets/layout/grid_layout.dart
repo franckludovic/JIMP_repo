@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/sizes.dart';
-import '../applications/applications_cards/applications_card_vertical.dart';
 
 class JGridLayout extends StatelessWidget {
   const JGridLayout({

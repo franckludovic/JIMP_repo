@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
-import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/search_container.dart';
 import 'package:project_bc_tuto/common/widgets/layout/grid_layout.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 import 'package:project_bc_tuto/features/Applications/screens/applications/Widgets/category.dart';
-import 'package:project_bc_tuto/utils/constants/enums.dart';
-import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
-import '../../../../common/widgets/Images/Jcircular_image.dart';
 import '../../../../common/widgets/appbar/tab_bar.dart';
 import '../../../../common/widgets/companies/compagny_cards.dart';
-import '../../../../common/widgets/companies/compagny_schocase.dart';
 import '../../../../common/widgets/notifications/notifications_icon.dart';
-import '../../../../common/widgets/texts/compagny_title_with_verified_icon.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 
@@ -71,7 +65,7 @@ class Application extends StatelessWidget {
                             itemCount: 4,
                             mainAxisExtend: 80,
                             itemBuilder: (_, index) {
-                              return JCompagnyCard(showBorder: false);
+                              return JCompagnyCard(showBorder: true);
                             })
                       ],
                     ),

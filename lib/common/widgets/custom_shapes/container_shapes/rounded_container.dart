@@ -43,15 +43,6 @@ class JRoundedContainer extends StatelessWidget {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(radius),
         border: showBorder ? Border.all(color: borderColor) : null,
-        // boxShadow: [
-        //   if (showShadow)
-        //     BoxShadow(
-        //       color: TColors.grey.withOpacity(0.1),
-        //       spreadRadius: 5,
-        //       blurRadius: 8,
-        //       offset: const Offset(0, 3),
-        //     ),
-        // ],
       ),
       child: child,
     );

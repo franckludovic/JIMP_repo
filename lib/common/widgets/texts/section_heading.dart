@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_bc_tuto/utils/constants/colors.dart';
 
 import '../../../utils/constants/sizes.dart';
 

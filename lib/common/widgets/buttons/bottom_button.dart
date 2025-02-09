@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/constants/colors.dart';
 
 class Jbutton extends StatelessWidget {
   const Jbutton({

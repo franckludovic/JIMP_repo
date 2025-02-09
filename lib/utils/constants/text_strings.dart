@@ -10,6 +10,9 @@ class JTexts {
   static const String appName = "JIMP";
   static const String tContinue = "Continue";
 
+  // -- Candidate and company text
+  static const String candidateText = "Finding a job or internship here never been easier than before";
+  static const String compagnytText = "Let’s recruit your great candidate faster here ";
 
   // -- OnBoarding Texts
   static const String onBoardingTitle1 = " Find Your Internship";

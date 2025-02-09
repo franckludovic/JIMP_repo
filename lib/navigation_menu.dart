@@ -3,8 +3,11 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/features/Applications/screens/applications/application.dart';
 import 'package:project_bc_tuto/features/Applications/screens/home/home.dart';
+import 'package:project_bc_tuto/features/personilization/screens/settings/settings.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
+
+import 'features/Applications/screens/saves/saves.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -27,7 +30,7 @@ class NavigationMenu extends StatelessWidget {
               const NavigationDestination(icon: Icon(Iconsax.home_15, color: Colors.blueAccent,) , label:"Home"),
               const NavigationDestination(icon: Icon(Iconsax.message5, color: Colors.greenAccent) , label:"Chat"),
               const NavigationDestination(icon: Icon(Iconsax.document_text5, color: Colors.orangeAccent) , label:"Application"),
-              const NavigationDestination(icon: Icon(Iconsax.save_21, color: Colors.yellow, size: 30.0,) , label:"Saved"),
+              const NavigationDestination(icon: Icon(Iconsax.save_21, color: Colors.yellow) , label:"Saved"),
               const NavigationDestination(icon: Icon(Iconsax.profile_circle5, color: Colors.purpleAccent) , label:"Profile"),
             ]
         ),
@@ -41,5 +44,5 @@ class NavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [ const HomeScreen(), Container(color: Colors.greenAccent), const Application(), Container(color: Colors.yellow), Container(color: Colors.purpleAccent)];
+  final screens = [ const HomeScreen(), Container(color: Colors.greenAccent), const Application(), const SavedScreen(), const SettingScreen()];
 }

@@ -1,13 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:project_bc_tuto/features/Applications/controllers/home_controller.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 
 import '../../../../../common/widgets/custom_shapes/container_shapes/Cirular_shape.dart';
 import '../../../../../common/widgets/Images/rounded_image.dart';
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 
 class PromoSlider extends StatelessWidget {

@@ -1,15 +1,15 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:project_bc_tuto/common/widgets/applications/applications_cards/applications_card_vertical.dart';
 
 import 'package:project_bc_tuto/features/Applications/screens/home/widgets/home_categories.dart';
-import 'package:project_bc_tuto/features/Applications/screens/home/widgets/promo_slider.dart';
 
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 
 import '../../../../common/widgets/custom_shapes/container_shapes/primary_header_conatiner.dart';
 import '../../../../common/widgets/custom_shapes/container_shapes/search_container.dart';
 
+import '../../../../common/widgets/job_and_internship_card/carousel_slider_interships.dart';
+import '../../../../common/widgets/job_and_internship_card/intership_cards.dart';
 import '../../../../common/widgets/layout/grid_layout.dart';
 
 import '../../../../common/widgets/texts/section_heading.dart';
@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
           children: [
 
             ///Header
-            PrimaryHeaderContainer(
+            JPrimaryHeaderContainer(
               child: Column(
                 children: [
 
@@ -55,7 +55,8 @@ class HomeScreen extends StatelessWidget {
                         const SizedBox(height: JSizes.spaceBtwItems),
 
                         ///categories
-                        const homeCategories()
+                        const homeCategories(),
+                        const SizedBox(height: JSizes.spaceBtwSections),
                       ],
                     ),
                   ),
@@ -69,18 +70,22 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(JSizes.defaultSpace),
                 child: Column(
                   children: [
-
+                    
+                    JSectionHeading(title: "Recommended Internships",onPressed: () {},),
+                    const SizedBox(height: JSizes.spaceBtwItems * 0.1),
                     ///promo slider
-                    const PromoSlider(banners: [
-                      JImages.banner1,
-                      JImages.banner2,
-                      JImages.banner3,
-                      JImages.banner4,
-                      JImages.banner5
-                    ]),
+                    JobCarousel(
+                        jobs : [
+                          JIntershipCard(companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"]),
+                          JIntershipCard(companyLogo: JImages.google,companyName: "StarLabs",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"]),
+                          JIntershipCard(companyLogo: JImages.google,companyName: "FrontCrown",duration: "5 - 6 month",jobTitle: "Web Developer", location: "Nigeria",skills: ["ReactJS", "javascript", "flutter"]),
+                          JIntershipCard(companyLogo: JImages.google,companyName: "LakeSide",duration: "1 - 3 month",jobTitle: "Network admin", location: "Libya",skills: ["Cisco", "javascript", "Linux"]),
+
+                        ]
+                    ),
                     const SizedBox(height: JSizes.spaceBtwSections),
 
-                    JSectionHeading(title: 'Popular Jobs', onPressed: () {}),
+                    JSectionHeading(title: 'Popular Internships', onPressed: () {}),
                     const SizedBox(height: JSizes.spaceBtwItems),
 
 

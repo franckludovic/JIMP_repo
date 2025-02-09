@@ -23,6 +23,9 @@ dependencies:
   flutter_native_splash: ^2.4.4
   smooth_page_indicator: ^1.2.0
   carousel_slider: ^5.0.0
+  percent_indicator: ^4.2.4
+  vertical_percent_indicator: ^0.0.1
+
 
 
   #icons
@@ -54,7 +57,6 @@ flutter:
 #-------------------------local assets--------------------#
   assets:
     - assets/logos/
-    - assets/images/content/
     - assets/images/animations/
     - assets/icons/payment_methods/
     - assets/images/on_boarding_images/
@@ -62,6 +64,7 @@ flutter:
     - assets/icons/categories/
     - assets/images/banners/
     - assets/images/products/
+    - assets/images/content/Users/
 
 
 #--------------------------local fonts---------------------#

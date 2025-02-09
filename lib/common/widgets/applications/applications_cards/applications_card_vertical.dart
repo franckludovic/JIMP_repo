@@ -65,7 +65,7 @@ class JApplicationsCardVertical extends StatelessWidget {
                   Positioned(
                       top: 0,
                       right: 0,
-                      child: const CircularIcon(
+                      child: const JCircularIcon(
                         icon: Iconsax.save_21,
                         color: Colors.red,
                       )),
@@ -110,7 +110,7 @@ class JApplicationsCardVertical extends StatelessWidget {
                   child: const SizedBox(
                       width: JSizes.iconLg * 1.2,
                       height: JSizes.iconLg * 1.2 ,
-                      child: Center(child: const Icon(Iconsax.add, color: JColors.white))),
+                      child: Center(child: Icon(Iconsax.add, color: JColors.white))),
                 )
               ],
             )

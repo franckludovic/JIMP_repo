@@ -21,7 +21,7 @@ class TermandConditions extends StatelessWidget {
         const SizedBox(width: JSizes.spaceBtwItems),
         Text.rich(
             TextSpan(children: [
-              TextSpan(text: '${JTexts.iAgreeTo}', style: Theme.of(context).textTheme.bodySmall),
+              TextSpan(text: JTexts.iAgreeTo, style: Theme.of(context).textTheme.bodySmall),
 
               TextSpan(text: ' ${JTexts.privacyPolicy}', style: Theme.of(context).textTheme.bodyMedium!.apply(
                 color: dark ? JColors.white : JColors.primary,

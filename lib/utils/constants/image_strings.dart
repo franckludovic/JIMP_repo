@@ -15,6 +15,22 @@ class JImages {
   static const String defaultAttributeColorsImageIcon = "assets/images/content/tiny-color-palette.png";
   static const String defaultVariationImageIcon = "assets/images/content/tiny-man-maintaining-a-work-life-balance.png";
 
+  //-- User images
+
+  static const String user1 = "assets/images/content/Users/user1.png";
+  static const String user2 = "assets/images/content/Users/user2.png";
+  static const String user3 = "assets/images/content/Users/user3.png";
+
+
+ //--Type User image
+  static const String company_user = "assets/images/content/user_type/company_user.png";
+  static const String candidate_user = "assets/images/content/user_type/candidate_user.png";
+
+  //--logo type user page
+  static const String logo_dark = "assets/logos/page_logo_dark_mode.png";
+  static const String logo_light = "assets/logos/page_logo_white_mode.png";
+
+
   // -- Social Logos
   static const String google = "assets/logos/google-icon.png";
   static const String facebook = "assets/logos/facebook-icon.png";

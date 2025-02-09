@@ -4,8 +4,8 @@ import 'package:project_bc_tuto/common/widgets/custom_shapes/curved_shapes/curve
 import '../../../../utils/constants/colors.dart';
 import 'Cirular_shape.dart';
 
-class PrimaryHeaderContainer extends StatelessWidget {
-  const PrimaryHeaderContainer({
+class JPrimaryHeaderContainer extends StatelessWidget {
+  const JPrimaryHeaderContainer({
     super.key,
     required this.child,
   });
@@ -21,7 +21,7 @@ class PrimaryHeaderContainer extends StatelessWidget {
       
         ///if [size.idFinite: is not true.in Stack] error occured -> README.ad file
         child: SizedBox(
-          height: 370,
+         // height: 370,
           ///--background custom shapes
           child: Stack(
             children: [
