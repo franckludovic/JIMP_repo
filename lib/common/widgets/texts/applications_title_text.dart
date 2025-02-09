@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class ApplicationTitleText extends StatelessWidget {
   const ApplicationTitleText({
     super.key,
@@ -17,12 +16,17 @@ class ApplicationTitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: smallSize ? Theme.of(context).textTheme.labelLarge : Theme.of(context).textTheme.titleSmall,
-      overflow: TextOverflow.ellipsis,
-      maxLines: maxLines,
-      textAlign: textAlign,
+    return Container(
+      child: Text(
+        title,
+        style: (smallSize
+            ? Theme.of(context).textTheme.labelLarge
+            : Theme.of(context).textTheme.titleSmall)
+            ?.copyWith(fontSize: 20, fontWeight: FontWeight.bold), // Merge styles
+        overflow: TextOverflow.ellipsis,
+        maxLines: maxLines,
+        textAlign: textAlign,
+      ),
     );
   }
 }

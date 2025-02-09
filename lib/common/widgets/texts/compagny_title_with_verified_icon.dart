@@ -14,7 +14,7 @@ class JCompagnyTittleVerifications extends StatelessWidget {
     this.textColor,
     this.iconColor = JColors.primary,
     this.textAlign = TextAlign.center,
-    this.compagnyTextSize = TextSizes.small,
+    this.compagnyTextSize = TextSizes.medium,
   });
 
   final String title;
@@ -38,7 +38,7 @@ class JCompagnyTittleVerifications extends StatelessWidget {
           ),
         ),
         const SizedBox(width: JSizes.xs),
-        Icon(Iconsax.verify5, color: iconColor, size: JSizes.iconXs),
+        Icon(Iconsax.verify5, color: iconColor, size: JSizes.iconSm),
       ],
 
     );

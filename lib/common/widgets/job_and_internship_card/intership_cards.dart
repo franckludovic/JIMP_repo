@@ -33,7 +33,7 @@ class JIntershipCard extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.all(3),
         decoration: BoxDecoration(
-          color: backgroundColor ?? (JHelperFunctions.isDarkMode(context) ? JColors.lightGrey : JColors.secondary.withAlpha((0.1 * 255).toInt())),
+          color: backgroundColor ?? (JHelperFunctions.isDarkMode(context) ? JColors.grey : JColors.secondary.withAlpha((0.1 * 255).toInt())),
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
@@ -44,6 +44,9 @@ class JIntershipCard extends StatelessWidget {
             ),
           ],
         ),
+
+
+
         child: Row(
           children: [
             // Company Logo
@@ -68,6 +71,7 @@ class JIntershipCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
+
 
             // Job Details
             Expanded(

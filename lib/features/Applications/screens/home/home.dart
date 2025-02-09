@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_bc_tuto/common/widgets/applications/applications_cards/applications_card_vertical.dart';
 
 import 'package:project_bc_tuto/features/Applications/screens/home/widgets/home_categories.dart';
+import 'package:project_bc_tuto/features/Applications/screens/home/widgets/vertical_Application.dart';
 
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 
@@ -10,7 +10,7 @@ import '../../../../common/widgets/custom_shapes/container_shapes/search_contain
 
 import '../../../../common/widgets/job_and_internship_card/carousel_slider_interships.dart';
 import '../../../../common/widgets/job_and_internship_card/intership_cards.dart';
-import '../../../../common/widgets/layout/grid_layout.dart';
+import '../../../../common/widgets/layout/application_grid_layout.dart';
 
 import '../../../../common/widgets/texts/section_heading.dart';
 
@@ -88,12 +88,20 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: JSizes.spaceBtwSections),
 
                     JSectionHeading(title: 'Popular Internships', onPressed: () {}),
-                    const SizedBox(height: JSizes.spaceBtwItems),
-
-
 
                     ///applications in grid in 2 : n should be removed and replaced with horizontal layout in 1 : n
-                    JGridLayout(itemCount: 6, itemBuilder: (_, index) => const JApplicationsCardVertical(), )
+                    InternshipGrid(
+                        internships: [
+                          JInternshipCardVertical(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true,),
+                          JInternshipCardVertical(companyName: "Facebook", companyLogo: JImages.facebook, internshipTitle: "Network admin"),
+                          JInternshipCardVertical(companyName: "Apple", companyLogo: JImages.apple, internshipTitle: "Database admin"),
+                          JInternshipCardVertical(companyName: "Nvidia", companyLogo: JImages.nvidia, internshipTitle: "Data analyst",saved: true,),
+
+                        ]
+                    )
+
+
+
                   ],
                 )
             )
@@ -103,6 +111,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
 
 
 

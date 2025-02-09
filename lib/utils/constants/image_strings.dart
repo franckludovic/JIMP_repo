@@ -31,9 +31,12 @@ class JImages {
   static const String logo_light = "assets/logos/page_logo_white_mode.png";
 
 
-  // -- Social Logos
+  // -- Logos
   static const String google = "assets/logos/google-icon.png";
   static const String facebook = "assets/logos/facebook-icon.png";
+  static const String nvidia = "assets/logos/nvidia_icon.png";
+  static const String apple = "assets/logos/apple_icon.png";
+
 
 
   // -- Lottie Animations
