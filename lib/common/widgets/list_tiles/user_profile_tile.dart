@@ -7,9 +7,10 @@ import '../Images/Jcircular_image.dart';
 
 class JUserProfileTile extends StatelessWidget {
   const JUserProfileTile({
-    super.key,
+    super.key, required this.onPressed,
   });
 
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -22,7 +23,7 @@ class JUserProfileTile extends StatelessWidget {
       ),
       title: Text('Metatron', style: Theme.of(context).textTheme.headlineMedium!.apply(color: JColors.white)),
       subtitle: Text('Metatron@gmail.com', style: Theme.of(context).textTheme.bodyMedium!.apply(color: JColors.white)),
-      trailing: IconButton(onPressed: () {}, icon: Icon(Iconsax.edit, color: JColors.white)),
+      trailing: IconButton(onPressed: onPressed, icon: Icon(Iconsax.edit, color: JColors.white)),
     );
   }
 }

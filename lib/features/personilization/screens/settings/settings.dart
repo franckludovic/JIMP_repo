@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/primary_header_conatiner.dart';
@@ -11,6 +13,7 @@ import '../../../../common/widgets/documents_cad/resumer_card.dart';
 import '../../../../common/widgets/documents_cad/skills_card.dart';
 import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../profile/Profile.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -31,7 +34,7 @@ class SettingScreen extends StatelessWidget {
                   const SizedBox(height: JSizes.spaceBtwSections * 0.5),
 
                   ///user Profile card
-                  JUserProfileTile(),
+                  JUserProfileTile(onPressed: () => Get.to(() => const ProfileScreen()),),
                   const SizedBox(height: JSizes.spaceBtwSections),
                 ],
               ),
