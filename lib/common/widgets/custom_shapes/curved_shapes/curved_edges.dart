@@ -14,8 +14,8 @@ class CustomCurvedEdges extends CustomClipper<Path> {
     path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy, firstEndPoint.dx, firstEndPoint.dy);
 
     // Middle big curve (raise the peak higher)
-    Offset secondControlPoint = Offset(size.width * 0.5, size.height - 150);
-    Offset secondEndPoint = Offset(size.width * 0.93, size.height - 15);
+    Offset secondControlPoint = Offset(size.width * 0.5, size.height - 90);
+    Offset secondEndPoint = Offset(size.width * 0.9, size.height - 10);
     path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy, secondEndPoint.dx, secondEndPoint.dy);
 
     // Last small curve (right rise)

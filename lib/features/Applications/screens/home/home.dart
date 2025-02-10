@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:project_bc_tuto/features/Applications/screens/home/widgets/home_categories.dart';
 import 'package:project_bc_tuto/features/Applications/screens/home/widgets/vertical_Application.dart';
 
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
@@ -12,8 +11,10 @@ import '../../../../common/widgets/job_and_internship_card/carousel_slider_inter
 import '../../../../common/widgets/job_and_internship_card/intership_cards.dart';
 import '../../../../common/widgets/layout/application_grid_layout.dart';
 
+import '../../../../common/widgets/scrollable_container/category_scrolable.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 
+import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../personilization/screens/settings/settings.dart';
 import 'widgets/home_appbar.dart';
@@ -35,27 +36,21 @@ class HomeScreen extends StatelessWidget {
 
                   /// Appbar
                   const HomeAppbar(),
-                  const SizedBox(height: JSizes.spaceBtwSections / 2),
+                  const SizedBox(height: JSizes.spaceBtwSections),
 
                   ///Searchbar
                   const JSearchContainer(text: "Search for an Opportunity"),
-                  const SizedBox(height: JSizes.spaceBtwSections),
 
-                  ///Categories & heading
 
                 ],
               ),
             ),
 
             ///Body
-
             Padding(
                 padding: const EdgeInsets.all(JSizes.defaultSpace),
                 child: Column(
                   children: [
-
-
-
                        Container(
                          child: Column(
                            children: [
@@ -63,12 +58,22 @@ class HomeScreen extends StatelessWidget {
                              const JSectionHeading(
                                title: "Popular Categories",
                                showActonButton: false,
-                               textColor: Colors.white,
+                               textColor: JColors.primary,
                              ),
                              const SizedBox(height: JSizes.spaceBtwItems),
 
                              ///categories
-                             const homeCategories(),
+                             JCategoryTab(
+                               categories: [
+                                 {"name": "Design", "color": Colors.green, "icon": Icons.brush},
+                                 {"name": "Coding", "color": Colors.red, "icon": Icons.code},
+                                 {"name": "Data", "color": Colors.orange, "icon": Icons.bar_chart},
+                                 {"name": "Network", "color": Colors.purple, "icon": Icons.wifi},
+                                 {"name": "AI", "color": Colors.blue, "icon": Icons.smart_toy},
+                                 {"name": "Security", "color": Colors.deepOrange, "icon": Icons.security},
+                                 {"name": "Cloud", "color": Colors.cyan, "icon": Icons.cloud},
+                               ],
+                             ),
                              const SizedBox(height: JSizes.spaceBtwSections),
 
                            ],

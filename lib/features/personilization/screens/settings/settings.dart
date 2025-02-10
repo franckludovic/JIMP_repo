@@ -144,9 +144,6 @@ class SettingScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: JSizes.spaceBtwSections * 2.5),
 
-
-
-
                 ],
               ),
             ),
