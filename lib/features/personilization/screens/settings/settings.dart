@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/primary_header_conatiner.dart';
 import 'package:project_bc_tuto/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
+import 'package:project_bc_tuto/features/personilization/screens/profile/Profile.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 
 import '../../../../common/widgets/Percentage indicator/circular_pencentage_indicator.dart';
@@ -31,7 +34,7 @@ class SettingScreen extends StatelessWidget {
                   const SizedBox(height: JSizes.spaceBtwSections * 0.5),
 
                   ///user Profile card
-                  JUserProfileTile(),
+                  JUserProfileTile(onPressed: () => Get.to(() => ProfileScreen()),),
                   const SizedBox(height: JSizes.spaceBtwSections),
                 ],
               ),
