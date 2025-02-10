@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../../features/Applications/screens/home/widgets/vertical_Application.dart';
 
-class InternshipGrid extends StatelessWidget {
-  final List<JInternshipCardVertical> internships;
+class JIGridLaout extends StatelessWidget {
+  const JIGridLaout({
+    super.key,
+    required this.JList,
+    this.aspectRatio = 0.64
+  });
 
-  const InternshipGrid({super.key, required this.internships});
+  final List<Widget> JList;
+  final double aspectRatio;
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +17,14 @@ class InternshipGrid extends StatelessWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // Adjust based on your UI needs
+        crossAxisCount: 2,
         crossAxisSpacing: 12.5,
         mainAxisSpacing: 12.5,
-        childAspectRatio: 0.64, // Adjust to maintain uniform height
+        childAspectRatio: aspectRatio,
       ),
-      itemCount: internships.length,
+      itemCount: JList.length,
       itemBuilder: (context, index) {
-        return internships[index]; // Display each internship card
+        return JList[index];
       },
     );
   }

@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
 
-class CustomCurvedEdges extends CustomClipper<Path>{
+class CustomCurvedEdges extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var path = Path();
-    path.lineTo(0, size.height);
+    Path path = Path();
 
-    final firstCurve = Offset(0, size.height - 20);
-    final lastCurve = Offset(30, size.height - 20);
-    path.quadraticBezierTo(firstCurve.dx, firstCurve.dy, lastCurve.dx, lastCurve.dy);
+    // Start from top-left
+    path.lineTo(0, size.height - 15);
 
-    final secondFirstCurve = Offset(0, size.height - 20);
-    final secondLastCurve = Offset(size.width - 30 , size.height - 20);
-    path.quadraticBezierTo(secondFirstCurve.dx, secondFirstCurve.dy, secondLastCurve.dx, secondLastCurve.dy);
+    // First small curve (left dip)
+    Offset firstControlPoint = Offset(size.width /12, size.height + 2);
+    Offset firstEndPoint = Offset(size.width /15, size.height + 3 );
+    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy, firstEndPoint.dx, firstEndPoint.dy);
 
-    final thirdfirstCurve = Offset(size.width, size.height - 20);
-    final thirdlastCurve = Offset(size.width, size.height);
-    path.quadraticBezierTo(thirdfirstCurve.dx, thirdfirstCurve.dy, thirdlastCurve.dx, thirdlastCurve.dy);
+    // Middle big curve (raise the peak higher)
+    Offset secondControlPoint = Offset(size.width * 0.5, size.height - 150);
+    Offset secondEndPoint = Offset(size.width * 0.93, size.height - 15);
+    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy, secondEndPoint.dx, secondEndPoint.dy);
 
+    // Last small curve (right rise)
+    Offset thirdControlPoint = Offset(size.width * 0.95, size.height);
+    Offset thirdEndPoint = Offset(size.width, size.height - 30);
+    path.quadraticBezierTo(thirdControlPoint.dx, thirdControlPoint.dy, thirdEndPoint.dx, thirdEndPoint.dy);
 
+    // Close the shape
     path.lineTo(size.width, 0);
     path.close();
+
     return path;
   }
 
   @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
-  }
-
-
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
 

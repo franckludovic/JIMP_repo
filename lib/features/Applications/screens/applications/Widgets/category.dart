@@ -3,8 +3,10 @@ import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 
 import '../../../../../common/widgets/buttons/bottom_button.dart';
 import '../../../../../common/widgets/companies/compagny_schocase.dart';
+import '../../../../../common/widgets/job_and_internship_card/intership_cards.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../../personilization/screens/settings/settings.dart';
 
 class JCategory extends StatelessWidget {
   const JCategory({super.key});
@@ -22,10 +24,16 @@ class JCategory extends StatelessWidget {
           child: Column(
             children: [
               ///--compagny
-              JCompagnyShowCase(images: [JImages.productImage3, JImages.productImage1, JImages.productImage5],),
-              JCompagnyShowCase(images: [JImages.productImage15, JImages.productImage9, JImages.productImage40],),
-              JCompagnyShowCase(images: [JImages.productImage2, JImages.productImage8, JImages.productImage59],),
-              JCompagnyShowCase(images: [JImages.productImage35, JImages.productImage29, JImages.productImage10],),
+              JCompagnyShowCase(
+                jobs: [
+                  JIntershipCard(companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"], onTap: () => (const SettingScreen()),),
+                  JIntershipCard(companyLogo: JImages.nvidia,companyName: "Nvidia",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"]),
+                  JIntershipCard(companyLogo: JImages.google,companyName: "Skyhub",duration: "1 - 4 month",jobTitle: "Data analyst", location: "Buea",skills: ["Python", "R", "ML", "DL"]),
+                  JIntershipCard(companyLogo: JImages.apple,companyName: "Apple",duration: "5 - 6 month",jobTitle: "Web Developer", location: "Nigeria",skills: ["ReactJS", "javascript", "flutter"]),
+                  JIntershipCard(companyLogo: JImages.facebook,companyName: "Facebook",duration: "1 - 3 month",jobTitle: "Network admin", location: "Libya",skills: ["Cisco", "javascript", "Linux"]),
+
+                ],
+              ),
               const SizedBox(height: JSizes.spaceBtwItems),
 
 

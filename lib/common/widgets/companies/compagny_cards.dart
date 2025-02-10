@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/enums.dart';
-import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
-import '../../../utils/helpers/helper_functions.dart';
 import '../Images/Jcircular_image.dart';
 import '../custom_shapes/container_shapes/rounded_container.dart';
 import '../texts/compagny_title_with_verified_icon.dart';
@@ -13,12 +10,18 @@ import '../texts/compagny_title_with_verified_icon.dart';
 class JCompagnyCard extends StatelessWidget {
   const JCompagnyCard({
     super.key,
-    required this.showBorder,
+    this.showBorder = true,
     this.onTap,
+    required this.title,
+    required this.num_Applications,
+    required this.image,
   });
 
   final bool showBorder;
+  final String image;
   final void Function()? onTap;
+  final String title;
+  final int num_Applications;
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +37,8 @@ class JCompagnyCard extends StatelessWidget {
             Flexible(
               child: JCircularImage(
                 isNetworkImage: false,
-                image: JImages.clothIcon,
+                image: image,
                 backgroundColor: Colors.transparent,
-                overlayColor: JHelperFunctions.isDarkMode(context)
-                    ? JColors.white
-                    : JColors.black,
               ),
             ),
             const SizedBox(height: JSizes.spaceBtwItems / 2),
@@ -50,9 +50,9 @@ class JCompagnyCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   JCompagnyTittleVerifications(
-                      title: "CBC", compagnyTextSize: TextSizes.large),
+                      title: title, compagnyTextSize: TextSizes.large),
                   Text(
-                    '256 Applications',
+                    "$num_Applications applications",
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.labelMedium,
                   )

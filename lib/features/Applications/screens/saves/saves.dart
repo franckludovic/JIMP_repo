@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
-import 'package:project_bc_tuto/common/widgets/applications/applications_cards/applications_card_vertical.dart';
 import 'package:project_bc_tuto/common/widgets/icons/circular_icon.dart';
-import 'package:project_bc_tuto/common/widgets/layout/grid_layout.dart';
 import 'package:project_bc_tuto/features/Applications/screens/home/home.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
+
+import '../../../../common/widgets/layout/application_grid_layout.dart';
+import '../../../../utils/constants/image_strings.dart';
+import '../home/widgets/vertical_Application.dart';
 
 class SavedScreen extends StatelessWidget {
   const SavedScreen({super.key});
@@ -29,9 +31,14 @@ class SavedScreen extends StatelessWidget {
           padding: EdgeInsets.all(JSizes.defaultSpace),
           child: Column(
             children: [
-              JGridLayout(
-                  itemCount: 4,
-                  itemBuilder: (_, index) => const JApplicationsCardVertical())
+              JIGridLaout(
+                JList: [
+                  JInternshipCardVertical(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true),
+                  JInternshipCardVertical(companyName: "Nvidia", companyLogo: JImages.nvidia, internshipTitle: "Data analyst",saved: true),
+
+
+                ],
+              )
             ],
           ),
         ),

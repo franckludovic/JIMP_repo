@@ -14,7 +14,8 @@ class JCompagnyTittleVerifications extends StatelessWidget {
     this.textColor,
     this.iconColor = JColors.primary,
     this.textAlign = TextAlign.center,
-    this.compagnyTextSize = TextSizes.medium,
+    this.compagnyTextSize = TextSizes.medium, 
+    this.isVerified = true,
   });
 
   final String title;
@@ -22,6 +23,7 @@ class JCompagnyTittleVerifications extends StatelessWidget {
   final Color? textColor, iconColor;
   final TextAlign? textAlign;
   final TextSizes compagnyTextSize;
+  final bool isVerified;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class JCompagnyTittleVerifications extends StatelessWidget {
           ),
         ),
         const SizedBox(width: JSizes.xs),
-        Icon(Iconsax.verify5, color: iconColor, size: JSizes.iconSm),
+        isVerified ? Icon(Iconsax.verify5, color: iconColor, size: JSizes.iconSm) : Text(""),
       ],
 
     );

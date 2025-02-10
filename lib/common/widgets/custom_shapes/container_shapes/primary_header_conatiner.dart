@@ -19,9 +19,9 @@ class JPrimaryHeaderContainer extends StatelessWidget {
         color: JColors.primary,
         padding: const EdgeInsets.only(bottom: 0),
       
-        ///if [size.idFinite: is not true.in Stack] error occured -> README.ad file
+
         child: SizedBox(
-         // height: 370,
+          height: 250,
           ///--background custom shapes
           child: Stack(
             children: [

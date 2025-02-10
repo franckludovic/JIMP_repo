@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/search_container.dart';
-import 'package:project_bc_tuto/common/widgets/layout/grid_layout.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 import 'package:project_bc_tuto/features/Applications/screens/applications/Widgets/category.dart';
+import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
 import '../../../../common/widgets/appbar/tab_bar.dart';
 import '../../../../common/widgets/companies/compagny_cards.dart';
+import '../../../../common/widgets/layout/application_grid_layout.dart';
 import '../../../../common/widgets/notifications/notifications_icon.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -61,12 +62,15 @@ class Application extends StatelessWidget {
                         const SizedBox(height: JSizes.spaceBtwItems / 1.5),
 
                         ///compagnies grid
-                        JGridLayout(
-                            itemCount: 4,
-                            mainAxisExtend: 80,
-                            itemBuilder: (_, index) {
-                              return JCompagnyCard(showBorder: true);
-                            })
+                        JIGridLaout(
+                          aspectRatio: 2,
+                          JList: [
+                            JCompagnyCard(title: "Google", num_Applications: 55,image: JImages.google,),
+                            JCompagnyCard(title: "Nvidia", num_Applications: 108,image: JImages.nvidia,),
+                            JCompagnyCard(title: "Apple", num_Applications: 65,image: JImages.apple,),
+                            JCompagnyCard(title: "Facebook", num_Applications: 78,image: JImages.facebook,),
+                          ],
+                        )
                       ],
                     ),
                   ),

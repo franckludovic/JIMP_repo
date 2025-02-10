@@ -31,7 +31,7 @@ class JobCarousel extends StatelessWidget {
         options: CarouselOptions(
             height: 200,
             enlargeCenterPage: true,
-            autoPlay: true,
+            autoPlay: false,
             autoPlayInterval: const Duration(seconds: 7),
             autoPlayAnimationDuration: const Duration(milliseconds: 1200),
             enableInfiniteScroll: true,

@@ -35,32 +35,14 @@ class HomeScreen extends StatelessWidget {
 
                   /// Appbar
                   const HomeAppbar(),
-                  const SizedBox(height: JSizes.spaceBtwSections),
+                  const SizedBox(height: JSizes.spaceBtwSections / 2),
 
                   ///Searchbar
                   const JSearchContainer(text: "Search for an Opportunity"),
                   const SizedBox(height: JSizes.spaceBtwSections),
 
                   ///Categories & heading
-                  Padding(
-                    padding: EdgeInsets.only(left: JSizes.defaultSpace),
-                    child: Column(
-                      children: [
 
-                        ///headings
-                        const JSectionHeading(
-                          title: "Popular Categories",
-                          showActonButton: false,
-                          textColor: Colors.white,
-                        ),
-                        const SizedBox(height: JSizes.spaceBtwItems),
-
-                        ///categories
-                        const homeCategories(),
-                        const SizedBox(height: JSizes.spaceBtwSections),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -71,17 +53,38 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(JSizes.defaultSpace),
                 child: Column(
                   children: [
-                    
+
+
+
+                       Container(
+                         child: Column(
+                           children: [
+                             ///headings
+                             const JSectionHeading(
+                               title: "Popular Categories",
+                               showActonButton: false,
+                               textColor: Colors.white,
+                             ),
+                             const SizedBox(height: JSizes.spaceBtwItems),
+
+                             ///categories
+                             const homeCategories(),
+                             const SizedBox(height: JSizes.spaceBtwSections),
+
+                           ],
+                         ),
+                       )  ,
+
                     JSectionHeading(title: "Recommended Internships",onPressed: () {},),
                     const SizedBox(height: JSizes.spaceBtwItems * 0.1),
                     ///promo slider
                     JobCarousel(
                         jobs : [
                           JIntershipCard(companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"], onTap: () => (const SettingScreen()),),
-                          JIntershipCard(companyLogo: JImages.google,companyName: "StarLabs",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"]),
+                          JIntershipCard(companyLogo: JImages.nvidia,companyName: "Nvidia",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"]),
                           JIntershipCard(companyLogo: JImages.google,companyName: "Skyhub",duration: "1 - 4 month",jobTitle: "Data analyst", location: "Buea",skills: ["Python", "R", "ML", "DL"]),
-                          JIntershipCard(companyLogo: JImages.google,companyName: "FrontCrown",duration: "5 - 6 month",jobTitle: "Web Developer", location: "Nigeria",skills: ["ReactJS", "javascript", "flutter"]),
-                          JIntershipCard(companyLogo: JImages.google,companyName: "LakeSide",duration: "1 - 3 month",jobTitle: "Network admin", location: "Libya",skills: ["Cisco", "javascript", "Linux"]),
+                          JIntershipCard(companyLogo: JImages.apple,companyName: "Apple",duration: "5 - 6 month",jobTitle: "Web Developer", location: "Nigeria",skills: ["ReactJS", "javascript", "flutter"]),
+                          JIntershipCard(companyLogo: JImages.facebook,companyName: "Facebook",duration: "1 - 3 month",jobTitle: "Network admin", location: "Libya",skills: ["Cisco", "javascript", "Linux"]),
 
                         ]
                     ),
@@ -90,8 +93,8 @@ class HomeScreen extends StatelessWidget {
                     JSectionHeading(title: 'Popular Internships', onPressed: () {}),
 
                     ///applications in grid in 2 : n should be removed and replaced with horizontal layout in 1 : n
-                    InternshipGrid(
-                        internships: [
+                    JIGridLaout(
+                        JList: [
                           JInternshipCardVertical(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true,),
                           JInternshipCardVertical(companyName: "Facebook", companyLogo: JImages.facebook, internshipTitle: "Network admin"),
                           JInternshipCardVertical(companyName: "Apple", companyLogo: JImages.apple, internshipTitle: "Database admin"),

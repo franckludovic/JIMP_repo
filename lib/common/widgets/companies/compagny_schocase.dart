@@ -1,54 +1,36 @@
 import 'package:flutter/material.dart';
-
-import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
-import '../../../utils/helpers/helper_functions.dart';
-import 'compagny_cards.dart';
 import '../custom_shapes/container_shapes/rounded_container.dart';
 
 class JCompagnyShowCase extends StatelessWidget {
   const JCompagnyShowCase({
     super.key,
-    required this.images,
+    required this.jobs,
   });
 
-  final List<String> images;
+  final List<Widget> jobs;
 
   @override
   Widget build(BuildContext context) {
     return JRoundedContainer(
-      showBorder: true,
-      borderColor: JColors.darkerGrey,
-      padding: const EdgeInsets.all(JSizes.md),
+      //showBorder: true,
+      //borderColor: JColors.darkerGrey,
+      //padding: const EdgeInsets.all(JSizes.xs),
       backgroundColor: Colors.transparent,
       margin: const EdgeInsets.only(bottom: JSizes.spaceBtwItems),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ///compagny with application count
-          const JCompagnyCard(showBorder: false),
-          const SizedBox(height: JSizes.spaceBtwItems),
-          ///top 3 application
-          Row(
-            children: images
-                .map(
-                    (image) => CompanyTopApplicationImageWidget(image, context))
-                .toList(),
-          )
+          for (int i = 0; i < jobs.length; i++) ...[
+            SizedBox(
+              width: double.infinity, // Ensures full width
+              child: jobs[i],
+            ),
+            if (i != jobs.length - 1) const SizedBox(height: 16),
+          ],
         ],
-      ),
+      )
+
     );
   }
-}
-
-Widget CompanyTopApplicationImageWidget(String image,  context) {
-  return Expanded(
-      child: JRoundedContainer(
-        height: 100,
-        backgroundColor:
-        JHelperFunctions.isDarkMode(context) ? JColors.darkGrey : JColors.light,
-        margin: const EdgeInsets.only(right: JSizes.sm),
-        padding: const EdgeInsets.all(JSizes.md),
-        child:  Image(
-            fit: BoxFit.contain, image: AssetImage(image)),
-      ));
 }
