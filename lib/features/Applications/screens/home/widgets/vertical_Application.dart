@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/features/Applications/screens/Applicaton_details/my_application_details.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../../../common/styles/shadow.dart';
@@ -10,8 +12,8 @@ import '../../../../../common/widgets/texts/compagny_title_with_verified_icon.da
 import '../../../../../utils/constants/sizes.dart';
 
 
-class JInternshipCardVertical extends StatelessWidget {
-  const JInternshipCardVertical({
+class VerticalJInternshipCard extends StatelessWidget {
+  const VerticalJInternshipCard({
     super.key,
     required this.companyLogo,
     required this.internshipTitle,
@@ -30,7 +32,7 @@ class JInternshipCardVertical extends StatelessWidget {
 
     // Wrap the card in a SizedBox with a fixed height:
     return GestureDetector(
-      onTap: () {},
+      onTap: () => Get.to(() => const MyApplicationDetails()),
       child: SizedBox(
         height: 270,
         width: 165,
@@ -72,7 +74,7 @@ class JInternshipCardVertical extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ApplicationTitleText(
+                    JApplicationTitleText(
                       title: internshipTitle,
                     ),
                     const SizedBox(height: JSizes.spaceBtwItems / 2),

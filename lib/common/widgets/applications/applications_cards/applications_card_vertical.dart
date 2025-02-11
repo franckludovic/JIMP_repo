@@ -54,7 +54,7 @@ class JApplicationsCardVertical extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ApplicationTitleText( title: "Acer gaming Laptop", smallSize: true),
+                  JApplicationTitleText( title: "Acer gaming Laptop", smallSize: true),
                   const SizedBox(height: JSizes.spaceBtwItems / 2),
                   JCompagnyTittleVerifications(title: "Nike"),
                 ],
@@ -68,7 +68,7 @@ class JApplicationsCardVertical extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: JSizes.sm),
-                  child: const ApplicationPrice(price: '35.0'),
+                  child: const JApplicationPrice(price: '35.0'),
                 ),
 
                 Container(

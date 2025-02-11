@@ -1,50 +1,47 @@
 import 'package:flutter/material.dart';
-
 import '../../../utils/constants/colors.dart';
 
 class SelectionCard extends StatefulWidget {
-  const SelectionCard({super.key, 
+  const SelectionCard({
+    super.key,
     required this.image,
     required this.title,
     required this.subtitle,
-    this.onTapNavigate, // Callback for navigation
+    this.onTap,
   });
 
   final String image;
   final String title;
   final String subtitle;
-  final VoidCallback? onTapNavigate;
+  final VoidCallback? onTap;
 
   @override
-  _SelectionCardState createState() => _SelectionCardState();
+  SelectionCardState createState() => SelectionCardState();
 }
 
-class _SelectionCardState extends State<SelectionCard> {
-  double scale = 1.0; // Default scale
+class SelectionCardState extends State<SelectionCard> {
+  double scale = 1.0;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (_) {
-        // When the user presses down, smoothly enlarge the card
         setState(() {
           scale = 1.1;
         });
       },
       onTapUp: (_) {
-        // When the user releases, smoothly return to normal and navigate
         setState(() {
           scale = 1.0;
         });
 
         Future.delayed(const Duration(milliseconds: 150), () {
-          if (widget.onTapNavigate != null) {
-            widget.onTapNavigate!();
+          if (widget.onTap != null) {
+            widget.onTap!();
           }
         });
       },
       onTapCancel: () {
-
         setState(() {
           scale = 1.0;
         });
@@ -54,7 +51,7 @@ class _SelectionCardState extends State<SelectionCard> {
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeOut,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200), // Animate shadow as well
+          duration: const Duration(milliseconds: 200),
           curve: Curves.easeOut,
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
@@ -71,11 +68,15 @@ class _SelectionCardState extends State<SelectionCard> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                  child: Image.asset(
-                      widget.image, width: 90, height: 90
-                  )
+
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.asset(
+                  widget.image,
+                  width: 90,
+                  height: 90,
+                  fit: BoxFit.cover,
+                ),
               ),
               const SizedBox(width: 15),
               Expanded(
@@ -84,12 +85,16 @@ class _SelectionCardState extends State<SelectionCard> {
                   children: [
                     Text(
                       widget.title,
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: JColors.secondary),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: JColors.secondary),
                     ),
                     const SizedBox(height: 5),
                     Text(
                       widget.subtitle,
-                      style: const TextStyle(fontSize: 14, color: JColors.darkerGrey),
+                      style:
+                      const TextStyle(fontSize: 14, color: JColors.darkerGrey),
                     ),
                   ],
                 ),

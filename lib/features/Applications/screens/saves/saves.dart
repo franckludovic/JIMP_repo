@@ -33,8 +33,8 @@ class SavedScreen extends StatelessWidget {
             children: [
               JIGridLaout(
                 JList: [
-                  JInternshipCardVertical(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true),
-                  JInternshipCardVertical(companyName: "Nvidia", companyLogo: JImages.nvidia, internshipTitle: "Data analyst",saved: true),
+                  VerticalJInternshipCard(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true),
+                  VerticalJInternshipCard(companyName: "Nvidia", companyLogo: JImages.nvidia, internshipTitle: "Data analyst",saved: true),
 
 
                 ],

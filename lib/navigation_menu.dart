@@ -9,8 +9,8 @@ import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
 import 'features/Applications/screens/saves/saves.dart';
 
-class NavigationMenu extends StatelessWidget {
-  const NavigationMenu({super.key});
+class CandidateNavigationMenu extends StatelessWidget {
+  const CandidateNavigationMenu({super.key});
 
   @override
   Widget build(BuildContext context) {

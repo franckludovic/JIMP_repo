@@ -16,7 +16,7 @@ class JobCarousel extends StatelessWidget {
   });
 
   final VoidCallback? onTap;
-  final List<JIntershipCard> jobs;
+  final List<HorizontalJIntershipCard> jobs;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class JobCarousel extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               for (int i = 0; i < jobs.length; i++)
-                CircularContainer(
+                JCircularContainer(
                   width: 20,
                   height: 4,
                   margin: EdgeInsets.only(right: 10),

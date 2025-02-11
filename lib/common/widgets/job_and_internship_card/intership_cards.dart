@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
+import '../../../features/Applications/screens/Applicaton_details/my_application_details.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
 
-class JIntershipCard extends StatelessWidget {
-  const JIntershipCard({
+class HorizontalJIntershipCard extends StatelessWidget {
+  const HorizontalJIntershipCard({
     super.key,
     required this.companyLogo,
     required this.companyName,
@@ -31,7 +33,7 @@ class JIntershipCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => Get.to(() => const MyApplicationDetails()),
       child: Stack(
         children: [
           // Internship Card

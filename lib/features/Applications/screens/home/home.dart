@@ -85,11 +85,11 @@ class HomeScreen extends StatelessWidget {
                     ///promo slider
                     JobCarousel(
                         jobs : [
-                          JIntershipCard(companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"], onTap: () => (const SettingScreen()),),
-                          JIntershipCard(companyLogo: JImages.nvidia,companyName: "Nvidia",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"]),
-                          JIntershipCard(companyLogo: JImages.google,companyName: "Skyhub",duration: "1 - 4 month",jobTitle: "Data analyst", location: "Buea",skills: ["Python", "R", "ML", "DL"]),
-                          JIntershipCard(companyLogo: JImages.apple,companyName: "Apple",duration: "5 - 6 month",jobTitle: "Web Developer", location: "Nigeria",skills: ["ReactJS", "javascript", "flutter"]),
-                          JIntershipCard(companyLogo: JImages.facebook,companyName: "Facebook",duration: "1 - 3 month",jobTitle: "Network admin", location: "Libya",skills: ["Cisco", "javascript", "Linux"]),
+                          HorizontalJIntershipCard(companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"], onTap: () => (const SettingScreen()),),
+                          HorizontalJIntershipCard(companyLogo: JImages.nvidia,companyName: "Nvidia",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"]),
+                          HorizontalJIntershipCard(companyLogo: JImages.google,companyName: "Skyhub",duration: "1 - 4 month",jobTitle: "Data analyst", location: "Buea",skills: ["Python", "R", "ML", "DL"]),
+                          HorizontalJIntershipCard(companyLogo: JImages.apple,companyName: "Apple",duration: "5 - 6 month",jobTitle: "Web Developer", location: "Nigeria",skills: ["ReactJS", "javascript", "flutter"]),
+                          HorizontalJIntershipCard(companyLogo: JImages.facebook,companyName: "Facebook",duration: "1 - 3 month",jobTitle: "Network admin", location: "Libya",skills: ["Cisco", "javascript", "Linux"]),
 
                         ]
                     ),
@@ -100,10 +100,10 @@ class HomeScreen extends StatelessWidget {
                     ///applications in grid in 2 : n should be removed and replaced with horizontal layout in 1 : n
                     JIGridLaout(
                         JList: [
-                          JInternshipCardVertical(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true,),
-                          JInternshipCardVertical(companyName: "Facebook", companyLogo: JImages.facebook, internshipTitle: "Network admin"),
-                          JInternshipCardVertical(companyName: "Apple", companyLogo: JImages.apple, internshipTitle: "Database admin"),
-                          JInternshipCardVertical(companyName: "Nvidia", companyLogo: JImages.nvidia, internshipTitle: "Data analyst",saved: true,),
+                          VerticalJInternshipCard(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true,),
+                          VerticalJInternshipCard(companyName: "Facebook", companyLogo: JImages.facebook, internshipTitle: "Network admin"),
+                          VerticalJInternshipCard(companyName: "Apple", companyLogo: JImages.apple, internshipTitle: "Database admin"),
+                          VerticalJInternshipCard(companyName: "Nvidia", companyLogo: JImages.nvidia, internshipTitle: "Data analyst",saved: true,),
 
                         ]
                     )

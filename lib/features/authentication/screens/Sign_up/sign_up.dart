@@ -6,8 +6,8 @@ import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
 
-class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
+class CadidateSignupScreen extends StatelessWidget {
+  const CadidateSignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

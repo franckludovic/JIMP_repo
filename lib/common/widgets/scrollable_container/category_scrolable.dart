@@ -17,10 +17,10 @@ class JCategoryTab extends StatelessWidget {
       //width: JSizes.mobileScreenSize.toDouble(),
       height: 100,
       showBorder: true,
-      backgroundColor: JColors.grey,
+      backgroundColor: JColors.lightGrey,
       radius: 25,
       borderWidth: 3,
-      borderColor:dark ? Colors.purple : JColors.black,
+      borderColor:dark ? JColors.darkGrey : JColors.grey,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(

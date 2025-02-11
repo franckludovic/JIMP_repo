@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ApplicationPrice extends StatelessWidget {
-  const ApplicationPrice({
+class JApplicationPrice extends StatelessWidget {
+  const JApplicationPrice({
     super.key,
     this.currencySign = 'CFA',
     required this.price,

@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 
 import '../../../../common/widgets/Type_user/selection_type_user_card.dart';
+import '../../../../navigation_menu.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
 import '../../../../utils/helpers/helper_functions.dart';
-import '../../../authentication/screens/login/login.dart';
 
 class JTypeUser extends StatelessWidget {
   const JTypeUser({super.key});
@@ -57,13 +57,14 @@ class JTypeUser extends StatelessWidget {
                     subtitle: JTexts.compagnytText,
                     image: JImages.company_user,
                   ),
+
                   SizedBox(height: JSizes.spaceBtwSections),
         
                   SelectionCard(
                     title: "Candidate",
                     subtitle: JTexts.candidateText,
                     image: JImages.candidate_user,
-                    onTapNavigate:() => Get.off( const CandidateLoginScreen()),
+                    onTap:() => Get.off( const CandidateNavigationMenu()),
                   ),
         
         

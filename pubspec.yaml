@@ -26,6 +26,7 @@ dependencies:
   percent_indicator: ^4.2.4
   vertical_percent_indicator: ^0.0.1
   sidebarx: ^0.17.1
+  readmore: ^3.0.0
 
 
 
