@@ -35,7 +35,7 @@ class PromoSlider extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               for (int i = 0; i < banners.length; i++)
-                CircularContainer(
+                JCircularContainer(
                   width: 20,
                   height: 4,
                   margin: EdgeInsets.only(right: 10),

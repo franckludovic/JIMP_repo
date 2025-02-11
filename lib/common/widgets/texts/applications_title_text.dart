@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 
-class ApplicationTitleText extends StatelessWidget {
-  const ApplicationTitleText({
+class JApplicationTitleText extends StatelessWidget {
+  const JApplicationTitleText({
     super.key,
     required this.title,
     this.smallSize = false,

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'curved_edges.dart';
 
 
-class CurvedEdgeswidgets extends StatelessWidget {
-  const CurvedEdgeswidgets({
+class JCurvedEdgeswidgets extends StatelessWidget {
+  const JCurvedEdgeswidgets({
     super.key, this.child,
   });
 

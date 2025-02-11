@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
+import '../../../../features/Applications/screens/Applicaton_details/application_details.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../styles/shadow.dart';
 import '../../custom_shapes/container_shapes/rounded_container.dart';
@@ -22,7 +24,7 @@ class JApplicationsCardVertical extends StatelessWidget {
     ///to be romoved and replaced with horizontal cards
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () => Get.to(() => const ApplicationDetails()),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
@@ -80,7 +82,7 @@ class JApplicationsCardVertical extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ApplicationTitleText( title: "Acer gaming Laptop", smallSize: true),
+                  JApplicationTitleText( title: "Acer gaming Laptop", smallSize: true),
                   const SizedBox(height: JSizes.spaceBtwItems / 2),
                   JCompagnyTittleVerifications(title: "Nike"),
 
@@ -96,7 +98,7 @@ class JApplicationsCardVertical extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: JSizes.sm),
-                  child: const ApplicationPrice(price: '35.0'),
+                  child: const JApplicationPrice(price: '35.0'),
                 ),
 
                 Container(

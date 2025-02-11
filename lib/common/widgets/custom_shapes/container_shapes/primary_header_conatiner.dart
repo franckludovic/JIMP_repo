@@ -14,7 +14,7 @@ class JPrimaryHeaderContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CurvedEdgeswidgets(
+    return JCurvedEdgeswidgets(
       child: Container(
         color: JColors.primary,
         padding: const EdgeInsets.only(bottom: 0),
@@ -28,12 +28,12 @@ class JPrimaryHeaderContainer extends StatelessWidget {
               Positioned(
                   top: -180,
                   right: -250,
-                  child: CircularContainer(
+                  child: JCircularContainer(
                       backgroundColor: JColors.textWhite.withAlpha((0.1 * 255).toInt()))),
               Positioned(
                   top: 90,
                   right: -300,
-                  child: CircularContainer(
+                  child: JCircularContainer(
                       backgroundColor: JColors.textWhite.withAlpha((0.1 * 255).toInt()))),
               child,
             ],

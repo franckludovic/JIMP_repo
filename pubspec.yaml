@@ -33,6 +33,9 @@ dependencies:
   cupertino_icons: ^1.0.8
 
 
+  #product Specific
+  readmore: ^3.0.0
+
   #state flutter_state_management:
   get: ^4.6.5
   get_storage: ^2.1.1
