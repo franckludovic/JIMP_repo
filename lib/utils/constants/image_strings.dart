@@ -38,6 +38,12 @@ class JImages {
   static const String apple = "assets/logos/apple_icon.png";
 
 
+  // -- Product Reviews
+  static const String userProfileImage1 = "assets/images/reviews/review_profile_image_1.jpg";
+  static const String userProfileImage2 = "assets/images/reviews/review_profile_image_2.jpeg";
+  static const String userProfileImage3 = "assets/images/reviews/review_profile_image_3.jpeg";
+
+
 
   // -- Lottie Animations
   static const String creatingProductIllustration = "assets/images/animations/creating-product.gif";

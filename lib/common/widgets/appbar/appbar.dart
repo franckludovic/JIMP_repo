@@ -30,7 +30,7 @@ class JAppbar extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
            automaticallyImplyLeading: false,
         leading: showBackArrow
-            ? IconButton(onPressed: () => Get.back(), icon: const Icon(Iconsax.arrow_left))
+            ? IconButton(onPressed: () => Get.back(), icon:  Icon(Iconsax.arrow_left, color: dark ? JColors.white : JColors.black))
             : leadingIcon != null ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon, size: 45, color: dark ? JColors.white : JColors.black)) : null,
         title: title,
         actions: actions,
