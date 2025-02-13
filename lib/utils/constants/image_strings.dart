@@ -21,8 +21,13 @@ class JImages {
   static const String user2 = "assets/images/content/Users/user2.png";
   static const String user3 = "assets/images/content/Users/user3.png";
 
+  //review user profile
+  static const String userProfileImage1 = "assets/images/reviews/review_profile_image_1.jpg";
+  static const String userProfileImage2 = "assets/images/reviews/review_profile_image_2.jpeg";
+  static const String userProfileImage3 = "assets/images/reviews/review_profile_image_3.jpeg";
 
- //--Type User image
+
+  //--Type User image
   static const String company_user = "assets/images/content/user_type/company_user.png";
   static const String candidate_user = "assets/images/content/user_type/candidate_user.png";
 

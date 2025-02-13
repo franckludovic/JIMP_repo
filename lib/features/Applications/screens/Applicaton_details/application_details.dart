@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 import 'package:project_bc_tuto/features/Applications/screens/Applicaton_details/widgets/application_data.dart';
@@ -6,6 +7,7 @@ import 'package:project_bc_tuto/features/Applications/screens/Applicaton_details
 import 'package:project_bc_tuto/features/Applications/screens/Applicaton_details/widgets/button_add_to_cart.dart';
 import 'package:project_bc_tuto/features/Applications/screens/Applicaton_details/widgets/product_attributes.dart';
 import 'package:project_bc_tuto/features/Applications/screens/Applicaton_details/widgets/rating_and_share.dart';
+import 'package:project_bc_tuto/features/Applications/screens/application_reviews/product_reviews.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import 'package:readmore/readmore.dart';
@@ -66,7 +68,7 @@ class ApplicationDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       JSectionHeading(title: "Review (199)",showActonButton: false,),
-                      IconButton(onPressed: () {}, icon: const  Icon(Iconsax.arrow_right_3))
+                      IconButton(icon: const  Icon(Iconsax.arrow_right_3), onPressed: () => Get.to(() => ApplicationReviewScreen()) )
                     ],
                   ),
                   const SizedBox(height: JSizes.spaceBtwSections,),

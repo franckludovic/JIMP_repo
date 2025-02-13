@@ -25,6 +25,7 @@ dependencies:
   carousel_slider: ^5.0.0
   percent_indicator: ^4.2.4
   vertical_percent_indicator: ^0.0.1
+  flutter_rating_bar: ^4.0.1
 
 
 
@@ -69,6 +70,7 @@ flutter:
     - assets/images/products/
     - assets/images/content/Users/
     - assets/images/content/user_type/
+    - assets/images/reviews/
 
 
 #--------------------------local fonts---------------------#
