@@ -43,11 +43,9 @@ class JAppbar extends StatelessWidget implements PreferredSizeWidget {
           icon: Icon(
             leadingIcon,
             size: 45,
-            color: color != null
-                ? color
-                : dark
+            color: color ?? (dark
                 ? JColors.white
-                : JColors.black,
+                : JColors.black),
           ),
         )
             : null,title: title,
