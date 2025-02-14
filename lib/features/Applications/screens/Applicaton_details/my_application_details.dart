@@ -11,6 +11,7 @@ import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 import '../application_reviews/product_reviews.dart';
+import '../company_details/company_details.dart';
 import 'myWidgets/JApply_and_save_button.dart';
 import 'myWidgets/application_header.dart';
 import 'myWidgets/application_tags.dart';
@@ -41,6 +42,7 @@ class MyApplicationDetails extends StatelessWidget {
               Divider(thickness: 2),
 
               JApplicationHeader(
+                onTapLogo: () => Get.to(() => CompanyDetails()),
                 companyLogo:JImages.google ,
                 companyName: "Google",
                 internshipName: "Senior Software Engineer",

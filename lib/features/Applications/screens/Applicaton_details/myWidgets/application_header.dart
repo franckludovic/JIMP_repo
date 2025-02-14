@@ -15,11 +15,13 @@ class JApplicationHeader extends StatelessWidget {
     required this.companyName,
     required this.internshipName,
     required this.companyLogo,
+    this.onTapLogo,
   });
 
   final String companyName;
   final String internshipName;
   final String companyLogo;
+  final VoidCallback? onTapLogo;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class JApplicationHeader extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(JSizes.defaultSpace / 2),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start, // Align items to the top
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// Company Name & Internship Post
           Expanded( // Limits the text space
@@ -58,10 +60,13 @@ class JApplicationHeader extends StatelessWidget {
               child: SizedBox(
                 width: 105,
                 height: 105,
-                child: JRoundedImage(
-                  imageUrl: companyLogo,
-                  applyImageRadius: true,
-                  fit: BoxFit.contain,
+                child: GestureDetector(
+                  onTap: onTapLogo,
+                  child: JRoundedImage(
+                    imageUrl: companyLogo,
+                    applyImageRadius: true,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ),

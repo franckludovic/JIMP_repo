@@ -44,6 +44,9 @@ class JImages {
   static const String userProfileImage3 = "assets/images/reviews/review_profile_image_3.jpeg";
 
 
+  //profile images company
+  static const String googleProfileImage = "assets/images/content/Users/google_profile.png";
+
 
   // -- Lottie Animations
   static const String creatingProductIllustration = "assets/images/animations/creating-product.gif";

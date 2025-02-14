@@ -7,13 +7,15 @@ import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/sizes.dart';
 
 class JAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const JAppbar({
+  const
+  JAppbar({
     super.key,
     this.title,
     this.actions,
     this.leadingIcon,
     this.leadingOnPressed,
     this.showBackArrow = false,
+    this.color,
   });
 
   final Widget? title;
@@ -21,6 +23,7 @@ class JAppbar extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leadingIcon;
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +33,24 @@ class JAppbar extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
            automaticallyImplyLeading: false,
         leading: showBackArrow
-            ? IconButton(onPressed: () => Get.back(), icon:  Icon(Iconsax.arrow_left, color: dark ? JColors.white : JColors.black))
-            : leadingIcon != null ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon, size: 45, color: dark ? JColors.white : JColors.black)) : null,
-        title: title,
+            ? IconButton(
+            onPressed: () => Get.back(),
+            icon: Icon(Iconsax.arrow_left,
+                color: dark ? JColors.white : JColors.black))
+            : leadingIcon != null
+            ? IconButton(
+          onPressed: leadingOnPressed,
+          icon: Icon(
+            leadingIcon,
+            size: 45,
+            color: color != null
+                ? color
+                : dark
+                ? JColors.white
+                : JColors.black,
+          ),
+        )
+            : null,title: title,
         actions: actions,
       ),
     );
