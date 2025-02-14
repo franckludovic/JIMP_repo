@@ -1,0 +1,71 @@
+import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
+
+import '../../../../../common/widgets/texts/applications_title_text.dart';
+import '../../../../../utils/constants/colors.dart';
+import '../../../../../utils/constants/sizes.dart';
+
+class CompanyRatingSubTitle extends StatelessWidget {
+  const CompanyRatingSubTitle({
+    super.key,
+    required this.CompanyName,
+    required this.rating,
+     required this.country,
+     required this.region,
+     required this.town,
+     required this.quater,
+  });
+
+
+  final String CompanyName;
+  final String rating;
+   final String country;
+   final String region;
+   final String town;
+   final String quater;
+
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = JHelperFunctions.isDarkMode(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              JApplicationTitleText(title: CompanyName,textSize: 35),
+              Row(
+                children: [
+                  Icon(Iconsax.location, color: dark ? JColors.grey : JColors.darkerGrey,),
+                  SizedBox(width: JSizes.spaceBtwItems / 2),
+                  Text("$country, $region, $town, $quater"),
+                  // LocationInfo(
+                  //   country: country,
+                  //   region: region,
+                  //   quater: quater,
+                  //   town: town,
+                  // ),
+
+                ],
+              )
+            ],
+          ),
+
+          Column(
+            children: [
+              Icon(Iconsax.star1, color: Colors.yellow, size: 45,),
+              Text(rating, style: Theme.of(context).textTheme.headlineMedium),
+            ],
+          )
+
+        ],
+      ),
+    );
+  }
+}
+
