@@ -41,8 +41,6 @@ class AddNewAddressScreen extends StatelessWidget {
                 const SizedBox(height: JSizes.spaceBtwInputFields * 2),
                 SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () {}, child: Text("Save")),),
 
-                
-
               ],
 
             ),
