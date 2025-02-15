@@ -10,6 +10,8 @@ class JTexts {
   static const String appName = "JIMP";
   static const String tContinue = "Continue";
 
+  static const String dummyText = '';
+
   // -- Candidate and company text
   static const String candidateText = "Finding a job or internship here never been easier than before";
   static const String compagnytText = "Let’s recruit your great candidate faster here ";

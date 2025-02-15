@@ -7,7 +7,7 @@ class JApplicatonTags extends StatelessWidget {
     super.key,
     required this.tags,
     this.textColor = JColors.white,
-    this.borderColor = JColors.secondary,
+    this.borderColor,
     this.backgroundColor = JColors.darkGrey,
     this.fontSize = 17,
     this.title,
@@ -17,7 +17,7 @@ class JApplicatonTags extends StatelessWidget {
   final List<String> tags;
   final Color textColor;
   final double fontSize;
-  final Color borderColor;
+  final Color? borderColor;
   final Color backgroundColor;
   final String? title;
   final double minWidth;
@@ -54,9 +54,9 @@ class JApplicatonTags extends StatelessWidget {
       child: JRoundedContainer(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         backgroundColor: backgroundColor,
-        borderColor: borderColor,
+        //borderColor: borderColor!,
         showBorder: true,
-        borderWidth: 1.5,
+        //borderWidth: 1.5,
         radius: 20,
         width: null,
         child: Text(

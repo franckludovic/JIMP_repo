@@ -7,11 +7,19 @@ class InfoTile extends StatelessWidget {
   const InfoTile({
     super.key,
     required this.textBody,
-    required this.title
+    required this.title,
+    this.spacing = JSizes.spaceBtwItems / 2,
+    this.numberLines = 3,
+    this.textBodySize = 15,
+    this.titleSize,
   });
 
   final String textBody;
   final String title;
+  final double spacing;
+  final int numberLines;
+  final double textBodySize;
+  final double? titleSize;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +31,13 @@ class InfoTile extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text(title, style: Theme.of(context).textTheme.headlineMedium ),
+              child: Text(title, style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: titleSize ) ),
             ),
-            SizedBox(height: JSizes.spaceBtwItems / 2),
+            SizedBox(height: spacing),
             ReadMoreText(
               textBody,
-              style: TextStyle(fontSize: 15),
-              trimLines: 3,
+              style: TextStyle(fontSize: textBodySize),
+              trimLines: numberLines,
               trimMode: TrimMode.Line,
               trimCollapsedText: " Show more",
               trimExpandedText: "  Show Less",

@@ -18,12 +18,12 @@ class CompanyRatingSubTitle extends StatelessWidget {
   });
 
 
-  final String companyName;
-  final String rating;
-   final String country;
-   final String region;
-   final String town;
-   final String quater;
+    final String companyName;
+    final String rating;
+    final String country;
+    final String region;
+    final String town;
+    final String quater;
 
 
   @override
@@ -48,22 +48,20 @@ class CompanyRatingSubTitle extends StatelessWidget {
                   Icon(Iconsax.location, color: dark ? JColors.grey : JColors.darkGrey,),
                   SizedBox(width: JSizes.spaceBtwItems / 2,),
 
-                  Text(
-                    "$quater, $town, $region, $country",
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    softWrap: true
+                  SizedBox(
+                    width: 280,
+                    child: Flexible(
+                      child: Text(
+                        "$quater, $town, $region, $country",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true
+                      ),
+                    ),
                   ),
                 ],
               ),
-              // LocationInfo(
-              //   country: country,
-              //   region: region,
-              //   quater: quater,
-              //   town: town,
-              // ),
-
             ],
           ),
 
@@ -72,7 +70,7 @@ class CompanyRatingSubTitle extends StatelessWidget {
               Icon(Iconsax.star1, color: Colors.yellow, size: 45,),
               Text(rating, style: Theme.of(context).textTheme.headlineMedium),
             ],
-          )
+          ),
 
         ],
       ),

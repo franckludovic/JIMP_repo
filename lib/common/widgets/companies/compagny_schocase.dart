@@ -13,9 +13,7 @@ class JCompagnyShowCase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return JRoundedContainer(
-      //showBorder: true,
-      //borderColor: JColors.darkerGrey,
-      //padding: const EdgeInsets.all(JSizes.xs),
+
       backgroundColor: Colors.transparent,
       margin: const EdgeInsets.only(bottom: JSizes.spaceBtwItems),
       child: Column(
@@ -23,7 +21,7 @@ class JCompagnyShowCase extends StatelessWidget {
         children: [
           for (int i = 0; i < jobs.length; i++) ...[
             SizedBox(
-              width: double.infinity, // Ensures full width
+              width: double.infinity,
               child: jobs[i],
             ),
             if (i != jobs.length - 1) const SizedBox(height: 16),

@@ -8,9 +8,7 @@ import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
-import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/helpers/helper_functions.dart';
-import '../application_reviews/product_reviews.dart';
 import '../company_details/company_details.dart';
 import 'myWidgets/JApply_and_save_button.dart';
 import 'myWidgets/application_header.dart';
@@ -129,14 +127,7 @@ class MyApplicationDetails extends StatelessWidget {
               SizedBox(height: JSizes.spaceBtwItems),
 
               const Divider(),
-              const SizedBox(height: JSizes.spaceBtwItems,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  JSectionHeading(title: "Review (199)",showActonButton: false,),
-                  IconButton(icon: const  Icon(Iconsax.arrow_right_3), onPressed: () => Get.to(() => ApplicationReviewScreen()) )
-                ],
-              ),
+
               const SizedBox(height: JSizes.spaceBtwSections,),
 
 

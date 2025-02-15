@@ -5,6 +5,8 @@ import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/primary_header_conatiner.dart';
 import 'package:project_bc_tuto/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
+import 'package:project_bc_tuto/features/Applications/screens/applications_applied/applied.dart';
+import 'package:project_bc_tuto/features/personilization/screens/address/address.dart';
 import 'package:project_bc_tuto/features/personilization/screens/profile/Profile.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 
@@ -68,13 +70,13 @@ class SettingScreen extends StatelessWidget {
                     icon: Iconsax.safe_home,
                     title: "My address",
                     subtitle: "Ready to be Called",
-                    onTap: () {},
+                    onTap: () => Get.to(() => const UserAddressScreen()),
                   ),
                   JSettingsMenuTile(
                     icon: Iconsax.document_text5,
                     title: "My applications",
                     subtitle: "Apply, remove, drop-out",
-                    onTap: () {},
+                    onTap: () => Get.to(() => const ApplicationsApplied()) ,
                   ),
                   JSettingsMenuTile(
                     icon: Iconsax.task_square,

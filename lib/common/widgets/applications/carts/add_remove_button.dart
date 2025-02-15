@@ -1,41 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
-import '../../icons/circular_icon.dart';
 
 class JApplied_drop_buttons extends StatelessWidget {
   const JApplied_drop_buttons({
     super.key,
+    this.status = 'PENDING',
   });
+
+  final String status;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        JCircularIcon(
-          icon: Iconsax.minus,
-          width: 32,
-          height: 32,
-          size: JSizes.md,
-          color: JHelperFunctions.isDarkMode(context) ? JColors.grey : JColors.black,
-          backgroundColor: JHelperFunctions.isDarkMode(context) ? JColors.darkerGrey : JColors.grey,
+   final dark = JHelperFunctions.isDarkMode(context);
+    return SizedBox(
+      width: 130,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.symmetric(horizontal:  JSizes.lg, vertical: JSizes.sm)
         ),
-        SizedBox(width: JSizes.spaceBtwItems),
-        Text("2", style: Theme.of(context).textTheme.titleSmall,),
-        SizedBox(width: JSizes.spaceBtwItems),
-        JCircularIcon(
-            icon: Iconsax.add,
-            width: 32,
-            height: 32,
-            size: JSizes.md,
-            color: JColors.white,
-            backgroundColor: JColors.primary
-        ),
-      ],
+        onPressed: () {},
+        child: Text("Drop", style: Theme.of(context).textTheme.titleMedium!.apply(color:  dark ? JColors.white : JColors.black ),),
+      ),
     );
   }
 }

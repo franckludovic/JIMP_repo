@@ -6,7 +6,8 @@ import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../../../../common/widgets/rating/Rating.dart';
+import '../../../../../common/widgets/companies/rating/Rating.dart';
+
 
 class UserReviewCard extends StatelessWidget {
   const UserReviewCard({super.key});

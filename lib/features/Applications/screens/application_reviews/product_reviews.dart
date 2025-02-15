@@ -3,7 +3,8 @@ import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/features/Applications/screens/application_reviews/widgets/rating_progess_indicator.dart';
 import 'package:project_bc_tuto/features/Applications/screens/application_reviews/widgets/user_review_card.dart';
 
-import '../../../../common/widgets/rating/Rating.dart';
+import '../../../../common/widgets/companies/rating/Rating.dart';
+
 import '../../../../utils/constants/sizes.dart';
 
 
