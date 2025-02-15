@@ -9,12 +9,11 @@ import '../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import '../../../../../navigation_menu.dart';
 import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/device/device_utility.dart';
 
-class Compagny_details_header extends StatelessWidget {
-  const Compagny_details_header({
+class CompagnyDetailsHeader extends StatelessWidget {
+  const CompagnyDetailsHeader({
     super.key,
     required this.companyName,
     required this.companyLogo,
@@ -32,66 +31,69 @@ class Compagny_details_header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = JHelperFunctions.isDarkMode(context);
-    return Stack(
+    return Container(
 
-      children: [
-        Stack(
-          children: [
-            SizedBox(
-                width: JDeviceUtils.getScreenWidth(context),
-                child: Image.asset(JImages.googleProfileImage)
-            ),
-            JRoundedContainer(
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-              padding: EdgeInsets.all(0),
-              radius: JSizes.xxl,
-              height: 70,
-              backgroundColor: JColors.white.withAlpha((0.8 * 255).toInt()),
-            ),
+      child: Stack(
 
-            Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 2),
-                  child: JAppbar(
-                    title: Text("Google",
-                        style: TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: 30,
-                            color: dark ? JColors.primary : JColors.black)),
-                    leadingIcon: Iconsax.arrow_left_3,
-                    color: JColors.black,
-                    leadingOnPressed: () => Get.to(() => CandidateNavigationMenu()),
-                    actions: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.more_vert, size: 40, color: JColors.black,))
-                    ],
+        children: [
+          Stack(
+            children: [
+              SizedBox(
+                  width: JDeviceUtils.getScreenWidth(context),
+                  child: Image.asset(companyProfileImage)
+              ),
+              JRoundedContainer(
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                padding: EdgeInsets.all(0),
+                radius: JSizes.xxl,
+                height: 70,
+                backgroundColor: JColors.white.withAlpha((0.8 * 255).toInt()),
+              ),
+
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 2),
+                    child: JAppbar(
+                      title: Text(companyName,
+                          style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 30,
+                              color: dark ? JColors.primary : JColors.black)),
+                      leadingIcon: Iconsax.arrow_left_3,
+                      color: JColors.black,
+                      leadingOnPressed: () => Get.to(() => CandidateNavigationMenu()),
+                      actions: [
+                        IconButton(onPressed: () {}, icon: Icon(Icons.more_vert, size: 40, color: JColors.black,))
+                      ],
+                    ),
                   ),
-                ),
 
 
-                JRoundedContainer(
-                  height: 113,
-                  width: 113,
-                  margin: EdgeInsets.only(top: 140, right: 200),
-                  padding: const EdgeInsets.all(JSizes.sm),
-                  backgroundColor: dark ? JColors.darkGrey : JColors.grey,
-                  child: Center(
-                    child: SizedBox(
-                      width: 105,
-                      height: 105,
-                      child: JRoundedImage(
-                        imageUrl: JImages.google,
-                        applyImageRadius: true,
-                        fit: BoxFit.contain,
+                  JRoundedContainer(
+                    height: 113,
+                    width: 113,
+                    margin: EdgeInsets.only(top: 140, right: 200),
+                    padding: const EdgeInsets.all(JSizes.sm),
+                    backgroundColor: dark ? JColors.darkGrey : JColors.grey,
+                    child: Center(
+                      child: SizedBox(
+                        width: 105,
+                        height: 105,
+                        child: JRoundedImage(
+                          imageUrl: companyLogo,
+                          applyImageRadius: true,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

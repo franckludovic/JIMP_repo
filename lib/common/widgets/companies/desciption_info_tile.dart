@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../../../../utils/constants/sizes.dart';
+import '../../../utils/constants/sizes.dart';
 
 class InfoTile extends StatelessWidget {
   const InfoTile({

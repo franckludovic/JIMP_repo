@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../../common/widgets/icons/circular_icon.dart';
-import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/sizes.dart';
+import '../icons/circular_icon.dart';
+import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/sizes.dart';
 
 class LocationInfo extends StatelessWidget {
   const LocationInfo({
@@ -22,7 +22,6 @@ class LocationInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-
       children: [
         JCircularIcon(
           icon: Iconsax.location,
@@ -33,7 +32,7 @@ class LocationInfo extends StatelessWidget {
           color: JColors.white,
         ),
         SizedBox(width: JSizes.spaceBtwItems / 2),
-        // Ensure text can wrap properly
+
         Expanded(
           child: Text(
             "$quater, $town, $region, $country",

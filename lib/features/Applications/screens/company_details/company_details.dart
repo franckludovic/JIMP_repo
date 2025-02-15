@@ -18,7 +18,7 @@ class CompanyDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            Compagny_details_header(
+            CompagnyDetailsHeader(
                 companyName: 'Google',
                 companyLogo: JImages.google,
                 companyProfileImage: JImages.googleProfileImage),
@@ -26,13 +26,14 @@ class CompanyDetails extends StatelessWidget {
             SizedBox(height: JSizes.spaceBtwSections * 0.6,),
 
             CompanyRatingSubTitle(
-              rating: '4.5',
-              CompanyName: 'Google',
-              country: 'Cameroon',
-              region: 'Littoral',
-              town: 'Douala',
-              quater: 'Bonanjo',
-            ),
+                rating: '4.5',
+                companyName: 'Google',
+                country: 'Cameroon',
+                region: 'Littoral',
+                town: 'Douala',
+                quater: 'Bonanjo',
+              ),
+
 
 
           ],

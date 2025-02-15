@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
-import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
-import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/sizes.dart';
+import '../custom_shapes/container_shapes/rounded_container.dart';
+import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/sizes.dart';
 
 class StatsBox extends StatelessWidget {
   final double matchPercentage;

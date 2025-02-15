@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
-import 'package:project_bc_tuto/features/Applications/screens/Applicaton_details/myWidgets/desciption_info_tile.dart';
+import 'package:project_bc_tuto/common/widgets/companies/desciption_info_tile.dart';
 import 'package:project_bc_tuto/navigation_menu.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
@@ -15,8 +15,8 @@ import '../company_details/company_details.dart';
 import 'myWidgets/JApply_and_save_button.dart';
 import 'myWidgets/application_header.dart';
 import 'myWidgets/application_tags.dart';
-import 'myWidgets/info_boxes.dart';
-import 'myWidgets/logation_info.dart';
+import '../../../../common/widgets/companies/info_boxes.dart';
+import '../../../../common/widgets/companies/logation_info.dart';
 import 'myWidgets/time_frame.dart';
 
 class MyApplicationDetails extends StatelessWidget {
