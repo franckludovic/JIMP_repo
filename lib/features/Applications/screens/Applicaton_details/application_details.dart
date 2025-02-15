@@ -17,7 +17,7 @@ class ApplicationDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = JHelperFunctions.isDarkMode(context);
+    //final dark = JHelperFunctions.isDarkMode(context);
     return Scaffold(
       bottomNavigationBar: JBottonAddToCart(),
       body: SingleChildScrollView(
