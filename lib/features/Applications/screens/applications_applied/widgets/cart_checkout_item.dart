@@ -23,7 +23,7 @@ class JCardListviewItem extends StatelessWidget {
 
           children: [
             ///card image
-            ///JCardItem(),
+            JAppliedCard(),
             if(showAddRemoveButtons) const SizedBox(height: JSizes.spaceBtwItems),
 
             ///add remove item
