@@ -7,7 +7,8 @@ import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
 import '../../../../utils/helpers/helper_functions.dart';
-import '../../../authentication/screens/login/login.dart';
+import '../screens/login/login.dart';
+
 
 class JTypeUser extends StatelessWidget {
   const JTypeUser({super.key});

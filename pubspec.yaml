@@ -62,7 +62,6 @@ flutter:
   assets:
     - assets/logos/
     - assets/images/animations/
-    - assets/icons/payment_methods/
     - assets/images/on_boarding_images/
     - assets/images/animations/
     - assets/icons/categories/
@@ -71,6 +70,7 @@ flutter:
     - assets/images/content/Users/
     - assets/images/content/user_type/
     - assets/images/reviews/
+    - assets/icons/payment_methods/
 
 
 #--------------------------local fonts---------------------#

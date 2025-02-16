@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../Applications/screens/type_user/type_user_page.dart';
+import '../type_user/type_user_page.dart';
 
 
 class OnboardingController extends GetxController {
