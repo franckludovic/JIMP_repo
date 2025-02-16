@@ -93,14 +93,17 @@ class JApplicationsCardVertical extends StatelessWidget {
 
             const Spacer(),
 
+            ///price row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                ///price
                 Padding(
                   padding: const EdgeInsets.only(left: JSizes.sm),
                   child: const JApplicationPrice(price: '35.0'),
                 ),
 
+                ///add to cart
                 Container(
                   decoration: const BoxDecoration(
                       color: JColors.dark,

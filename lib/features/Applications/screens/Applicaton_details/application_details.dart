@@ -9,7 +9,6 @@ import 'package:project_bc_tuto/features/Applications/screens/Applicaton_details
 import 'package:project_bc_tuto/features/Applications/screens/Applicaton_details/widgets/rating_and_share.dart';
 import 'package:project_bc_tuto/features/Applications/screens/application_reviews/product_reviews.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
-import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import 'package:readmore/readmore.dart';
 
 class ApplicationDetails extends StatelessWidget {
