@@ -49,7 +49,7 @@ class HorizontalJIntershipCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(18),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withAlpha((0.2 * 255).toInt()),
+                  color: Colors.grey.withAlpha((0.1 * 255).toInt()),
                   blurRadius: 5,
                   spreadRadius: 2,
                   offset: const Offset(0, 4),
@@ -63,13 +63,13 @@ class HorizontalJIntershipCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   child: Image.asset(
                     companyLogo,
-                    width: 60,
-                    height: 60,
+                    width: 80,
+                    height: 80,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
-                        width: 60,
-                        height: 60,
+                        width: 70,
+                        height: 70,
                         decoration: BoxDecoration(
                           color: Colors.grey[200],
                           borderRadius: BorderRadius.circular(12),

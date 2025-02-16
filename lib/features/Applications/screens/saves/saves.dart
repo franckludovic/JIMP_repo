@@ -8,7 +8,7 @@ import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/layout/application_grid_layout.dart';
 import '../../../../utils/constants/image_strings.dart';
-import '../home/widgets/vertical_Application.dart';
+import '../../../../common/widgets/applications/applications_cards/vertical_Application.dart';
 
 class SavedScreen extends StatelessWidget {
   const SavedScreen({super.key});

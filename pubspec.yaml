@@ -70,6 +70,7 @@ flutter:
     - assets/images/content/Users/
     - assets/images/content/user_type/
     - assets/images/reviews/
+    - assets/images/banners/
 
 
 #--------------------------local fonts---------------------#

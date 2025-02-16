@@ -4,12 +4,12 @@ import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/features/Applications/screens/Applicaton_details/my_application_details.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
-import '../../../../../common/styles/shadow.dart';
-import '../../../../../common/widgets/Images/rounded_image.dart';
-import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
-import '../../../../../common/widgets/texts/applications_title_text.dart';
-import '../../../../../common/widgets/texts/compagny_title_with_verified_icon.dart';
-import '../../../../../utils/constants/sizes.dart';
+import '../../../styles/shadow.dart';
+import '../../Images/rounded_image.dart';
+import '../../custom_shapes/container_shapes/rounded_container.dart';
+import '../../texts/applications_title_text.dart';
+import '../../texts/compagny_title_with_verified_icon.dart';
+import '../../../../utils/constants/sizes.dart';
 
 
 class VerticalJInternshipCard extends StatelessWidget {

@@ -35,7 +35,7 @@ class JobCarousel extends StatelessWidget {
             autoPlayInterval: const Duration(seconds: 7),
             autoPlayAnimationDuration: const Duration(milliseconds: 1200),
             enableInfiniteScroll: true,
-            viewportFraction: 0.90,
+            viewportFraction: 1,
             onPageChanged: (index, _) => controller.updatePageIndicator(index)
         ),
       ),
