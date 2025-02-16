@@ -39,7 +39,7 @@ class SubCategoryScreen extends StatelessWidget {
                 children: [
                   ///heading
                   JSectionHeading(
-                    title: 'Nvidia',
+                    title: 'Nvidiaflu',
                     onPressed: () {},
                   ),
                   const SizedBox(height: JSizes.spaceBtwSections / 2),
