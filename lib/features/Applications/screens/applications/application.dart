@@ -67,7 +67,7 @@ class Application extends StatelessWidget {
                           JList: [
                             JCompagnyCard(title: "Google", num_Applications: 55,image: JImages.google,),
                             JCompagnyCard(title: "Nvidia", num_Applications: 108,image: JImages.nvidia,),
-                            JCompagnyCard(title: "Apple", num_Applications: 65,image: JImages.apple,),
+                            JCompagnyCard(title: "APPlE", num_Applications: 65,image: JImages.apple,),
                             JCompagnyCard(title: "Facebook", num_Applications: 78,image: JImages.facebook,),
                           ],
                         )
