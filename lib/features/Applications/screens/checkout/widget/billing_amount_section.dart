@@ -26,7 +26,7 @@ class JBillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Shipping fee", style: Theme.of(context).textTheme.bodyMedium,),
-            Text("\6.0", style: Theme.of(context).textTheme.labelLarge,),
+            Text("6.0", style: Theme.of(context).textTheme.labelLarge,),
 
           ],
         ),
@@ -38,7 +38,7 @@ class JBillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Tax fee", style: Theme.of(context).textTheme.bodyMedium,),
-            Text("\6.0", style: Theme.of(context).textTheme.labelLarge,),
+            Text("6.0", style: Theme.of(context).textTheme.labelLarge,),
 
           ],
         ),
@@ -50,7 +50,7 @@ class JBillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Order Total", style: Theme.of(context).textTheme.bodyMedium,),
-            Text("\6.0", style: Theme.of(context).textTheme.titleMedium,),
+            Text("6.0", style: Theme.of(context).textTheme.titleMedium,),
 
           ],
         ),

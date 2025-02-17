@@ -45,12 +45,12 @@ class JCouponCode extends StatelessWidget {
               width: 80,
               child: ElevatedButton(
                 onPressed: () {},
-                child: const Text('Apply'),
                 style: ElevatedButton.styleFrom(
                     foregroundColor: dark ? JColors.white.withAlpha((0.5 * 255).toInt()) : JColors.dark.withAlpha((0.5 * 255).toInt()),
                     backgroundColor: Colors.grey.withAlpha((0.5 * 255).toInt()),
                     side: BorderSide(color: Colors.grey.withAlpha((0.1 * 255).toInt()),)
                 ),
+                child: const Text('Apply'),
               )
           )
         ],

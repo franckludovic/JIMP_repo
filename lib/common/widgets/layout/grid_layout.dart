@@ -6,7 +6,7 @@ class JGridLayout extends StatelessWidget {
   const JGridLayout({
     super.key,
     required this.itemCount,
-    this.mainAxisExtend = 269.5,
+    this.mainAxisExtend = 300,
     required this.itemBuilder,
   });
 

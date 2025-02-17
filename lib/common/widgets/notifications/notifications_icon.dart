@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:project_bc_tuto/features/Applications/screens/applications_applied/applied.dart';
 
 import '../../../utils/constants/colors.dart';
 
@@ -20,7 +18,7 @@ class NotificationCounterIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        IconButton(onPressed: () => Get.to(() => ApplicationsApplied()), icon: Icon(Iconsax.notification, color: iconColor)),
+        IconButton(onPressed: () {}, icon: Icon(Iconsax.notification, color: iconColor)),
         Positioned(
           right: 0,
           child: Container(

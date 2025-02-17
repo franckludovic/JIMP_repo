@@ -24,6 +24,7 @@ class JApplicationsCardVertical extends StatelessWidget {
       onTap: () {},
       child: Container(
         width: 180,
+
         padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(
           boxShadow: [ShadowStyle.verticalApplicationShadow],

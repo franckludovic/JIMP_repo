@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_bc_tuto/features/Applications/screens/home/widgets/home_categoriesV2.dart';
 
-import 'package:project_bc_tuto/common/widgets/applications/applications_cards/vertical_Application.dart';
 
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 
+import '../../../../common/widgets/applications/applications_cards/applications_card_vertical.dart';
 import '../../../../common/widgets/custom_shapes/container_shapes/primary_header_conatiner.dart';
 import '../../../../common/widgets/custom_shapes/container_shapes/search_container.dart';
 
 import '../../../../common/widgets/job_and_internship_card/carousel_slider_interships.dart';
 import '../../../../common/widgets/job_and_internship_card/intership_cards.dart';
-import '../../../../common/widgets/layout/application_grid_layout.dart';
 
+import '../../../../common/widgets/layout/grid_layout.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../personilization/screens/settings/settings.dart';
+import '../all_product/all_application.dart';
 import 'widgets/home_appbar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -87,6 +89,8 @@ class HomeScreen extends StatelessWidget {
 
                     JSectionHeading(title: "Recommended Internships",onPressed: () {},),
                     const SizedBox(height: JSizes.spaceBtwItems * 0.1),
+
+
                     ///promo slider
                     JobCarousel(
                         jobs : [
@@ -100,18 +104,20 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: JSizes.spaceBtwSections),
 
-                    JSectionHeading(title: 'Popular Internships', onPressed: () {}),
+                    JSectionHeading(title: 'Popular Internships', onPressed: () => Get.to(() => AllApplications())),
 
                     ///applications in grid in 2 : n should be removed and replaced with horizontal layout in 1 : n
-                    JIGridLaout(
-                        JList: [
-                          VerticalJInternshipCard(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true,),
-                          VerticalJInternshipCard(companyName: "Facebook", companyLogo: JImages.facebook, internshipTitle: "Network admin"),
-                          VerticalJInternshipCard(companyName: "Apple", companyLogo: JImages.apple, internshipTitle: "Database admin"),
-                          VerticalJInternshipCard(companyName: "Nvidia", companyLogo: JImages.nvidia, internshipTitle: "Data analyst",saved: true,),
+                    // JIGridLaout(
+                    //     JList: [
+                    //       VerticalJInternshipCard(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true,),
+                    //       VerticalJInternshipCard(companyName: "Facebook", companyLogo: JImages.facebook, internshipTitle: "Network admin"),
+                    //       VerticalJInternshipCard(companyName: "Apple", companyLogo: JImages.apple, internshipTitle: "Database admin"),
+                    //       VerticalJInternshipCard(companyName: "Nvidia", companyLogo: JImages.nvidia, internshipTitle: "Data analyst",saved: true,),
+                    //
+                    //     ]
+                    // )
 
-                        ]
-                    )
+                    JGridLayout(itemCount: 8, itemBuilder: (_, index) => JApplicationsCardVertical())
 
 
 

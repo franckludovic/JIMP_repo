@@ -33,7 +33,7 @@ class JCardListviewItem extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const SizedBox(width: 70),
+                    SizedBox(width: 70),
                     ///add remove icon
                     JApplied_drop_buttons(),
                   ],
