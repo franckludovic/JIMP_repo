@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/applications/sortable/sortable_application.dart';
-import 'package:project_bc_tuto/common/widgets/companies/compagny_cards.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/companies/compagny_cardsV2.dart';

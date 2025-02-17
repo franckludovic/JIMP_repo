@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
-import 'package:project_bc_tuto/common/widgets/companies/compagny_cards.dart';
 import 'package:project_bc_tuto/common/widgets/layout/grid_layout.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 import 'package:project_bc_tuto/features/Applications/screens/Brands/brand_product.dart';
