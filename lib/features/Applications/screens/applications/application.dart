@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/search_container.dart';
 import 'package:project_bc_tuto/common/widgets/layout/grid_layout.dart';
@@ -11,6 +12,7 @@ import '../../../../common/widgets/companies/compagny_cards.dart';
 import '../../../../common/widgets/notifications/notifications_icon.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../Brands/all_brands.dart';
 
 class Application extends StatelessWidget {
   const Application({super.key});
@@ -57,7 +59,7 @@ class Application extends StatelessWidget {
                         JSectionHeading(
                             title: 'Feature Companies',
                             showActonButton: true,
-                            onPressed: () {}),
+                            onPressed: () => Get.to(() => const AllBrandsScreen())),
                         const SizedBox(height: JSizes.spaceBtwItems / 1.5),
 
                         ///compagnies grid
