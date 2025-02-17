@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
 import '../../../utils/helpers/helper_functions.dart';
+import '../pop_up/pop_up.dart';
 
 class JCircularSkillIndicator extends StatelessWidget {
   const JCircularSkillIndicator({
@@ -38,45 +41,48 @@ class JCircularSkillIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(9),
-      height: 120,
+    return GestureDetector(
+      onTap: ()  => showCustomPopup(),
+      child: Container(
+        padding: EdgeInsets.all(9),
+        height: 120,
 
-      margin: EdgeInsets.only(left: 18, top: 6, bottom: 6),
-      decoration: BoxDecoration(
-        color: cardbackgroudColor ?? (JHelperFunctions.isDarkMode(context) ? JColors.black : JColors.white),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(color: Colors.grey, blurRadius: 5, spreadRadius: 1),
-        ],
-      ),
-      child: CircularPercentIndicator(
-          radius: radius,
-          lineWidth: lineWidth,
-          animation: animation,
-          percent: percentage,
-          animationDuration: 1200,
-          center:  Text(
-            textPercent,
-            style:
-             TextStyle(fontWeight: FontWeight.bold, fontSize: centerTextFontSize),
-          ),
-
-          footer:  Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: JSizes.sm * 1.2),
-              Text(
-                bottomText,
-                style:
-                 TextStyle(fontWeight: FontWeight.bold, fontSize: bottomTextFontSize),
-              ),
-            ],
-          ),
-          circularStrokeCap: CircularStrokeCap.round,
-          progressColor: progressColor,
-          backgroundColor: backgroundColor ?? (JHelperFunctions.isDarkMode(context) ? JColors.white : JColors.darkGrey),
+        margin: EdgeInsets.only(left: 18, top: 6, bottom: 6),
+        decoration: BoxDecoration(
+          color: cardbackgroudColor ?? (JHelperFunctions.isDarkMode(context) ? JColors.black : JColors.white),
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(color: Colors.grey, blurRadius: 5, spreadRadius: 1),
+          ],
         ),
+        child: CircularPercentIndicator(
+            radius: radius,
+            lineWidth: lineWidth,
+            animation: animation,
+            percent: percentage,
+            animationDuration: 1200,
+            center:  Text(
+              textPercent,
+              style:
+               TextStyle(fontWeight: FontWeight.bold, fontSize: centerTextFontSize),
+            ),
+
+            footer:  Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: JSizes.sm * 1.2),
+                Text(
+                  bottomText,
+                  style:
+                   TextStyle(fontWeight: FontWeight.bold, fontSize: bottomTextFontSize),
+                ),
+              ],
+            ),
+            circularStrokeCap: CircularStrokeCap.round,
+            progressColor: progressColor,
+            backgroundColor: backgroundColor ?? (JHelperFunctions.isDarkMode(context) ? JColors.white : JColors.darkGrey),
+          ),
+      ),
     );
 
   }

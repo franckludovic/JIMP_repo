@@ -27,6 +27,7 @@ dependencies:
   vertical_percent_indicator: ^0.0.1
   sidebarx: ^0.17.1
   readmore: ^3.0.0
+  font_awesome_flutter: ^10.8.0
   flutter_rating_bar: ^4.0.1
 
 

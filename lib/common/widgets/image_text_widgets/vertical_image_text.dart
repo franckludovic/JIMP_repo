@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
@@ -15,7 +16,8 @@ class VertivalImageText extends StatelessWidget {
     this.onTap,
   });
 
-  final image, title;
+  final IconData image;
+  final String title;
   final Color textColor;
   final Color? backgroundColor ;
   final void Function()? onTap;
@@ -32,34 +34,32 @@ class VertivalImageText extends StatelessWidget {
         child: Column(
           children: [
             ///Circular icons
-            Container(
-              width: 56,
-              height: 56,
-              padding: const EdgeInsets.all(JSizes.sm),
-              decoration: BoxDecoration(
-                  color: backgroundColor ?? (JHelperFunctions.isDarkMode(context) ? JColors.black : JColors.white),
-                  borderRadius:
-                  BorderRadius.circular(100)),
+            JRoundedContainer(
+              showBorder: true,
+              width: 70,
+              height: 70,
+              padding: const EdgeInsets.only( right:  JSizes.sm),
               child: Center(
-                child: Image(
-                  image: AssetImage(image),
-                  fit: BoxFit.cover,
-                  color: dark ? JColors.dark : JColors.dark,
+                child: Icon(
+                  image, // Use the icon instead of image
+                  size: 35, // Adjust the size as needed
+                  color: JColors.dark,
                 ),
               ),
             ),
 
             ///Text
             const SizedBox(
-                height: JSizes.spaceBtwItems / 2),
+                height: JSizes.spaceBtwItems / 3),
             SizedBox(
-                width: 55,
-                child: Text(
-                  title,
-                  style: Theme.of(context).textTheme.labelMedium!.apply(color: textColor),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                )
+              width: 70,
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.labelLarge!.apply(color: textColor),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ), // Text
             ),
           ],
         ),

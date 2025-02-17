@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
-import 'package:project_bc_tuto/features/Applications/screens/home/widgets/home_categoriesV2.dart';
+import 'package:project_bc_tuto/features/Applications/screens/home/widgets/home_categories.dart';
 
 
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
@@ -16,6 +16,7 @@ import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../personilization/screens/settings/settings.dart';
+import '../applications/Widgets/statistics_block.dart';
 import 'widgets/home_appbar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -71,37 +72,10 @@ class HomeScreen extends StatelessWidget {
                          ),
                        )  ,
 
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            JRoundedContainer(
-                              width: 160,
-                              height: 200,
+                    JSectionHeading(title: "Statistics : ", showActonButton: false,),
+                    const SizedBox(height: JSizes.spaceBtwItems),
 
-                            ),
-
-                            SizedBox(width: JSizes.md * 1.5,),
-
-                            JRoundedContainer(
-                              width: 160,
-                              height: 200,
-
-                            ),
-
-                          ],
-                        ),
-
-                        SizedBox(height: JSizes.md * 1.5,),
-
-                        JRoundedContainer(
-
-                          width: double.infinity,
-                          height: 120,
-
-                        )
-                      ],
-                    ),
+                    StatisticsBlock(),
 
                     const SizedBox(height: JSizes.spaceBtwSections),
 
@@ -146,6 +120,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+
 
 
 

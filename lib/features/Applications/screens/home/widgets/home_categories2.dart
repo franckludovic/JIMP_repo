@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:project_bc_tuto/features/Applications/screens/sub_category/sub_category.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../common/widgets/image_text_widgets/vertical_image_text.dart';
 import '../../../../../utils/constants/image_strings.dart';
 
 
-class JhomeCategories extends StatelessWidget {
-  const JhomeCategories({
+class homeCategories extends StatelessWidget {
+  const homeCategories({
     super.key,
   });
 
@@ -20,7 +19,7 @@ class JhomeCategories extends StatelessWidget {
         itemCount: 10,
         scrollDirection: Axis.horizontal,
         itemBuilder: (_, index) {
-          return  VertivalImageText(image: JImages.electronicsIcon, title: "Phones", onTap: () => Get.to(() => SubCategoryScreen() ),);
+          return  VertivalImageText(image: FontAwesomeIcons.robot, title: "Phones", onTap: () {},);
         },
       ),
     );
