@@ -75,7 +75,7 @@ class SettingScreen extends StatelessWidget {
                   JSettingsMenuTile(
                     icon: Iconsax.document_text5,
                     title: "My applications",
-                    subtitle: "Apply, remove, drop-out",
+                    subtitle: "See Status, drop out",
                     onTap: () => Get.to(() => const ApplicationsApplied()) ,
                   ),
                   JSettingsMenuTile(
