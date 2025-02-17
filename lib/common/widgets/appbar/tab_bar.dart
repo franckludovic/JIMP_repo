@@ -18,7 +18,7 @@ class JTabBar extends StatelessWidget implements PreferredSizeWidget{
 
     return Material(
 
-      color: dark ? JColors.black : JColors.white,
+      color: dark ? JColors.black : JColors.softGrey,
 
       child: TabBar(
         tabs: tabs,

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/search_container.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 import 'package:project_bc_tuto/features/Applications/screens/applications/Widgets/category.dart';
+import 'package:project_bc_tuto/utils/device/device_utility.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/appbar/tab_bar.dart';
+import '../../../../common/widgets/applications/applications_cards/applications_card_vertical.dart';
 
 
 ///import 'package:project_bc_tuto/utils/constants/image_strings.dart';
@@ -15,12 +16,14 @@ import '../../../../common/widgets/appbar/tab_bar.dart';
 
 
 import '../../../../common/widgets/companies/compagny_cardsV2.dart';
+import '../../../../common/widgets/custom_shapes/container_shapes/Cirular_shape.dart';
 import '../../../../common/widgets/layout/grid_layout.dart';
 import '../../../../common/widgets/notifications/notifications_icon.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../Brands/all_brands.dart';
 import '../Brands/brand_product.dart';
+import '../all_product/all_application.dart';
 
 class Application extends StatelessWidget {
   const Application({super.key});
@@ -47,12 +50,12 @@ class Application extends StatelessWidget {
                   backgroundColor: JHelperFunctions.isDarkMode(context)
                       ? JColors.black
                       : JColors.white,
-                  expandedHeight: 430,
+                  expandedHeight: 685,
                   flexibleSpace: Padding(
                     padding: EdgeInsets.all(JSizes.defaultSpace),
                     child: ListView(
                       shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
+                      physics: const AlwaysScrollableScrollPhysics(),
                       children: [
                         ///Searh bar
                         SizedBox(height: JSizes.spaceBtwItems),
@@ -81,16 +84,43 @@ class Application extends StatelessWidget {
                         //   ],
                         // )
 
-                        JGridLayout(
-                            itemCount: 4,
-                            mainAxisExtend: 80,
-                            itemBuilder: (_, index) {
-                              return JCompagnyCard2(showBorder: true, onTap: () => Get.to(() => const BrandProduct()),);
-                            }
+                        Column(
+                          children: [
+                            JGridLayout(
+                                itemCount: 4,
+                                mainAxisExtend: 80,
+                                itemBuilder: (_, index) {
+                                  return JCompagnyCard2(showBorder: true, onTap: () => Get.to(() => const BrandProduct()),);
+                                }
+                            ),
+
+                            SizedBox(height: JSizes.spaceBtwSections * 0.7 ,),
+
+                            //Divider(thickness: 5 ),
+                            Padding(
+                              padding: const EdgeInsets.all(JSizes.defaultSpace),
+                              child: JCircularContainer(
+                                height: 4,
+                                backgroundColor: JColors.grey,
+                                width: JDeviceUtils.getScreenWidth(context),
+                              ),
+                            ),
+
+
+                            JSectionHeading(title: 'Popular Internships', onPressed: () => Get.to(() => AllApplications())),
+
+                            SizedBox(height: JSizes.spaceBtwItems * 0.7,),
+
+                            JGridLayout(itemCount: 8, itemBuilder: (_, index) => JApplicationsCardVertical()),
+
+                            SizedBox(height: JSizes.spaceBtwSections,),
+                          ],
                         )
                       ],
                     ),
                   ),
+
+
 
                   ///tabs
                   bottom: const JTabBar(
@@ -106,7 +136,7 @@ class Application extends StatelessWidget {
                 ),
               ];
             },
-            body: TabBarView(children: [JCategory(), JCategory(), JCategory(), JCategory(), JCategory(), JCategory(),]
+            body: TabBarView( children: [JCategory(), JCategory(), JCategory(), JCategory(), JCategory(), JCategory(),]
             )
         ),
       ),

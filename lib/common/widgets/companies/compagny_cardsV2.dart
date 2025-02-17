@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/enums.dart';
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
-import '../../../utils/helpers/helper_functions.dart';
 import '../Images/Jcircular_image.dart';
 import '../custom_shapes/container_shapes/rounded_container.dart';
 import '../texts/compagny_title_with_verified_icon.dart';
@@ -34,11 +32,9 @@ class JCompagnyCard2 extends StatelessWidget {
             Flexible(
               child: JCircularImage(
                 isNetworkImage: false,
-                image: JImages.clothIcon,
+                image: JImages.nvidia,
                 backgroundColor: Colors.transparent,
-                overlayColor: JHelperFunctions.isDarkMode(context)
-                    ? JColors.white
-                    : JColors.black,
+
               ),
             ),
             const SizedBox(height: JSizes.spaceBtwItems / 2),

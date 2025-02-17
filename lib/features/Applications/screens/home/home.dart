@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import 'package:project_bc_tuto/features/Applications/screens/home/widgets/home_categoriesV2.dart';
 
 
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 
-import '../../../../common/widgets/applications/applications_cards/applications_card_vertical.dart';
 import '../../../../common/widgets/custom_shapes/container_shapes/primary_header_conatiner.dart';
 import '../../../../common/widgets/custom_shapes/container_shapes/search_container.dart';
 
 import '../../../../common/widgets/job_and_internship_card/carousel_slider_interships.dart';
 import '../../../../common/widgets/job_and_internship_card/intership_cards.dart';
 
-import '../../../../common/widgets/layout/grid_layout.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../personilization/screens/settings/settings.dart';
-import '../all_product/all_application.dart';
 import 'widgets/home_appbar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -68,33 +65,52 @@ class HomeScreen extends StatelessWidget {
 
                              JhomeCategories(),
 
-                             // JCategoryTab(
-                             //   categories: [
-                             //     {"name": "Design", "color": Colors.green, "icon": Icons.brush},
-                             //     {"name": "Coding", "color": Colors.red, "icon": Icons.code},
-                             //     {"name": "Data", "color": Colors.orange, "icon": Icons.bar_chart},
-                             //     {"name": "Network", "color": Colors.purple, "icon": Icons.wifi},
-                             //0     {"name": "AI", "color": Colors.blue, "icon": Icons.smart_toy},
-                             //     {"name": "Security", "color": Colors.deepOrange, "icon": Icons.security},
-                             //     {"name": "Cloud", "color": Colors.cyan, "icon": Icons.cloud},
-                             //   ],
-                             // ),
-
-
                              const SizedBox(height: JSizes.spaceBtwSections),
 
                            ],
                          ),
                        )  ,
 
-                    JSectionHeading(title: "Recommended Internships",onPressed: () {},),
-                    const SizedBox(height: JSizes.spaceBtwItems * 0.1),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            JRoundedContainer(
+                              width: 160,
+                              height: 200,
+
+                            ),
+
+                            SizedBox(width: JSizes.md * 1.5,),
+
+                            JRoundedContainer(
+                              width: 160,
+                              height: 200,
+
+                            ),
+
+                          ],
+                        ),
+
+                        SizedBox(height: JSizes.md * 1.5,),
+
+                        JRoundedContainer(
+
+                          width: double.infinity,
+                          height: 120,
+
+                        )
+                      ],
+                    ),
+
+                    const SizedBox(height: JSizes.spaceBtwSections),
+
+                    JSectionHeading(title: "Recommended Internships", showActonButton: false,),
+                    const SizedBox(height: JSizes.spaceBtwItems),
 
 
-
-
-                    ///promo slider
-                    JobCarousel(
+                    ///Internship slider
+                    InternshipCarousel(
                         jobs : [
                           HorizontalJIntershipCard(companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"], onTap: () => (const SettingScreen()),),
                           HorizontalJIntershipCard(companyLogo: JImages.nvidia,companyName: "Nvidia",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"]),
@@ -106,7 +122,6 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: JSizes.spaceBtwSections),
 
-                    JSectionHeading(title: 'Popular Internships', onPressed: () => Get.to(() => AllApplications())),
 
                     ///applications in grid in 2 : n should be removed and replaced with horizontal layout in 1 : n
                     // JIGridLaout(
@@ -119,7 +134,6 @@ class HomeScreen extends StatelessWidget {
                     //     ]
                     // )
 
-                    JGridLayout(itemCount: 8, itemBuilder: (_, index) => JApplicationsCardVertical())
 
 
 

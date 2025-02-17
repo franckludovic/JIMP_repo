@@ -8,8 +8,8 @@ import '../../../utils/constants/sizes.dart';
 import '../custom_shapes/container_shapes/Cirular_shape.dart';
 import 'intership_cards.dart';
 
-class JobCarousel extends StatelessWidget {
-  const JobCarousel({
+class InternshipCarousel extends StatelessWidget {
+  const InternshipCarousel({
     super.key,
     required this.jobs,
     this.onTap,
