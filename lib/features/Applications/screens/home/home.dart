@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                              //     {"name": "Coding", "color": Colors.red, "icon": Icons.code},
                              //     {"name": "Data", "color": Colors.orange, "icon": Icons.bar_chart},
                              //     {"name": "Network", "color": Colors.purple, "icon": Icons.wifi},
-                             //     {"name": "AI", "color": Colors.blue, "icon": Icons.smart_toy},
+                             //0     {"name": "AI", "color": Colors.blue, "icon": Icons.smart_toy},
                              //     {"name": "Security", "color": Colors.deepOrange, "icon": Icons.security},
                              //     {"name": "Cloud", "color": Colors.cyan, "icon": Icons.cloud},
                              //   ],
@@ -89,6 +89,8 @@ class HomeScreen extends StatelessWidget {
 
                     JSectionHeading(title: "Recommended Internships",onPressed: () {},),
                     const SizedBox(height: JSizes.spaceBtwItems * 0.1),
+
+
 
 
                     ///promo slider

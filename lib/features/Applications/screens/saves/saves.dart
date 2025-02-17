@@ -6,9 +6,8 @@ import 'package:project_bc_tuto/common/widgets/icons/circular_icon.dart';
 import 'package:project_bc_tuto/features/Applications/screens/home/home.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
-import '../../../../common/widgets/layout/application_grid_layout.dart';
-import '../../../../utils/constants/image_strings.dart';
-import '../../../../common/widgets/applications/applications_cards/vertical_Application.dart';
+import '../../../../common/widgets/applications/applications_cards/applications_card_vertical.dart';
+import '../../../../common/widgets/layout/grid_layout.dart';
 
 class SavedScreen extends StatelessWidget {
   const SavedScreen({super.key});
@@ -31,14 +30,16 @@ class SavedScreen extends StatelessWidget {
           padding: EdgeInsets.all(JSizes.defaultSpace),
           child: Column(
             children: [
-              JIGridLaout(
-                JList: [
-                  VerticalJInternshipCard(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true),
-                  VerticalJInternshipCard(companyName: "Nvidia", companyLogo: JImages.nvidia, internshipTitle: "Data analyst",saved: true),
 
+              // JIGridLaout(
+              //   JList: [
+              //     VerticalJInternshipCard(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true),
+              //     VerticalJInternshipCard(companyName: "Nvidia", companyLogo: JImages.nvidia, internshipTitle: "Data analyst",saved: true),
+              //   ],
+              // ),
 
-                ],
-              )
+              JGridLayout(itemCount: 4, itemBuilder: (_, index) => JApplicationsCardVertical())
+
             ],
           ),
         ),
