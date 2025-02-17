@@ -18,7 +18,7 @@ class JCardListviewItem extends StatelessWidget {
     return ListView.separated(
         shrinkWrap: true,
         separatorBuilder: (_, __) => const SizedBox(height: JSizes.spaceBtwSections),
-        itemCount: 2,
+        itemCount: 1,
         itemBuilder: (_, index) => Column(
 
           children: [

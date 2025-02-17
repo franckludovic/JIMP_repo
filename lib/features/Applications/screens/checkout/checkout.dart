@@ -4,9 +4,6 @@ import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import 'package:project_bc_tuto/common/widgets/success_screen/success_screen.dart';
 import 'package:project_bc_tuto/features/Applications/screens/applications_applied/widgets/cart_checkout_item.dart';
-import 'package:project_bc_tuto/features/Applications/screens/checkout/widget/billing_address_section.dart';
-import 'package:project_bc_tuto/features/Applications/screens/checkout/widget/billing_amount_section.dart';
-import 'package:project_bc_tuto/features/Applications/screens/checkout/widget/billing_payment_section.dart';
 import 'package:project_bc_tuto/navigation_menu.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
@@ -25,7 +22,7 @@ class CheckoutScreen extends StatelessWidget {
     return Scaffold(
       appBar: JAppbar(
           showBackArrow: true,
-          title: Text('Order Review',
+          title: Text('Drop Review',
               style: Theme.of(context).textTheme.headlineSmall)),
       body: SingleChildScrollView(
         child: Padding(
@@ -38,7 +35,7 @@ class CheckoutScreen extends StatelessWidget {
 
               /// coupon textfield
 
-              JCouponCode(),
+              JAttashProve(),
               const SizedBox(height: JSizes.spaceBtwSections),
 
               ///--billing Section
@@ -48,20 +45,33 @@ class CheckoutScreen extends StatelessWidget {
                 backgroundColor: dark ? JColors.black : JColors.white,
                 child: Column(
                   children: [
-                    ///printing
-                    JBillingAmountSection(),
-                    const SizedBox(height: JSizes.spaceBtwItems),
+                    // ///printing
+                    // JBillingAmountSection(),
+                    // const SizedBox(height: JSizes.spaceBtwItems),
+                    //
+                    // ///divider
+                    // Divider(),
+                    // const SizedBox(height: JSizes.spaceBtwItems),
+                    //
+                    // ///payment methods
+                    // const JBillingPaymentSection(),
+                    // const SizedBox(height: JSizes.spaceBtwItems),
+                    //
+                    // ///address
+                    // JBillingAddressSection(),
 
-                    ///divider
-                    Divider(),
-                    const SizedBox(height: JSizes.spaceBtwItems),
-
-                    ///payment methods
-                    const JBillingPaymentSection(),
-                    const SizedBox(height: JSizes.spaceBtwItems),
-
-                    ///address
-                    JBillingAddressSection(),
+                    Scrollbar(
+                      child: TextField(
+                        minLines: 12, // Sets the initial height to 3 lines
+                        maxLines: 15, // Allows it to expand as needed
+                        keyboardType: TextInputType.multiline,
+                        decoration: InputDecoration(
+                          labelText: 'Letter of Resignation',
+                          hintText: 'Type something...',
+                          //border: OutlineInputBorder(),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               )
@@ -72,16 +82,16 @@ class CheckoutScreen extends StatelessWidget {
 
       ///Checkout button
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(JSizes.defaultSpace),
+        padding: const EdgeInsets.all(JSizes.defaultSpace ),
         child: ElevatedButton(
             onPressed: () => Get.to(() => SuccessScreen(
               image: JImages.successfulPaymentIcon2,
-              title: "Payment Success",
-              subTitle: "Your Item will be shopped soon!",
+              title: "Application Dropped",
+              subTitle: "Hope we see you again!",
               onPressed: () => Get.offAll(() => const CandidateNavigationMenu()),
             )
             ),
-            child: Text("Checkout \$256.0")),
+            child: Text("CONTINUE", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),)),
       ),
     );
   }

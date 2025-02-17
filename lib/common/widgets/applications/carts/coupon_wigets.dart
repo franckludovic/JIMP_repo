@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../custom_shapes/container_shapes/rounded_container.dart';
 
-class JCouponCode extends StatelessWidget {
-  const JCouponCode({
+class JAttashProve extends StatelessWidget {
+  const JAttashProve({
     super.key,
 
   });
@@ -28,15 +29,23 @@ class JCouponCode extends StatelessWidget {
         children: [
           ///Text Fields
           Flexible(
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Have promo code? Enter here',
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-              ),
+            child: Row(
+              children: [
+                Icon(Iconsax.document_upload),
+                SizedBox(width: JSizes.spaceBtwItems/2),
+                Flexible(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Attach a Prove',
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -50,7 +59,7 @@ class JCouponCode extends StatelessWidget {
                     backgroundColor: Colors.grey.withAlpha((0.5 * 255).toInt()),
                     side: BorderSide(color: Colors.grey.withAlpha((0.1 * 255).toInt()),)
                 ),
-                child: const Text('Apply'),
+                child: const Text('Attach'),
               )
           )
         ],
