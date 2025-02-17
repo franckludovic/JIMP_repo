@@ -16,7 +16,7 @@ class SavedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: JAppbar(
-        title: Text("Saved Applications",
+        title: Text("Saved Application",
             style: Theme.of(context).textTheme.headlineMedium),
         actions: [
           JCircularIcon(
