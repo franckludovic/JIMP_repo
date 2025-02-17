@@ -25,7 +25,7 @@ class JCompagnyCard2 extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: JRoundedContainer(
-        padding: const EdgeInsets.all(JSizes.sm),
+        padding: const EdgeInsets.all(JSizes.xs),
         showBorder: showBorder,
         backgroundColor: Colors.transparent,
         child: Row(
@@ -50,9 +50,9 @@ class JCompagnyCard2 extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   JCompagnyTittleVerifications(
-                      title: "CBC", compagnyTextSize: TextSizes.large),
+                      title: "Nvidia", compagnyTextSize: TextSizes.large),
                   Text(
-                    '256 Applications',
+                    '6 Applications',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.labelMedium,
                   )

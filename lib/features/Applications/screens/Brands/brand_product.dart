@@ -12,7 +12,7 @@ class BrandProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: JAppbar(title: Text('Nike'),),
+      appBar: JAppbar(title: Text('Nvidia'), showBackArrow: true,),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(JSizes.defaultSpace),
