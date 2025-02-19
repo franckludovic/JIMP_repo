@@ -3,7 +3,7 @@ import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/ro
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
-import '../../../utils/helpers/helper_functions.dart';
+//import '../../../utils/helpers/helper_functions.dart';
 
 
 class VertivalImageText extends StatelessWidget {
@@ -25,7 +25,7 @@ class VertivalImageText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final dark = JHelperFunctions.isDarkMode(context);
+    //final dark = JHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
       onTap: onTap,

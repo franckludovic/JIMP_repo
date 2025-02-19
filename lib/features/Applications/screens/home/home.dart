@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import 'package:project_bc_tuto/features/Applications/screens/home/widgets/home_categories.dart';
 
 
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 
+import '../../../../common/widgets/applications/applications_cards/JSearchAndPassCard.dart';
 import '../../../../common/widgets/custom_shapes/container_shapes/primary_header_conatiner.dart';
 import '../../../../common/widgets/custom_shapes/container_shapes/search_container.dart';
 
@@ -98,15 +98,12 @@ class HomeScreen extends StatelessWidget {
 
 
                     ///applications in grid in 2 : n should be removed and replaced with horizontal layout in 1 : n
-                    // JIGridLaout(
-                    //     JList: [
-                    //       VerticalJInternshipCard(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true,),
-                    //       VerticalJInternshipCard(companyName: "Facebook", companyLogo: JImages.facebook, internshipTitle: "Network admin"),
-                    //       VerticalJInternshipCard(companyName: "Apple", companyLogo: JImages.apple, internshipTitle: "Database admin"),
-                    //       VerticalJInternshipCard(companyName: "Nvidia", companyLogo: JImages.nvidia, internshipTitle: "Data analyst",saved: true,),
-                    //
-                    //     ]
-                    // )
+                    
+                    JSectionHeading(title: 'Completed Internships', showActonButton: true, onPressed: () {}, TextSize: 20,),
+
+                    const SizedBox(height: JSizes.spaceBtwItems),
+
+                    SearchAndPastCardInternship(),
 
 
 

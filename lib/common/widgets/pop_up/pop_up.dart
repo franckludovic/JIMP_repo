@@ -7,20 +7,20 @@ class CustomPopup extends StatelessWidget {
   final Function(String) onSave;
 
   const CustomPopup({
-    Key? key,
+    super.key,
     required this.title,
     required this.hintText,
     required this.onSave,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _controller = TextEditingController();
+    final TextEditingController controller = TextEditingController();
 
     return AlertDialog(
       title: Text(title),
       content: TextField(
-        controller: _controller,
+        controller: controller,
         decoration: InputDecoration(hintText: hintText),
       ),
       actions: [
@@ -32,7 +32,7 @@ class CustomPopup extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            onSave(_controller.text);
+            onSave(controller.text);
             Get.back();
           },
           child: const Text('Save'),

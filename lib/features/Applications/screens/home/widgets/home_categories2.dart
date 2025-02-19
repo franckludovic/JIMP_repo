@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../common/widgets/image_text_widgets/vertical_image_text.dart';
-import '../../../../../utils/constants/image_strings.dart';
 
 
 class homeCategories extends StatelessWidget {

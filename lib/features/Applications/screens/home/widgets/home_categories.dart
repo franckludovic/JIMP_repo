@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/features/Applications/screens/sub_category/sub_category.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
 import '../../../../../common/widgets/image_text_widgets/vertical_image_text.dart';
-import '../../../../../utils/constants/image_strings.dart';
 
 
 class JhomeCategories extends StatelessWidget {

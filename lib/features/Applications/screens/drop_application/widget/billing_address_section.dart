@@ -3,7 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
 import '../../../../../common/widgets/texts/section_heading.dart';
-import '../../../../../utils/helpers/helper_functions.dart';
+//import '../../../../../utils/helpers/helper_functions.dart';
 
 class JBillingAddressSection extends StatelessWidget {
   const JBillingAddressSection({super.key});
@@ -11,7 +11,7 @@ class JBillingAddressSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final dark = JHelperFunctions.isDarkMode(context);
+    //final dark = JHelperFunctions.isDarkMode(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

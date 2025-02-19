@@ -11,6 +11,7 @@ class JSectionHeading extends StatelessWidget {
     this.buttonTitle = 'View all',
     this.onPressed,
     this.alignment = MainAxisAlignment.spaceBetween,
+    this.TextSize,
   });
 
   final Color? textColor;
@@ -18,6 +19,7 @@ class JSectionHeading extends StatelessWidget {
   final String title, buttonTitle;
   final void Function()? onPressed;
   final MainAxisAlignment alignment;
+  final double? TextSize;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class JSectionHeading extends StatelessWidget {
       mainAxisAlignment: alignment,
       children: [
         Text(title,
-            style: Theme.of(context).textTheme.headlineSmall!.apply(color: textColor),
+            style: Theme.of(context).textTheme.headlineSmall!.apply(color: textColor).copyWith(fontSize: TextSize),
             maxLines: 1,
             overflow: TextOverflow.ellipsis),
         const SizedBox(width: JSizes.spaceBtwItems),

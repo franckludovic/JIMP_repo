@@ -4,7 +4,6 @@ import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/search_container.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 import 'package:project_bc_tuto/features/Applications/screens/applications/Widgets/category.dart';
-import 'package:project_bc_tuto/utils/device/device_utility.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/appbar/tab_bar.dart';
 import '../../../../common/widgets/applications/applications_cards/applications_card_vertical.dart';
@@ -16,7 +15,7 @@ import '../../../../common/widgets/applications/applications_cards/applications_
 
 
 import '../../../../common/widgets/companies/compagny_cardsV2.dart';
-import '../../../../common/widgets/custom_shapes/container_shapes/Cirular_shape.dart';
+import '../../../../common/widgets/custom_shapes/other_shapes/custom_divider.dart';
 import '../../../../common/widgets/layout/grid_layout.dart';
 import '../../../../common/widgets/notifications/notifications_icon.dart';
 import '../../../../utils/constants/colors.dart';
@@ -74,15 +73,6 @@ class Application extends StatelessWidget {
                         const SizedBox(height: JSizes.spaceBtwItems / 1.5),
 
                         ///compagnies grid
-                        // JIGridLaout(
-                        //   aspectRatio: 2,
-                        //   JList: [
-                        //     JCompagnyCard(title: "Google", num_Applications: 55,image: JImages.google,),
-                        //     JCompagnyCard(title: "Nvidia", num_Applications: 108,image: JImages.nvidia,),
-                        //     JCompagnyCard(title: "APPlE", num_Applications: 65,image: JImages.apple,),
-                        //     JCompagnyCard(title: "Facebook", num_Applications: 78,image: JImages.facebook,),
-                        //   ],
-                        // )
 
                         Column(
                           children: [
@@ -97,14 +87,7 @@ class Application extends StatelessWidget {
                             SizedBox(height: JSizes.spaceBtwSections * 0.7 ,),
 
                             //Divider(thickness: 5 ),
-                            Padding(
-                              padding: const EdgeInsets.all(JSizes.defaultSpace),
-                              child: JCircularContainer(
-                                height: 4,
-                                backgroundColor: JColors.grey,
-                                width: JDeviceUtils.getScreenWidth(context),
-                              ),
-                            ),
+                            JDivider(),
 
 
                             JSectionHeading(title: 'Popular Internships', onPressed: () => Get.to(() => AllApplications())),
@@ -143,3 +126,4 @@ class Application extends StatelessWidget {
     );
   }
 }
+

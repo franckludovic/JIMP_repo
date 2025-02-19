@@ -6,6 +6,8 @@ import 'package:project_bc_tuto/features/authentication/screens/password_configu
 
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
+import '../../../../Applications/screens/application_page_form/applyPage.dart';
+
 
 class TLoginForm extends StatelessWidget {
 
@@ -58,7 +60,7 @@ class TLoginForm extends StatelessWidget {
             ),
 
             ///sign in button
-            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => ( ), child: Text(JTexts.signIn))),
+            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() =>  ApplyPage(requiresVerification: false,)), child: Text(JTexts.signIn))),
             const SizedBox(height: JSizes.spaceBtwItems),
 
             ///create account button

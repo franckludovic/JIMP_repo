@@ -11,9 +11,10 @@ import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
 import '../../../../common/widgets/applications/carts/coupon_wigets.dart';
+import '../../../../common/widgets/texts/text_fields.dart';
 
-class CheckoutScreen extends StatelessWidget {
-  const CheckoutScreen({super.key});
+class DropApplicationScreen extends StatelessWidget {
+  const DropApplicationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,33 +46,9 @@ class CheckoutScreen extends StatelessWidget {
                 backgroundColor: dark ? JColors.black : JColors.white,
                 child: Column(
                   children: [
-                    // ///printing
-                    // JBillingAmountSection(),
-                    // const SizedBox(height: JSizes.spaceBtwItems),
-                    //
-                    // ///divider
-                    // Divider(),
-                    // const SizedBox(height: JSizes.spaceBtwItems),
-                    //
-                    // ///payment methods
-                    // const JBillingPaymentSection(),
-                    // const SizedBox(height: JSizes.spaceBtwItems),
-                    //
-                    // ///address
-                    // JBillingAddressSection(),
 
-                    Scrollbar(
-                      child: TextField(
-                        minLines: 12, // Sets the initial height to 3 lines
-                        maxLines: 15, // Allows it to expand as needed
-                        keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
-                          labelText: 'Letter of Resignation',
-                          hintText: 'Type something...',
-                          //border: OutlineInputBorder(),
-                        ),
-                      ),
-                    )
+
+                    JTestField(labelText: 'Letter of Resignation', hintText: 'Type something...',),
                   ],
                 ),
               )
@@ -96,3 +73,5 @@ class CheckoutScreen extends StatelessWidget {
     );
   }
 }
+
+

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
-import '../../../features/Applications/screens/Applicaton_details/my_application_details.dart';
+import '../../../features/Applications/screens/Applicaton_details/application_details.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
+import 'package:intl/intl.dart';
+
 
 class HorizontalJIntershipCard extends StatelessWidget {
   const HorizontalJIntershipCard({
@@ -18,6 +20,11 @@ class HorizontalJIntershipCard extends StatelessWidget {
     this.backgroundColor,
     this.onTap,
     this.saved = false,
+    this.isCompleted = false,
+    this.day,
+    this.month,
+    this.year,
+    this.borderRadius = 18,
   });
 
   final String companyLogo;
@@ -29,6 +36,11 @@ class HorizontalJIntershipCard extends StatelessWidget {
   final List<String> skills;
   final bool saved;
   final VoidCallback? onTap;
+  final bool isCompleted;
+  final int? day;
+  final int? month;
+  final int? year;
+  final double borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +51,7 @@ class HorizontalJIntershipCard extends StatelessWidget {
           // Internship Card
           Container(
             height: 200,
+            width: null,
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.all(3),
             decoration: BoxDecoration(
@@ -46,7 +59,7 @@ class HorizontalJIntershipCard extends StatelessWidget {
                   (JHelperFunctions.isDarkMode(context)
                       ? JColors.grey
                       : JColors.secondary.withAlpha((0.1 * 255).toInt())),
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(borderRadius),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withAlpha((0.1 * 255).toInt()),
@@ -136,31 +149,76 @@ class HorizontalJIntershipCard extends StatelessWidget {
             ),
           ),
 
-          // Save Button Positioned at Bottom-Left
-          Positioned(
-            bottom: 2.5, // Distance from bottom
-            right: 3, // Distance from left
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: JColors.dark,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(JSizes.iconXs),
-                  bottomRight: Radius.circular(JSizes.iconSm),
-                ),
+          // Dates Positioned at Bottom-Left (Only if Completed and Date is Provided)
+          if (isCompleted && day != null && month != null && year != null)
+            Positioned(
+              bottom: 20,
+              left: 20,
+              child: Dates(
+                year: year!,
+                month: month!,
+                day: day!,
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 5),
-                child: Icon(
-                  Iconsax.save_21,
-                  color: saved ? Colors.yellow : JColors.white,
-                  size: 32,
+            ),
+
+          // Save Button Positioned at Bottom-Right (Only if Not Completed)
+          if (!isCompleted)
+            Positioned(
+              bottom: 2.5,
+              right: 3,
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: JColors.dark,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(JSizes.iconXs),
+                    bottomRight: Radius.circular(JSizes.iconSm),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Icon(
+                    Iconsax.save_21,
+                    color: saved ? Colors.yellow : JColors.white,
+                    size: 32,
+                  ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
+  }
+}
+
+
+
+class CompletionDate extends StatelessWidget {
+  final DateTime completionDate;
+
+  const CompletionDate({super.key, required this.completionDate});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Text(
+      'Completed on: ${DateFormat('dd - MM - yyyy').format(completionDate)}',
+      style:  TextStyle(fontSize: 20, fontFamily: 'Poppins', fontWeight: FontWeight.bold ,color: JColors.black, ),
+    );
+  }
+}
+
+
+class Dates extends StatelessWidget {
+  const Dates({super.key, required this.year, required this.month, required this.day});
+
+  final int year;
+  final int month;
+  final int day;
+
+  @override
+  Widget build(BuildContext context) {
+    final DateTime internshipEndDate = DateTime(year, month, day);
+    return CompletionDate(completionDate: internshipEndDate);
   }
 }
