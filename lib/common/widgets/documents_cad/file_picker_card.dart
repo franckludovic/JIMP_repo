@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:open_filex/open_filex.dart';
+import 'package:open_file/open_file.dart';
 
 import '../../../utils/constants/colors.dart';
 
@@ -31,7 +31,7 @@ class _DocumentUploadWidgetState extends State<DocumentUploadWidget> {
 
   void openDocument() {
     if (selectedFile != null) {
-      OpenFilex.open(selectedFile!.path);
+      OpenFile.open(selectedFile!.path);
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/other_shapes/custom_divider.dart';
 import 'package:project_bc_tuto/common/widgets/texts/text_fields.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
+import '../../../../common/widgets/companies/desciption_info_tile.dart';
 import '../../../../common/widgets/documents_cad/additonal_file_checkbox_picker.dart';
 import '../../../../common/widgets/documents_cad/file_picker_card.dart';
 import '../../../../utils/constants/image_strings.dart';
@@ -45,6 +46,11 @@ class ApplyFormState extends State<ApplyPage> {
               ),
               JDivider(),
               SizedBox(height: JSizes.spaceBtwItems / 2),
+
+              InfoTile(
+                title: 'Your Role :',
+                textBody:"You will be working on the Infrastructure  team and contributing to the development of our systems",
+              ),
 
               DocumentUploadWidget(),
 

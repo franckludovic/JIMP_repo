@@ -16,6 +16,7 @@ class JAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingOnPressed,
     this.showBackArrow = false,
     this.color,
+    this.backgroundColor,
   });
 
   final Widget? title;
@@ -24,6 +25,7 @@ class JAppbar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
   final Color? color;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class JAppbar extends StatelessWidget implements PreferredSizeWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: JSizes.md),
       child: AppBar(
+        backgroundColor: backgroundColor,
            automaticallyImplyLeading: false,
         leading: showBackArrow
             ? IconButton(

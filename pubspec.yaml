@@ -31,7 +31,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   file_picker: ^9.0.0
   flutter_svg: ^2.0.17
-  open_filex: ^4.6.0
+  open_file: ^3.5.10
 
 
 
