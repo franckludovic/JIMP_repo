@@ -45,5 +45,5 @@ class CandidateNavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [ const HomeScreen(), /*Container(color: Colors.greenAccent)*/ const ChatsScreen(), const Application(), const SavedScreen(), const SettingScreen()];
+  final screens = [ const HomeScreen(), Container(color: Colors.greenAccent) /*const ChatsScreen()*/, const Application(), const SavedScreen(), const SettingScreen()];
 }

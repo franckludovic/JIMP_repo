@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:project_bc_tuto/features/Applications/screens/home/widgets/home_categories.dart';
 
 
@@ -17,6 +19,7 @@ import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../personilization/screens/settings/settings.dart';
 import '../applications/Widgets/statistics_block.dart';
+import '../search_page/search_body.dart';
 import 'widgets/home_appbar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -39,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: JSizes.spaceBtwSections),
 
                   ///Searchbar
-                  const JSearchContainer(text: "Search for an Opportunity"),
+                  JSearchContainer(text: "Search for an Opportunity", onTap: () => Get.to(() => const SearchBody()), ),
 
 
                 ],
