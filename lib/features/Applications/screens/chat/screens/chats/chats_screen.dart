@@ -39,17 +39,3 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   }
 
-  AppBar buildAppBar() {
-    return AppBar(
-      backgroundColor: JColors.primary,
-      automaticallyImplyLeading: false,
-      title: const Text("Chats"),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.search),
-          onPressed: () {},
-        ),
-      ],
-    );
-  }
-
