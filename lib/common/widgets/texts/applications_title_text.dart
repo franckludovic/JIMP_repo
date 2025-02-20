@@ -28,7 +28,7 @@ class JApplicationTitleText extends StatelessWidget {
         style: (smallSize
             ? Theme.of(context).textTheme.labelLarge
             : Theme.of(context).textTheme.titleSmall)
-            ?.copyWith(fontSize: textSize, fontWeight: FontWeight.bold, color: dark ? JColors.grey : JColors.dark),
+            ?.copyWith(fontSize: textSize, fontWeight: FontWeight.bold, color: JColors.dark),
         overflow: TextOverflow.ellipsis,
         maxLines: maxLines,
         textAlign: textAlign,

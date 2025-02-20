@@ -7,7 +7,6 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../styles/shadow.dart';
 import '../../custom_shapes/container_shapes/rounded_container.dart';
 import '../../Images/rounded_image.dart';
-import '../../texts/application_price_text.dart';
 import '../../texts/applications_title_text.dart';
 import '../../texts/compagny_title_with_verified_icon.dart';
 
@@ -55,9 +54,9 @@ class JApplicationsCardVertical extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  JApplicationTitleText( title: "Acer gaming Laptop", smallSize: true),
+                  JApplicationTitleText( title: "DataBase Engineer",),
                   const SizedBox(height: JSizes.spaceBtwItems / 2),
-                  JCompagnyTittleVerifications(title: "Nike"),
+
                 ],
               ),
             ),
@@ -69,7 +68,7 @@ class JApplicationsCardVertical extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: JSizes.sm),
-                  child: const JApplicationPrice(price: '35.0'),
+                  child: JCompagnyTittleVerifications(title: "Nvidia"),
                 ),
 
                 Container(

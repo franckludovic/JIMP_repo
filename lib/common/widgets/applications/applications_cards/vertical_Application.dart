@@ -19,22 +19,23 @@ class VerticalJInternshipCard extends StatelessWidget {
     required this.internshipTitle,
     required this.companyName,
     this.saved = false,
+    required this.location,
   });
 
   final String companyLogo;
   final String internshipTitle;
   final String companyName;
   final bool saved;
+  final String location;
 
   @override
   Widget build(BuildContext context) {
     final dark = JHelperFunctions.isDarkMode(context);
 
-    // Wrap the card in a SizedBox with a fixed height:
     return GestureDetector(
       onTap: () => Get.to(() => const MyApplicationDetails()),
       child: SizedBox(
-        height: 270,
+        height: 200,
         width: 165,
         child: Container(
           padding: const EdgeInsets.all(1),
@@ -75,9 +76,19 @@ class VerticalJInternshipCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     JApplicationTitleText(
+                      textSize: 20,
+                      maxLines: 2,
                       title: internshipTitle,
                     ),
                     const SizedBox(height: JSizes.spaceBtwItems / 2),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(Iconsax.location, size: 22,color: dark ? JColors.lightGrey : JColors.darkGrey,),
+                        Text(location, style: TextStyle(fontSize: 15,color: dark ? JColors.lightGrey : JColors.darkGrey), maxLines: 1 , softWrap: true,),
+                      ],
+                    )
+
 
                   ],
                 ),
@@ -93,7 +104,7 @@ class VerticalJInternshipCard extends StatelessWidget {
                     alignment: Alignment.bottomLeft,
                     child: JCompagnyTittleVerifications(
                       title: companyName,
-                      textColor: JColors.grey,
+                      textColor: JColors.darkerGrey,
                     ),
                   ),
                   // Save Button Section (aligned at the bottom)
