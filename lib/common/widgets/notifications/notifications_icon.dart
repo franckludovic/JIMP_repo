@@ -20,7 +20,7 @@ class NotificationCounterIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        IconButton(onPressed: ()  => Get.to(() => const NotificationScreen()), icon: Icon(Iconsax.notification, color: iconColor)),
+        IconButton(onPressed: ()  => Get.to(() => const JNotificationScreen()), icon: Icon(Iconsax.notification, color: iconColor)),
         Positioned(
           right: 0,
           child: Container(

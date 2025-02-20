@@ -9,8 +9,8 @@ import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/colors.dart';
 
 
-class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
+class JNotificationScreen extends StatelessWidget {
+  const JNotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

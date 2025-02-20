@@ -6,6 +6,7 @@ import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/pr
 import 'package:project_bc_tuto/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 import 'package:project_bc_tuto/features/Applications/screens/applications_applied/applied.dart';
+import 'package:project_bc_tuto/features/Applications/screens/notifications/notifications.dart';
 import 'package:project_bc_tuto/features/personilization/screens/address/address.dart';
 import 'package:project_bc_tuto/features/personilization/screens/profile/Profile.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
@@ -90,17 +91,12 @@ class SettingScreen extends StatelessWidget {
                     subtitle: "Offers Received",
                     onTap: () {},
                   ),
-                  JSettingsMenuTile(
-                    icon: Iconsax.profile_2user,
-                    title: "My Network",
-                    subtitle: "You connection with people ",
-                    onTap: () {},
-                  ),
+
                   JSettingsMenuTile(
                     icon: Iconsax.notification,
                     title: "Notifications",
                     subtitle: "Get any kind of updates",
-                    onTap: () {},
+                    onTap: () => Get.to(() => const JNotificationScreen()),
                   ),
                   JSettingsMenuTile(
                     icon: Iconsax.security_card,
