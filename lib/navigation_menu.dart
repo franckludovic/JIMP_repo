@@ -7,7 +7,6 @@ import 'package:project_bc_tuto/features/personilization/screens/settings/settin
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
-import 'features/Applications/screens/chat/screens/chats/chats_screen.dart';
 import 'features/Applications/screens/saves/saves.dart';
 
 class CandidateNavigationMenu extends StatelessWidget {

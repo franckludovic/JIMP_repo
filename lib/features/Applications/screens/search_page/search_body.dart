@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
-import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
+import 'package:project_bc_tuto/common/widgets/custom_shapes/other_shapes/custom_divider.dart';
+import 'package:project_bc_tuto/common/widgets/layout/grid_layout.dart';
+import 'package:project_bc_tuto/features/Applications/screens/search_page/widgets/filter_tags.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
-import 'package:project_bc_tuto/utils/device/device_utility.dart';
 
-import '../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
+import '../../../../common/widgets/job_and_internship_card/intership_cards.dart';
 import '../../../../utils/constants/colors.dart';
+import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/helpers/helper_functions.dart';
+import '../../../personilization/screens/settings/settings.dart';
 
 class SearchBody extends StatelessWidget {
   const SearchBody({super.key});
@@ -71,13 +74,50 @@ class SearchBody extends StatelessWidget {
                 ],
               ),
 
-              JAppbar(
-                title: Column(
-                  children: [
-                    Text('Result', style: Theme.of(context).textTheme.headlineMedium,),
-                    Text('45 results', style: TextStyle(fontSize: 10))
-                  ],
+
+
+              SizedBox(height: JSizes.spaceBtwItems),
+
+               Container(
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: [
+                     Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Results', style: Theme.of(context).textTheme.headlineMedium,),
+                          Text('45 Internship founded', style: TextStyle(fontSize: 15, color: dark ? JColors.darkGrey : JColors.darkerGrey))
+                        ],
+                      ),
+                     
+                     IconButton(onPressed: () {}, icon: Icon(Iconsax.candle, size: 30, color: dark ? JColors.white : JColors.black,))
+
+                   ],
+                 ),
+               ),
+
+              SizedBox(height: JSizes.spaceBtwItems),
+
+              JSearchFilterTag(
+                textColor: JColors.black,
+                backgroundColor: dark ? JColors.primary :JColors.primary.withAlpha((0.6 * 255).toInt()),
+                tags: [
+                  'Remote working','FullTime', "Paid", "Douala"
+                ]
+              ),
+
+              JDivider(),
+
+              Container(
+                child: JGridLayout(
+                    itemCount: 8,
+                    crossAxisCount: 1,
+                    mainAxisExtend: 200,
+                    itemBuilder: (_, index) {
+                      return  HorizontalJIntershipCard( borderRadius: 20 ,companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"],onTap: () => (const SettingScreen()),);
+                    }
                 ),
+                  //JCompagnyShowCase(),
               )
             ],
           ),
