@@ -1,3 +1,4 @@
+import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/features/Applications/screens/chat/screens/chats/widgets/body.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 
@@ -20,7 +21,8 @@ class _ChatsScreenState extends State<ChatsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      backgroundColor: JColors.primary,
+      appBar: JAppbar(title: Text('Chats', style: Theme.of(context).textTheme.headlineMedium), actions: [ IconButton(onPressed: () {}, icon: Icon(Icons.more_vert, size: 30,))],),
       body:  ChatBody(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},

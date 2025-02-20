@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
+import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
 import '../../../../../../../utils/constants/sizes.dart';
 
@@ -11,9 +14,9 @@ class ChatInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = JHelperFunctions.isDarkMode(context);
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: JSizes.defaultSpace,
         vertical: JSizes.defaultSpace / 2,
       ),
       decoration: BoxDecoration(
@@ -22,40 +25,37 @@ class ChatInputField extends StatelessWidget {
           BoxShadow(
             offset: const Offset(0, 4),
             blurRadius: 32,
-            color: const Color(0xFF087949).withOpacity(0.08),
+            color: JColors.secondary.withAlpha((0.09 * 255).toInt()),
           ),
         ],
       ),
       child: SafeArea(
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Icon(Icons.mic, color: JColors.primary),
-            const SizedBox(width: JSizes.defaultSpace),
             Expanded(
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: JSizes.defaultSpace * 0.75,
+                  horizontal: JSizes.sm,
                 ),
                 decoration: BoxDecoration(
                   color: JColors.primary.withAlpha((0.05 * 255).toInt()),
-                  borderRadius: BorderRadius.circular(40),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.sentiment_satisfied_alt_outlined,
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .color!
-                          .withAlpha((0.64 * 255).toInt()),
-                    ),
                     const SizedBox(width: JSizes.defaultSpace / 4),
-                    const Expanded(
+                    Expanded(
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: "Type message",
                           border: InputBorder.none,
+                          suffixIcon: JRoundedContainer(
+                            backgroundColor: dark ? JColors.white : JColors.grey ,
+                            radius: 10,
+                            margin: EdgeInsets.only(right: JSizes.sm * 0.6, top: JSizes.xs, bottom: JSizes.xs ),
+                            child: IconButton(onPressed: () {}, icon: Icon(Iconsax.send1, size: 28, color: JColors.primary,)),
+                          )
                         ),
                       ),
                     ),
@@ -68,14 +68,6 @@ class ChatInputField extends StatelessWidget {
                           .withAlpha((0.64 * 255).toInt()),
                     ),
                     const SizedBox(width: JSizes.defaultSpace / 4),
-                    Icon(
-                      Icons.camera_alt_outlined,
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .color!
-                          .withAlpha((0.64 * 255).toInt()),
-                    ),
                   ],
                 ),
               ),

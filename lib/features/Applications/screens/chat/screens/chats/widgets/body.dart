@@ -1,8 +1,8 @@
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
+import '../../../../../../../common/widgets/custom_shapes/container_shapes/search_container.dart';
 import '../../../wigets//chat.dart';
-import '../../../wigets/filled_outline_button.dart';
 import '../../messages/message_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,39 +13,32 @@ class ChatBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(
-              JSizes.defaultSpace, 0, JSizes.defaultSpace, JSizes.defaultSpace),
-          color: JColors.primary,
-          child: Row(
-            children: [
-              FillOutlineButton(press: () {}, text: "Recent Message"),
-              const SizedBox(width: JSizes.defaultSpace),
-              FillOutlineButton(
-                press: () {},
-                text: "Active",
-                isFilled: false,
-              ),
-            ],
+    return Container(
+      color: JColors.black,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.fromLTRB(
+                0, JSizes.defaultSpace, 0, JSizes.defaultSpace / 2),
+            color: JColors.primary,
+            child:JSearchContainer(text: "Search for a message",),
           ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: chatsData.length,
-            itemBuilder: (context, index) => ChatCard(
-              chat: chatsData[index],
-              press: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MessagesScreen(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: chatsData.length,
+              itemBuilder: (context, index) => ChatCard(
+                chat: chatsData[index],
+                press: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MessagesScreen(),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

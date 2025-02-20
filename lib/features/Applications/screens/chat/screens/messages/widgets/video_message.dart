@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project_bc_tuto/utils/device/device_utility.dart';
 
 import '../../../../../../../utils/constants/colors.dart';
+import '../../../../../../../utils/constants/image_strings.dart';
 
 class VideoMessage extends StatelessWidget {
   const VideoMessage({super.key});
@@ -8,7 +10,7 @@ class VideoMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.45, // 45% of total width
+      width: JDeviceUtils.getScreenWidth(context) * 0.45,
       child: AspectRatio(
         aspectRatio: 1.6,
         child: Stack(
@@ -16,7 +18,7 @@ class VideoMessage extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset("assets/images/Video Place Here.png"),
+              child: Image.asset(JImages.googleProfileImage),
             ),
             Container(
               height: 25,
