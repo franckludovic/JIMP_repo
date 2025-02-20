@@ -102,7 +102,7 @@ class SearchBody extends StatelessWidget {
                 textColor: JColors.black,
                 backgroundColor: dark ? JColors.primary :JColors.primary.withAlpha((0.6 * 255).toInt()),
                 tags: [
-                  'Remote working','FullTime', "Paid", "Douala"
+                  'Remote working','FullTime', "Flutter", "Douala"
                 ]
               ),
 
@@ -114,7 +114,7 @@ class SearchBody extends StatelessWidget {
                     crossAxisCount: 1,
                     mainAxisExtend: 200,
                     itemBuilder: (_, index) {
-                      return  HorizontalJIntershipCard( borderRadius: 20 ,companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"],onTap: () => (const SettingScreen()),);
+                      return  HorizontalJIntershipCard( borderRadius: 15, iconBorderRad: 8 ,companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"],onTap: () => (const SettingScreen()),);
                     }
                 ),
                   //JCompagnyShowCase(),

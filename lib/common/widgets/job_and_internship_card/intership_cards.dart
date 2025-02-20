@@ -25,6 +25,8 @@ class HorizontalJIntershipCard extends StatelessWidget {
     this.month,
     this.year,
     this.borderRadius = 18,
+    this.iconBorderRad = JSizes.sm,
+
   });
 
   final String companyLogo;
@@ -41,6 +43,7 @@ class HorizontalJIntershipCard extends StatelessWidget {
   final int? month;
   final int? year;
   final double borderRadius;
+  final double iconBorderRad;
 
   @override
   Widget build(BuildContext context) {
@@ -170,9 +173,9 @@ class HorizontalJIntershipCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: JColors.dark,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(JSizes.iconXs),
-                    bottomRight: Radius.circular(JSizes.iconSm),
+                  borderRadius:  BorderRadius.only(
+                    topLeft: Radius.circular(iconBorderRad),
+                    bottomRight: Radius.circular(iconBorderRad),
                   ),
                 ),
                 child: Padding(
