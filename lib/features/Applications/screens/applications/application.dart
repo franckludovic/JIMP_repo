@@ -9,6 +9,7 @@ import '../../../../common/widgets/appbar/tab_bar.dart';
 import '../../../../common/widgets/applications/applications_cards/applications_card_vertical.dart';
 
 
+import '../../../../common/widgets/applications/applications_cards/vertical_Application.dart';
 ///import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 ///import '../../../../common/widgets/companies/compagny_cards.dart';
 ///import '../../../../common/widgets/layout/application_grid_layout.dart';
@@ -19,6 +20,7 @@ import '../../../../common/widgets/custom_shapes/other_shapes/custom_divider.dar
 import '../../../../common/widgets/layout/grid_layout.dart';
 import '../../../../common/widgets/notifications/notifications_icon.dart';
 import '../../../../utils/constants/colors.dart';
+import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../Brands/all_brands.dart';
 import '../Brands/brand_product.dart';
@@ -94,7 +96,7 @@ class Application extends StatelessWidget {
 
                             SizedBox(height: JSizes.spaceBtwItems * 0.7,),
 
-                            JGridLayout(itemCount: 8, itemBuilder: (_, index) => JApplicationsCardVertical()),
+                            JGridLayout(itemCount: 14,crossAxisCount: 2, itemBuilder: (_, index) => VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', )),
 
                             SizedBox(height: JSizes.spaceBtwSections,),
                           ],
