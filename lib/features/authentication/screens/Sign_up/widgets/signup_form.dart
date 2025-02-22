@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/features/authentication/screens/Sign_up/step2_sign_up.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/term_and_conditions.dart';
 
 
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
-import '../verify_email.dart';
 
 
-class TSignupForm extends StatelessWidget {
-  const TSignupForm({
+class JSignupStep1Form extends StatelessWidget {
+  const JSignupStep1Form({
     super.key,
   });
 
@@ -87,7 +87,21 @@ class TSignupForm extends StatelessWidget {
           const SizedBox(height: JSizes.spaceBtwSections),
 
           ///Sign up button
-          SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const VerifyEmailScreen() ), child: const Text(JTexts.createAccount))),
+          SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const CandidateRegisterScreen2() ),
+             style: ElevatedButton.styleFrom(
+               padding: EdgeInsets.symmetric(vertical: JSizes.sm, horizontal: JSizes.lg)
+             ),
+              child:
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(JTexts.MoveToNext, style: TextStyle(fontSize: 20, fontFamily: 'Poppins'),),
+                    SizedBox(width: JSizes.lg,),
+                    Icon(Iconsax.arrow_right_2, size: 50,)
+                  ],
+                )
+          )
+          ),
         ],
       ),
     );

@@ -6,7 +6,6 @@ import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 import 'package:project_bc_tuto/features/Applications/screens/applications/Widgets/category.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/appbar/tab_bar.dart';
-import '../../../../common/widgets/applications/applications_cards/applications_card_vertical.dart';
 
 
 import '../../../../common/widgets/applications/applications_cards/vertical_Application.dart';

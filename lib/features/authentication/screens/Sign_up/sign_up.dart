@@ -25,7 +25,7 @@ class CadidateSignupScreen extends StatelessWidget {
               const SizedBox(height: JSizes.spaceBtwSections),
 
               ///Form
-              const TSignupForm(),
+              const JSignupStep1Form(),
 
               const SizedBox(height: JSizes.spaceBtwSections),
 

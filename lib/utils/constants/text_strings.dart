@@ -38,6 +38,8 @@ class JTexts {
   static const String forgetPassword = "Forget Password?";
   static const String signIn = "Sign In";
   static const String createAccount = "Create Account";
+  static const String MoveToNext = "Move to next Step";
+  static const String MoveToBack = "Move to last Step";
   static const String orSignInWith = "or sign in with";
   static const String orSignUpWith = "or sign up with";
   static const String iAgreeTo = "I agree to";
