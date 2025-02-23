@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/colors.dart';
-import '../../../utils/helpers/helper_functions.dart';
+
 
 class JApplicationTitleText extends StatelessWidget {
   const JApplicationTitleText({
@@ -21,7 +21,7 @@ class JApplicationTitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = JHelperFunctions.isDarkMode(context);
+
     return Container(
       child: Text(
         title,

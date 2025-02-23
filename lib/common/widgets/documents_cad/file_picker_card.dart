@@ -7,7 +7,10 @@ import 'package:open_file/open_file.dart';
 import '../../../utils/constants/colors.dart';
 
 class DocumentUploadWidget extends StatefulWidget {
-  const DocumentUploadWidget({super.key});
+  final String title;
+
+
+  const DocumentUploadWidget({super.key, this.title = "Upload Document"});
 
   @override
   State<DocumentUploadWidget> createState() => _DocumentUploadWidgetState();
@@ -40,9 +43,10 @@ class _DocumentUploadWidgetState extends State<DocumentUploadWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Upload Document",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        // Use widget.title instead of hardcoded text
+        Text(
+          widget.title,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
 
@@ -76,20 +80,23 @@ class _DocumentUploadWidgetState extends State<DocumentUploadWidget> {
 
         const SizedBox(height: 10),
 
-
         if (selectedFile != null)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("File Selected :",
-                  style: TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.bold)
+              const Text(
+                "File Selected:",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
               SizedBox(width: 20),
               Expanded(
                 child: Text(
                   selectedFile!.path.split('/').last,
-                  style: const TextStyle(fontSize: 14, color: Colors.green, overflow: TextOverflow.ellipsis),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.green,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ],

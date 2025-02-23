@@ -6,16 +6,28 @@ import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 
-class SkillAddCard extends StatelessWidget {
-  const SkillAddCard({super.key});
+class SkillAddCard extends StatefulWidget {
+  final VoidCallback onRemove; // Callback to remove this card
+
+  const SkillAddCard({super.key, required this.onRemove});
+
+
+  @override
+  _SkillAddCardState createState() => _SkillAddCardState();
+}
+
+class _SkillAddCardState extends State<SkillAddCard> {
+  int? selectedLevel;
+
 
   @override
   Widget build(BuildContext context) {
     final dark = JHelperFunctions.isDarkMode(context);
+    final unselectedColor = dark ? JColors.grey : JColors.darkGrey;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: JSizes.md, vertical: JSizes.sm),
-      height: 140,
+      margin: const EdgeInsets.symmetric(vertical: JSizes.md),
       decoration: BoxDecoration(
         border: Border.all(color: dark ? JColors.grey : JColors.black),
         borderRadius: const BorderRadius.only(
@@ -28,18 +40,20 @@ class SkillAddCard extends StatelessWidget {
       ),
       child: Column(
         children: [
+          // Skill Input Row
           Row(
             children: [
               Flexible(
                 flex: 10,
                 child: Row(
                   children: [
-                    const Icon(Iconsax.arrow_right_4, size: 30,),
+                    const Icon(Iconsax.arrow_right_4, size: 30),
                     const SizedBox(width: 8),
                     Expanded(
                       child: TextField(
                         decoration: InputDecoration(
-                          hintText: "Type to search",
+                          hintText: "Enter a skill",
+
                           border: InputBorder.none,
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -49,49 +63,68 @@ class SkillAddCard extends StatelessWidget {
                   ],
                 ),
               ),
-              IconButton(onPressed: () {}, icon: Icon(Iconsax.trush_square, size: 35,))
+              IconButton(
+                onPressed: widget.onRemove, // Calls parent function to remove
+                icon: const Icon(Iconsax.trash, size: 30, color: Colors.red),
+              )
             ],
           ),
-          Divider(thickness: 3,),
-          SizedBox(height: JSizes.md,),
 
+          const Divider(thickness: 2),
+          SizedBox(height: JSizes.md),
+
+          // Skill Level Selection
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Level : ", style: Theme.of(context).textTheme.headlineSmall,),
+              Text("Level:", style: Theme.of(context).textTheme.headlineSmall),
+              SizedBox(width: JSizes.sm),
 
-              SizedBox(width: JSizes.sm,),
-              
-              GestureDetector(
-                child: JRoundedContainer(width: 30, height: 30, backgroundColor: Colors.transparent ,borderColor: JColors.darkGrey, showBorder: true, borderWidth: 3 ,child: Center(child: Text("1")),),
-              ),
-              SizedBox(width: JSizes.md,),
-
-              GestureDetector(
-                child: JRoundedContainer(width: 30, height: 30, backgroundColor: Colors.transparent ,borderColor: JColors.darkGrey, showBorder: true, borderWidth: 3 ,child: Center(child: Text("2")),),
-              ),
-              SizedBox(width: JSizes.md,),
-
-              GestureDetector(
-                child: JRoundedContainer(width: 30, height: 30, backgroundColor: Colors.transparent ,borderColor: JColors.darkGrey, showBorder: true, borderWidth: 3 ,child: Center(child: Text("3")),),
-              ),
-              SizedBox(width: JSizes.md,),
-
-              GestureDetector(
-                child: JRoundedContainer(width: 30, height: 30, backgroundColor: Colors.transparent ,borderColor: JColors.darkGrey, showBorder: true, borderWidth: 3 ,child: Center(child: Text("4")),),
-              ),
-              SizedBox(width: JSizes.md,),
-
-              GestureDetector(
-                child: JRoundedContainer(width: 30, height: 30, backgroundColor: Colors.transparent ,borderColor: JColors.darkGrey, showBorder: true, borderWidth: 3 ,child: Center(child: Text("5")),),
-              ),
-
+              // Skill Level Buttons (1 to 5)
+              for (int i = 1; i <= 5; i++) ...[
+                GestureDetector(
+                  onTap: () => setState(() => selectedLevel = i),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeInOut,
+                    transform: selectedLevel == i
+                        ? Matrix4.identity().scaled(1.1)
+                        : Matrix4.identity(),
+                    child: JRoundedContainer(
+                      width: 30,
+                      height: 30,
+                      backgroundColor: selectedLevel == i
+                          ? JColors.primary
+                          : Colors.transparent,
+                      borderColor: selectedLevel == i
+                          ? JColors.primary
+                          : unselectedColor,
+                      showBorder: true,
+                      borderWidth: 2,
+                      child: Center(
+                        child: Text(
+                          "$i",
+                          style: TextStyle(
+                            color: selectedLevel == i
+                                ? Colors.white
+                                : (dark ? JColors.darkGrey : JColors.darkerGrey),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: JSizes.md),
+              ],
             ],
-          )
+          ),
 
-          
+          SizedBox(height: JSizes.sm,)
         ],
       ),
+
     );
   }
 }

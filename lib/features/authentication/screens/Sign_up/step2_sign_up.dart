@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/other_shapes/custom_divider.dart';
+import 'package:project_bc_tuto/common/widgets/sign_upButtons/signUpNavButtons.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/step3_sign_up.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/step_indicator.dart';
-import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/custom_wigets/custom_dropDown.dart';
@@ -29,11 +29,17 @@ class _CandidateRegisterScreen2State extends State<CandidateRegisterScreen2> {
   Widget build(BuildContext context) {
     return Scaffold(
 
+      appBar: JAppbar(title: Text(
+        "Profile Information Screen",
+        style: Theme
+            .of(context)
+            .textTheme
+            .headlineMedium,
+      ),),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: JSizes.spaceBtwSections * 2),
               child: Padding(
                 padding: const EdgeInsets.all(JSizes.defaultSpace),
                 child: Stack(
@@ -41,14 +47,6 @@ class _CandidateRegisterScreen2State extends State<CandidateRegisterScreen2> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Profile Information Screen",
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .headlineMedium,
-                        ),
-                        const SizedBox(height: JSizes.spaceBtwSections),
 
                         // Username Field
                         const TextField(
@@ -97,66 +95,10 @@ class _CandidateRegisterScreen2State extends State<CandidateRegisterScreen2> {
                         buildDropdown("School last attended"),
                         const SizedBox(height: JSizes.spaceBtwItems * 2),
 
-                        buildTextField("Job Preference"),
 
-                        const SizedBox(height: JSizes.spaceBtwItems * 2),
-
-
-                        // Bottom Navigation Buttons
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () => Get.back(),
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: JColors.primary,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: JSizes.md,
-                                      vertical: JSizes.sm)),
-                              child: const Row(
-                                children: [
-                                  Icon(
-                                    Iconsax.arrow_left_3, color: Colors.white,
-                                    size: 35,),
-                                  SizedBox(width: 5),
-                                  Text("Last Step", style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Poppins',
-                                      fontSize: 19)),
-
-                                ],
-                              ),
-                            ),
-
-                            SizedBox(width: JSizes.md),
-
-                            ElevatedButton(
-                              onPressed: () => Get.to(() => CandidateRegisterScreen3()),
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: JColors.primary,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: JSizes.md,
-                                      vertical: JSizes.sm)),
-                              child: const Row(
-                                children: [
-                                  Text("Next Step", style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Poppins',
-                                      fontSize: 19)),
-                                  SizedBox(width: 5),
-                                  Icon(
-                                    Iconsax.arrow_right_2, color: Colors.white,
-                                    size: 35,),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: JSizes.spaceBtwSections),
-
+                        SignUpNavigationButtons(onPressed:() => Get.to(() => CandidateRegisterScreen3()) ),
                         JDivider(),
                         // Bottom Step Indicator
-
                       ],
                     ),
 
@@ -169,7 +111,7 @@ class _CandidateRegisterScreen2State extends State<CandidateRegisterScreen2> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: JSizes.spaceBtwSections),
+        padding: const EdgeInsets.only(bottom: JSizes.spaceBtwSections, top: JSizes.md),
         child: Positioned(
             bottom: JDeviceUtils.getBottomNavigationBarHeight(),
             left: 0,
