@@ -81,6 +81,9 @@ class HomeScreen extends StatelessWidget {
 
                     const SizedBox(height: JSizes.spaceBtwSections),
 
+
+                    const SizedBox(height: JSizes.spaceBtwSections),
+
                     JSectionHeading(title: "Recommended Internships", showActonButton: false,),
                     const SizedBox(height: JSizes.spaceBtwItems),
 
@@ -100,7 +103,7 @@ class HomeScreen extends StatelessWidget {
 
 
                     ///applications in grid in 2 : n should be removed and replaced with horizontal layout in 1 : n
-                    
+
                     JSectionHeading(title: 'Completed Internships', showActonButton: true, onPressed: () {}, TextSize: 20,),
 
                     const SizedBox(height: JSizes.spaceBtwItems),

@@ -38,7 +38,7 @@ class SavedScreen extends StatelessWidget {
               //   ],
               // ),
 
-              JGridLayout(itemCount: 4, itemBuilder: (_, index) => JApplicationsCardVertical())
+              JGridLayout(itemCount: 4, itemBuilder: (_, index) => JApplicationsCardVertical()),
 
             ],
           ),
