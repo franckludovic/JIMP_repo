@@ -16,7 +16,7 @@ class JTestField extends StatelessWidget {
     return Scrollbar(
       child: TextField(
         minLines: 12,
-        maxLines: 15,
+        maxLines: null,
         keyboardType: TextInputType.multiline,
         decoration: InputDecoration(
           labelText: labelText,

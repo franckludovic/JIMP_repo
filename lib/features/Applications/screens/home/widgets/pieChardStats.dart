@@ -52,8 +52,8 @@ class Piechardstats extends StatelessWidget {
     return [
       PieChartSectionData(
         color: Colors.green,
-        value: 70,
-        title: '20',
+        value: 57,
+        title: '32',
         radius: 50,
         titleStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
         badgeWidget: JRoundedContainer(showBorder: true, borderWidth: 2,  borderColor: Colors.green, width: 40, height: 40 ,radius: 40, backgroundColor: JColors.lightGrey, child: Icon(Iconsax.user_tick, color: Colors.black, size: 30,)),
@@ -62,8 +62,8 @@ class Piechardstats extends StatelessWidget {
       ),
       PieChartSectionData(
         color: Colors.orangeAccent,
-        value: 20,
-        title: '16',
+        value: 25,
+        title: '14',
         radius: 50,
         titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
         badgeWidget: JRoundedContainer(showBorder: true, borderWidth: 2,  borderColor: Colors.orangeAccent, width: 40, height: 40 ,radius: 40, backgroundColor: JColors.lightGrey, child: Icon(Icons.question_mark_rounded, color: Colors.black, size: 30,)),
@@ -72,8 +72,8 @@ class Piechardstats extends StatelessWidget {
       ),
       PieChartSectionData(
         color: Colors.red,
-        value: 10,
-        title: '05',
+        value: 18,
+        title: '10',
         radius: 50,
         titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
         badgeWidget: JRoundedContainer(showBorder: true, borderWidth: 2,  borderColor: Colors.red, width: 40, height: 40 ,radius: 40, backgroundColor: JColors.lightGrey, child: Icon(Iconsax.user_remove, color: Colors.black, size: 30,)),

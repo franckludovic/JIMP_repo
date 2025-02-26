@@ -8,6 +8,7 @@ import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
 import '../../../../utils/helpers/helper_functions.dart';
+import '../../../authentication/compamy_screens/login/login_company.dart';
 
 class JTypeUser extends StatelessWidget {
   const JTypeUser({super.key});
@@ -56,6 +57,7 @@ class JTypeUser extends StatelessWidget {
                     title: "Compagny",
                     subtitle: JTexts.compagnytText,
                     image: JImages.company_user,
+                    onTap: () => Get.off( const CompagnyLoginScreen()),
                   ),
 
                   SizedBox(height: JSizes.spaceBtwSections),

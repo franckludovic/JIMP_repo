@@ -6,7 +6,9 @@ class JImages {
 
   // -- App Logos
   static const String darkAppLogo = "assets/logos/Jimp-splash-logo-black2.png";
+  static const String darkAppLogo2 = "assets/logos/page_logo_dark_mode.png";
   static const String lightAppLogo = "assets/logos/Jimp-splash-logo-white.png";
+  static const String lightAppLogo2 = "assets/logos/page_logo_white_mode.png";
 
   // -- Default Images
   static const String defaultImage = "assets/images/content/default_image.png";

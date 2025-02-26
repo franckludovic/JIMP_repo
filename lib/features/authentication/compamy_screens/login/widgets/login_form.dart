@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:project_bc_tuto/features/authentication/screens/Sign_up/sign_up.dart';
 import 'package:project_bc_tuto/features/authentication/screens/password_configuration/forget_password.dart';
 
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
-import '../../../../Applications/screens/application_page_form/applyPage.dart';
+import '../../sign_up/sign_up1.dart';
 
 
-class JLoginForm extends StatelessWidget {
+class JLoginForm2 extends StatelessWidget {
 
-  const JLoginForm({
+  const JLoginForm2({
     super.key,
   });
 
@@ -60,11 +59,11 @@ class JLoginForm extends StatelessWidget {
             ),
 
             ///sign in button
-            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() =>  ApplyPage(requiresVerification: false,)), child: Text(JTexts.signIn))),
+            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () {}, child: Text(JTexts.signIn))),
             const SizedBox(height: JSizes.spaceBtwItems),
 
             ///create account button
-            SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() => const CadidateSignupScreen()), child: Text(JTexts.createAccount))),
+            SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() => const CompanySignupScreen()), child: Text(JTexts.createAccount))),
           ],
         ),
       ),

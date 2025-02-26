@@ -57,9 +57,7 @@ class JApplySaveButton extends StatelessWidget {
                 child: const Text("APPLY", style: TextStyle(fontSize: 25, fontFamily: 'Poppins'),)
             ),
           ),
-
         ],
-
       ),
     );
   }

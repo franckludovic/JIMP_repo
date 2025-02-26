@@ -5,8 +5,8 @@ import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
 
 
-class TSocialButtons extends StatelessWidget {
-  const TSocialButtons({
+class JSocialButtons extends StatelessWidget {
+  const JSocialButtons({
     super.key,
   });
 

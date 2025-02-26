@@ -8,9 +8,10 @@ import '../../../utils/constants/colors.dart';
 
 class DocumentUploadWidget extends StatefulWidget {
   final String title;
+  final documentType;
 
 
-  const DocumentUploadWidget({super.key, this.title = "Upload Document"});
+  const DocumentUploadWidget({super.key, this.title = "Upload Document", this.documentType = "Document type PDF, DOC, DOCX, PNG, JPEG, JPG" });
 
   @override
   State<DocumentUploadWidget> createState() => _DocumentUploadWidgetState();
@@ -22,7 +23,7 @@ class _DocumentUploadWidgetState extends State<DocumentUploadWidget> {
   Future<void> pickDocument() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['pdf', 'doc', 'docx', 'png'],
+      allowedExtensions: ['pdf', 'doc', 'docx', 'png', 'jpeg', 'jpg'],
     );
 
     if (result != null) {
@@ -68,7 +69,7 @@ class _DocumentUploadWidgetState extends State<DocumentUploadWidget> {
                   child: Text(
                     selectedFile != null
                         ? selectedFile!.path.split('/').last
-                        : "Choose Document (PDF, DOC, DOCX, PNG)",
+                        : widget.documentType,
                     style: const TextStyle(fontSize: 14),
                     overflow: TextOverflow.ellipsis,
                   ),

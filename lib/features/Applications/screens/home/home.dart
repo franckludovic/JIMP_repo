@@ -82,8 +82,6 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: JSizes.spaceBtwSections),
 
 
-                    const SizedBox(height: JSizes.spaceBtwSections),
-
                     JSectionHeading(title: "Recommended Internships", showActonButton: false,),
                     const SizedBox(height: JSizes.spaceBtwItems),
 

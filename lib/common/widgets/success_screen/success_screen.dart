@@ -17,7 +17,7 @@ class SuccessScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: TSpacingStyle.paddingWithAppBarHeight * 2,
+          padding: JSpacingStyle.paddingWithAppBarHeight * 2,
           child: Column(
             children: [
               ///image

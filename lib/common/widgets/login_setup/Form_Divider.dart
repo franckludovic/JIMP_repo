@@ -5,8 +5,8 @@ import '../../../utils/constants/colors.dart';
 
 
 
-class TFormDivider extends StatelessWidget {
-  const TFormDivider({super.key, required this.dividerText});
+class JFormDivider extends StatelessWidget {
+  const JFormDivider({super.key, required this.dividerText});
 
   final String dividerText;
 
