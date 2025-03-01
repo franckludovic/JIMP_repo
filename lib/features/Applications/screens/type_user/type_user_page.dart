@@ -57,7 +57,7 @@ class JTypeUser extends StatelessWidget {
                     title: "Compagny",
                     subtitle: JTexts.compagnytText,
                     image: JImages.company_user,
-                    onTap: () => Get.off( const CompagnyLoginScreen()),
+                    onTap: () => Get.offAll( const CompagnyLoginScreen()),
                   ),
 
                   SizedBox(height: JSizes.spaceBtwSections),
@@ -66,7 +66,7 @@ class JTypeUser extends StatelessWidget {
                     title: "Candidate",
                     subtitle: JTexts.candidateText,
                     image: JImages.candidate_user,
-                    onTap:() => Get.off( const CandidateNavigationMenu()),
+                    onTap:() => Get.offAll( const CandidateNavigationMenu()),
                   ),
         
         

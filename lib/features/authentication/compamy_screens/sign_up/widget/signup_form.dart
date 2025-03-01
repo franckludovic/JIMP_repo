@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 
 import '../../../../../common/widgets/custom_wigets/custom_dropDown.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
-import '../sign_up2.dart';
 
 
 class JSignUpCompanypage1 extends StatelessWidget {
@@ -85,21 +83,7 @@ class JSignUpCompanypage1 extends StatelessWidget {
 
 
           ///Sign up button
-          SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const CompanySignupScreen2() ),
-             style: ElevatedButton.styleFrom(
-               padding: EdgeInsets.symmetric(vertical: JSizes.sm, horizontal: JSizes.lg)
-             ),
-              child:
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(JTexts.MoveToNext, style: TextStyle(fontSize: 20, fontFamily: 'Poppins'),),
-                    SizedBox(width: JSizes.lg,),
-                    Icon(Iconsax.arrow_right_2, size: 50,)
-                  ],
-                )
-          )
-          ),
+
         ],
       ),
     );

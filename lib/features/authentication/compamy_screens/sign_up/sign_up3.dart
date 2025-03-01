@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/texts/textArea.dart';
+import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/sign_upReview.dart';
 import '../../../../common/widgets/sign_upButtons/signUpNavButtons.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/device/device_utility.dart';
@@ -88,7 +90,7 @@ class _CompanyRegisterScreenState3 extends State<CompanySignupScreen3> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SignUpNavigationButtons(
-            onPressed: () {},
+            onPressed: () => Get.to(() => CompanySignUpReview()),
           ),
 
           SizedBox(height: JSizes.md,),

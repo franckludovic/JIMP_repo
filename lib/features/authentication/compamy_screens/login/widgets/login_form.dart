@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/features/Applications/company_creens/home/home.dart';
 import 'package:project_bc_tuto/features/authentication/screens/password_configuration/forget_password.dart';
 
 import '../../../../../utils/constants/sizes.dart';
@@ -59,7 +60,7 @@ class JLoginForm2 extends StatelessWidget {
             ),
 
             ///sign in button
-            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () {}, child: Text(JTexts.signIn))),
+            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const CompanyHome()), child: Text(JTexts.signIn))),
             const SizedBox(height: JSizes.spaceBtwItems),
 
             ///create account button

@@ -16,6 +16,7 @@ import '../../../../common/widgets/documents_cad/resumer_card.dart';
 import '../../../../common/widgets/documents_cad/skills_card.dart';
 import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../Applications/screens/type_user/type_user_page.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -32,11 +33,16 @@ class SettingScreen extends StatelessWidget {
                 children: [
                   JAppbar(
                       title: Text('Account',
-                          style: Theme.of(context).textTheme.headlineMedium!.apply(color: JColors.white))),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .apply(color: JColors.white))),
                   const SizedBox(height: JSizes.spaceBtwSections * 0.5),
 
                   ///user Profile card
-                  JUserProfileTile(onPressed: () => Get.to(() => ProfileScreen()),),
+                  JUserProfileTile(
+                    onPressed: () => Get.to(() => ProfileScreen()),
+                  ),
                   const SizedBox(height: JSizes.spaceBtwSections),
                 ],
               ),
@@ -50,15 +56,30 @@ class SettingScreen extends StatelessWidget {
                   JResumeCard(title: "Resume", fileName: "Franck's Resume"),
                   const SizedBox(height: JSizes.spaceBtwSections),
 
-                  JSectionHeading(title: "Skills", onPressed: () {} ),
+                  JSectionHeading(title: "Skills", onPressed: () {}),
                   JSkillsCard(
-                      skills: [
-                        JCircularSkillIndicator(percentage: 0.8, textPercent: '85%', bottomText: 'Python', progressColor: Colors.greenAccent),
-                        JCircularSkillIndicator(percentage: 0.2, textPercent: '20%', bottomText: 'React Js', progressColor: Colors.redAccent),
-                        JCircularSkillIndicator(percentage: 0.6, textPercent: '60%', bottomText: 'Java', progressColor: Colors.purple),
-                        JCircularSkillIndicator(percentage: 0.5, textPercent: '40%', bottomText: 'Flutter programing', progressColor: Colors.blue),
-
-                      ],
+                    skills: [
+                      JCircularSkillIndicator(
+                          percentage: 0.8,
+                          textPercent: '85%',
+                          bottomText: 'Python',
+                          progressColor: Colors.greenAccent),
+                      JCircularSkillIndicator(
+                          percentage: 0.2,
+                          textPercent: '20%',
+                          bottomText: 'React Js',
+                          progressColor: Colors.redAccent),
+                      JCircularSkillIndicator(
+                          percentage: 0.6,
+                          textPercent: '60%',
+                          bottomText: 'Java',
+                          progressColor: Colors.purple),
+                      JCircularSkillIndicator(
+                          percentage: 0.5,
+                          textPercent: '40%',
+                          bottomText: 'Flutter programing',
+                          progressColor: Colors.blue),
+                    ],
                   ),
                   const SizedBox(height: JSizes.spaceBtwSections),
 
@@ -77,7 +98,7 @@ class SettingScreen extends StatelessWidget {
                     icon: Iconsax.document_text5,
                     title: "My applications",
                     subtitle: "See Status, drop out",
-                    onTap: () => Get.to(() => const ApplicationsApplied()) ,
+                    onTap: () => Get.to(() => const ApplicationsApplied()),
                   ),
                   JSettingsMenuTile(
                     icon: Iconsax.task_square,
@@ -133,17 +154,47 @@ class SettingScreen extends StatelessWidget {
                     trailing: Switch(value: false, onChanged: (value) {}),
                   ),
 
+                  ///change account type
+                  SizedBox(
+                      child: ElevatedButton(
+                          onPressed: () => Get.to(() => JTypeUser()),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+
+                              side: BorderSide(color: JColors.primary, width: 2, ),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: JSizes.md, horizontal: JSizes.lg)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Change Account type",
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Icon(
+                                Iconsax.arrow_swap_horizontal,
+                                size: 30,
+                              ),
+                            ],
+                          )
+                      )
+                  ),
+
                   ///-- Log out button
                   const SizedBox(height: JSizes.spaceBtwSections * 2.5),
                   SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(side: BorderSide(width: 5, color: JColors.primary)) ,
-
-                        onPressed: () {}, child: const Text("Log out", style: TextStyle(fontWeight:FontWeight.bold, fontSize: 20))),
-                  ),
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(vertical: JSizes.md),
+                            backgroundColor: JColors.primary.withAlpha((0.8 * 255).toInt())
+                          ),
+                          child: Text(
+                            "Log out",
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ))),
                   const SizedBox(height: JSizes.spaceBtwSections * 2.5),
-
                 ],
               ),
             ),

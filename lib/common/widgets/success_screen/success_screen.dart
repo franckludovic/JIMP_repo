@@ -43,7 +43,10 @@ class SuccessScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: onPressed,
-                      child: const Text(JTexts.tContinue))),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:Colors.blue
+                      ),
+                      child: const Text(JTexts.tContinue, style: TextStyle(fontFamily: "Poppins", fontSize: 20),))),
               const SizedBox(height: JSizes.spaceBtwItems),
             ],
           ),
