@@ -34,6 +34,7 @@ dependencies:
   open_file: ^3.5.10
   fl_chart: ^0.70.2
   flutter_custom_clippers: ^2.1.0
+  mrx_charts: ^0.1.3
 
 
 

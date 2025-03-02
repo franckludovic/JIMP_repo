@@ -22,7 +22,7 @@ class SavedScreen extends StatelessWidget {
           JCircularIcon(
               icon: Iconsax.add_square5,
               color: Colors.yellow,
-              onPressed: () => Get.to(const HomeScreen()))
+              onPressed: () => Get.to( HomeScreen()))
         ],
       ),
       body: SingleChildScrollView(

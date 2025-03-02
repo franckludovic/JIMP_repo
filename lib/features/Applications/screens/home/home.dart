@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_bc_tuto/features/Applications/screens/home/widgets/home_categories.dart';
+import 'package:project_bc_tuto/features/Applications/screens/home/widgets/sideBar.dart';
 
 
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
+import 'package:sidebarx/sidebarx.dart';
 
 import '../../../../common/widgets/applications/applications_cards/JSearchAndPassCard.dart';
 import '../../../../common/widgets/custom_shapes/container_shapes/primary_header_conatiner.dart';
@@ -22,11 +24,15 @@ import '../search_page/search_body.dart';
 import 'widgets/home_appbar.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final SidebarXController sidebarController =
+  SidebarXController(selectedIndex: 0, extended: false);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: JSidebar(controller: sidebarController),
       body: SingleChildScrollView(
         child: Column(
           children: [
