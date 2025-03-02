@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-
 import '../../../../../common/widgets/Images/rounded_image.dart';
 import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import '../../../../../common/widgets/notifications/notifications_icon.dart';
