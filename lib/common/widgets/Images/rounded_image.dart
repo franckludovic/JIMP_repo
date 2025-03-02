@@ -12,11 +12,10 @@ class JRoundedImage extends StatelessWidget {
     this.border,
     this.backgroundColor,
     this.fit = BoxFit.cover,
-    this.padding,
+    this.padding, // Remove left padding
     this.isNetworkImage = false,
     this.onPressed,
     this.borderRadius = JSizes.md,
-    //this.margin = const EdgeInsets.all(8.0), // Add a margin to space out images
   });
 
   final double? width, height;
@@ -29,21 +28,28 @@ class JRoundedImage extends StatelessWidget {
   final bool isNetworkImage;
   final VoidCallback? onPressed;
   final double borderRadius;
-  //final EdgeInsetsGeometry margin; // Added margin property
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-       // margin: margin, // Add margin to space images
         width: width,
         height: height,
         padding: padding,
         decoration: BoxDecoration(
-            border: border, color: backgroundColor, borderRadius: BorderRadius.circular(borderRadius)),
+          border: border,
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(borderRadius),
+          image: DecorationImage( // Optional: Use background image directly
+            image: isNetworkImage
+                ? NetworkImage(imageUrl)
+                : AssetImage(imageUrl) as ImageProvider,
+            fit: fit,
+          ),
+        ),
         child: ClipRRect(
-          borderRadius: applyImageRadius ?  BorderRadius.circular(borderRadius) : BorderRadius.zero,
+          borderRadius: applyImageRadius ? BorderRadius.circular(borderRadius) : BorderRadius.zero,
           child: Image(
             fit: fit,
             image: isNetworkImage ? NetworkImage(imageUrl) : AssetImage(imageUrl) as ImageProvider,

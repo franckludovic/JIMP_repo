@@ -24,7 +24,7 @@ class HorizontalJIntershipCard extends StatelessWidget {
     this.day,
     this.month,
     this.year,
-    this.borderRadius = 18,
+    this.borderRadius = 12,
     this.iconBorderRad = JSizes.md,
 
   });
@@ -175,7 +175,7 @@ class HorizontalJIntershipCard extends StatelessWidget {
                   color: JColors.dark,
                   borderRadius:  BorderRadius.only(
                     topLeft: Radius.circular(iconBorderRad),
-                    bottomRight: Radius.circular(iconBorderRad),
+                    bottomRight: Radius.circular(iconBorderRad * 0.75),
                   ),
                 ),
                 child: Padding(
