@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import '../../../../../utils/constants/colors.dart';
 
@@ -6,16 +7,16 @@ class JApplicatonTags extends StatelessWidget {
   const JApplicatonTags({
     super.key,
     required this.tags,
-    this.textColor = JColors.white,
+
     this.borderColor,
-    this.backgroundColor = JColors.darkGrey,
+    this.backgroundColor = JColors.grey,
     this.fontSize = 17,
     this.title,
     this.minWidth = 70,
   });
 
   final List<String> tags;
-  final Color textColor;
+
   final double fontSize;
   final Color? borderColor;
   final Color backgroundColor;
@@ -41,31 +42,36 @@ class JApplicatonTags extends StatelessWidget {
         Wrap(
           spacing: 8,
           runSpacing: 6,
-          children: tags.map((tag) => _buildTag(tag)).toList(),
+          children: tags.map((tag) => _buildTag(context, tag)).toList(),
         ),
       ],
     );
   }
 
 
-  Widget _buildTag(String tag) {
+  Widget _buildTag(BuildContext context, String tag) {
+
+    final dark = JHelperFunctions.isDarkMode(context);
     return ConstrainedBox(
       constraints: BoxConstraints(minWidth: minWidth),
-      child: JRoundedContainer(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-        backgroundColor: backgroundColor,
-        //borderColor: borderColor!,
-        showBorder: true,
-        //borderWidth: 1.5,
-        radius: 20,
-        width: null,
-        child: Text(
-          tag,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: textColor,
-            fontWeight: FontWeight.w600,
-            fontSize: fontSize,
+      child: GestureDetector(
+        onTap: () {},
+        child: JRoundedContainer(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          backgroundColor: backgroundColor,
+          //borderColor: borderColor!,
+          showBorder: true,
+          //borderWidth: 1.5,
+          radius: 20,
+          width: null,
+          child: Text(
+            tag,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: dark ? JColors.black : JColors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: fontSize,
+            ),
           ),
         ),
       ),

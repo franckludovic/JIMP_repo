@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:project_bc_tuto/features/Applications/company_creens/applications/application.dart';
+
 import 'package:project_bc_tuto/features/personilization/screens/settings/settings.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
 import 'features/Applications/company_creens/CompanyChats/chatHomescrenns.dart';
+import 'features/Applications/company_creens/Posting/application.dart';
+import 'features/Applications/company_creens/applicants/applicantsScreens.dart';
 import 'features/Applications/company_creens/home/home.dart';
-import 'features/Applications/screens/saves/saves.dart';
 
 class CompanyNavigationMenu extends StatelessWidget {
   const CompanyNavigationMenu({super.key});
@@ -46,5 +47,5 @@ class CompanyNavigationMenu extends StatelessWidget {
 class CompanyNavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [  CompanyHome(), const ChatHomeScreen(), const CompanyApplicationScreen(), const SavedScreen(), const SettingScreen()];
+  final screens = [  CompanyHome(), const ChatHomeScreen(), const CompanyApplicationScreen(), const ApplicantsScreens(), const SettingScreen()];
 }

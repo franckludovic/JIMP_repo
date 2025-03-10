@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import '../../../../../common/widgets/texts/section_heading.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../quiz_creation/QuizMainpage.dart';
 
 class QuickActioons extends StatelessWidget {
   const QuickActioons({
@@ -98,7 +100,7 @@ class QuickActioons extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () => Get.to(() => const QuizCreationPage()),
               child: JRoundedContainer(
                 backgroundColor: Colors.greenAccent.shade100,
                 padding: EdgeInsets.symmetric(horizontal:  JSizes.md),

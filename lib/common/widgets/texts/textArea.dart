@@ -24,6 +24,7 @@ class JTextArea extends StatelessWidget {
     return TextField(
       minLines: minAreaHeight,
       maxLines: maxAreaHeight,
+
       decoration: InputDecoration(
         hintText: hintText,
         label: label,
@@ -33,6 +34,7 @@ class JTextArea extends StatelessWidget {
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
       ),
+
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/job_and_internship_card/carousel_slider_interships.dart';
 import 'package:project_bc_tuto/common/widgets/layout/grid_layout.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
@@ -11,6 +12,7 @@ import '../../../../common/widgets/companies/Interview_cards.dart';
 import '../../../../common/widgets/job_and_internship_card/intership_cards.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../personilization/screens/settings/settings.dart';
+import '../interviews/interviews.dart';
 
 class CompanyHome extends StatelessWidget {
   const CompanyHome({super.key});
@@ -50,9 +52,9 @@ class CompanyHome extends StatelessWidget {
 
                   SizedBox(height: JSizes.spaceBtwSections,),
 
-                  JSectionHeading(title: "Upcoming Interviews", TextSize: 22 ,onPressed: () {},),
+                  JSectionHeading(title: "Upcoming Interviews", TextSize: 22 ,onPressed: () => Get.to(() => const  InterviewsScreens())),
 
-                  JGridLayout(itemCount: 3,crossAxisCount: 1, mainAxisExtend: 110, itemBuilder: (index, _) => JUser_InterviewCards())
+                  JGridLayout(itemCount: 5,crossAxisCount: 1, mainAxisExtend: 110, itemBuilder: (index, _) => JUser_InterviewCards())
 
 
                 ],

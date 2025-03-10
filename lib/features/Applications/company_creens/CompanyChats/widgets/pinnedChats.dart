@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Pinnedchats extends StatelessWidget {
-  const Pinnedchats({super.key});
+class Marked extends StatelessWidget {
+  const Marked({super.key});
 
   @override
   Widget build(BuildContext context) {

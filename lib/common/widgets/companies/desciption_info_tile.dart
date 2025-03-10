@@ -4,7 +4,7 @@ import 'package:readmore/readmore.dart';
 import '../../../utils/constants/sizes.dart';
 
 class InfoTile extends StatelessWidget {
-  const InfoTile({
+  const  InfoTile({
     super.key,
     required this.textBody,
     required this.title,
@@ -12,6 +12,8 @@ class InfoTile extends StatelessWidget {
     this.numberLines = 3,
     this.textBodySize = 15,
     this.titleSize,
+    this.TextColor,
+    this.titleColor,
   });
 
   final String textBody;
@@ -20,6 +22,8 @@ class InfoTile extends StatelessWidget {
   final int numberLines;
   final double textBodySize;
   final double? titleSize;
+  final Color? TextColor;
+  final Color? titleColor;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +35,12 @@ class InfoTile extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text(title, style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: titleSize ) ),
+              child: Text(title, style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: titleSize, color: titleColor ) ),
             ),
             SizedBox(height: spacing),
             ReadMoreText(
               textBody,
-              style: TextStyle(fontSize: textBodySize),
+              style: TextStyle(fontSize: textBodySize, color:  TextColor ),
               trimLines: numberLines,
               trimMode: TrimMode.Line,
               trimCollapsedText: " Show more",

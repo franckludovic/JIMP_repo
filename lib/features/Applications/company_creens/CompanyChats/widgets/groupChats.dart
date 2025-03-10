@@ -7,7 +7,10 @@ import '../../../../../utils/constants/colors.dart';
 import 'chatscreen.dart';
 
 class GroupChatsScreen extends StatelessWidget {
-  const GroupChatsScreen({super.key});
+  const GroupChatsScreen({super.key, this.isSend = false,  this.isRead = false});
+
+  final bool isSend;
+  final bool isRead;
 
   @override
   Widget build(BuildContext context) {
@@ -16,28 +19,64 @@ class GroupChatsScreen extends StatelessWidget {
       child: ListView.builder(
         itemCount: 5,
         itemBuilder: (context, index) {
-          return JRoundedContainer(
-            height: 90,
-            backgroundColor: Colors.purple.shade50,
-            padding: EdgeInsets.symmetric(vertical: JSizes.sm),
-            margin: EdgeInsets.symmetric(vertical: JSizes.xs),
-            child: ListTile(
-              leading: const CircleAvatar(
-                radius: 30,
-                child: Icon(Icons.group),
+          return GestureDetector(
+            onTap: () {
+              Get.to(() => const ChatScreen(isGroupChat: true));
+            },
+            child: JRoundedContainer(
+              height: 90,
+              backgroundColor: Colors.blue.shade50,
+              padding: EdgeInsets.all(JSizes.sm),
+              margin: EdgeInsets.symmetric(vertical: JSizes.xs),
+              child: Row(
+
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 30,
+                        child: Icon(Icons.person),
+                      ),
+
+                      SizedBox(width: JSizes.md,),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Team Conversation ${index + 1}",
+                            style: TextStyle(color: JColors.black),
+                          ),
+                          SizedBox(
+                            width: 230,
+                            child: Text(
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              "Guys please how is the frontend going?",
+                              style: TextStyle(color: JColors.black),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("3pm", style: TextStyle(color: JColors.darkGrey, fontSize: 15),),
+
+                      isSend
+                          ? (isRead
+                          ? Icon(Icons.check, color: JColors.primary)
+                          : Icon(Icons.check, color: JColors.darkGrey))
+                          : Icon(Icons.access_time, color: JColors.darkGrey),
+                    ],
+                  )
+                ],
               ),
-              title: Text(
-                "Group Chat ${index + 1}",
-                style: TextStyle(color: JColors.black),
-              ),
-              subtitle: const Text(
-                "Team conversation preview...",
-                style: TextStyle(color: JColors.black),
-              ),
-              onTap: () {
-                // Navigate to the group chat screen
-                Get.to(() => const ChatScreen(isGroupChat: true));
-              },
             ),
           );
         },

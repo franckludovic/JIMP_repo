@@ -34,6 +34,7 @@ class JRoundedContainer extends StatelessWidget {
       width: width,
       height: height,
       padding: padding,
+
       margin: margin,
       decoration: BoxDecoration(
         color: backgroundColor,

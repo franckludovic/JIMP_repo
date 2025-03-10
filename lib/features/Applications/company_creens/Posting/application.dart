@@ -13,7 +13,8 @@ import '../../../../common/widgets/notifications/notifications_icon.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../screens/all_product/all_application.dart';
-import '../postings/postings.dart';
+import '../posting_creations/posting_creations.dart';
+import 'Widgets/postings.dart';
 import 'Widgets/companycategory.dart';
 
 
@@ -103,7 +104,7 @@ class CompanyApplicationScreen extends StatelessWidget {
               bottom: 20,
               right: 20,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () => Get.to(() => JobCreationPage()),
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.all(JSizes.sm),
                   shape: RoundedRectangleBorder(

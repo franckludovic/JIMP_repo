@@ -1,35 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:project_bc_tuto/common/widgets/texts/textArea.dart';
 import 'package:project_bc_tuto/features/Applications/company_creens/CompanyChats/widgets/groupChats.dart';
 import 'package:project_bc_tuto/features/Applications/company_creens/CompanyChats/widgets/indivudualChart.dart';
 import 'package:project_bc_tuto/features/Applications/company_creens/CompanyChats/widgets/pinnedChats.dart';
+import 'package:project_bc_tuto/utils/constants/colors.dart';
+import 'package:project_bc_tuto/utils/constants/sizes.dart';
+import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
 class ChatHomeScreen extends StatelessWidget {
   const ChatHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    final dark = JHelperFunctions.isDarkMode(context);
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title:  Text("Messages", style: Theme.of(context).textTheme.headlineMedium,),
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.menu, size: 30,))
-          ],
+          title:  Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Messages", style: Theme.of(context).textTheme.headlineMedium,),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.menu, size: 30, color: dark ? JColors.white : JColors.black,)),
+                ],
+              ),
 
+              SizedBox(height: JSizes.md,),
+
+              JTextArea(label: Text("Search for Discussions ",),maxAreaHeight: 1, minAreaHeight: 1,prefixIcon: Icon(Icons.search_rounded, size: 30,),),
+
+              SizedBox(height: JSizes.sm,),
+            ],
+          ),
+
+          toolbarHeight: 120,
           bottom: const TabBar(
             tabs: [
               Tab(text: "Individual"),
               Tab(text: "Group"),
-              Tab(text: "Bookmarked"),
+              Tab(text: "Marked"),
             ],
           ),
         ),
-        body: const TabBarView(
+        body:  TabBarView(
           children: [
             IndividualChatsScreen(),
             GroupChatsScreen(),
-            Pinnedchats(),
+            Marked(),
 
           ],
         ),

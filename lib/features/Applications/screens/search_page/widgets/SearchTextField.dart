@@ -6,10 +6,11 @@ import '../../../../../utils/helpers/helper_functions.dart';
 
 class SearchTextField extends StatelessWidget {
   const SearchTextField({
-    super.key,
+    super.key,  this.isFilter = false,
 
   });
 
+  final bool isFilter;
 
 
   @override
@@ -58,7 +59,7 @@ class SearchTextField extends StatelessWidget {
                   bottomLeft: Radius.circular(5),
                 ),
               ),
-              child: IconButton(onPressed:() {}, icon: Icon(Icons.search_rounded, color: JColors.secondary ,size: 30,)),
+              child: IconButton(onPressed:() {}, icon: Icon( isFilter?  Icons.filter_alt_rounded : Icons.search_rounded, color: JColors.secondary ,size: 30,)),
             )
         ),
       ],
