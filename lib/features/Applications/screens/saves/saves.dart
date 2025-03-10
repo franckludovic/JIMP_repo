@@ -6,8 +6,9 @@ import 'package:project_bc_tuto/common/widgets/icons/circular_icon.dart';
 import 'package:project_bc_tuto/features/Applications/screens/home/home.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
-import '../../../../common/widgets/applications/applications_cards/applications_card_vertical.dart';
+import '../../../../common/widgets/applications/applications_cards/vertical_Application.dart';
 import '../../../../common/widgets/layout/grid_layout.dart';
+import '../../../../utils/constants/image_strings.dart';
 
 class SavedScreen extends StatelessWidget {
   const SavedScreen({super.key});
@@ -38,7 +39,7 @@ class SavedScreen extends StatelessWidget {
               //   ],
               // ),
 
-              JGridLayout(itemCount: 4, itemBuilder: (_, index) => JApplicationsCardVertical()),
+              JGridLayout(itemCount: 5,crossAxisCount: 2, itemBuilder: (_, index) => VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', )),
 
             ],
           ),

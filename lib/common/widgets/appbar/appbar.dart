@@ -16,7 +16,9 @@ class JAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingOnPressed,
     this.showBackArrow = false,
     this.color,
+
     this.backgroundColor,
+     this.leadingIconSize = 45,
   });
 
   final Widget? title;
@@ -25,6 +27,7 @@ class JAppbar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
   final Color? color;
+  final double leadingIconSize;
   final Color? backgroundColor;
 
   @override
@@ -45,7 +48,7 @@ class JAppbar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: leadingOnPressed,
           icon: Icon(
             leadingIcon,
-            size: 45,
+            size: leadingIconSize,
             color: color ?? (dark
                 ? JColors.white
                 : JColors.black),

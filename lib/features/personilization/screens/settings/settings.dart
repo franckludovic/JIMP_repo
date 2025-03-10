@@ -119,12 +119,13 @@ class SettingScreen extends StatelessWidget {
                     subtitle: "Get any kind of updates",
                     onTap: () => Get.to(() => const JNotificationScreen()),
                   ),
-                  JSettingsMenuTile(
-                    icon: Iconsax.security_card,
-                    title: "Account Privacy",
-                    subtitle: "Manage data usage and connected account",
-                    onTap: () {},
-                  ),
+
+                  // JSettingsMenuTile(
+                  //   icon: Iconsax.security_card,
+                  //   title: "Account Privacy",
+                  //   subtitle: "Manage data usage and connected account",
+                  //   onTap: () {},
+                  // ),
 
                   ///--App settings
                   SizedBox(height: JSizes.spaceBtwSections),
