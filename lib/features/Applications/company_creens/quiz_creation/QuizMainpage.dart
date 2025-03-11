@@ -37,10 +37,10 @@ class QuizCreationPage extends StatelessWidget {
         body: const TabBarView(
           children: [
             MultipleChoiceTabPage(),
-            ShortQuestionsTabPage(),
+            ShortAnswerTabPage(),
             TrueFalseTabPage(),
             ProblemSolvingTabPage(),
-            CustomQuestionTabPage(),
+            CustomQuestionsTabPage(),
           ],
         ),
       ),

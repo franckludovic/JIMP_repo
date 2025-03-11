@@ -6,6 +6,7 @@ import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_con
 import '../../../../../common/widgets/texts/section_heading.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../screens/candadite_review/candidate_review.dart';
 import '../../quiz_creation/QuizMainpage.dart';
 
 class QuickActioons extends StatelessWidget {
@@ -153,7 +154,7 @@ class QuickActioons extends StatelessWidget {
         SizedBox(height: JSizes.spaceBtwItems * 1.3),
 
         GestureDetector(
-          onTap: () {},
+          onTap: () => Get.to(() => CandidateReviewPage()),
           child: JRoundedContainer(
             backgroundColor: Colors.yellow.shade100,
             padding: EdgeInsets.all(JSizes.md),

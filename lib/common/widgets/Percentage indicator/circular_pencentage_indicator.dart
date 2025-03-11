@@ -9,13 +9,13 @@ import '../pop_up/pop_up.dart';
 class JCircularSkillIndicator extends StatelessWidget {
   const JCircularSkillIndicator({
     super.key,
-    this.radius = 33,
+    this.radius = 35,
     this.lineWidth = 11.0,
     this.animation = true,
     required this.percentage,
-    required this.textPercent,
+    this.textPercent ,
     required this.bottomText,
-    required this.progressColor,
+    this.progressColor = JColors.secondary,
     this.backgroundColor,
     this.centerTextFontSize = 15.0,
     this.bottomTextFontSize = 10.0,
@@ -26,7 +26,7 @@ class JCircularSkillIndicator extends StatelessWidget {
   final double lineWidth;
   final bool animation;
   final double percentage;
-  final String textPercent;
+  final String? textPercent;
   final String bottomText;
   final Color progressColor;
   final Color? backgroundColor;
@@ -60,9 +60,9 @@ class JCircularSkillIndicator extends StatelessWidget {
             percent: percentage,
             animationDuration: 1200,
             center:  Text(
-              textPercent,
+              textPercent ?? "${percentage*100}%",
               style:
-               TextStyle(fontWeight: FontWeight.bold, fontSize: centerTextFontSize),
+               TextStyle(fontSize: centerTextFontSize),
             ),
 
             footer:  Column(
