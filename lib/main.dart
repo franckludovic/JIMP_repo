@@ -9,8 +9,6 @@ void main() {
   //init firebase
   //init authentication
 
-
-
   runApp(const App());
 }
 

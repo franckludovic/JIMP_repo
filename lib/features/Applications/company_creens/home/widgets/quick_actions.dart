@@ -163,6 +163,7 @@ class QuickActioons extends StatelessWidget {
 
         GestureDetector(
           onTap: () => Get.to(() => SendProposalPage()),
+
           child: JRoundedContainer(
             backgroundColor: Colors.yellow.shade100,
             padding: EdgeInsets.all(JSizes.md),
