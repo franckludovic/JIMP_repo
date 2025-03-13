@@ -22,33 +22,27 @@ class InfoRow extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: JSizes.sm),
       padding: EdgeInsets.symmetric(horizontal: JSizes.md),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-         Row(
-           children: [
-             Container(
-               width: 40,
-               height: 40,
-               decoration: BoxDecoration(
-                 color: JColors.grey,
-                 borderRadius: BorderRadius.circular(70)
-               ),
-               child: Icon(logo, size: 30, color: JColors.black,),
-              ),
+         Container(
+           width: 55,
+           height: 55,
+           decoration: BoxDecoration(
+             color: JColors.grey,
+             borderRadius: BorderRadius.circular(70)
+           ),
+           child: Icon(logo, size: 35, color: JColors.black,),
+          ),
 
-              SizedBox(width: JSizes.spaceBtwItems,),
+          SizedBox(width: JSizes.spaceBtwItems,),
 
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: TextStyle(fontSize: 15, color: dark ? JColors.grey : JColors.darkerGrey)),
-                  Text(subTitle, style: Theme.of(context).textTheme.headlineSmall),
-                ],
-              ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: TextStyle(fontSize: 15, color: dark ? JColors.grey : JColors.darkerGrey)),
+              Text(subTitle, style: Theme.of(context).textTheme.headlineMedium),
+            ],
+          ),
 
-             IconButton(onPressed: () {}, icon: Icon(Icons.edit))
-           ],
-         ),
         ],
       ),
     );

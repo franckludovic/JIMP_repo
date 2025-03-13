@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:project_bc_tuto/common/styles/spacing_styles.dart';
+import 'package:project_bc_tuto/utils/constants/colors.dart';
 
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/constants/text_strings.dart';
@@ -44,9 +45,10 @@ class SuccessScreen extends StatelessWidget {
                   child: ElevatedButton(
                       onPressed: onPressed,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:Colors.blue
+                        backgroundColor: JColors.primary,
+                        side: BorderSide(color: JColors.grey)
                       ),
-                      child: const Text(JTexts.tContinue, style: TextStyle(fontFamily: "Poppins", fontSize: 20),))),
+                      child: const Text(JTexts.jContinue, style: TextStyle(fontFamily: "Poppins", fontSize: 20),))),
               const SizedBox(height: JSizes.spaceBtwItems),
             ],
           ),

@@ -13,7 +13,7 @@ class InfoTile extends StatelessWidget {
     this.textBodySize = 15,
     this.titleSize,
     this.TextColor,
-    this.titleColor,
+    this.titleColor,  this.isEditable = false,
   });
 
   final String textBody;
@@ -24,6 +24,7 @@ class InfoTile extends StatelessWidget {
   final double? titleSize;
   final Color? TextColor;
   final Color? titleColor;
+  final bool isEditable;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,16 @@ class InfoTile extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text(title, style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: titleSize, color: titleColor ) ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  
+                  Text(title, style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: titleSize, color: titleColor ) ),
+
+                  isEditable ? Icon(Icons.edit) : Text("")
+                
+                ],
+              ),
             ),
             SizedBox(height: spacing),
             ReadMoreText(

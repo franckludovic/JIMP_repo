@@ -5,7 +5,6 @@ import 'package:project_bc_tuto/features/authentication/screens/Sign_up/step4_si
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/SkillAddCard.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/step_indicator.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
-
 import '../../../../common/widgets/custom_shapes/other_shapes/custom_divider.dart';
 import '../../../../common/widgets/sign_upButtons/signUpNavButtons.dart';
 import '../../../../utils/device/device_utility.dart';

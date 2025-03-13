@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/utils/device/device_utility.dart';
 
 import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import '../../../../../common/widgets/texts/section_heading.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
-import '../../../screens/candadite_review/candidate_review.dart';
+import '../../posting_creations/posting_creations.dart';
+import '../../proposals/new_proposals.dart';
 import '../../quiz_creation/QuizMainpage.dart';
 
 class QuickActioons extends StatelessWidget {
@@ -30,7 +32,7 @@ class QuickActioons extends StatelessWidget {
 
 
         GestureDetector(
-          onTap: () {},
+          onTap: () => Get.to(() => const JobCreationPage()),
           child: JRoundedContainer(
             backgroundColor: Colors.purple.shade50,
             padding: EdgeInsets.all(JSizes.md),
@@ -59,15 +61,18 @@ class QuickActioons extends StatelessWidget {
         SizedBox(
           height: JSizes.spaceBtwItems * 1.3,
         ),
+
+
+        ///create job posting
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
-              onTap: () {},
+              onTap: () => Get.to(() => const JobCreationPage()),
               child: JRoundedContainer(
                 backgroundColor: Colors.blue.shade100,
                 padding: EdgeInsets.all(JSizes.md),
-                width: 162,
+                width: JDeviceUtils.getScreenWidth(context) / 2.35,
                 height: 150,
                 child: Stack(
                   children: [
@@ -95,17 +100,20 @@ class QuickActioons extends StatelessWidget {
                               fontSize: 25,
                               color: Colors.black,
                               fontWeight: FontWeight.bold),
-                        )),
+                        )
+                    ),
                   ],
                 ),
               ),
             ),
+
+            ///create new quiz
             GestureDetector(
               onTap: () => Get.to(() => const QuizCreationPage()),
               child: JRoundedContainer(
                 backgroundColor: Colors.greenAccent.shade100,
                 padding: EdgeInsets.symmetric(horizontal:  JSizes.md),
-                width: 162,
+                width: JDeviceUtils.getScreenWidth(context) / 2.35,
                 height: 150,
                 child: Stack(children: [
 
@@ -154,7 +162,7 @@ class QuickActioons extends StatelessWidget {
         SizedBox(height: JSizes.spaceBtwItems * 1.3),
 
         GestureDetector(
-          onTap: () => Get.to(() => CandidateReviewPage()),
+          onTap: () => Get.to(() => SendProposalPage()),
           child: JRoundedContainer(
             backgroundColor: Colors.yellow.shade100,
             padding: EdgeInsets.all(JSizes.md),

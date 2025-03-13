@@ -9,6 +9,7 @@ class JTextArea extends StatelessWidget {
     this.suffixIcon,
     required this.label,
     this.maxAreaHeight = 7,
+    this.backgroundcolor = Colors.transparent,
   });
 
   final int minAreaHeight;
@@ -17,6 +18,7 @@ class JTextArea extends StatelessWidget {
   final Widget label;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final Color backgroundcolor;
 
 
   @override
@@ -24,8 +26,11 @@ class JTextArea extends StatelessWidget {
     return TextField(
       minLines: minAreaHeight,
       maxLines: maxAreaHeight,
-
+      cursorColor: Colors.black,
+      style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
+        filled: true,
+        fillColor: backgroundcolor,
         hintText: hintText,
         label: label,
         border: OutlineInputBorder(

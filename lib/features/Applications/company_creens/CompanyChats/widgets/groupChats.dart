@@ -7,10 +7,11 @@ import '../../../../../utils/constants/colors.dart';
 import 'chatscreen.dart';
 
 class GroupChatsScreen extends StatelessWidget {
-  const GroupChatsScreen({super.key, this.isSend = false,  this.isRead = false});
+  const GroupChatsScreen({super.key, this.isSend = false,  this.isRead = false,});
 
   final bool isSend;
   final bool isRead;
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +25,10 @@ class GroupChatsScreen extends StatelessWidget {
               Get.to(() => const ChatScreen(isGroupChat: true));
             },
             child: JRoundedContainer(
-              height: 90,
-              backgroundColor: Colors.blue.shade50,
+              height: 80,
               padding: EdgeInsets.all(JSizes.sm),
               margin: EdgeInsets.symmetric(vertical: JSizes.xs),
+              backgroundColor: Colors.transparent,
               child: Row(
 
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -35,7 +36,7 @@ class GroupChatsScreen extends StatelessWidget {
                   Row(
                     children: [
                       const CircleAvatar(
-                        radius: 30,
+                        radius: 25,
                         child: Icon(Icons.person),
                       ),
 
@@ -46,16 +47,16 @@ class GroupChatsScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Team Conversation ${index + 1}",
-                            style: TextStyle(color: JColors.black),
+                            "Team Chat ${index + 1}",
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           SizedBox(
-                            width: 230,
+                            width: 190,
                             child: Text(
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               "Guys please how is the frontend going?",
-                              style: TextStyle(color: JColors.black),
+                              style: Theme.of(context).textTheme.bodyMedium!.apply(color: JColors.darkGrey),
                             ),
                           ),
                         ],
@@ -63,16 +64,17 @@ class GroupChatsScreen extends StatelessWidget {
                     ],
                   ),
 
-                  Column(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("3pm", style: TextStyle(color: JColors.darkGrey, fontSize: 15),),
+                      Text("3d ago", style: TextStyle(color: JColors.darkGrey, fontSize: 13),),
 
+                      SizedBox(width: JSizes.xs,),
                       isSend
                           ? (isRead
-                          ? Icon(Icons.check, color: JColors.primary)
-                          : Icon(Icons.check, color: JColors.darkGrey))
-                          : Icon(Icons.access_time, color: JColors.darkGrey),
+                          ? Icon(Icons.check,  size: 15, color: JColors.primary)
+                          : Icon(Icons.check, size: 15, color: JColors.darkGrey))
+                          : Icon(Icons.access_time, size: 15, color: JColors.darkGrey),
                     ],
                   )
                 ],

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
+import 'package:project_bc_tuto/features/Applications/company_creens/Posting/Widgets/postings.dart';
 
 import '../../../../../common/widgets/buttons/bottom_button.dart';
-import '../../../../../common/widgets/companies/compagny_schocase.dart';
-import '../../../../../common/widgets/job_and_internship_card/intership_cards.dart';
-import '../../../../../utils/constants/image_strings.dart';
+import '../../../../../common/widgets/layout/grid_layout.dart';
 import '../../../../../utils/constants/sizes.dart';
-import '../../../../personilization/screens/settings/settings.dart';
 
 class JCompanyCategory extends StatelessWidget {
   const JCompanyCategory({super.key});
@@ -23,16 +21,11 @@ class JCompanyCategory extends StatelessWidget {
           padding: const EdgeInsets.all(JSizes.defaultSpace),
           child: Column(
             children: [
-              ///--compagny
-              JCompagnyShowCase(
-                jobs: [
-                  HorizontalJIntershipCard(companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"], onTap: () => (const SettingScreen()),),
-                  HorizontalJIntershipCard(companyLogo: JImages.nvidia,companyName: "Nvidia",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"]),
-                  HorizontalJIntershipCard(companyLogo: JImages.google,companyName: "Skyhub",duration: "1 - 4 month",jobTitle: "Data analyst", location: "Buea",skills: ["Python", "R", "ML", "DL"]),
-                  HorizontalJIntershipCard(companyLogo: JImages.apple,companyName: "Apple",duration: "5 - 6 month",jobTitle: "Web Developer", location: "Nigeria",skills: ["ReactJS", "javascript", "flutter"]),
-                  HorizontalJIntershipCard(companyLogo: JImages.facebook,companyName: "Facebook",duration: "1 - 3 month",jobTitle: "Network admin", location: "Libya",skills: ["Cisco", "javascript", "Linux"]),
-
-                ],
+              JGridLayout(
+                itemCount: 5,
+                mainAxisExtend: 250,
+                crossAxisCount: 1,
+                itemBuilder: (_, index) => JobPostCard(),
               ),
               const SizedBox(height: JSizes.spaceBtwItems),
 

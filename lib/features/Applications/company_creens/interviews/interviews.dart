@@ -38,7 +38,7 @@ class InterviewsScreens extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(JSizes.defaultSpace),
               child: SizedBox(
-                child:  JGridLayout(itemCount: 15,crossAxisCount: 1, mainAxisExtend: 110, itemBuilder: (index, _) => JUser_InterviewCards())
+                child:  JGridLayout(itemCount: 15,crossAxisCount: 1, mainAxisExtend: 110, itemBuilder: (index, _) => JUserInterviewCards())
                 ,
               )
             ),

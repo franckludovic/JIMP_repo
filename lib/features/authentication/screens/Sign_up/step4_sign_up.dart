@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
+import 'package:project_bc_tuto/features/authentication/screens/Sign_up/step5_sign_up.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/step_indicator.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
@@ -10,6 +12,7 @@ import '../../../../common/widgets/link_input_fields/linkInputFields.dart';
 import '../../../../common/widgets/sign_upButtons/signUpNavButtons.dart';
 import '../../../../common/widgets/texts/textArea.dart';
 import '../../../../utils/device/device_utility.dart';
+
 
 
 class CandidateRegisterScreen4 extends StatefulWidget {
@@ -93,24 +96,22 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
       ),
 
       // Step Indicator
-      bottomNavigationBar: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
 
-            SignUpNavigationButtons(onPressed:() {} ),
+          SignUpNavigationButtons(onPressed:() => Get.to(() => CandidateRegisterScreen5()) ),
 
-            Padding(
-              padding: const EdgeInsets.only(bottom: JSizes.spaceBtwSections, top: JSizes.md),
-              child: Positioned(
-                  bottom: JDeviceUtils.getBottomNavigationBarHeight(),
-                  left: 0,
-                  right: 0,
-                  child: StepIndicator(currentIndex: currentStep, totalSteps: 5)
-              ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: JSizes.spaceBtwSections, top: JSizes.md),
+            child: Positioned(
+                bottom: JDeviceUtils.getBottomNavigationBarHeight(),
+                left: 0,
+                right: 0,
+                child: StepIndicator(currentIndex: currentStep, totalSteps: 5)
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

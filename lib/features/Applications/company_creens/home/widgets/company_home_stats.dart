@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../../../utils/device/device_utility.dart';
 import 'home_stats_container.dart';
 
 class CompanyHomeStats extends StatelessWidget {
@@ -20,7 +21,7 @@ class CompanyHomeStats extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               JRoundedContainer(
-                width: 162,
+                width: JDeviceUtils.getScreenWidth(context) / 2.35,
                 height: 150,
                 backgroundColor: Colors.blueAccent,
                 child: Stack(
@@ -69,7 +70,7 @@ class CompanyHomeStats extends StatelessWidget {
 
               ),
               JRoundedContainer(
-                width: 162,
+                width: JDeviceUtils.getScreenWidth(context) / 2.35,
                 height: 150,
                 backgroundColor: Colors.green,
                 child: Stack(

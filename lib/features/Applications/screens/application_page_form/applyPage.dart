@@ -52,6 +52,8 @@ class ApplyFormState extends State<ApplyPage> {
                 textBody:"You will be working on the Infrastructure  team and contributing to the development of our systems",
               ),
 
+              SizedBox(height: JSizes.spaceBtwSections),
+
               DocumentUploadWidget(),
 
               AdditionalFilesWidget(),
@@ -99,30 +101,12 @@ class ApplyFormState extends State<ApplyPage> {
                   ),
                   onPressed: () {},
                   child: Text(
-                    'Review Application',
+                    'Submit Application',
                     style: TextStyle(fontFamily: 'Poppins', fontSize: 20),
                   )
                 ),
               )
 
-              // APPLY INTERNSHIP Button
-              // SizedBox(
-              //   width: 300,
-              //   child: ElevatedButton(
-              //     onPressed: (widget.requiresVerification && !isSkillsVerified)
-              //         ? null
-              //         : () {},
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: (widget.requiresVerification && !isSkillsVerified)
-              //           ? Colors.grey
-              //           : Colors.purple,
-              //     ),
-              //     child: const Text(
-              //       "APPLY INTERNSHIP",
-              //       style: TextStyle(color: Colors.white),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),

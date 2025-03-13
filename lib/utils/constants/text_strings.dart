@@ -8,7 +8,7 @@ class JTexts {
   static const String done = "Done";
   static const String submit = "Submit";
   static const String appName = "JIMP";
-  static const String tContinue = "Continue";
+  static const String jContinue = "Continue";
 
   static const String dummyText = '';
 
@@ -53,7 +53,7 @@ class JTexts {
   // -- Authentication Headings
   static const String loginTitle = "Welcome back,";
   static const String loginSubTitle = "Discover Limitless Choices and Unmatched Convenience.";
-  static const String signupTitle = "Let’s create your account";
+  static const String signupTitle = "Create your account";
   static const String forgetPasswordTitle = "Forget password";
   static const String forgetPasswordSubTitle = "Don’t worry sometimes people can forget too, enter your email and we will send you a password reset link.";
   static const String changeYourPasswordTitle = "Password Reset Email Sent";

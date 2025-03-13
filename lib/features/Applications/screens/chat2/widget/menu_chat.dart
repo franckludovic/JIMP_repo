@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project_bc_tuto/features/Applications/screens/chat2/models/message_model.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import 'package:project_bc_tuto/utils/device/device_utility.dart';
-import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
 import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import '../../../../../utils/constants/colors.dart';
@@ -19,9 +18,6 @@ class _MenuChatState extends State<MenuChat> {
   @override
 
   Widget build(BuildContext context) {
-
-    final dark = JHelperFunctions.isDarkMode(context);
-
 
 
     return Container(

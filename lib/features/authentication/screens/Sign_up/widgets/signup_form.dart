@@ -1,3 +1,4 @@
+import 'package:fancy_password_field/fancy_password_field.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/term_and_conditions.dart';
@@ -68,12 +69,11 @@ class JSignupStep1Form extends StatelessWidget {
           const SizedBox(height: JSizes.spaceBtwInputFields),
 
           ///Password
-          TextFormField(
-            obscureText: true,
-            decoration: const InputDecoration(
-              labelText: JTexts.password,
-              prefixIcon: Icon(Iconsax.password_check),
-              suffixIcon: Icon(Iconsax.eye_slash),
+          FancyPasswordField(
+            decoration: InputDecoration(
+              labelText: "Password",
+              prefixIcon: const Icon(Iconsax.password_check),
+              hintText: "At least 8 characters",
             ),
           ),
 

@@ -7,10 +7,11 @@ import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import 'chatscreen.dart';
 
 class IndividualChatsScreen extends StatelessWidget {
-  const IndividualChatsScreen({super.key,  this.isSend = false,  this.isRead = false});
+  const IndividualChatsScreen({super.key,  this.isSend = false,  this.isRead = false, this.isActive = true});
 
   final bool isSend;
   final bool isRead;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +26,8 @@ class IndividualChatsScreen extends StatelessWidget {
               Get.to(() => const ChatScreen(isGroupChat: false));
             },
             child: JRoundedContainer(
-              height: 90,
-              backgroundColor: Colors.blue.shade50,
+              height: 80,
+              backgroundColor: Colors.transparent,
               padding: EdgeInsets.all(JSizes.sm),
               margin: EdgeInsets.symmetric(vertical: JSizes.xs),
               child: Row(
@@ -35,9 +36,30 @@ class IndividualChatsScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const CircleAvatar(
-                        radius: 30,
-                        child: Icon(Icons.person),
+
+                      Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 25,
+                            child: Icon(Icons.person)
+                          ),
+                          if (isActive)
+                            Positioned(
+                              right: 0,
+                              bottom: 0,
+                              child: Container(
+                                height: 16,
+                                width: 16,
+                                decoration: BoxDecoration(
+                                  color: JColors.primary,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: Theme.of(context).scaffoldBackgroundColor,
+                                      width: 3),
+                                ),
+                              ),
+                            )
+                        ],
                       ),
 
                       SizedBox(width: JSizes.md,),
@@ -47,16 +69,16 @@ class IndividualChatsScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Chat with Candidate ${index + 1}",
-                            style: TextStyle(color: JColors.black),
+                            "Candidate Chat ${index + 1}",
+                            style:  Theme.of(context).textTheme.bodyLarge,
                           ),
                           SizedBox(
-                            width: 230,
+                            width: 190,
                             child: Text(
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               "Hello boy life is good when ny#h the",
-                              style: TextStyle(color: JColors.black),
+                              style: Theme.of(context).textTheme.bodyMedium!.apply(color: JColors.darkGrey),
                             ),
                           ),
                         ],
@@ -64,16 +86,17 @@ class IndividualChatsScreen extends StatelessWidget {
                     ],
                   ),
 
-                  Column(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("3pm", style: TextStyle(color: JColors.darkGrey, fontSize: 15),),
+                      Text("3d ago", style: TextStyle(color: JColors.darkGrey, fontSize: 13),),
 
+                      SizedBox(width: JSizes.xs,),
                       isSend
                           ? (isRead
-                          ? Icon(Icons.check, color: JColors.primary)
-                          : Icon(Icons.check, color: JColors.darkGrey))
-                          : Icon(Icons.access_time, color: JColors.darkGrey),
+                          ? Icon(Icons.check,  size: 15, color: JColors.primary)
+                          : Icon(Icons.check, size: 15, color: JColors.darkGrey))
+                          : Icon(Icons.access_time, size: 15, color: JColors.darkGrey),
                     ],
                   )
                 ],

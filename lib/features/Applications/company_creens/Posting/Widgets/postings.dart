@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
+
+import '../../posting_creations/posting_creations.dart';
 
 class JobPostCard extends StatelessWidget {
   const JobPostCard({super.key});
@@ -99,7 +102,7 @@ class JobPostCard extends StatelessWidget {
                       backgroundColor: JColors.primary,
 
                     ),
-                    onPressed: () {},
+                    onPressed: () => Get.to(() => JobCreationPage()),
                     child: Row(
                       children: [
                         Text("EDIT", style: TextStyle(fontSize:20, fontFamily: 'Poppins', fontWeight: FontWeight.bold,  ),),

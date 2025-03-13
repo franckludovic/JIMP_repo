@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/search_container.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
@@ -12,7 +11,7 @@ import '../../../../common/widgets/layout/grid_layout.dart';
 import '../../../../common/widgets/notifications/notifications_icon.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../screens/all_product/all_application.dart';
+import '../all_jobs/all_application.dart';
 import '../posting_creations/posting_creations.dart';
 import 'Widgets/postings.dart';
 import 'Widgets/companycategory.dart';
@@ -45,7 +44,7 @@ class CompanyApplicationScreen extends StatelessWidget {
                     backgroundColor: JHelperFunctions.isDarkMode(context)
                         ? JColors.black
                         : JColors.white,
-                    expandedHeight: 685,
+                    expandedHeight: 700,
                     flexibleSpace: Padding(
                       padding: EdgeInsets.all(JSizes.defaultSpace),
                       child: ListView(
@@ -67,7 +66,7 @@ class CompanyApplicationScreen extends StatelessWidget {
                             children: [
                               JSectionHeading(
                                 title: 'Latest Postings',
-                                onPressed: () => Get.to(() => AllApplications()),
+                                onPressed: () => Get.to(() => AllPostings()),
                               ),
                               SizedBox(height: JSizes.spaceBtwItems * 0.7),
                               JGridLayout(
@@ -99,23 +98,16 @@ class CompanyApplicationScreen extends StatelessWidget {
               ),
             ),
 
-
-            Positioned(
-              bottom: 20,
-              right: 20,
-              child: ElevatedButton(
-                onPressed: () => Get.to(() => JobCreationPage()),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(JSizes.sm),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  elevation: 4,
-                ),
-                child: Icon(Iconsax.add, size: 60, color: Colors.black),
-              ),
-            ),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () => Get.to(() => JobCreationPage()),
+            backgroundColor: JColors.primary,
+            child: const Icon(
+              Icons.add,
+              size: 40,
+              color: Colors.white,
+            )
         ),
       ),
     );

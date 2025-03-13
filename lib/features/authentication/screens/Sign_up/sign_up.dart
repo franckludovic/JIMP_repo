@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/step2_sign_up.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/signup_form.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -22,18 +23,13 @@ class _CandidateRegisterScreenState extends State<CadidateSignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: JAppbar( showBackArrow: true ,title: Text(JTexts.signupTitle, style: Theme.of(context).textTheme.headlineMedium),),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(JSizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ///Title
-              Text(JTexts.signupTitle,
-                  style: Theme.of(context).textTheme.headlineMedium),
-              const SizedBox(height: JSizes.spaceBtwSections),
-
               ///Form
               const JSignupStep1Form(),
 

@@ -31,10 +31,7 @@ class _CandidateRegisterScreen2State extends State<CandidateRegisterScreen2> {
 
       appBar: JAppbar(title: Text(
         "Profile Information Screen",
-        style: Theme
-            .of(context)
-            .textTheme
-            .headlineMedium,
+        style: Theme.of(context).textTheme.headlineMedium,
       ),),
       body: SingleChildScrollView(
         child: Column(

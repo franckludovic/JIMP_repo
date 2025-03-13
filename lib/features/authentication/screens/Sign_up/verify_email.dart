@@ -60,7 +60,7 @@ class VerifyEmailScreen extends StatelessWidget {
                         subTitle: JTexts.yourAccountCreatedSubTitle,
                         onPressed: () => Get.to(() => const CandidateLoginScreen()),
                       )),
-                      child: const Text(JTexts.tContinue))),
+                      child: const Text(JTexts.jContinue))),
               const SizedBox(height: JSizes.spaceBtwItems),
 
               SizedBox(

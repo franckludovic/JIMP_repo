@@ -11,7 +11,9 @@ import 'package:project_bc_tuto/utils/device/device_utility.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
 class ApplicantsDetails extends StatelessWidget {
-  const ApplicantsDetails({super.key});
+  const ApplicantsDetails({super.key,  this.isSheduled = false});
+
+  final bool isSheduled;
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +142,7 @@ class ApplicantsDetails extends StatelessWidget {
                       side: BorderSide(color: JColors.grey),
                     ),
                     onPressed: () {},
-                    child: Text("Schedule Interview", style: TextStyle(fontSize: 20, color: JColors.black, fontFamily: 'Poppins'),)
+                    child: isSheduled ? Text("  Cancel Interview  ", style: TextStyle(fontSize: 20, color: JColors.error, fontFamily: 'Poppins'),) : Text("Schedule Interview", style: TextStyle(fontSize: 20, color: JColors.black, fontFamily: 'Poppins'),)
                   ),
                 ],
               ),

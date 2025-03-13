@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 import 'package:project_bc_tuto/features/Applications/company_creens/posting_creations/widgets/customTextfileds.dart';
 import 'package:project_bc_tuto/features/Applications/company_creens/posting_creations/widgets/tagInpusts.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
+
+import '../quiz_creation/QuizMainpage.dart';
 
 
 
@@ -36,7 +39,7 @@ class _JobCreationPageState extends State<JobCreationPage> {
     return Scaffold(
       appBar: JAppbar(
         showBackArrow: true,
-        title:  Text("New Job", style: Theme.of(context).textTheme.headlineMedium,),
+        title:  Text("Job Form", style: Theme.of(context).textTheme.headlineMedium,),
         actions: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -151,10 +154,10 @@ class _JobCreationPageState extends State<JobCreationPage> {
               // Skill Verification Quiz
               Row(
                 children: [
-                  const Icon(Icons.quiz_outlined, color: Colors.blue),
+                  IconButton(onPressed: _skillVerificationQuizInfo ,  icon: Icon(Icons.quiz_outlined, color: Colors.blue)),
                   const SizedBox(width: 8),
                   TextButton(
-                    onPressed: _addSkillVerificationQuiz,
+                    onPressed:()  => Get.to(() => const QuizCreationPage()),
                     child: const Text("Add a skill verification quiz"),
                   ),
                 ],
@@ -191,10 +194,9 @@ class _JobCreationPageState extends State<JobCreationPage> {
     );
   }
 
-  void _addSkillVerificationQuiz() {
-
+  void _skillVerificationQuizInfo() {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Add Skill Verification Quiz")),
+      const SnackBar(content: Text("You can add a skill verification Quiz to evaluate the skills of candidate")),
     );
   }
 }

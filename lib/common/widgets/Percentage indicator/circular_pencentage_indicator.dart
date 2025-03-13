@@ -43,11 +43,11 @@ class JCircularSkillIndicator extends StatelessWidget {
       onTap: ()  => showCustomPopup(),
       child: Container(
         padding: EdgeInsets.all(9),
-        height: 120,
+        height: 150,
 
-        margin: EdgeInsets.only(left: 18, top: 6, bottom: 6),
+        margin: EdgeInsets.only(left: 18, top: 6, bottom: 2),
         decoration: BoxDecoration(
-          color: cardbackgroudColor ?? (JHelperFunctions.isDarkMode(context) ? JColors.black : JColors.white),
+          color: cardbackgroudColor ?? (JHelperFunctions.isDarkMode(context) ? JColors.darkerGrey : JColors.white),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(color: Colors.grey, blurRadius: 5, spreadRadius: 1),

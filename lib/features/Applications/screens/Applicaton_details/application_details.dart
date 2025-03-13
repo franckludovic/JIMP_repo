@@ -24,7 +24,7 @@ class MyApplicationDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = JHelperFunctions.isDarkMode(context);
     return Scaffold(
-      bottomNavigationBar: JApplySaveButton(),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: JSizes.xs),
@@ -53,7 +53,7 @@ class MyApplicationDetails extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: JSizes.lg),
                 child: JApplicatonTags(
                   tags: [
-                    'FullTime', "Remote", "Paid"
+                    'FullTime', "Remote", "Verified"
                   ],
                 ),
               ),
@@ -130,13 +130,13 @@ class MyApplicationDetails extends StatelessWidget {
 
               const SizedBox(height: JSizes.spaceBtwSections,),
 
-
-
       ],
           ),
         ),
       ),
+      bottomNavigationBar: JApplySaveButton(),
     );
+
   }
 }
 

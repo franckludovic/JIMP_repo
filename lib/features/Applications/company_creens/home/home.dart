@@ -54,7 +54,7 @@ class CompanyHome extends StatelessWidget {
 
                   JSectionHeading(title: "Upcoming Interviews", TextSize: 22 ,onPressed: () => Get.to(() => const  InterviewsScreens())),
 
-                  JGridLayout(itemCount: 5,crossAxisCount: 1, mainAxisExtend: 110, itemBuilder: (index, _) => JUser_InterviewCards())
+                  JGridLayout(itemCount: 5,crossAxisCount: 1, mainAxisExtend: 110, itemBuilder: (index, _) => JUserInterviewCards())
 
 
                 ],
