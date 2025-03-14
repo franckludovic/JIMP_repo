@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_bc_tuto/common/widgets/texts/compagny_title_with_verified_icon.dart';
+import 'package:project_bc_tuto/features/Applications/company_creens/company_profile/widget/company_specialisation.dart';
 import 'package:project_bc_tuto/features/Applications/company_creens/proposals/proposal_details.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
+import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
 class ProposalCard extends StatelessWidget {
   final String companyName;
   final String jobTitle;
   final String location;
   final String jobType;
+  final String jobTag;
   final String salary;
   final List<String> skills;
   final String companyLogo;
@@ -23,6 +27,8 @@ class ProposalCard extends StatelessWidget {
     required this.skills,
     required this.companyLogo,
     required this.postedDate,
+    required this.jobTag,
+
   });
 
   @override
@@ -44,30 +50,70 @@ class ProposalCard extends StatelessWidget {
             postedDate: postedDate,
           ),
         ),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(JSizes.sm),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(JSizes.md),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              CompanyProposalHeader(jobTitle: 'Senior SoftWare',),
+              CompanyProposalHeader(jobTitle: jobTitle, companyLogo: companyLogo ),
 
-          const SizedBox(height: 16),
-          _buildDetailRow(
+              SizedBox(height: JSizes.sm,),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Chip(
+                    padding: EdgeInsets.all(JSizes.sm),
+                    backgroundColor: JColors.primary.withAlpha((0.1 * 255).toInt()),
+                    label: Text(jobType),
+                  ),
+
+                  Chip(
+                    padding: EdgeInsets.all(JSizes.sm),
+                    backgroundColor: JColors.primary.withAlpha((0.1 * 255).toInt()),
+                    label: Text(jobTag),
+                  ),
+                ],
+              ),
+
+          const SizedBox(height: JSizes.sm),
+
+          buildDetailRow(
             icon: Icons.location_on_outlined,
             text: location,
           ),
-          _buildDetailRow(
+
+          buildDetailRow(
             icon: Icons.attach_money,
             text: salary,
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: JSizes.sm),
+
+              Wrap(
+                spacing: 8,
+                children: skills.map((skill) => Chip(
+                  padding: EdgeInsets.symmetric(vertical: JSizes.sm, horizontal: JSizes.sm),
+                  label: Text(skill),
+                  backgroundColor: JColors.grey.withAlpha((0.2 * 255).toInt()),
+                )).toList(),
+              ),
+
+
 
           const SizedBox(height: 8),
-          Text(
-            "Posted $postedDate",
-            style: Theme.of(context).textTheme.bodySmall,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+
+              JCompagnyTittleVerifications(title: companyName, isVerified: true,),
+
+              Text(
+                "Posted $postedDate",
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
           ),
           ],
         ),
@@ -76,7 +122,7 @@ class ProposalCard extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailRow({required IconData icon, required String text}) {
+  Widget buildDetailRow({required IconData icon, required String text}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(

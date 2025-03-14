@@ -46,7 +46,8 @@ class ProposalDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            proposalHeaderSection(),
+
+            CompanyProposalHeader(jobTitle: jobTitle, companyLogo: companyLogo,),
 
 
             const SizedBox(height: JSizes.spaceBtwSections),
@@ -78,9 +79,9 @@ class ProposalDetailsScreen extends StatelessWidget {
             Wrap(
               spacing: 8,
               children: [
-                proposalBenefitChip('health_insurance'.tr),
-                proposalBenefitChip('paid_time_off'.tr),
-                proposalBenefitChip('retirement_plan'.tr),
+                proposalBenefitChip('Health Insurance'.tr),
+                proposalBenefitChip('Paid Time off'.tr),
+                proposalBenefitChip('Retirement Plan'.tr),
               ],
             ),
 
@@ -92,10 +93,6 @@ class ProposalDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget proposalHeaderSection() {
-    return  CompanyProposalHeader(jobTitle: jobTitle);
-
-  }
 
   Widget proposalSectionTitle(String title) {
     return Padding(
@@ -177,9 +174,11 @@ class CompanyProposalHeader extends StatelessWidget {
   const CompanyProposalHeader({
     super.key,
     required this.jobTitle,
+    this.companyLogo = JImages.google,
   });
 
   final String jobTitle;
+  final String companyLogo;
 
   @override
   Widget build(BuildContext context) {
@@ -189,11 +188,12 @@ class CompanyProposalHeader extends StatelessWidget {
           Container(
             height: 120,
             width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: JSizes.lg, vertical: JSizes.lg),
             decoration: BoxDecoration(
               color: Colors.grey.shade300,
               borderRadius: BorderRadius.circular(8),
-              image: const DecorationImage(
-                image: AssetImage(JImages.google),
+              image:  DecorationImage(
+                image: AssetImage(companyLogo,),
                 fit: BoxFit.contain,
               ),
             ),
