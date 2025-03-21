@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/texts/compagny_title_with_verified_icon.dart';
-import 'package:project_bc_tuto/features/Applications/company_creens/company_profile/widget/company_specialisation.dart';
 import 'package:project_bc_tuto/features/Applications/company_creens/proposals/proposal_details.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
@@ -23,11 +22,12 @@ class ProposalCard extends StatelessWidget {
     required this.jobTitle,
     required this.location,
     required this.jobType,
+    required this.jobTag,
     required this.salary,
     required this.skills,
     required this.companyLogo,
     required this.postedDate,
-    required this.jobTag,
+
 
   });
 
@@ -44,6 +44,7 @@ class ProposalCard extends StatelessWidget {
             jobTitle: jobTitle,
             location: location,
             jobType: jobType,
+            jobTag: jobTag,
             salary: salary,
             skills: skills,
             companyLogo: companyLogo,
@@ -96,7 +97,7 @@ class ProposalCard extends StatelessWidget {
                 children: skills.map((skill) => Chip(
                   padding: EdgeInsets.symmetric(vertical: JSizes.sm, horizontal: JSizes.sm),
                   label: Text(skill),
-                  backgroundColor: JColors.grey.withAlpha((0.2 * 255).toInt()),
+                  backgroundColor: JColors.grey.withAlpha((0.5 * 255).toInt()),
                 )).toList(),
               ),
 

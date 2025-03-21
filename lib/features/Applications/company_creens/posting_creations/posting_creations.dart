@@ -6,6 +6,7 @@ import 'package:project_bc_tuto/features/Applications/company_creens/posting_cre
 import 'package:project_bc_tuto/features/Applications/company_creens/posting_creations/widgets/tagInpusts.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
+import '../../screens/Applicaton_details/application_details.dart';
 import '../quiz_creation/QuizMainpage.dart';
 
 
@@ -166,7 +167,7 @@ class _JobCreationPageState extends State<JobCreationPage> {
 
               // Review Posting Button
               ElevatedButton(
-                onPressed: _reviewPosting,
+                onPressed: () => Get.to(() => const JMyApplicationDetails(title: "Review Post", isReview: true,)),
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 48),
                 ),
@@ -187,12 +188,6 @@ class _JobCreationPageState extends State<JobCreationPage> {
     );
   }
 
-  void _reviewPosting() {
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Review Posting...")),
-    );
-  }
 
   void _skillVerificationQuizInfo() {
     ScaffoldMessenger.of(context).showSnackBar(

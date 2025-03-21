@@ -8,7 +8,10 @@ import '../../../../../utils/helpers/helper_functions.dart';
 import '../../../../authentication/screens/login/login.dart';
 
 class JApplySaveButton extends StatelessWidget {
-  const JApplySaveButton({super.key});
+
+  final bool isReveiw;
+
+  const JApplySaveButton({super.key,  this.isReveiw = false, });
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,7 @@ class JApplySaveButton extends StatelessWidget {
                   side: const BorderSide(color: JColors.grey),
                 ),
                 onPressed: () => Get.to(() => CandidateLoginScreen()),
-                child: const Text("APPLY", style: TextStyle(fontSize: 25, fontFamily: 'Poppins'),)
+                child: isReveiw? Text("POST", style: TextStyle(fontSize: 25, fontFamily: 'Poppins')) :  Text("APPLY", style: TextStyle(fontSize: 25, fontFamily: 'Poppins'),)
             ),
           ),
         ],

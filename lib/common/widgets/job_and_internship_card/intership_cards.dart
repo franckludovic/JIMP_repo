@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:get/get.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
-import '../../../features/Applications/screens/Applicaton_details/application_details.dart';
-import '../../../utils/constants/sizes.dart';
-import '../../../utils/helpers/helper_functions.dart';
+import 'package:project_bc_tuto/utils/constants/sizes.dart';
+import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import 'package:intl/intl.dart';
 
+import '../../../features/Applications/screens/Applicaton_details/application_details.dart';
 
 class HorizontalJIntershipCard extends StatelessWidget {
   const HorizontalJIntershipCard({
@@ -17,16 +17,15 @@ class HorizontalJIntershipCard extends StatelessWidget {
     required this.location,
     required this.duration,
     required this.skills,
+    this.salary,
+    this.jobType,
     this.backgroundColor,
     this.onTap,
     this.saved = false,
     this.isCompleted = false,
-    this.day,
-    this.month,
-    this.year,
-    this.borderRadius = 12,
+    this.deadline,
+    this.borderRadius = JSizes.borderRadiusLg,
     this.iconBorderRad = JSizes.md,
-
   });
 
   final String companyLogo;
@@ -34,194 +33,220 @@ class HorizontalJIntershipCard extends StatelessWidget {
   final String jobTitle;
   final String location;
   final String duration;
+  final String? salary;
+  final String? jobType;
   final Color? backgroundColor;
   final List<String> skills;
   final bool saved;
   final VoidCallback? onTap;
   final bool isCompleted;
-  final int? day;
-  final int? month;
-  final int? year;
+  final DateTime? deadline;
   final double borderRadius;
   final double iconBorderRad;
 
   @override
   Widget build(BuildContext context) {
+    final isDark = JHelperFunctions.isDarkMode(context);
+    final now = DateTime.now();
+    final daysRemaining =
+    deadline?.difference(now).inDays;
+
     return GestureDetector(
-      onTap: () => Get.to(() => const MyApplicationDetails()),
-      child: Stack(
-        children: [
-          // Internship Card
-          Container(
-            height: 200,
-            width: null,
-            padding: const EdgeInsets.all(10),
-            margin: const EdgeInsets.all(3),
-            decoration: BoxDecoration(
-              color: backgroundColor ??
-                  (JHelperFunctions.isDarkMode(context)
-                      ? JColors.grey
-                      : JColors.secondary.withAlpha((0.1 * 255).toInt())),
-              borderRadius: BorderRadius.circular(borderRadius),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withAlpha((0.1 * 255).toInt()),
-                  blurRadius: 5,
-                  spreadRadius: 2,
-                  offset: const Offset(0, 4),
-                ),
-              ],
+      onTap: onTap ?? () => Get.to(() => const JMyApplicationDetails()),
+      child: Container(
+        height: 200,
+        margin: const EdgeInsets.symmetric(
+            vertical: JSizes.spaceBtwItems / 2),
+        decoration: BoxDecoration(
+          color: backgroundColor ??
+              (isDark ? JColors.darkerGrey : JColors.light),
+          borderRadius: BorderRadius.circular(borderRadius),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withAlpha((0.1 * 255).toInt()),
+              blurRadius: 6,
+              offset: const Offset(0, 3),
             ),
-            child: Row(
-              children: [
-                // Company Logo
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    companyLogo,
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        width: 70,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Icon(Icons.business, color: Colors.grey),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(width: 12),
+          ],
+        ),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(JSizes.md),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Company Logo
+                  _buildCompanyLogo(isDark),
+                  const SizedBox(width: JSizes.spaceBtwItems),
 
-                // Job Details
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        companyName,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        jobTitle,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        location,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey.shade500,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        duration,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        "Skills:  ${skills.join(", ")}",
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: JColors.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+                  // Job Details
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Company & Job Title
+                        _buildTitleSection(context),
+                        const SizedBox(
+                            height: JSizes.spaceBtwItems / 2),
 
-          // Dates Positioned at Bottom-Left (Only if Completed and Date is Provided)
-          if (isCompleted && day != null && month != null && year != null)
-            Positioned(
-              bottom: 20,
-              left: 20,
-              child: Dates(
-                year: year!,
-                month: month!,
-                day: day!,
+                        // Metadata
+                        _buildMetaDataSection(context, isDark),
+                        const SizedBox(
+                            height: JSizes.spaceBtwItems / 2),
+
+                        // Skills
+                        _buildSkillsSection(context),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
 
-          // Save Button Positioned at Bottom-Right (Only if Not Completed)
-          if (!isCompleted)
+            // Save Button
             Positioned(
-              bottom: 2.5,
-              right: 3,
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: JColors.dark,
-                  borderRadius:  BorderRadius.only(
-                    topLeft: Radius.circular(iconBorderRad),
-                    bottomRight: Radius.circular(iconBorderRad * 0.75),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Icon(
-                    Iconsax.save_21,
-                    color: saved ? Colors.yellow : JColors.white,
-                    size: 32,
-                  ),
-                ),
-              ),
+              top: JSizes.md,
+              right: JSizes.md,
+              child: _buildSaveButton(context),
             ),
-        ],
+
+            // Deadline/Days Remaining
+            if (daysRemaining != null && daysRemaining > 0)
+              Positioned(
+                bottom: JSizes.md,
+                right: JSizes.md,
+                child: _buildDeadlineBadge(context, daysRemaining),
+              ),
+          ],
+        ),
       ),
     );
   }
-}
 
-
-
-class CompletionDate extends StatelessWidget {
-  final DateTime completionDate;
-
-  const CompletionDate({super.key, required this.completionDate});
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Text(
-      'Completed on: ${DateFormat('dd - MM - yyyy').format(completionDate)}',
-      style:  TextStyle(fontSize: 20, fontFamily: 'Poppins', fontWeight: FontWeight.bold ,color: JColors.black, ),
+  Widget _buildCompanyLogo(bool isDark) {
+    return Container(
+      width: 80,
+      height: 80,
+      decoration: BoxDecoration(
+        color: isDark ? JColors.dark : JColors.white,
+        borderRadius: BorderRadius.circular(JSizes.borderRadiusMd),
+      ),
+      padding: const EdgeInsets.all(JSizes.sm),
+      child: Image.asset(
+        companyLogo,
+        fit: BoxFit.contain,
+        errorBuilder: (context, error, stackTrace) => Icon(
+          Icons.business_rounded,
+          color: JColors.primary,
+          size: 40,
+        ),
+      ),
     );
   }
-}
 
+  Widget _buildTitleSection(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          companyName,
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color: JColors.darkGrey,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: JSizes.xs),
+        Text(
+          jobTitle,
+          style: Theme.of(context).textTheme.titleLarge,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
+    );
+  }
 
-class Dates extends StatelessWidget {
-  const Dates({super.key, required this.year, required this.month, required this.day});
+  Widget _buildMetaDataSection(BuildContext context, bool isDark) {
+    return Wrap(
+      spacing: JSizes.xs,
+      runSpacing: JSizes.xs,
+      children: [
+        _buildMetaItem(context, Icons.location_on_outlined, location),
+        if (jobType != null)
+          _buildMetaItem(context, Icons.business_center, jobType!),
+        if (salary != null)
+          _buildMetaItem(context, Icons.attach_money, salary!),
+        _buildMetaItem(context, Icons.timer_outlined, duration),
+      ],
+    );
+  }
 
-  final int year;
-  final int month;
-  final int day;
+  Widget _buildMetaItem(
+      BuildContext context, IconData icon, String text) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 16, color: JColors.primary),
+        const SizedBox(width: JSizes.xs),
+        Text(
+          text,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: JColors.darkGrey,
+          ),
+        ),
+      ],
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    final DateTime internshipEndDate = DateTime(year, month, day);
-    return CompletionDate(completionDate: internshipEndDate);
+  Widget _buildSkillsSection(BuildContext context) {
+    return Wrap(
+      spacing: JSizes.sm,
+      runSpacing: 0,
+      children: skills
+          .map((skill) => Chip(
+        label: Text(skill),
+        padding: EdgeInsets.zero,
+        visualDensity: VisualDensity.compact,
+      ))
+          .toList(),
+    );
+  }
+
+  Widget _buildSaveButton(BuildContext context) {
+    return IconButton(
+      icon: Icon(
+        saved ? Icons.bookmark : Icons.bookmark_border,
+        color: saved ? JColors.warning : JColors.darkGrey,
+      ),
+      onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:
+          Text(saved ? "Removed from saved" : "Added to saved"),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDeadlineBadge(BuildContext context, int days) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: JSizes.sm,
+        vertical: JSizes.xs,
+      ),
+      decoration: BoxDecoration(
+        color: days < 7
+            ? JColors.error.withAlpha((0.2 * 255).toInt())
+            : JColors.success.withAlpha((0.2 * 255).toInt()),
+        borderRadius: BorderRadius.circular(JSizes.borderRadiusSm),
+      ),
+      child: Text(
+        "$days days left",
+        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+          color: days < 7 ? JColors.error : JColors.success,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
   }
 }

@@ -18,7 +18,7 @@ class JAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.color,
 
     this.backgroundColor,
-     this.leadingIconSize = 45,
+     this.leadingIconSize = 35,
   });
 
   final Widget? title;

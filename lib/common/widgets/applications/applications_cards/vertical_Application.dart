@@ -33,7 +33,7 @@ class VerticalJInternshipCard extends StatelessWidget {
     final dark = JHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-      onTap: () => Get.to(() => const MyApplicationDetails()),
+      onTap: () => Get.to(() => const JMyApplicationDetails()),
       child: SizedBox(
         height: 200,
         width: 165,

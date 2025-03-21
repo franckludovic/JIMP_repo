@@ -29,7 +29,7 @@ class InternshipCarousel extends StatelessWidget {
         CarouselSlider(
         items: jobs,
         options: CarouselOptions(
-            height: 200,
+            height: 235.5,
             enlargeCenterPage: true,
             autoPlay: false,
             autoPlayInterval: const Duration(seconds: 7),

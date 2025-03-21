@@ -11,10 +11,12 @@ class ProposalDetailsScreen extends StatelessWidget {
   final String jobTitle;
   final String location;
   final String jobType;
+  final String jobTag;
   final String salary;
   final List<String> skills;
   final String companyLogo;
   final String postedDate;
+
 
   const ProposalDetailsScreen({
     super.key,
@@ -22,6 +24,7 @@ class ProposalDetailsScreen extends StatelessWidget {
     required this.jobTitle,
     required this.location,
     required this.jobType,
+    required this.jobTag,
     required this.salary,
     required this.skills,
     required this.companyLogo,
@@ -33,7 +36,7 @@ class ProposalDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: JAppbar(
         title: Text('Proposal Details'.tr, style: Theme.of(context).textTheme.headlineMedium,),
-       showBackArrow: true,
+        showBackArrow: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.bookmark_border, size: 30,),
@@ -49,10 +52,10 @@ class ProposalDetailsScreen extends StatelessWidget {
 
             CompanyProposalHeader(jobTitle: jobTitle, companyLogo: companyLogo,),
 
-
             const SizedBox(height: JSizes.spaceBtwSections),
             proposalSectionTitle('Position Details'.tr),
             proposalDetailItem('Job Type'.tr, jobType),
+            proposalDetailItem('Job Tag', jobTag),
             proposalDetailItem('location'.tr, location),
             proposalDetailItem('salary'.tr, salary),
             proposalDetailItem('Posted Date'.tr, postedDate),
@@ -62,7 +65,7 @@ class ProposalDetailsScreen extends StatelessWidget {
             Wrap(
               spacing: 8,
               children: skills.map((skill) => Chip(
-                label: Text(skill),
+                label: Text(skill, style: TextStyle(color: Colors.white, fontFamily: 'Poppins'),),
                 backgroundColor: JColors.primary,
               )).toList(),
             ),
@@ -70,16 +73,17 @@ class ProposalDetailsScreen extends StatelessWidget {
             const SizedBox(height: 24),
             proposalSectionTitle('Job Description'.tr),
             Text(
-              'lorem_ipsum_description'.tr, // Add your translation
+              'lorem_ipsum_description'.tr,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
 
             const SizedBox(height: 24),
             proposalSectionTitle('Benefits'.tr),
             Wrap(
-              spacing: 8,
+              spacing: 5,
+              runSpacing: 5,
               children: [
-                proposalBenefitChip('Health Insurance'.tr),
+                proposalBenefitChip('Health Insurance'.tr,),
                 proposalBenefitChip('Paid Time off'.tr),
                 proposalBenefitChip('Retirement Plan'.tr),
               ],
@@ -136,7 +140,7 @@ class ProposalDetailsScreen extends StatelessWidget {
     return Chip(
       label: Text(label),
       backgroundColor: JColors.success.withAlpha((0.1 * 255).toInt()),
-      labelStyle: TextStyle(color: JColors.success),
+      labelStyle: TextStyle(color: JColors.success, fontFamily: 'Poppins',),
     );
   }
 
@@ -145,11 +149,11 @@ class ProposalDetailsScreen extends StatelessWidget {
       children: [
         Expanded(
           child: ElevatedButton.icon(
-            icon: const Icon(Icons.check, size: 20),
-            label: Text('ACCEPT'.tr),
+            icon: const Icon(Icons.check, size: 30),
+            label: Text('ACCEPT'.tr, style: TextStyle(fontFamily: 'Poppins', fontSize: 22),),
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              backgroundColor: JColors.success,
+              padding: const EdgeInsets.symmetric(vertical: JSizes.md * 0.7),
+              backgroundColor: JColors.primary,
               foregroundColor: Colors.white,
             ), onPressed: () {  },
           ),
@@ -157,10 +161,10 @@ class ProposalDetailsScreen extends StatelessWidget {
         const SizedBox(width: 16),
         Expanded(
           child: OutlinedButton.icon(
-            icon: const Icon(Icons.close, size: 20),
-            label: Text('REJECT'.tr),
+            icon: const Icon(Icons.close, size: 30),
+            label: Text('REJECT'.tr, style: TextStyle(fontFamily: 'Poppins', fontSize: 22),),
             style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: JSizes.md * 0.7),
               side: BorderSide(color: JColors.darkGrey),
             ), onPressed: () {  },
           ),
@@ -188,15 +192,12 @@ class CompanyProposalHeader extends StatelessWidget {
           Container(
             height: 120,
             width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: JSizes.lg, vertical: JSizes.lg),
+            padding: EdgeInsets.all(JSizes.sm),
             decoration: BoxDecoration(
               color: Colors.grey.shade300,
               borderRadius: BorderRadius.circular(8),
-              image:  DecorationImage(
-                image: AssetImage(companyLogo,),
-                fit: BoxFit.contain,
-              ),
             ),
+            child: Image.asset(companyLogo,)
           ),
           Text(
             jobTitle,

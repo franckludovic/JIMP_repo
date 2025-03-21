@@ -11,7 +11,9 @@ class ProposalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: JAppbar(title: Text("Proposals")),
+        appBar: JAppbar(title: Text("Proposals", style: Theme.of(context).textTheme.headlineMedium,),
+          showBackArrow: true,
+        ),
         body: ListView(
           padding: const EdgeInsets.all(16),
           children: [

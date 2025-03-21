@@ -12,11 +12,11 @@ class SearchAndPastCardInternship extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        HorizontalJIntershipCard( borderRadius: 5 ,companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"], isCompleted: true, day: 12, month: 02,year: 2023 ,onTap: () => (const SettingScreen()),),
+        HorizontalJIntershipCard( borderRadius: 10 ,companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"], isCompleted: true ,onTap: () => (const SettingScreen()),),
         Divider(),
-        HorizontalJIntershipCard( borderRadius: 5 ,companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"], isCompleted: true, day: 20, month: 05,year: 2022 ,onTap: () => (const SettingScreen()),),
+        HorizontalJIntershipCard( borderRadius: 10 ,companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"], isCompleted: true, onTap: () => (const SettingScreen()),),
         Divider(),
-        HorizontalJIntershipCard( borderRadius: 5 ,companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"], isCompleted: true, day: 18, month: 11,year: 2019 ,onTap: () => (const SettingScreen()),),
+        HorizontalJIntershipCard( borderRadius: 10 ,companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"], isCompleted: true,onTap: () => (const SettingScreen()),),
 
       ],
     );

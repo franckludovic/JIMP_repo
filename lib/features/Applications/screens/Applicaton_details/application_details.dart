@@ -17,8 +17,13 @@ import '../../../../common/widgets/companies/info_boxes.dart';
 import '../../../../common/widgets/companies/logation_info.dart';
 import 'myWidgets/time_frame.dart';
 
-class MyApplicationDetails extends StatelessWidget {
-  const MyApplicationDetails({super.key});
+class JMyApplicationDetails extends StatelessWidget {
+
+  final String title;
+  final bool isReview;
+
+
+  const JMyApplicationDetails({super.key,  this.title = "Details", this.isReview  = false});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,7 @@ class MyApplicationDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               JAppbar(
-                title: Text("Details", style: TextStyle(fontFamily: "Poppins", fontSize: 30, color: dark ? JColors.primary : JColors.black)),
+                title: Text(title, style: TextStyle(fontFamily: "Poppins", fontSize: 30, color: dark ? JColors.primary : JColors.black)),
                 leadingIcon: Iconsax.arrow_left_3,
                 leadingOnPressed:() => Get.to(() => CandidateNavigationMenu() ),
 
@@ -134,7 +139,7 @@ class MyApplicationDetails extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: JApplySaveButton(),
+      bottomNavigationBar: JApplySaveButton(isReveiw: isReview,),
     );
 
   }
