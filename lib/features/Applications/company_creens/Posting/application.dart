@@ -11,8 +11,8 @@ import '../../../../common/widgets/layout/grid_layout.dart';
 import '../../../../common/widgets/notifications/notifications_icon.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../authentication/compamy_screens/login/login_company.dart';
 import '../all_jobs/all_application.dart';
-import '../posting_creations/posting_creations.dart';
 import 'Widgets/postings.dart';
 import 'Widgets/companycategory.dart';
 
@@ -101,7 +101,8 @@ class CompanyApplicationScreen extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-            onPressed: () => Get.to(() => JobCreationPage()),
+            //onPressed: () => Get.to(() => JobCreationPage()),
+            onPressed: () => Get.to(() => CompagnyLoginScreen()),
             backgroundColor: JColors.primary,
             child: const Icon(
               Icons.add,

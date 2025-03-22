@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
@@ -16,6 +17,7 @@ class ProposalDetailsScreen extends StatelessWidget {
   final List<String> skills;
   final String companyLogo;
   final String postedDate;
+  final bool isCompany;
 
 
   const ProposalDetailsScreen({
@@ -29,6 +31,7 @@ class ProposalDetailsScreen extends StatelessWidget {
     required this.skills,
     required this.companyLogo,
     required this.postedDate,
+    this.isCompany = false,
   });
 
   @override
@@ -90,7 +93,8 @@ class ProposalDetailsScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 32),
-            _buildActionButtons(),
+
+            isCompany?  _companyBuildActionButtons() :_candidateBuildActionButtons()
           ],
         ),
       ),
@@ -144,7 +148,7 @@ class ProposalDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButtons() {
+  Widget _candidateBuildActionButtons() {
     return Row(
       children: [
         Expanded(
@@ -173,6 +177,40 @@ class ProposalDetailsScreen extends StatelessWidget {
     );
   }
 }
+
+Widget _companyBuildActionButtons() {
+  return Row(
+    children: [
+      Expanded(
+        child: ElevatedButton.icon(
+          icon: const Icon(Iconsax.drop, size: 30),
+          label: Text('DROP'.tr, style: TextStyle(fontFamily: 'Poppins', fontSize: 22),),
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: JSizes.md * 0.7),
+            backgroundColor: JColors.error,
+            foregroundColor: Colors.white,
+          ), onPressed: () {},
+        ),
+      ),
+
+      const SizedBox(width: 16),
+
+      Expanded(
+        child: OutlinedButton.icon(
+          icon: const Icon(Iconsax.edit, size: 30),
+          label: Text('EDIT'.tr, style: TextStyle(fontFamily: 'Poppins', fontSize: 22),),
+          style: OutlinedButton.styleFrom(
+            backgroundColor: JColors.primary,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(vertical: JSizes.md * 0.7),
+            side: BorderSide(color: JColors.darkGrey),
+          ), onPressed: () {},
+        ),
+      ),
+    ],
+  );
+}
+
 
 class CompanyProposalHeader extends StatelessWidget {
   const CompanyProposalHeader({

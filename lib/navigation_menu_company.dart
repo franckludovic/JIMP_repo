@@ -6,7 +6,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
-import 'features/Applications/company_creens/CompanyChats/chatHomescrenns.dart';
+import 'common/widgets/common_chats/chatHomescrenns.dart';
 import 'features/Applications/company_creens/Posting/application.dart';
 import 'features/Applications/company_creens/applicants/applicantsScreens.dart';
 import 'features/Applications/company_creens/company_profile/company_profile.dart';

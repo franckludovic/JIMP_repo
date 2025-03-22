@@ -6,7 +6,7 @@ class JSkillsCard extends StatelessWidget {
   const JSkillsCard({super.key,
     required this.skills});
 
-  final List<Widget> skills; // Accepts a list of skill widgets
+  final List<Widget> skills;
   @override
   Widget build(BuildContext context) {
     return SizedBox(

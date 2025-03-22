@@ -7,7 +7,9 @@ import 'package:project_bc_tuto/features/personilization/screens/settings/settin
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 
-import 'features/Applications/screens/chat/screens/chats/chats_screen.dart';
+
+
+import 'common/widgets/common_chats/chatHomescrenns.dart';
 import 'features/Applications/screens/saves/saves.dart';
 
 class CandidateNavigationMenu extends StatelessWidget {
@@ -45,5 +47,5 @@ class CandidateNavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [  HomeScreen(), const ChatsScreen(), const Application(), const SavedScreen(), const SettingScreen()];
+  final screens = [  HomeScreen(), const ChatHomeScreen(), const Application(), const SavedScreen(), const SettingScreen()];
 }

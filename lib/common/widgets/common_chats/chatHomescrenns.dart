@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:project_bc_tuto/common/widgets/common_chats/widgets/groupChats.dart';
+import 'package:project_bc_tuto/common/widgets/common_chats/widgets/indivudualChart.dart';
+import 'package:project_bc_tuto/common/widgets/common_chats/widgets/pinnedChats.dart';
 import 'package:project_bc_tuto/common/widgets/texts/textArea.dart';
-import 'package:project_bc_tuto/features/Applications/company_creens/CompanyChats/widgets/groupChats.dart';
-import 'package:project_bc_tuto/features/Applications/company_creens/CompanyChats/widgets/indivudualChart.dart';
-import 'package:project_bc_tuto/features/Applications/company_creens/CompanyChats/widgets/pinnedChats.dart';
+
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
@@ -72,14 +73,7 @@ class ChatHomeScreen extends StatelessWidget {
             Marked(),
           ],
         ),
-        // floatingActionButton: FloatingActionButton(
-        //     onPressed: () {},
-        //     backgroundColor: JColors.primary,
-        //     child: const Icon(
-        //       Icons.person_add_alt_1,
-        //       color: Colors.white,
-        //     )
-        // ),
+
       ),
     );
   }

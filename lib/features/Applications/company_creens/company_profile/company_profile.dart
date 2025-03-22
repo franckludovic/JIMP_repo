@@ -12,8 +12,10 @@ import '../../../personilization/screens/address/address.dart';
 import '../../screens/notifications/notifications.dart';
 import '../../screens/type_user/type_user_page.dart';
 import '../company_details/company_details.dart';
+import '../employee/employee_mangement_screen.dart';
 import '../home/widgets/company_home_header.dart';
-import '../proposals/new_proposals.dart';
+import '../myproposals/myproposals.dart';
+
 
 class CompanyProfilePage extends StatelessWidget {
   const CompanyProfilePage({super.key});
@@ -65,7 +67,7 @@ class CompanyProfilePage extends StatelessWidget {
                     icon: FontAwesomeIcons.userTie,
                     title: "Team members",
                     subtitle: "Manage or add new recruiters",
-                    onTap: () {},
+                    onTap: () => Get.to(() => EmployeeManagementScreen()),
                   ),
 
                   JSettingsMenuTile(
@@ -80,7 +82,7 @@ class CompanyProfilePage extends StatelessWidget {
                     icon: Iconsax.briefcase,
                     title: "My proposals",
                     subtitle: "Offers Received",
-                    onTap: () => Get.to(() => SendProposalPage()),
+                    onTap: () => Get.to(() => Myproposals()),
                   ),
 
 

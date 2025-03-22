@@ -8,7 +8,7 @@ import '../../../../../common/widgets/texts/section_heading.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../posting_creations/posting_creations.dart';
-import '../../proposals/new_proposals.dart';
+import '../../myproposals/new_proposals.dart';
 import '../../quiz_creation/QuizMainpage.dart';
 
 class QuickActioons extends StatelessWidget {

@@ -23,8 +23,7 @@ class _CompanyRegisterScreenState extends State<CompanySignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: JAppbar(title:  Text(JTexts.signupTitle,
-          style: Theme.of(context).textTheme.headlineMedium),),
+      appBar: JAppbar(title:  Text(JTexts.signupTitle, style: Theme.of(context).textTheme.headlineMedium), showBackArrow: true,),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(JSizes.defaultSpace),

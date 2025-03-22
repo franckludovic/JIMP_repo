@@ -4,11 +4,11 @@ import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 
 import '../../../../common/widgets/Type_user/selection_type_user_card.dart';
 import '../../../../navigation_menu.dart';
-import '../../../../navigation_menu_company.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
 import '../../../../utils/helpers/helper_functions.dart';
+import '../../../authentication/compamy_screens/login/login_company.dart';
 
 class JTypeUser extends StatelessWidget {
   const JTypeUser({super.key});
@@ -57,7 +57,7 @@ class JTypeUser extends StatelessWidget {
                     title: "Company",
                     subtitle: JTexts.compagnytText,
                     image: JImages.company_user,
-                    onTap: () => Get.offAll( const CompanyNavigationMenu()),
+                    onTap: () => Get.offAll( const CompagnyLoginScreen()),
                   ),
 
                   SizedBox(height: JSizes.spaceBtwSections),

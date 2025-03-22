@@ -5,10 +5,10 @@ import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/icons/circular_icon.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
+import '../../../../common/widgets/filtering/employee_filter.dart';
 import '../../../../common/widgets/job_and_internship_card/vertical_Application.dart';
 import '../../../../common/widgets/layout/grid_layout.dart';
 import '../../../../utils/constants/image_strings.dart';
-import '../all_product/all_application.dart';
 import '../search_page/widgets/SearchTextField.dart';
 
 class SavedScreen extends StatelessWidget {
@@ -24,7 +24,20 @@ class SavedScreen extends StatelessWidget {
           JCircularIcon(
               icon: Iconsax.sort,
               color: Colors.yellow,
-              onPressed: () => Get.to(() => const AllApplications(saves: true,))
+              onPressed: () {
+                Get.bottomSheet(
+                  EmployeeFilterWidget(
+                    initialFilter: EmployeeFilter(),
+                    onApply: (filter) {
+                      debugPrint('Applied Filters: $filter');
+                    },
+                    onCancel: () {
+                      debugPrint('Filter cancelled');
+                    },
+                  ),
+
+                );
+              },
           ),
         ],
       ),

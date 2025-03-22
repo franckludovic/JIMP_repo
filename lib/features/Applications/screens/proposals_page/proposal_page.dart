@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 
-import '../../company_creens/proposals/proposal_card.dart';
+import 'proposal_card.dart';
 
 
 class ProposalPage extends StatelessWidget {

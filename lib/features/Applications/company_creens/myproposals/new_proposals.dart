@@ -4,8 +4,10 @@ import 'package:project_bc_tuto/utils/constants/colors.dart';
 
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
+
 class SendProposalPage extends StatefulWidget {
-  const SendProposalPage({super.key});
+  const SendProposalPage({super.key, });
+
 
   @override
   State<SendProposalPage> createState() => _SendProposalPageState();
@@ -21,8 +23,8 @@ class _SendProposalPageState extends State<SendProposalPage> {
   final TextEditingController _salaryController = TextEditingController();
   final TextEditingController _bonusesController = TextEditingController();
   final TextEditingController _responsibilitiesController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _probationController = TextEditingController();
+
 
   // Dropdown & Selection Values
   String _selectedProposalType = 'Full Time';
@@ -38,6 +40,8 @@ class _SendProposalPageState extends State<SendProposalPage> {
 
   // Terms & conditions
   bool _agreeToTerms = false;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +96,7 @@ class _SendProposalPageState extends State<SendProposalPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: JSizes.spaceBtwSections),
+              const SizedBox(height: JSizes.spaceBtwItems),
 
               // 2. Position Details Section
               _buildSectionCard(
@@ -154,7 +158,7 @@ class _SendProposalPageState extends State<SendProposalPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: JSizes.spaceBtwSections),
+              const SizedBox(height: JSizes.spaceBtwItems),
 
               // 3. Compensation & Benefits Section
               _buildSectionCard(
@@ -206,7 +210,7 @@ class _SendProposalPageState extends State<SendProposalPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: JSizes.spaceBtwSections),
+              const SizedBox(height: JSizes.spaceBtwItems),
 
               // 4. Role & Requirements Section
               _buildSectionCard(
@@ -232,7 +236,7 @@ class _SendProposalPageState extends State<SendProposalPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: JSizes.spaceBtwSections),
+              const SizedBox(height: JSizes.spaceBtwItems),
 
               // 5. Terms & Conditions Section
               _buildSectionCard(
@@ -253,7 +257,7 @@ class _SendProposalPageState extends State<SendProposalPage> {
                         value: _requireNDA,
                         onChanged: (val) => setState(() => _requireNDA = val!),
                       ),
-                      const Text("Require Confidentiality Agreement (NDA)"),
+                      const Text("Require Confidentiality Agreement "),
                     ],
                   ),
                   DropdownButtonFormField(
@@ -266,7 +270,7 @@ class _SendProposalPageState extends State<SendProposalPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: JSizes.spaceBtwSections),
+              const SizedBox(height: JSizes.spaceBtwItems),
 
               // Terms Agreement
               Card(
@@ -284,7 +288,7 @@ class _SendProposalPageState extends State<SendProposalPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: JSizes.spaceBtwSections),
+              const SizedBox(height: JSizes.spaceBtwItems),
 
               // Submit Buttons
               Row(
@@ -333,24 +337,23 @@ class _SendProposalPageState extends State<SendProposalPage> {
   }
 
   Widget _buildLogoUpload() {
-    return GestureDetector(
-      onTap: () {/* Implement image picker */},
-      child: Container(
-        height: 120,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.grey.shade400),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.cloud_upload, size: 40, color: Colors.grey),
-            Text("Upload Company Logo", style: TextStyle(color: Colors.grey.shade600)),
-          ],
-        ),
+    return Container(
+      height: 120,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey.shade400),
       ),
+      child:
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.cloud_upload, size: 40, color: Colors.grey),
+          Text("Upload Company Logo", style: TextStyle(color: Colors.grey.shade600)),
+        ],
+      ),
+
     );
   }
 

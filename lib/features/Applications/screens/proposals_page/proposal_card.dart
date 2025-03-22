@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/texts/compagny_title_with_verified_icon.dart';
-import 'package:project_bc_tuto/features/Applications/company_creens/proposals/proposal_details.dart';
+
+import 'package:project_bc_tuto/features/Applications/screens/proposals_page/proposal_details.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
@@ -15,6 +16,7 @@ class ProposalCard extends StatelessWidget {
   final List<String> skills;
   final String companyLogo;
   final String postedDate;
+  final bool isCompany;
 
   const ProposalCard({
     super.key,
@@ -27,7 +29,7 @@ class ProposalCard extends StatelessWidget {
     required this.skills,
     required this.companyLogo,
     required this.postedDate,
-
+     this.isCompany = false,
 
   });
 
@@ -40,15 +42,16 @@ class ProposalCard extends StatelessWidget {
       child: InkWell(
         onTap: () => Get.to(
               () => ProposalDetailsScreen(
-            companyName: companyName,
-            jobTitle: jobTitle,
-            location: location,
-            jobType: jobType,
-            jobTag: jobTag,
-            salary: salary,
-            skills: skills,
-            companyLogo: companyLogo,
-            postedDate: postedDate,
+                companyName: companyName,
+                jobTitle: jobTitle,
+                location: location,
+                jobType: jobType,
+                jobTag: jobTag,
+                salary: salary,
+                skills: skills,
+                companyLogo: companyLogo,
+                postedDate: postedDate,
+                isCompany: isCompany,
           ),
         ),
         borderRadius: BorderRadius.circular(JSizes.sm),

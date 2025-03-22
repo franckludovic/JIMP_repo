@@ -58,7 +58,7 @@ class HorizontalJInternshipCard extends StatelessWidget {
         height: 200,
         margin: const EdgeInsets.symmetric(vertical: JSizes.spaceBtwItems / 2),
         decoration: BoxDecoration(
-          color: backgroundColor ?? (isDark ? JColors.darkerGrey : JColors.secondary.withAlpha((0.2 * 255).toInt())),
+          color: backgroundColor ?? (isDark ? JColors.darkerGrey : JColors.primary.withAlpha((0.2 * 255).toInt())),
           borderRadius: BorderRadius.circular(borderRadius),
           boxShadow: [
             BoxShadow(
@@ -181,16 +181,26 @@ class HorizontalJInternshipCard extends StatelessWidget {
   }
 
   Widget _buildSkillsSection(BuildContext context) {
-    return Wrap(
-      spacing: JSizes.sm,
-      runSpacing: 0,
-      children: skills
-          .map((skill) => Chip(
-        label: Text(skill),
-        padding: EdgeInsets.zero,
-        visualDensity: VisualDensity.compact,
-      ))
-          .toList(),
+    return SizedBox(
+      height: 50,
+      width: double.infinity,
+      child: ListView.builder(
+        itemCount: 1,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (_, index){
+        return  Wrap(
+          spacing: JSizes.sm,
+          runSpacing: 0,
+          children: skills
+              .map((skill) => Chip(
+            label: Text(skill),
+            padding: EdgeInsets.zero,
+            visualDensity: VisualDensity.compact,
+          ))
+              .toList(),
+        );
+      }
+      ),
     );
   }
 
