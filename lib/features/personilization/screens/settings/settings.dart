@@ -16,7 +16,6 @@ import '../../../../common/widgets/documents_cad/resumer_card.dart';
 import '../../../../common/widgets/documents_cad/skills_card.dart';
 import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../Applications/company_creens/proposals/proposal_card.dart';
 import '../../../Applications/screens/proposals_page/proposal_page.dart';
 import '../../../Applications/screens/type_user/type_user_page.dart';
 

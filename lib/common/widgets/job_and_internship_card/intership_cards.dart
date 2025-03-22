@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
@@ -7,9 +6,10 @@ import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import 'package:intl/intl.dart';
 
 import '../../../features/Applications/screens/Applicaton_details/application_details.dart';
+import '../custom_shapes/container_shapes/rounded_container.dart';
 
-class HorizontalJIntershipCard extends StatelessWidget {
-  const HorizontalJIntershipCard({
+class HorizontalJInternshipCard extends StatelessWidget {
+  const HorizontalJInternshipCard({
     super.key,
     required this.companyLogo,
     required this.companyName,
@@ -17,6 +17,8 @@ class HorizontalJIntershipCard extends StatelessWidget {
     required this.location,
     required this.duration,
     required this.skills,
+    required this.completionDate,
+    this.completeStatus = "Completed",
     this.salary,
     this.jobType,
     this.backgroundColor,
@@ -28,6 +30,8 @@ class HorizontalJIntershipCard extends StatelessWidget {
     this.iconBorderRad = JSizes.md,
   });
 
+  final DateTime? completionDate;
+  final String completeStatus;
   final String companyLogo;
   final String companyName;
   final String jobTitle;
@@ -47,19 +51,14 @@ class HorizontalJIntershipCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = JHelperFunctions.isDarkMode(context);
-    final now = DateTime.now();
-    final daysRemaining =
-    deadline?.difference(now).inDays;
 
     return GestureDetector(
       onTap: onTap ?? () => Get.to(() => const JMyApplicationDetails()),
       child: Container(
         height: 200,
-        margin: const EdgeInsets.symmetric(
-            vertical: JSizes.spaceBtwItems / 2),
+        margin: const EdgeInsets.symmetric(vertical: JSizes.spaceBtwItems / 2),
         decoration: BoxDecoration(
-          color: backgroundColor ??
-              (isDark ? JColors.darkerGrey : JColors.light),
+          color: backgroundColor ?? (isDark ? JColors.darkerGrey : JColors.secondary.withAlpha((0.2 * 255).toInt())),
           borderRadius: BorderRadius.circular(borderRadius),
           boxShadow: [
             BoxShadow(
@@ -71,6 +70,7 @@ class HorizontalJIntershipCard extends StatelessWidget {
         ),
         child: Stack(
           children: [
+            // Main Content
             Padding(
               padding: const EdgeInsets.all(JSizes.md),
               child: Row(
@@ -79,23 +79,15 @@ class HorizontalJIntershipCard extends StatelessWidget {
                   // Company Logo
                   _buildCompanyLogo(isDark),
                   const SizedBox(width: JSizes.spaceBtwItems),
-
                   // Job Details
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Company & Job Title
                         _buildTitleSection(context),
-                        const SizedBox(
-                            height: JSizes.spaceBtwItems / 2),
-
-                        // Metadata
+                        const SizedBox(height: JSizes.spaceBtwItems / 2),
                         _buildMetaDataSection(context, isDark),
-                        const SizedBox(
-                            height: JSizes.spaceBtwItems / 2),
-
-                        // Skills
+                        const SizedBox(height: JSizes.spaceBtwItems / 2),
                         _buildSkillsSection(context),
                       ],
                     ),
@@ -103,21 +95,12 @@ class HorizontalJIntershipCard extends StatelessWidget {
                 ],
               ),
             ),
-
-            // Save Button
-            Positioned(
-              top: JSizes.md,
+             Positioned(
+              bottom: JSizes.md,
+              left: JSizes.md,
               right: JSizes.md,
-              child: _buildSaveButton(context),
+              child: _buildBottomRow(context),
             ),
-
-            // Deadline/Days Remaining
-            if (daysRemaining != null && daysRemaining > 0)
-              Positioned(
-                bottom: JSizes.md,
-                right: JSizes.md,
-                child: _buildDeadlineBadge(context, daysRemaining),
-              ),
           ],
         ),
       ),
@@ -173,8 +156,7 @@ class HorizontalJIntershipCard extends StatelessWidget {
       runSpacing: JSizes.xs,
       children: [
         _buildMetaItem(context, Icons.location_on_outlined, location),
-        if (jobType != null)
-          _buildMetaItem(context, Icons.business_center, jobType!),
+
         if (salary != null)
           _buildMetaItem(context, Icons.attach_money, salary!),
         _buildMetaItem(context, Icons.timer_outlined, duration),
@@ -182,8 +164,7 @@ class HorizontalJIntershipCard extends StatelessWidget {
     );
   }
 
-  Widget _buildMetaItem(
-      BuildContext context, IconData icon, String text) {
+  Widget _buildMetaItem(BuildContext context, IconData icon, String text) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -213,40 +194,45 @@ class HorizontalJIntershipCard extends StatelessWidget {
     );
   }
 
-  Widget _buildSaveButton(BuildContext context) {
-    return IconButton(
-      icon: Icon(
-        saved ? Icons.bookmark : Icons.bookmark_border,
-        color: saved ? JColors.warning : JColors.darkGrey,
-      ),
-      onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content:
-          Text(saved ? "Removed from saved" : "Added to saved"),
+  Widget _buildBottomRow(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Chip(
+          label: Text(jobType ?? "Internship"),
+          backgroundColor: Colors.blueAccent.withAlpha((0.1 * 255).toInt()),
+          labelStyle: const TextStyle(color: Colors.blueAccent),
         ),
-      ),
+        if (isCompleted && completionDate != null)
+          Text(
+            'Completed on ${DateFormat('MMM dd, yyyy').format(completionDate!)}',
+            style: Theme.of(context)
+                .textTheme
+                .labelSmall
+                ?.copyWith(color: JColors.success, fontWeight: FontWeight.w600),
+          )
+        else
+          _buildSaveButton(context),
+      ],
     );
   }
 
-  Widget _buildDeadlineBadge(BuildContext context, int days) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: JSizes.sm,
-        vertical: JSizes.xs,
-      ),
-      decoration: BoxDecoration(
-        color: days < 7
-            ? JColors.error.withAlpha((0.2 * 255).toInt())
-            : JColors.success.withAlpha((0.2 * 255).toInt()),
-        borderRadius: BorderRadius.circular(JSizes.borderRadiusSm),
-      ),
-      child: Text(
-        "$days days left",
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-          color: days < 7 ? JColors.error : JColors.success,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+  Widget _buildSaveButton(BuildContext context) {
+    return JRoundedContainer(
+        radius: 10,
+
+        child: IconButton(
+            icon: Icon(saved ? Icons.bookmark : Icons.bookmark_border,
+                color: saved ? JColors.warning : JColors.primary),
+                iconSize: 20,
+                padding: EdgeInsets.zero,
+                onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(saved ? "Removed from saved" : "Added to saved"),
+                    ),
+                ),
+        )
     );
   }
 }
+

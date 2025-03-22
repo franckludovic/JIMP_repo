@@ -5,7 +5,9 @@ import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import '../../../../common/widgets/applications/sortable/sortable_application.dart';
 
 class AllApplications extends StatelessWidget {
-  const AllApplications({super.key});
+  const AllApplications({super.key, this.saves = false});
+
+  final bool saves;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class AllApplications extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(JSizes.defaultSpace),
-          child: JSortableApplications(),
+          child: JSortableApplications(saves: saves,),
         ),
       ),
     );

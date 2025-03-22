@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/device/device_utility.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
-import '../../../../../common/widgets/success_screen/success_screen.dart';
 
 class JApplyButtons extends StatelessWidget {
   const JApplyButtons({

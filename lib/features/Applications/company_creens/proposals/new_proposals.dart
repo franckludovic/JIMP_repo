@@ -33,7 +33,7 @@ class _SendProposalPageState extends State<SendProposalPage> {
   String _selectedNoticePeriod = '2 weeks';
   DateTime? _startDate;
   DateTime? _applicationDeadline;
-  List<String> _selectedBenefits = [];
+  final List<String> _selectedBenefits = [];
   bool _requireNDA = false;
 
   // Terms & conditions

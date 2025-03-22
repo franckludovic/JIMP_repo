@@ -9,7 +9,6 @@ import '../../../../common/widgets/companies/desciption_info_tile.dart';
 import '../../../../common/widgets/documents_cad/additonal_file_checkbox_picker.dart';
 import '../../../../common/widgets/documents_cad/file_picker_card.dart';
 import '../../../../utils/constants/image_strings.dart';
-import '../../../../utils/device/device_utility.dart';
 import '../Applicaton_details/myWidgets/application_header.dart';
 import '../company_details/company_details.dart';
 

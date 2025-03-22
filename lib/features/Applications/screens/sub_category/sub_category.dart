@@ -29,7 +29,7 @@ class SubCategoryScreen extends StatelessWidget {
               //   applyImageRadius: true,
               // ),
 
-          HorizontalJIntershipCard(companyLogo: JImages.nvidia,companyName: "Nvidia",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"]),
+          HorizontalJInternshipCard(companyLogo: JImages.nvidia,companyName: "Nvidia",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"],  completionDate: DateTime(2023, 12, 15),),
               const SizedBox(
                 height: JSizes.spaceBtwSections,
               ),

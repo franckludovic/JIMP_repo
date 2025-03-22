@@ -16,7 +16,7 @@ class InternshipCarousel extends StatelessWidget {
   });
 
   final VoidCallback? onTap;
-  final List<HorizontalJIntershipCard> jobs;
+  final List<HorizontalJInternshipCard> jobs;
 
   @override
   Widget build(BuildContext context) {

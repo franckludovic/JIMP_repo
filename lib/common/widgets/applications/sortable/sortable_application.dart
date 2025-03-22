@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../job_and_internship_card/vertical_Application.dart';
 import '../../layout/grid_layout.dart';
-import '../applications_cards/applications_card_vertical.dart';
 
 class JSortableApplications extends StatelessWidget {
   const JSortableApplications({
-    super.key,
+    super.key, this.saves = false,
   });
+
+  final bool saves;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,8 @@ class JSortableApplications extends StatelessWidget {
 
         const SizedBox(height: JSizes.spaceBtwSections,),
         /// applications
-        JGridLayout(itemCount: 16, itemBuilder: (_, index) => JApplicationsCardVertical())
+        JGridLayout(itemCount: 16, itemBuilder: (_, index) => VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', jobType: 'Internship', saved: saves, ),
+    )
       ],
     );
   }

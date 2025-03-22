@@ -3,12 +3,13 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/icons/circular_icon.dart';
-import 'package:project_bc_tuto/features/Applications/screens/home/home.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
-import '../../../../common/widgets/applications/applications_cards/vertical_Application.dart';
+import '../../../../common/widgets/job_and_internship_card/vertical_Application.dart';
 import '../../../../common/widgets/layout/grid_layout.dart';
 import '../../../../utils/constants/image_strings.dart';
+import '../all_product/all_application.dart';
+import '../search_page/widgets/SearchTextField.dart';
 
 class SavedScreen extends StatelessWidget {
   const SavedScreen({super.key});
@@ -21,9 +22,10 @@ class SavedScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium),
         actions: [
           JCircularIcon(
-              icon: Iconsax.add_square5,
+              icon: Iconsax.sort,
               color: Colors.yellow,
-              onPressed: () => Get.to( HomeScreen()))
+              onPressed: () => Get.to(() => const AllApplications(saves: true,))
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -32,14 +34,11 @@ class SavedScreen extends StatelessWidget {
           child: Column(
             children: [
 
-              // JIGridLaout(
-              //   JList: [
-              //     VerticalJInternshipCard(companyName: "Google", companyLogo: JImages.google, internshipTitle: "Software engineer",saved: true),
-              //     VerticalJInternshipCard(companyName: "Nvidia", companyLogo: JImages.nvidia, internshipTitle: "Data analyst",saved: true),
-              //   ],
-              // ),
+              SearchTextField(),
 
-              JGridLayout(itemCount: 5,crossAxisCount: 2, itemBuilder: (_, index) => VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', )),
+              SizedBox(height: JSizes.spaceBtwSections),
+
+              JGridLayout(itemCount: 5,crossAxisCount: 2, itemBuilder: (_, index) => VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', jobType: 'Internship', saved: true, )),
 
             ],
           ),

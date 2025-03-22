@@ -8,7 +8,7 @@ import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/appbar/tab_bar.dart';
 
 
-import '../../../../common/widgets/applications/applications_cards/vertical_Application.dart';
+import '../../../../common/widgets/job_and_internship_card/vertical_Application.dart';
 ///import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 ///import '../../../../common/widgets/companies/compagny_cards.dart';
 ///import '../../../../common/widgets/layout/application_grid_layout.dart';
@@ -24,6 +24,7 @@ import '../../../../utils/constants/sizes.dart';
 import '../Brands/all_brands.dart';
 import '../Brands/brand_product.dart';
 import '../all_product/all_application.dart';
+import '../search_page/search_body.dart';
 
 class Application extends StatelessWidget {
   const Application({super.key});
@@ -59,11 +60,14 @@ class Application extends StatelessWidget {
                       children: [
                         ///Searh bar
                         SizedBox(height: JSizes.spaceBtwItems),
-                        JSearchContainer(
-                            text: 'Search in Hub',
-                            showBorder: true,
-                            showBackground: false,
-                            padding: EdgeInsets.zero),
+                        GestureDetector(
+                          onTap:() => Get.to(() => const  SearchBody()),
+                          child: JSearchContainer(
+                              text: 'Search in Hub',
+                              showBorder: true,
+                              showBackground: false,
+                              padding: EdgeInsets.zero),
+                        ),
                         const SizedBox(height: JSizes.spaceBtwSections),
 
                         ///--feature companies
@@ -95,7 +99,7 @@ class Application extends StatelessWidget {
 
                             SizedBox(height: JSizes.spaceBtwItems * 0.7,),
 
-                            JGridLayout(itemCount: 14,crossAxisCount: 2, itemBuilder: (_, index) => VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', )),
+                            JGridLayout(itemCount: 14,crossAxisCount: 2, itemBuilder: (_, index) => VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', jobType: 'Internship', )),
 
                             SizedBox(height: JSizes.spaceBtwSections,),
                           ],

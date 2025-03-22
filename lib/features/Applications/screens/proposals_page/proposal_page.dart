@@ -6,7 +6,7 @@ import '../../company_creens/proposals/proposal_card.dart';
 
 
 class ProposalPage extends StatelessWidget {
-  const ProposalPage({Key? key}) : super(key: key);
+  const ProposalPage({super.key});
 
   @override
   Widget build(BuildContext context) {

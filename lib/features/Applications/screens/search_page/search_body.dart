@@ -7,7 +7,7 @@ import 'package:project_bc_tuto/features/Applications/screens/search_page/widget
 import 'package:project_bc_tuto/features/Applications/screens/search_page/widgets/filter_tags.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
-import '../../../../common/widgets/applications/applications_cards/vertical_Application.dart';
+import '../../../../common/widgets/job_and_internship_card/vertical_Application.dart';
 import '../../../../common/widgets/job_and_internship_card/intership_cards.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';
@@ -49,16 +49,16 @@ class SearchBody extends StatelessWidget {
               JGridLayout(
                   itemCount: 5,
                   crossAxisCount: 1,
-                  mainAxisExtend: 200,
+                  mainAxisExtend: 230,
                   itemBuilder: (_, index) {
-                    return  HorizontalJIntershipCard( borderRadius: 15, iconBorderRad: 8 ,companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"],onTap: () => (const SettingScreen()),);
+                    return  HorizontalJInternshipCard( borderRadius: 15, iconBorderRad: 8 ,companyLogo: JImages.google,companyName: "Google",duration: "5 - 6 month",jobTitle: "SoftWare Engineer", location: "London",skills: ["python", "java", "C++"],  completionDate: DateTime(2023, 12, 15), onTap: () => (const SettingScreen()),);
                   }
               ),
 
 
               SizedBox(height: JSizes.md,),
 
-              JGridLayout(itemCount: 14,crossAxisCount: 2, itemBuilder: (_, index) => VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', )),
+              JGridLayout(itemCount: 14,crossAxisCount: 2, itemBuilder: (_, index) => VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', jobType: 'JOB', )),
 
             ],
           ),
