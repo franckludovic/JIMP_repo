@@ -21,6 +21,8 @@ class VerticalJInternshipCard extends StatelessWidget {
     required this.location,
     required this.jobType,
     this.saved = false,
+    this.status = "completed",
+    this.period = "Full_time",
   });
 
   final String companyLogo;
@@ -29,6 +31,8 @@ class VerticalJInternshipCard extends StatelessWidget {
   final String location;
   final String jobType;
   final bool saved;
+  final String status;
+  final String period;
 
   @override
   Widget build(BuildContext context) {

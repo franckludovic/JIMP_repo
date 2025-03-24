@@ -12,7 +12,7 @@ class InfoTile extends StatelessWidget {
     this.numberLines = 3,
     this.textBodySize = 15,
     this.titleSize,
-    this.TextColor,
+    this.textColor,
     this.titleColor,  this.isEditable = false,
   });
 
@@ -22,7 +22,7 @@ class InfoTile extends StatelessWidget {
   final int numberLines;
   final double textBodySize;
   final double? titleSize;
-  final Color? TextColor;
+  final Color? textColor;
   final Color? titleColor;
   final bool isEditable;
 
@@ -48,21 +48,41 @@ class InfoTile extends StatelessWidget {
               ),
             ),
             SizedBox(height: spacing),
-            ReadMoreText(
-              textBody,
-              style: TextStyle(fontSize: textBodySize, color:  TextColor ),
-              trimLines: numberLines,
-              trimMode: TrimMode.Line,
-              trimCollapsedText: " Show more",
-              trimExpandedText: "  Show Less",
-              moreStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-              lessStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-            ),
+            RedMoreInfoText(textBody: textBody, textBodySize: textBodySize, textColor: textColor, numberLines: numberLines),
 
           ],
         ),
 
       ),
+    );
+  }
+}
+
+class RedMoreInfoText extends StatelessWidget {
+  const RedMoreInfoText({
+    super.key,
+    required this.textBody,
+    this.textBodySize = 13,
+    this.textColor,
+    this.numberLines = 3,
+  });
+
+  final String textBody;
+  final double textBodySize;
+  final Color? textColor;
+  final int numberLines;
+
+  @override
+  Widget build(BuildContext context) {
+    return ReadMoreText(
+      textBody,
+      style: TextStyle(fontSize: textBodySize, color:  textColor ),
+      trimLines: numberLines,
+      trimMode: TrimMode.Line,
+      trimCollapsedText: " Show more",
+      trimExpandedText: "  Show Less",
+      moreStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+      lessStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
     );
   }
 }

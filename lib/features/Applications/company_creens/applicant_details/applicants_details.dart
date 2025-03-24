@@ -115,7 +115,7 @@ class ApplicantsDetails extends StatelessWidget {
                     child: InfoTile(
                         numberLines: 18,
                         title: "Cover Letter :",
-                        TextColor: JColors.black,
+                        textColor: JColors.black,
                         titleColor: JColors.black,
                         textBody:
                             "      Metatron is the unseen force behind creation, the silent executor of God’s plan. He is not bound by the facets of God nature for he embodies God’s pure will, unshaped and infinite. He alone wields the Akashic Records, accessing its infinite knowledge to guide creation and ensure the divine plan unfolds as God intended. To the Seven Primordial Angels, Metatron is a mystery. They feel his presence, a shadow of authority that surpasses their own divinity, but they do not know his name or his purpose. He is the voice that whispers in moments of doubt, the hand that intervenes when the balance is threatened, and the protector of secrets too great for even the angels to bear. Metatron’s power is limitless, for he acts as the direct extension of God’s will. Yet, even he does not fully know the mind of God. The Akashic Records, though vast, do not reveal the infinite Creator’s ultimate purpose. This mystery humbles Metatron, reminding him that he,too, is but a servant of a greater design.")),

@@ -16,6 +16,7 @@ import '../../../../common/widgets/documents_cad/resumer_card.dart';
 import '../../../../common/widgets/documents_cad/skills_card.dart';
 import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../Applications/screens/ongoing_contracts/contract_page.dart';
 import '../../../Applications/screens/proposals_page/proposal_page.dart';
 import '../../../Applications/screens/type_user/type_user_page.dart';
 
@@ -105,7 +106,7 @@ class SettingScreen extends StatelessWidget {
                     icon: Iconsax.task_square,
                     title: "My Contracts",
                     subtitle: "On going jobs ",
-                    onTap: () {},
+                    onTap: () => Get.to(() => OngoingContractsPage()),
                   ),
                   JSettingsMenuTile(
                     icon: Iconsax.briefcase,

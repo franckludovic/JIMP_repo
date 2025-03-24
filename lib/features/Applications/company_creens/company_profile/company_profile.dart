@@ -66,15 +66,8 @@ class CompanyProfilePage extends StatelessWidget {
                   JSettingsMenuTile(
                     icon: FontAwesomeIcons.userTie,
                     title: "Team members",
-                    subtitle: "Manage or add new recruiters",
+                    subtitle: "Manage recruiters and interns",
                     onTap: () => Get.to(() => EmployeeManagementScreen()),
-                  ),
-
-                  JSettingsMenuTile(
-                    icon:  FontAwesomeIcons.userGraduate,
-                    title: "Interns/Employee",
-                    subtitle: "Manage Interns or Employee",
-                    onTap: () {},
                   ),
 
 
