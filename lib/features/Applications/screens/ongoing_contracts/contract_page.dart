@@ -29,7 +29,6 @@ class _OngoingContractsPageState extends State<OngoingContractsPage> {
       endDate: DateTime.now().add(const Duration(days: 60)),
       payment: 1500,
       frequency: 'month',
-      nextDeadline: 'Project submission by Friday',
       contractType: 'Internship',
     ),
     Contract(

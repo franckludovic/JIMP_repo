@@ -23,7 +23,7 @@ class ContractCard extends StatelessWidget {
       elevation: 2,
       margin: const EdgeInsets.only(bottom: JSizes.spaceBtwItems),
       child: Padding(
-        padding: const EdgeInsets.all(JSizes.md),
+        padding: const EdgeInsets.all(JSizes.sm),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -80,9 +80,10 @@ class ContractCard extends StatelessWidget {
 
     return Chip(
       label: Text(contract.status),
-      backgroundColor: statusColor.withOpacity(0.1),
+      backgroundColor: statusColor.withAlpha((0.1 * 255).toInt()),
       labelStyle: TextStyle(color: statusColor),
       side: BorderSide.none,
+      padding: EdgeInsets.all(JSizes.xs),
     );
   }
 

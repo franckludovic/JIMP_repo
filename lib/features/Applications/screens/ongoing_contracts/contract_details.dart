@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:project_bc_tuto/common/widgets/common_chats/chatHomescrenns.dart';
 
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
@@ -43,7 +45,10 @@ class ContractDetailPage extends StatelessWidget {
             _buildProgressIndicator(),
             const SizedBox(height: JSizes.spaceBtwSections),
             ElevatedButton(
-              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(JSizes.md)
+              ),
+              onPressed: () => Get.to(() => ChatHomeScreen()),
               child: const Text('Contact Employer'),
             ),
           ],
