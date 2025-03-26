@@ -53,23 +53,23 @@ class _CandidateRegisterScreenState extends State<CadidateSignupScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
 
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: JSizes.lg ),
-            child: ElevatedButton(onPressed: () => Get.to(() => const CandidateRegisterScreen2() ),
-                style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: JSizes.sm, horizontal: JSizes.lg)
-                ),
-                child:
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(JTexts.MoveToNext, style: TextStyle(fontSize: 20, fontFamily: 'Poppins'),),
-                    SizedBox(width: JSizes.lg,),
-                    Icon(Iconsax.arrow_right_2, size: 50,)
-                  ],
-                )
-            ),
-          ),
+          // Container(
+          //   margin: EdgeInsets.symmetric(horizontal: JSizes.lg ),
+          //   child: ElevatedButton(onPressed: () => Get.to(() => const CandidateRegisterScreen2() ),
+          //       style: ElevatedButton.styleFrom(
+          //           padding: EdgeInsets.symmetric(vertical: JSizes.sm, horizontal: JSizes.lg)
+          //       ),
+          //       child:
+          //       Row(
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //         children: [
+          //           Text(JTexts.MoveToNext, style: TextStyle(fontSize: 20, fontFamily: 'Poppins'),),
+          //           SizedBox(width: JSizes.lg,),
+          //           Icon(Iconsax.arrow_right_2, size: 50,)
+          //         ],
+          //       )
+          //   ),
+          // ),
 
           Padding(
             padding: const EdgeInsets.only(bottom: JSizes.spaceBtwSections, top: JSizes.md),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 
 import '../../../../common/widgets/Type_user/selection_type_user_card.dart';
+import '../../../../data/storageService.dart';
 import '../../../../navigation_menu.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -57,7 +58,12 @@ class JTypeUser extends StatelessWidget {
                     title: "Company",
                     subtitle: JTexts.compagnytText,
                     image: JImages.company_user,
-                    onTap: () => Get.offAll( const CompagnyLoginScreen()),
+                    onTap: () async {
+                      // Save user type
+                      await StorageService.saveUserType("Company");
+                      // Navigate
+                      Get.offAll(() => const CompagnyLoginScreen());
+                    },
                   ),
 
                   SizedBox(height: JSizes.spaceBtwSections),
@@ -66,7 +72,12 @@ class JTypeUser extends StatelessWidget {
                     title: "Candidate",
                     subtitle: JTexts.candidateText,
                     image: JImages.candidate_user,
-                    onTap:() => Get.offAll( const CandidateNavigationMenu()),
+                    onTap:() async {
+                      // Save user type
+                      await StorageService.saveUserType("Candidate");
+                      // Navigate
+                      Get.offAll(() => const CandidateNavigationMenu());
+                    },
                   ),
         
         

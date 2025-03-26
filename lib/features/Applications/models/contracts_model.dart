@@ -11,8 +11,10 @@ class Contract {
   final String? nextDeadline;
   final double progress;
   final String contractType;
+  final Enum? contractTime;
 
   Contract({
+    this.contractTime,
     required this.id,
     required this.companyLogo,
     required this.companyName,

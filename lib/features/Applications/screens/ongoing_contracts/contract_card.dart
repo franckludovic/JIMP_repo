@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
+import 'package:project_bc_tuto/utils/device/device_utility.dart';
 
 import '../../models/contracts_model.dart';
 
@@ -27,7 +28,7 @@ class ContractCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
+            _buildHeader(context),
             const SizedBox(height: JSizes.spaceBtwItems),
             _buildProgressIndicator(),
             const SizedBox(height: JSizes.spaceBtwSections),
@@ -40,7 +41,7 @@ class ContractCard extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Row(
       children: [
         CircleAvatar(
@@ -53,10 +54,15 @@ class ContractCard extends StatelessWidget {
           children: [
             Text(contract.companyName,
                 style: const TextStyle(fontWeight: FontWeight.bold)),
-            Text(contract.position,
-                style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey.shade600)),
+            SizedBox(
+              width: JDeviceUtils.getScreenWidth(context) / 3,
+              child: Text(contract.position,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey.shade600)),
+            ),
           ],
         ),
         const Spacer(),
@@ -71,7 +77,7 @@ class ContractCard extends StatelessWidget {
       case 'In Progress':
         statusColor = JColors.primary;
         break;
-      case 'Awaiting Review':
+      case 'In Review':
         statusColor = Colors.orange;
         break;
       default:
@@ -124,6 +130,9 @@ class ContractCard extends StatelessWidget {
         _buildDetailRow(Iconsax.calendar,
             '${DateFormat('MMM dd').format(contract.startDate)} - '
                 '${DateFormat('MMM dd').format(contract.endDate)}'),
+
+        _buildDetailRow(Iconsax.briefcase, ': ${contract.contractType}'),
+
         _buildDetailRow(Iconsax.wallet,
             '\$${contract.payment?.toStringAsFixed(2)}/${contract.frequency}'),
         if (contract.nextDeadline != null)

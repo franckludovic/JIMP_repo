@@ -32,9 +32,6 @@ class InterviewsScreens extends StatelessWidget {
             ),
 
 
-
-
-
             Padding(
               padding: const EdgeInsets.all(JSizes.defaultSpace),
               child: SizedBox(

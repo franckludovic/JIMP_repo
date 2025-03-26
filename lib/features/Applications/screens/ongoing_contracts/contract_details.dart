@@ -27,6 +27,7 @@ class ContractDetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildContractSummary(),
+            SizedBox(height: JSizes.spaceBtwSections),
             const JSectionHeading(title: 'Contract Details', showActonButton: false,),
             _buildDetailItem('Position', contract.position),
             _buildDetailItem('Contract Type', contract.contractType),
@@ -44,12 +45,14 @@ class ContractDetailPage extends StatelessWidget {
             const JSectionHeading(title: 'Milestones', showActonButton: false,),
             _buildProgressIndicator(),
             const SizedBox(height: JSizes.spaceBtwSections),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(JSizes.md)
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.all(JSizes.md)
+                ),
+                onPressed: () => Get.to(() => ChatHomeScreen()),
+                child: const Text('Contact Employer'),
               ),
-              onPressed: () => Get.to(() => ChatHomeScreen()),
-              child: const Text('Contact Employer'),
             ),
           ],
         ),
@@ -65,6 +68,7 @@ class ContractDetailPage extends StatelessWidget {
           children: [
             ListTile(
               leading: CircleAvatar(
+                radius: 30,
                 backgroundImage: AssetImage(contract.companyLogo),
               ),
               title: Text(contract.companyName),

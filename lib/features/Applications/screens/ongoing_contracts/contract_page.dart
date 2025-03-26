@@ -36,7 +36,7 @@ class _OngoingContractsPageState extends State<OngoingContractsPage> {
       companyName: 'NVIDIA Ltd.',
       companyLogo: JImages.nvidia,
       position: 'UI/UX Design Intern',
-      status: 'Awaiting Review',
+      status: 'In Review',
       progress: 0.9,
       startDate: DateTime.now().subtract(const Duration(days: 90)),
       endDate: DateTime.now().subtract(const Duration(days: 7)),
