@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "115093062858",
+    "project_id": "jimp-9e096",
+    "storage_bucket": "jimp-9e096.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115093062858:android:10282312d054ea97cbe033",
+        "android_client_info": {
+          "package_name": "com.example.project_bc_tuto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115093062858-ol3fr1khptbgc49n0q0l4l4oj7p852r1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.project_bc_tuto",
+            "certificate_hash": "6620cf97d0e119ab64bfcaa52cda440b07e33f1c"
+          }
+        },
+        {
+          "client_id": "115093062858-qmnr9t0oevnvjqhfjjfgdsd6j5b2ka2e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQVOqiaU5lezobXSlD6c3ptxfYiUknElI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115093062858-qmnr9t0oevnvjqhfjjfgdsd6j5b2ka2e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "115093062858-t5spk21hv1maftdcen4t8bu25u46hir5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.projectBcTuto"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

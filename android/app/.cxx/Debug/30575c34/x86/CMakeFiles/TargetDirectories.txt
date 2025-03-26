@@ -1,0 +1,2 @@
+C:/Users/Metatron/StudioProjects/project_bc_tuto/android/app/.cxx/Debug/30575c34/x86/CMakeFiles/edit_cache.dir
+C:/Users/Metatron/StudioProjects/project_bc_tuto/android/app/.cxx/Debug/30575c34/x86/CMakeFiles/rebuild_cache.dir

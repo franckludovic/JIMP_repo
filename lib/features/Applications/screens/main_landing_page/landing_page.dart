@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/common/widgets/layout/matrix_layout.dart';
+import 'package:project_bc_tuto/common/widgets/testimonies_messages/message_carousel.dart';
+import 'package:project_bc_tuto/features/Applications/screens/main_landing_page/widget/benefits_chips.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
+import '../../../../common/widgets/job_and_internship_card/carousel_slider_interships.dart';
+import '../../../../common/widgets/job_and_internship_card/intership_cards.dart';
+import '../../../../common/widgets/testimonies_messages/messages.dart';
+import '../../../../utils/constants/image_strings.dart';
+import '../../../personilization/screens/settings/settings.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +24,7 @@ class LandingPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // 1. Hero / Intro Section
+              // 1. Intro Section
               _buildHeroSection(context),
 
               // 2. Key Benefits
@@ -25,6 +34,7 @@ class LandingPage extends StatelessWidget {
               _buildPopularJobFields(context),
 
               // 4. Testimonials
+
               _buildTestimonialsSection(context),
 
               // 5. How It Works
@@ -42,7 +52,8 @@ class LandingPage extends StatelessWidget {
   /// 1. Hero / Intro Section
   Widget _buildHeroSection(BuildContext context) {
     return Container(
-      color: JColors.primary.withAlpha((0.1 * 255).toInt()),
+      margin: EdgeInsets.only(bottom: JSizes.spaceBtwSections),
+      color: JColors.primary.withAlpha((0.2 * 255).toInt()),
       padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
       child: Column(
         children: [
@@ -98,6 +109,7 @@ class LandingPage extends StatelessWidget {
               ),
             ],
           ),
+
         ],
       ),
     );
@@ -105,236 +117,120 @@ class LandingPage extends StatelessWidget {
 
   /// 2. Key Benefits Section
   Widget _buildKeyBenefitsSection(BuildContext context) {
-    final benefits = [
-      {
-        "title": "AI-Powered Matching",
-        "subtitle": "Find tailored matches based on your profile."
-      },
-      {
-        "title": "Skill Verification",
-        "subtitle": "Validate skills with quizzes & tests."
-      },
-      {
-        "title": "Personalized Profiles",
-        "subtitle": "Highlight your unique strengths & achievements."
-      },
-      {
-        "title": "Seamless Applications",
-        "subtitle": "Apply quickly & track your progress easily."
-      },
-    ];
 
-    return Container(
+    return Column(
+      children: [
 
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 10),
-      child: Column(
-        children: [
           Text(
-            "Key Benefits",
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: JColors.secondary,
-                  fontWeight: FontWeight.bold,
-                ),
+          "Key Benefits",
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            color: JColors.secondary,
+            fontWeight: FontWeight.bold,
           ),
-          const SizedBox(height: JSizes.sm),
-          Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            alignment: WrapAlignment.center,
-            children: benefits.map((benefit) {
-              return SizedBox(
-                width: 150,
-                height: 180,
-                child: Card(
-                  elevation: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(JSizes.sm),
-                    child: Column(
-                      children: [
-                        Text(
-                          benefit["title"]!,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          benefit["subtitle"]!,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
+        ),
+
+        SizedBox(height: JSizes.spaceBtwItems,),
+
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: JSizes.sm),
+          child: MatrixGrid(
+              items: [
+                Benefits(title: "AI-Powered Matching", subTitle: "Find tailored matches based on your profile.", icons: FontAwesomeIcons.brain),
+                Benefits(title: "Skill Verification", subTitle: "Validate skills with quizzes & tests.", icons: FontAwesomeIcons.checkDouble),
+                Benefits(title:"Personalized Profiles", subTitle: "Highlight your unique strengths & achievements.", icons: FontAwesomeIcons.userLarge),
+                Benefits(title:"Seamless Applications", subTitle: "Apply quickly & track your progress easily.", icons: Iconsax.flash),
+              ]
           ),
-        ],
-      ),
+        ),
+
+        SizedBox(height: JSizes.spaceBtwItems,)
+      ],
     );
   }
 
   /// 3. Popular Job Fields
   Widget _buildPopularJobFields(BuildContext context) {
-    // TODO: Replace with your custom job cards
-    final jobs = [
-      {
-        "companyName": "Design & Creative",
-        "title": "UI/UX Designer Intern",
-        "location": "Remote",
-        "buttonText": "Apply Now",
-      },
-      {
-        "companyName": "Software Development",
-        "title": "Junior Frontend Developer",
-        "location": "On-site",
-        "buttonText": "Apply Now",
-      },
-    ];
-
     return Container(
-      color: JColors.secondary.withAlpha((0.05 * 255).toInt()),
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-      child: Column(
-        children: [
-          Text(
-            "Popular Job Fields",
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: JColors.secondary,
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            alignment: WrapAlignment.center,
-            children: jobs.map((job) {
-              // Example of a custom job card
-              return Container(
-                width: 250,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade300,
-                      blurRadius: 6,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      job["companyName"]!,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      job["title"]!,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      job["location"]!,
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-                    const SizedBox(height: 16),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // TODO: Navigate to details
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: JColors.secondary,
-                        ),
-                        child: Text(job["buttonText"]!),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
-        ],
+      margin: EdgeInsets.all(JSizes.md),
+      child: InternshipCarousel(
+        autoplay: true,
+          jobs: [
+            HorizontalJInternshipCard(
+              companyLogo: JImages.google,
+              companyName: "Google",
+              duration: "5 - 6 month",
+              jobTitle: "SoftWare Engineer",
+              location: "London",
+              skills: ["python", "java", "C++"],
+              jobType: 'JOB',
+              completionDate: DateTime(2023, 12, 15),
+            ),
+            HorizontalJInternshipCard(
+              companyLogo: JImages.nvidia,
+              companyName: "Nvidia",
+              duration: "8 - 9 month",
+              jobTitle: "Database admin",
+              location: "Douala",
+              skills: ["C#", "java", "C"],
+              completionDate: DateTime(2023, 12, 15),
+            ),
+            HorizontalJInternshipCard(
+              companyLogo: JImages.google,
+              companyName: "Skyhub",
+              duration: "1 - 4 month",
+              jobTitle: "Data analyst",
+              location: "Buea",
+              skills: ["Python", "R", "ML", "DL"],
+              completionDate: DateTime(2023, 12, 15),
+            ),
+            HorizontalJInternshipCard(
+              companyLogo: JImages.apple,
+              companyName: "Apple",
+              duration: "5 - 6 month",
+              jobTitle: "Web Developer",
+              location: "Nigeria",
+              skills: ["ReactJS", "javascript", "flutter"],
+              completionDate: DateTime(2023, 12, 15),
+            ),
+            HorizontalJInternshipCard(
+              companyLogo: JImages.facebook,
+              companyName: "Facebook",
+              duration: "1 - 3 month",
+              jobTitle: "Network admin",
+              location: "Libya",
+              skills: ["Cisco", "javascript", "Linux"],
+              completionDate: DateTime(2023, 12, 15),
+            ),
+      ]
       ),
     );
   }
 
   /// 4. Testimonials
   Widget _buildTestimonialsSection(BuildContext context) {
-    final testimonials = [
-      {
-        "quote": '"JIMP helped me land my dream job in just two weeks!"',
-        "author": "Jane Doe",
-      },
-      {
-        "quote": '"We found top-tier talent faster and more efficiently!"',
-        "author": "Lisa, HR Manager",
-      },
-    ];
-
-    return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-      child: Column(
-        children: [
-          Text(
+    return Column(
+      children: [
+        Center(
+          child: Text(
             "Testimonials & Success Stories",
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                  color: JColors.primary,
-                  fontWeight: FontWeight.bold,
-                ),
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+              color: JColors.primary,
+              fontSize: 23,
+              fontWeight: FontWeight.bold,
+
+            ),
           ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            alignment: WrapAlignment.center,
-            children: testimonials.map((testimony) {
-              return Container(
-                width: 300,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: JColors.primary.withAlpha((0.05 * 255).toInt()),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      testimony["quote"]!,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        '- ${testimony["author"]}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
+        ),
+        SizedBox(height: JSizes.md,),
+        MessageCarousel(
+            message: [
+              Testimonies(message: "JIMP helped me land my dream job in just two weeks!", author: "Franck Licht"),
+              Testimonies(message:"We found top-tier talent faster and more efficiently!", author: "Lisa, HR Manager"),
+              Testimonies(message: "JIMP helped me land my dream job in just two weeks!", author: "Franck Licht"),
+              Testimonies(message:"We found top-tier talent faster and more efficiently!", author: "Lisa, HR Manager"),
+            ]
+        ),
+      ],
     );
   }
 
@@ -463,3 +359,4 @@ class LandingPage extends StatelessWidget {
     );
   }
 }
+

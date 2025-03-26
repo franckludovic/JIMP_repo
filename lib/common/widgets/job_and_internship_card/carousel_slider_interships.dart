@@ -13,10 +13,12 @@ class InternshipCarousel extends StatelessWidget {
     super.key,
     required this.jobs,
     this.onTap,
+    this.autoplay = false,
   });
 
   final VoidCallback? onTap;
   final List<HorizontalJInternshipCard> jobs;
+  final bool autoplay;
 
   @override
   Widget build(BuildContext context) {
