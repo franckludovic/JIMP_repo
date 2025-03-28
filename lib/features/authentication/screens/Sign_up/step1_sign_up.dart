@@ -13,6 +13,8 @@ import '../../../../common/widgets/custom_wigets/custom_textfield.dart';
 import '../../../../common/widgets/documents_cad/file_picker_card.dart';
 import '../../../../utils/constants/text_strings.dart';
 import '../../../../utils/device/device_utility.dart';
+import '../../../../utils/validators/validation.dart';
+import '../../controllers.onboarding/sign_up/sign_up_controller.dart';
 
 
 class CandidateRegisterScreen1 extends StatefulWidget {
@@ -25,8 +27,13 @@ class CandidateRegisterScreen1 extends StatefulWidget {
 class _CandidateRegisterScreen1State extends State<CandidateRegisterScreen1> {
   int currentStep = 0;
 
+
+
+
   @override
   Widget build(BuildContext context) {
+
+    final controller = Get.put(SignupController());
     return Scaffold(
 
       appBar: JAppbar(title: Text(
@@ -43,17 +50,25 @@ class _CandidateRegisterScreen1State extends State<CandidateRegisterScreen1> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        controller: controller.firstName,
+                        validator: (value) =>
+                            TValidator.validateEmptyText('First name', value),
                         expands: false,
-                        decoration: const InputDecoration(labelText: JTexts.firstName, prefixIcon: Icon(Iconsax.user)),
+                        decoration: const InputDecoration(
+                            labelText: JTexts.firstName,
+                            prefixIcon: Icon(Iconsax.user)),
                       ),
                     ),
-
                     const SizedBox(width: JSizes.spaceBtwInputFields),
-
                     Expanded(
                       child: TextFormField(
+                        controller: controller.lastName,
+                        validator: (value) =>
+                            TValidator.validateEmptyText('Last name', value),
                         expands: false,
-                        decoration: const InputDecoration(labelText: JTexts.lastName, prefixIcon: Icon(Iconsax.user)),
+                        decoration: const InputDecoration(
+                            labelText: JTexts.lastName,
+                            prefixIcon: Icon(Iconsax.user)),
                       ),
                     ),
                   ],
@@ -63,35 +78,95 @@ class _CandidateRegisterScreen1State extends State<CandidateRegisterScreen1> {
 
                 ///Username
                 TextFormField(
+                  controller: controller.username,
+                  validator: (value) =>
+                      TValidator.validateEmptyText('Username', value),
                   expands: false,
-                  decoration: const InputDecoration(labelText: JTexts.username, prefixIcon: Icon(Iconsax.user_edit)),
+                  decoration: const InputDecoration(
+                      labelText: JTexts.username,
+                      prefixIcon: Icon(Iconsax.user_edit)),
                 ),
 
                 const SizedBox(height: JSizes.spaceBtwInputFields),
 
                 ///Email
                 TextFormField(
+                  controller: controller.email,
+                  validator: (value) => TValidator.validateEmail(value),
                   expands: false,
-                  decoration: const InputDecoration(labelText: JTexts.email, prefixIcon: Icon(Iconsax.direct)),
+                  decoration: const InputDecoration(
+                      labelText: JTexts.email, prefixIcon: Icon(Iconsax.direct)),
                 ),
 
                 const SizedBox(height: JSizes.spaceBtwInputFields),
 
                 ///Phone number
                 TextFormField(
+                  controller: controller.phoneNumber,
+                  validator: (value) => TValidator.validatePhoneNumber(value),
                   expands: false,
-                  decoration: const InputDecoration(labelText: JTexts.phoneNo, prefixIcon: Icon(Iconsax.call)),
+                  decoration: const InputDecoration(
+                      labelText: JTexts.phoneNo, prefixIcon: Icon(Iconsax.call)),
                 ),
 
                 const SizedBox(height: JSizes.spaceBtwInputFields),
 
-                ///Password
-                FancyPasswordField(
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    prefixIcon: const Icon(Iconsax.password_check),
-                    hintText: "At least 8 characters",
+
+                ///password without library
+                Obx(
+                      () =>  TextFormField(
+                    controller: controller.password,
+                    validator: (value) => TValidator.validatePassword(value),
+                    obscureText: controller.hidePassword.value,
+                    expands: false,
+                    decoration: InputDecoration(
+                        labelText: JTexts.password,
+                        prefixIcon: const Icon(Iconsax.password_check),
+                        suffixIcon:
+                        IconButton(onPressed: () => controller.hidePassword.value = !controller.hidePassword.value,
+                            icon:  Icon(controller.hidePassword.value ? Iconsax.eye_slash : Iconsax.eye))),
                   ),
+                ),
+
+                ///Password with FancyPassword library
+                // FancyPasswordField(
+                //   controller: controller.password,
+                //   validator: (value) => TValidator.validatePassword(value),
+                //   obscureText: controller.hidePassword.value,
+                //   decoration: InputDecoration(
+                //     labelText: "Password",
+                //     prefixIcon: const Icon(Iconsax.password_check),
+                //     hintText: "At least 8 characters",
+                //   ),
+                // ),
+
+                const SizedBox(height: JSizes.spaceBtwInputFields),
+
+
+                const SizedBox(height: JSizes.spaceBtwSections),
+
+                Container(
+                  child: ElevatedButton(
+                      onPressed: () => controller.signup(),
+                      style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                              vertical: JSizes.sm, horizontal: JSizes.lg)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            JTexts.MoveToNext,
+                            style: TextStyle(fontSize: 20, fontFamily: 'Poppins'),
+                          ),
+                          SizedBox(
+                            width: JSizes.lg,
+                          ),
+                          Icon(
+                            Iconsax.arrow_right_2,
+                            size: 50,
+                          )
+                        ],
+                      )),
                 ),
 
                 const SizedBox(height: JSizes.spaceBtwInputFields),
@@ -153,14 +228,14 @@ class _CandidateRegisterScreen1State extends State<CandidateRegisterScreen1> {
 
                   ],
                 ),
-
                 const SizedBox(height: JSizes.spaceBtwInputFields),
-
               ],
+            ),
+
             ),
           ),
         ),
-      ),
+
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
