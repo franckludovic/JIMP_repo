@@ -20,7 +20,7 @@ class App extends StatelessWidget {
       theme: TAppTheme.lightTheme,
       darkTheme: TAppTheme.darkTheme,
       initialBinding: GeneralBindigs(),
-      ///show loader or circular progress indicator neonwhhite authentication repository is deciding to show relevant screen
+      ///show loader or circular progress indicator neon-white authentication repository is deciding to show relevant screen
       //home: const OnboardingScreen(),
       home: const Scaffold(backgroundColor: JColors.primary, body: Center(child: CircularProgressIndicator(color: Colors.white))),
 

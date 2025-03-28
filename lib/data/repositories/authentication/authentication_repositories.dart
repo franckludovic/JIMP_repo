@@ -45,22 +45,22 @@ class AuthenticationRepository extends GetxController {
     }
 
 
-    deviceStorage.writeIfNull('isFirstTime', true);
-    deviceStorage.read('isFirstTime') != true
-        ? Get.offAll(() => const CandidateNavigationMenu())
-        : Get.offAll(const OnboardingScreen());
-
     // deviceStorage.writeIfNull('isFirstTime', true);
-    // if (deviceStorage.read('isFirstTime') != true) {
-    //
-    //   if (userType == "Company") {
-    //     Get.offAll(const CompagnyLoginScreen());
-    //   } else if (userType == "Candidate") {
-    //     Get.offAll(() => const CandidateNavigationMenu());
-    //   }
-    // }else {
-    //   Get.offAll(const OnboardingScreen());
-    // }
+    // deviceStorage.read('isFirstTime') != true
+    //     ? Get.offAll(() => const CandidateNavigationMenu())
+    //     : Get.offAll(const OnboardingScreen());
+
+    deviceStorage.writeIfNull('isFirstTime', true);
+    if (deviceStorage.read('isFirstTime') != true) {
+
+      if (userType == "Company") {
+        Get.offAll(const CompagnyLoginScreen());
+      } else if (userType == "Candidate") {
+        Get.offAll(() => const CandidateNavigationMenu());
+      }
+    }else {
+      Get.offAll(const OnboardingScreen());
+    }
   }
 
   /*--------Email and password Sign in----------------*/

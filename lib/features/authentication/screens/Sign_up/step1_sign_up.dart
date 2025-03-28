@@ -142,35 +142,6 @@ class _CandidateRegisterScreen1State extends State<CandidateRegisterScreen1> {
 
                 const SizedBox(height: JSizes.spaceBtwInputFields),
 
-
-                const SizedBox(height: JSizes.spaceBtwSections),
-
-                Container(
-                  child: ElevatedButton(
-                      onPressed: () => controller.signup(),
-                      style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                              vertical: JSizes.sm, horizontal: JSizes.lg)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            JTexts.MoveToNext,
-                            style: TextStyle(fontSize: 20, fontFamily: 'Poppins'),
-                          ),
-                          SizedBox(
-                            width: JSizes.lg,
-                          ),
-                          Icon(
-                            Iconsax.arrow_right_2,
-                            size: 50,
-                          )
-                        ],
-                      )),
-                ),
-
-                const SizedBox(height: JSizes.spaceBtwInputFields),
-
                 Stack(
                   children: [
                     Column(

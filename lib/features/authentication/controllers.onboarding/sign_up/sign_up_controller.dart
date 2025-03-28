@@ -28,7 +28,6 @@ class SignupController extends GetxController {
   final password = TextEditingController();
   final phoneNumber = TextEditingController();
 
-  // Additional required fields (assuming these are captured in previous steps or here)
   final country = TextEditingController();
   final region = TextEditingController();
   final city = TextEditingController();
@@ -37,7 +36,7 @@ class SignupController extends GetxController {
   final schoolAttended = TextEditingController();
 
   // Experience/Skills info (for step2)
-  final jobTypePreference = TextEditingController(); // e.g., job preference input from UI
+  final jobTypePreference = TextEditingController();
 
   /// A reactive list for the skill entries.
   RxList<SkillEntry> skillEntries = RxList<SkillEntry>();
@@ -94,19 +93,19 @@ class SignupController extends GetxController {
         localAddress: localAddress.text.trim(),
         educationLevel: educationLevel.text.trim(),
         schoolAttended: schoolAttended.text.trim(),
-        profilePicture: "", // You can set a default or uploaded picture URL here.
-        skills: skillEntries.toList(), // List of SkillEntry objects from your skill cards
-        selfDescription: "", // Optionally, add a controller for self-description.
+        profilePicture: "",
+        skills: skillEntries.toList(),
+        selfDescription: "",
         jobTypePreference: jobTypePreference.text.trim(),
-        languages: [], // You can update this later in another step.
-        hobbies: [],   // You can update this later in another step.
+        languages: [],
+        hobbies: [],
         resume: "",
         linkedin: "",
         github: "",
         portfolio: "",
       );
 
-      // Save user record in Firestore.
+
       final userRepository = Get.put(UserRepository());
       await userRepository.saveUserRecord(newUser);
 
