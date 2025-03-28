@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
-import 'package:project_bc_tuto/common/widgets/custom_shapes/other_shapes/custom_divider.dart';
-import 'package:project_bc_tuto/common/widgets/sign_upButtons/signUpNavButtons.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/step3_sign_up.dart';
+import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/SkillAddCard.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/step_indicator.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
-
-import '../../../../common/widgets/custom_wigets/custom_dropDown.dart';
-import '../../../../common/widgets/custom_wigets/custom_textfield.dart';
-import '../../../../common/widgets/documents_cad/additonal_file_checkbox_picker.dart';
-import '../../../../common/widgets/documents_cad/file_picker_card.dart';
+import '../../../../common/widgets/custom_shapes/other_shapes/custom_divider.dart';
+import '../../../../common/widgets/sign_upButtons/signUpNavButtons.dart';
 import '../../../../utils/device/device_utility.dart';
-
 
 class CandidateRegisterScreen2 extends StatefulWidget {
   const CandidateRegisterScreen2({super.key});
@@ -24,89 +18,96 @@ class CandidateRegisterScreen2 extends StatefulWidget {
 
 class _CandidateRegisterScreen2State extends State<CandidateRegisterScreen2> {
   int currentStep = 1;
+  List<SkillAddCard> skillCards = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _addSkillCard();
+  }
+
+  void _addSkillCard() {
+    setState(() {
+      skillCards.add(SkillAddCard(
+        onRemove: () => _removeSkillCard(skillCards.length - 1),
+      ));
+    });
+  }
+
+
+  void _removeSkillCard(int index) {
+    setState(() {
+      if (index >= 0 && index < skillCards.length) {
+        skillCards.removeAt(index);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      appBar: JAppbar(title: Text(
-        "Profile Information Screen",
+      appBar: JAppbar(title:Text(
+        "Skills and Experience",
         style: Theme.of(context).textTheme.headlineMedium,
       ),),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              child: Padding(
-                padding: const EdgeInsets.all(JSizes.defaultSpace),
-                child: Stack(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+              padding: const EdgeInsets.all(JSizes.defaultSpace),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
 
-                        // Username Field
-                        const TextField(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.person),
-                            labelText: "Username",
-                            border: OutlineInputBorder(),
-                          ),
-                        ),
-                        const SizedBox(height: JSizes.md),
-
-
-                        // Profile Image Upload Button
-
-                        DocumentUploadWidget(),
-
-                        AdditionalFilesWidget(),
-
-
-                        const SizedBox(height: JSizes.md),
-
-                        // Dropdowns
-                        Row(
-                          children: [
-                            Expanded(child: buildDropdown("Country")),
-                            const SizedBox(width: JSizes.md),
-                            Expanded(child: buildDropdown("Region")),
-
-                          ],
-                        ),
-
-                        const SizedBox(height: JSizes.spaceBtwItems * 1.5),
-
-                        Row(
-                          children: [
-                            Expanded(child: buildDropdown("City")),
-                            const SizedBox(width: JSizes.md),
-                            Expanded(child: buildTextField("Local address")),
-                          ],
-                        ),
-                        const SizedBox(height: JSizes.spaceBtwItems * 2),
-
-                        buildDropdown("Education Level"),
-                        const SizedBox(height: JSizes.spaceBtwItems * 2),
-
-                        buildDropdown("School last attended"),
-                        const SizedBox(height: JSizes.spaceBtwItems * 2),
-
-
-
-                        JDivider(),
-                        // Bottom Step Indicator
-                      ],
+                  // Job Preference Input
+                  const TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.person_2_rounded),
+                      labelText: "Job Preference",
+                      border: OutlineInputBorder(),
                     ),
+                  ),
+                  const SizedBox(height: JSizes.md),
 
-                  ],
-                ),
+                  // Skill Cards List
+                  Column(children: skillCards),
+
+                  const SizedBox(height: 16),
+
+                  // Add Skill Button
+                  Center(
+                    child: SizedBox(
+                      width: JDeviceUtils.getScreenWidth(context) * 0.5,
+                      child: ElevatedButton(
+                        onPressed: _addSkillCard,
+                        style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(vertical: JSizes.sm * 1.65)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Add Skill",
+                              style: TextStyle(fontSize: 20, fontFamily: "Poppins"),
+                            ),
+                            SizedBox(width: JSizes.sm),
+                            Icon(Icons.add, size: 30),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: JSizes.spaceBtwSections),
+
+                  JDivider(),
+                ],
               ),
             ),
-
           ],
         ),
       ),
+
+      // Bottom Step Indicator
       bottomNavigationBar: Container(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -128,6 +129,5 @@ class _CandidateRegisterScreen2State extends State<CandidateRegisterScreen2> {
       ),
     );
   }
-
 }
 
