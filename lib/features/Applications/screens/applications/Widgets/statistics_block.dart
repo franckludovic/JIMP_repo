@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
+import '../../../../../common/widgets/layout/matrix_layout.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../home/widgets/pieChardStats.dart';
@@ -15,13 +16,15 @@ class StatisticsBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
 
-            ///-- Applications Applied
+        MatrixGrid(
+          crossCount: 2,
+          totalLenght: 2,
+          items: [
             JRoundedContainer(
               width: 164.3,
               height: 200,
+              margin: EdgeInsets.only(right: JSizes.sm),
               backgroundColor: Colors.blueAccent,
               child: Stack(
                 children: [
@@ -69,11 +72,9 @@ class StatisticsBlock extends StatelessWidget {
 
             ),
 
-            SizedBox(width: JSizes.md),
-
-
             /// -- Interviews
             JRoundedContainer(
+              margin: EdgeInsets.only(left: JSizes.sm),
               width: 164.3,
               height: 200,
               backgroundColor: Colors.purple,
@@ -122,9 +123,11 @@ class StatisticsBlock extends StatelessWidget {
               ),
 
             ),
-
           ],
+
         ),
+
+
 
         SizedBox(height: JSizes.md),
 

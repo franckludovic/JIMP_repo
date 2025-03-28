@@ -56,7 +56,7 @@ class JSignupStep1Form extends StatelessWidget {
 
           ///Username
           TextFormField(
-            controller: controller.userName,
+            controller: controller.username,
             validator: (value) =>
                 TValidator.validateEmptyText('Username', value),
             expands: false,

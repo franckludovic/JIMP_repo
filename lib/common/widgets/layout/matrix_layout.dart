@@ -4,13 +4,17 @@ class MatrixGrid extends StatelessWidget {
   final List<Widget> items;
   final int totalLenght;
   final int crossCount;
+  final double crossSpacing;
+  final double mainSpacing;
 
 
   const MatrixGrid({
     super.key,
     required this.items,
     this.totalLenght = 4,
-    this.crossCount =2
+    this.crossCount =2,
+    this.crossSpacing = 0.8,
+    this.mainSpacing = 0.8,
 
   });
 
@@ -30,8 +34,8 @@ class MatrixGrid extends StatelessWidget {
       crossAxisCount: crossCount,
 
 
-      crossAxisSpacing: 8.0,
-      mainAxisSpacing: 8.0,
+      crossAxisSpacing: crossSpacing,
+      mainAxisSpacing: mainSpacing,
 
 
       children: items,

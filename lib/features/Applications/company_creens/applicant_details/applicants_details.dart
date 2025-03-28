@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:project_bc_tuto/common/widgets/Images/rounded_image.dart';
 import 'package:project_bc_tuto/common/widgets/Percentage%20indicator/line_percentage_indicator.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
+import 'package:project_bc_tuto/common/widgets/common_chats/chatHomescrenns.dart';
 import 'package:project_bc_tuto/common/widgets/companies/desciption_info_tile.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
@@ -9,6 +12,8 @@ import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import 'package:project_bc_tuto/utils/device/device_utility.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
+
+import '../../../../common/widgets/common_chats/widgets/chatscreen.dart';
 
 class ApplicantsDetails extends StatelessWidget {
   const ApplicantsDetails({super.key,  this.isSheduled = false});
@@ -132,7 +137,7 @@ class ApplicantsDetails extends StatelessWidget {
                       backgroundColor: Colors.green,
                       side: BorderSide(color: Colors.green),
                     ),
-                    onPressed: () {},
+                    onPressed: () => Get.to(() => ChatScreen(isGroupChat: false)),
                     child: Text("Message", style: TextStyle(fontSize: 20, fontFamily: 'Poppins'),)
                   ),
                   ElevatedButton(

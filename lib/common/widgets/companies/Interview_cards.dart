@@ -25,7 +25,7 @@ class JUserInterviewCards extends StatelessWidget {
         width: double.infinity,
         child: Row(
           children: [
-            JRoundedImage(imageUrl: JImages.user3, border: Border.all(color: Colors.black, width: 2.5), borderRadius: 80 ,  width: 80, height: 80,),
+            JRoundedImage(imageUrl: JImages.user3, border: Border.all(color: Colors.black, width: 2.5), borderRadius: 70 ,  width: 70, height: 70,),
 
             SizedBox(width: JSizes.sm,),
 

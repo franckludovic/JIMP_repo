@@ -236,76 +236,35 @@ class LandingPage extends StatelessWidget {
 
   /// 5. How It Works
   Widget _buildHowItWorksSection(BuildContext context) {
-    final steps = [
-      {
-        "title": "Create Your Profile",
-        "subtitle": "Sign up and showcase your brand."
-      },
-      {
-        "title": "Find the Right Match",
-        "subtitle": "Explore curated job & internship postings."
-      },
-      {
-        "title": "Apply & Track",
-        "subtitle": "Apply and track your applications seamlessly."
-      },
-    ];
 
     return Container(
-      color: JColors.secondary.withAlpha((0.05 * 255).toInt()),
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: JSizes.md),
       child: Column(
         children: [
-          Text(
-            "How It Works",
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  color: JColors.primary,
-                  fontWeight: FontWeight.bold,
-                ),
+
+          SizedBox(height: JSizes.spaceBtwSections, ),
+
+          Text("How it Works",   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+            color: JColors.primary,
+            fontSize: 23,
+            fontWeight: FontWeight.bold,)
           ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            alignment: WrapAlignment.center,
-            children: steps.map((step) {
-              return Container(
-                width: 250,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade300,
-                      blurRadius: 6,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      step["title"]!,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      step["subtitle"]!,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
+
+          SizedBox(height: JSizes.spaceBtwSections, ),
+
+          Text("1. Create Your Profile : Sign up and showcase your brand or Skills.", style: Theme.of(context).textTheme.titleLarge ),
+          SizedBox(height: JSizes.spaceBtwItems, ),
+          Text("2. Find the Right Match : Explore curated job & internship postings",  style: Theme.of(context).textTheme.titleLarge ),
+          SizedBox(height: JSizes.spaceBtwItems,),
+          Text("3. Apply & Track : Apply and track your applications seamlessly.",  style: Theme.of(context).textTheme.titleLarge ),
+
+          SizedBox(height: JSizes.spaceBtwSections, ),
         ],
       ),
     );
   }
+
+
 
   /// 6. Footer
   Widget _buildFooterSection(BuildContext context) {
@@ -318,6 +277,7 @@ class LandingPage extends StatelessWidget {
             "Ready to Find Your Dream Opportunity? Join JIMP Today!",
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
+              color: Colors.black
                 ),
           ),
           const SizedBox(height: 16),
@@ -332,6 +292,7 @@ class LandingPage extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: JColors.primary,
+                  padding: EdgeInsets.symmetric(horizontal: JSizes.lg, vertical: JSizes.md)
                 ),
                 child: const Text("Sign Up"),
               ),
@@ -352,7 +313,7 @@ class LandingPage extends StatelessWidget {
           const SizedBox(height: 24),
           const Text(
             "About Us | Contact Support | Terms of Service",
-            style: TextStyle(color: Colors.grey),
+            style: TextStyle(color: JColors.darkerGrey),
           ),
         ],
       ),
