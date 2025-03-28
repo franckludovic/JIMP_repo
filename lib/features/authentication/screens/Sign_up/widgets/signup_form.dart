@@ -4,6 +4,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/term_and_conditions.dart';
 
 
+import '../../../../../common/widgets/custom_wigets/custom_textfield.dart';
+import '../../../../../common/widgets/documents_cad/file_picker_card.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
 
@@ -75,6 +77,66 @@ class JSignupStep1Form extends StatelessWidget {
               prefixIcon: const Icon(Iconsax.password_check),
               hintText: "At least 8 characters",
             ),
+          ),
+
+          const SizedBox(height: JSizes.spaceBtwItems * 1.5),
+
+          Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  // Username Field
+
+                  // Profile Image Upload Button
+
+                  DocumentUploadWidget(title: 'Profile Picture', documentType: 'PNG, JPG'),
+
+
+                  const SizedBox(height: JSizes.md),
+
+                  // Dropdowns
+                  Row(
+                    children: [
+                      Expanded(child: TextFormField(
+                          expands: false,
+                          decoration: const InputDecoration(labelText: 'Country')),
+                      ),
+                      const SizedBox(width: JSizes.md),
+                      Expanded(child: buildTextField("Region")),
+                    ],
+                  ),
+
+                  const SizedBox(height: JSizes.spaceBtwItems * 1.5),
+
+                  Row(
+                    children: [
+                      Expanded(child: TextFormField(
+                          expands: false,
+                          decoration: const InputDecoration(labelText: 'City')),
+                      ),
+                      const SizedBox(width: JSizes.md),
+                      Expanded(child: buildTextField("Local address")),
+                    ],
+                  ),
+                  const SizedBox(height: JSizes.spaceBtwItems * 2),
+
+                  TextFormField(
+                      expands: false,
+                      decoration: const InputDecoration(labelText: 'Education Level')),
+                  const SizedBox(height: JSizes.spaceBtwItems * 2),
+
+                  TextFormField(
+                      expands: false,
+                      decoration: const InputDecoration(labelText: 'School Last attended')),
+                  const SizedBox(height: JSizes.spaceBtwItems * 2),
+
+                  // Bottom Step Indicator
+                ],
+              ),
+
+            ],
           ),
 
           const SizedBox(height: JSizes.spaceBtwInputFields),

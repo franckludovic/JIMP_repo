@@ -8,8 +8,8 @@ Widget buildDropdown(String label) {
       border: OutlineInputBorder(),
     ),
     items: const [
-      DropdownMenuItem(value: "Option1", child: Text("Option 1")),
-      DropdownMenuItem(value: "Option2", child: Text("Option 2")),
+      DropdownMenuItem(value: "JOB", child: Text("JOB")),
+      DropdownMenuItem(value: "INTERNSHIP", child: Text("INTERNSHIP")),
     ],
     onChanged: (value) {},
   );

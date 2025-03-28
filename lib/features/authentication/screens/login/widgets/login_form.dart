@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:project_bc_tuto/features/authentication/screens/Sign_up/sign_up.dart';
+
 import 'package:project_bc_tuto/features/authentication/screens/password_configuration/forget_password.dart';
 
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
 import '../../../../Applications/screens/application_page_form/applyPage.dart';
+import '../../Sign_up/step1_sign_up.dart';
 
 
 class JLoginForm extends StatelessWidget {
@@ -64,7 +65,7 @@ class JLoginForm extends StatelessWidget {
             const SizedBox(height: JSizes.spaceBtwItems),
 
             ///create account button
-            SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() => const CadidateSignupScreen()), child: Text(JTexts.createAccount))),
+            SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() => const CandidateRegisterScreen1()), child: Text(JTexts.createAccount))),
           ],
         ),
       ),
