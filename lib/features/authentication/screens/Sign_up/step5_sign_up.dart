@@ -1,8 +1,10 @@
+import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
+import 'package:project_bc_tuto/common/widgets/layout/matrix_layout.dart';
 import 'package:project_bc_tuto/common/widgets/success_screen/success_screen.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/term_and_conditions.dart';
 
@@ -106,6 +108,22 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
     );
   }
 
+  Widget buildLargeInfoCard(BuildContext context, List<Widget> children) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: JColors.grey,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: children,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,7 +166,7 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                             onPressed: () {
                               showEditDialog(
                                 fieldName: "Profile Picture URL",
-                                currentValue: "", // Replace with controller.profilePicture if available.
+                                currentValue: "",
                                 onUpdate: (newValue) {
                                   // Update profile picture URL accordingly.
                                   Get.snackbar("Updated", "Profile picture updated");
@@ -461,9 +479,11 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                   },
                 ),
               ]),
+
               const SizedBox(height: JSizes.spaceBtwItems),
-              // Skills Section
-              buildInfoCard(context, [
+
+              buildLargeInfoCard(context, [
+
                 Text(
                   "Skills:",
                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.black),
@@ -485,29 +505,70 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                   },
                 ),
               ]),
+
+
               const SizedBox(height: JSizes.spaceBtwItems),
-              // Languages Section
-              buildInfoCard(context, [
-                Text(
-                  "Languages:",
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.black),
-                ),
-                Text(
-                  controller.languages.isNotEmpty
-                      ? controller.languages
-                      .map((l) => "${l.language} (Lvl ${l.proficiency})")
-                      .join(" | ")
-                      : "No languages provided",
-                  style: const TextStyle(color: Colors.black),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.edit, size: 18, color: JColors.primary),
-                  onPressed: () {
-                    // You can implement a dialog to edit languages if needed.
-                    Get.snackbar("Edit Languages", "Implement language editing dialog here");
-                  },
-                ),
-              ]),
+              // Skills Section
+             MatrixGrid(
+               totalLenght: 2,
+                 crossSpacing: 10,
+                 items: [
+                   buildInfoCard(context, [
+                     Text(
+                       "Hobbies:",
+                       style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.black),
+                     ),
+                     Text(
+                       controller.hobbies.isNotEmpty
+                           ? controller.hobbies.join(" | ")
+                           : "No hobbies provided",
+                       style: const TextStyle(color: Colors.black),
+                     ),
+                     IconButton(
+                       icon: const Icon(Icons.edit, size: 18, color: JColors.primary),
+                       onPressed: () {
+                         // Open dialog to edit hobbies (for simplicity, a comma-separated list)
+                         showEditDialog(
+                           fieldName: "Hobbies",
+                           currentValue: controller.hobbies.join(", "),
+                           onUpdate: (newValue) {
+                             setState(() {
+                               controller.hobbies.value = newValue.split(",").map((s) => s.trim()).toList();
+                             });
+                           },
+                           multiline: true,
+                         );
+                       },
+                     ),
+                   ]),
+
+
+                   // Languages Section
+                   buildInfoCard(context, [
+                     Text(
+                       "Languages:",
+                       style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.black),
+                     ),
+                     Text(
+                       controller.languages.isNotEmpty
+                           ? controller.languages
+                           .map((l) => "${l.language} (Lvl ${l.proficiency})")
+                           .join(" | ")
+                           : "No languages provided",
+                       style: const TextStyle(color: Colors.black),
+                     ),
+                     IconButton(
+                       icon: const Icon(Icons.edit, size: 18, color: JColors.primary),
+                       onPressed: () {
+                         // You can implement a dialog to edit languages if needed.
+                         Get.snackbar("Edit Languages", "Implement language editing dialog here");
+                       },
+                     ),
+                   ]),
+                 ]
+             ),
+
+
               const SizedBox(height: JSizes.spaceBtwItems),
               // Terms & Conditions
               const TermandConditions(),
