@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/sign_up2.dart';
-import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/widget/signup_form.dart';
+// import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/widget/signup_form.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
 import '../../../../utils/device/device_utility.dart';
@@ -32,7 +32,7 @@ class _CompanyRegisterScreenState extends State<CompanySignupScreen> {
             children: [
 
               ///Form
-              const JSignUpCompanypage1(),
+             // const JSignUpCompanypage1(),
 
               const SizedBox(height: JSizes.spaceBtwSections),
 
@@ -86,6 +86,10 @@ class _CompanyRegisterScreenState extends State<CompanySignupScreen> {
 
     );
   }
+}
+
+class JSignUpCompanypage1 {
+  const JSignUpCompanypage1();
 }
 
 

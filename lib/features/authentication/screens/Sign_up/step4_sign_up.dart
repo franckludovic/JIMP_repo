@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
-import 'package:project_bc_tuto/features/authentication/screens/Sign_up/step5_sign_up.dart';
-
-import '../../../../common/widgets/sign_upButtons/signUpNavButtons.dart';
-import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/device/device_utility.dart';
+import 'package:project_bc_tuto/utils/constants/sizes.dart';
+import 'package:project_bc_tuto/utils/device/device_utility.dart';
+import '../../../Applications/models/user_model.dart';
 import '../../compamy_screens/sign_up/widget/step_indicator.dart';
+import '../../../../common/widgets/custom_shapes/other_shapes/custom_divider.dart';
+import '../../../../common/widgets/sign_upButtons/signUpNavButtons.dart';
+import '../../../../utils/constants/colors.dart';
+import 'package:project_bc_tuto/features/authentication/screens/Sign_up/step5_sign_up.dart';
+import '../../controllers.onboarding/sign_up/sign_up_controller.dart';
+
 
 class CandidateRegisterScreen4 extends StatefulWidget {
   const CandidateRegisterScreen4({super.key});
@@ -16,34 +20,37 @@ class CandidateRegisterScreen4 extends StatefulWidget {
 }
 
 class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
-  // List to hold languages with proficiency
-  List<LanguageEntry> languages = [];
   int currentStep = 3;
-
-  // List to hold hobbies
-  List<String> hobbies = [];
+  final SignupController controller = Get.find<SignupController>();
 
   @override
   void initState() {
     super.initState();
-    // Optionally, start with one language row and one hobby row
-    languages.add(LanguageEntry(language: '', proficiency: 1));
-    hobbies.add('');
+    // Initialize controller lists if they are empty.
+    if (controller.languages.isEmpty) {
+      controller.languages.add(LanguageEntry(language: '', proficiency: 1));
+    }
+    if (controller.hobbies.isEmpty) {
+      controller.hobbies.add('');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: JAppbar(title: Text('Language and Hobbies', style: Theme.of(context).textTheme.headlineMedium,) ,),
+      appBar: JAppbar(
+        title: Text(
+          'Language and Hobbies',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             // ---------- LANGUAGES SECTION ----------
             _buildLanguagesSection(),
-
             const SizedBox(height: 32),
-
             // ---------- HOBBIES SECTION ----------
             _buildHobbiesSection(),
           ],
@@ -52,16 +59,16 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-
-          SignUpNavigationButtons(onPressed:() => Get.to(() => CandidateRegisterScreen5()) ),
-
+          SignUpNavigationButtons(
+            onPressed: () => Get.to(() => const CandidateRegisterScreen5()),
+          ),
           Padding(
             padding: const EdgeInsets.only(bottom: JSizes.spaceBtwSections, top: JSizes.md),
             child: Positioned(
-                bottom: JDeviceUtils.getBottomNavigationBarHeight(),
-                left: 0,
-                right: 0,
-                child: StepIndicator(currentIndex: currentStep, totalSteps: 5)
+              bottom: JDeviceUtils.getBottomNavigationBarHeight(),
+              left: 0,
+              right: 0,
+              child: StepIndicator(currentIndex: currentStep, totalSteps: 5),
             ),
           ),
         ],
@@ -85,9 +92,9 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            // Build a list of language fields
+            // Build a list of language fields using the controller's list.
             Column(
-              children: List.generate(languages.length, (index) {
+              children: List.generate(controller.languages.length, (index) {
                 return _buildLanguageRow(index);
               }),
             ),
@@ -98,11 +105,10 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
               children: [
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: JSizes.sm, vertical: JSizes.md)
-                  ),
+                      padding: EdgeInsets.symmetric(horizontal: JSizes.sm, vertical: JSizes.md)),
                   onPressed: () {
                     setState(() {
-                      languages.add(LanguageEntry(language: '', proficiency: 1));
+                      controller.languages.add(LanguageEntry(language: '', proficiency: 1));
                     });
                   },
                   icon: const Icon(Icons.add),
@@ -116,7 +122,7 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
     );
   }
 
-  // Build each row for a language
+  // Build each row for a language using controller.languages.
   Widget _buildLanguageRow(int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -132,10 +138,10 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
                     labelText: 'Enter a Language',
                     border: OutlineInputBorder(),
                   ),
-                  initialValue: languages[index].language,
+                  initialValue: controller.languages[index].language,
                   onChanged: (value) {
                     setState(() {
-                      languages[index].language = value;
+                      controller.languages[index].language = value;
                     });
                   },
                 ),
@@ -145,7 +151,7 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
                 icon: const Icon(Icons.remove_circle, color: Colors.red),
                 onPressed: () {
                   setState(() {
-                    languages.removeAt(index);
+                    controller.languages.removeAt(index);
                   });
                 },
               ),
@@ -166,17 +172,16 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
     );
   }
 
-
-  // Single Radio button for proficiency
+  // Single Radio button for proficiency using controller.languages.
   Widget _buildProficiencyRadio(int index, int value) {
     return Row(
       children: [
         Radio<int>(
           value: value,
-          groupValue: languages[index].proficiency,
+          groupValue: controller.languages[index].proficiency,
           onChanged: (selected) {
             setState(() {
-              languages[index].proficiency = selected ?? 1;
+              controller.languages[index].proficiency = selected ?? 1;
             });
           },
         ),
@@ -201,9 +206,9 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            // Build a list of hobby fields
+            // Build a list of hobby fields using the controller's list.
             Column(
-              children: List.generate(hobbies.length, (index) {
+              children: List.generate(controller.hobbies.length, (index) {
                 return _buildHobbyRow(index);
               }),
             ),
@@ -214,11 +219,10 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
               children: [
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: JSizes.sm, vertical: JSizes.md)
-                  ),
+                      padding: EdgeInsets.symmetric(horizontal: JSizes.sm, vertical: JSizes.md)),
                   onPressed: () {
                     setState(() {
-                      hobbies.add('');
+                      controller.hobbies.add('');
                     });
                   },
                   icon: const Icon(Icons.add),
@@ -232,7 +236,7 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
     );
   }
 
-  // Build each row for a hobby
+  // Build each row for a hobby using controller.hobbies.
   Widget _buildHobbyRow(int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -247,10 +251,10 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
               ),
               onChanged: (value) {
                 setState(() {
-                  hobbies[index] = value;
+                  controller.hobbies[index] = value;
                 });
               },
-              initialValue: hobbies[index],
+              initialValue: controller.hobbies[index],
             ),
           ),
           const SizedBox(width: 8),
@@ -259,7 +263,7 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
             icon: const Icon(Icons.remove_circle, color: Colors.red),
             onPressed: () {
               setState(() {
-                hobbies.removeAt(index);
+                controller.hobbies.removeAt(index);
               });
             },
           ),
@@ -267,15 +271,4 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
       ),
     );
   }
-}
-
-
-class LanguageEntry {
-  String language;
-  int proficiency;
-
-  LanguageEntry({
-    required this.language,
-    required this.proficiency,
-  });
 }

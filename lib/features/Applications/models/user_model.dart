@@ -79,6 +79,8 @@ class UserModel {
   String linkedin;
   String github;
   String portfolio;
+  String opportunityType;
+  String jobCategory;
 
   UserModel({
     required this.id,
@@ -106,6 +108,8 @@ class UserModel {
     this.linkedin = '',
     this.github = '',
     this.portfolio = '',
+    this.opportunityType = '',
+    this.jobCategory = '',
   });
 
   /// Helper function to get full name.
@@ -151,6 +155,8 @@ class UserModel {
       'Linkedin': linkedin,
       'Github': github,
       'Portfolio': portfolio,
+      'OpportunityType': opportunityType,
+      'JobCategory': jobCategory,
     };
   }
 
@@ -187,6 +193,8 @@ class UserModel {
       linkedin: data['Linkedin'] ?? '',
       github: data['Github'] ?? '',
       portfolio: data['Portfolio'] ?? '',
+      opportunityType: data['OpportunityType'] ?? '',
+      jobCategory: data['JobCategory'] ?? '',
     );
   }
 

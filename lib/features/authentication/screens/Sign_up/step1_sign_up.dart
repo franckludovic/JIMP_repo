@@ -9,7 +9,6 @@ import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
-import '../../../../common/widgets/custom_wigets/custom_textfield.dart';
 import '../../../../common/widgets/documents_cad/file_picker_card.dart';
 import '../../../../utils/constants/text_strings.dart';
 import '../../../../utils/device/device_utility.dart';
@@ -42,6 +41,7 @@ class _CandidateRegisterScreen1State extends State<CandidateRegisterScreen1> {
       ),),
       body: SingleChildScrollView(
         child:Form(
+          key: controller.signupFormKey,
           child: Padding(
             padding: const EdgeInsets.all(JSizes.spaceBtwItems),
             child: Column(
@@ -161,11 +161,17 @@ class _CandidateRegisterScreen1State extends State<CandidateRegisterScreen1> {
                         Row(
                           children: [
                             Expanded(child: TextFormField(
+                              controller: controller.country,
+                                validator: (value) => TValidator.validateEmptyText('Country', value),
                                 expands: false,
                                 decoration: const InputDecoration(labelText: 'Country')),
                             ),
                             const SizedBox(width: JSizes.md),
-                            Expanded(child: buildTextField("Region")),
+                            Expanded(child: TextFormField(
+                                controller: controller.region,
+                                validator: (value) => TValidator.validateEmptyText('Region', value),
+                                expands: false,
+                                decoration: const InputDecoration(labelText: 'Region')),),
                           ],
                         ),
 
@@ -174,21 +180,31 @@ class _CandidateRegisterScreen1State extends State<CandidateRegisterScreen1> {
                         Row(
                           children: [
                             Expanded(child: TextFormField(
+                                controller: controller.city,
+                                validator: (value) => TValidator.validateEmptyText('city', value),
                                 expands: false,
                                 decoration: const InputDecoration(labelText: 'City')),
                             ),
                             const SizedBox(width: JSizes.md),
-                            Expanded(child: buildTextField("Local address")),
+                            Expanded(child: TextFormField(
+                                controller: controller.localAddress,
+                                validator: (value) => TValidator.validateEmptyText('localAddress', value),
+                                expands: false,
+                                decoration: const InputDecoration(labelText: 'Local Address')),),
                           ],
                         ),
                         const SizedBox(height: JSizes.spaceBtwInputFields),
 
                         TextFormField(
+                          controller: controller.educationLevel,
+                            validator:(value) => TValidator.validateEmptyText('educationLevel', value),
                             expands: false,
                             decoration: const InputDecoration(labelText: 'Education Level')),
                         const SizedBox(width: JSizes.spaceBtwInputFields),
 
                         TextFormField(
+                            controller: controller.schoolAttended,
+                            validator:(value) => TValidator.validateEmptyText('schoolAttended', value),
                             expands: false,
                             decoration: const InputDecoration(labelText: 'School Last attended')),
                         const SizedBox(width: JSizes.spaceBtwInputFields),

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 class LinkInputWidget extends StatefulWidget {
   final String title;
   final String defaultUrl;
+  final TextEditingController? controller; // Optional external controller
 
   const LinkInputWidget({
     super.key,
     required this.title,
     this.defaultUrl = "",
+    this.controller,
   });
 
   @override
@@ -17,11 +18,13 @@ class LinkInputWidget extends StatefulWidget {
 }
 
 class _LinkInputWidgetState extends State<LinkInputWidget> {
-  final TextEditingController _controller = TextEditingController();
+  late final TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
+    // Use the provided controller or create a new one.
+    _controller = widget.controller ?? TextEditingController();
     _controller.text = widget.defaultUrl; // Set initial value
   }
 
@@ -41,17 +44,19 @@ class _LinkInputWidgetState extends State<LinkInputWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(widget.title,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         const SizedBox(height: 5),
-
-        // Text Field for entering the URL
         TextField(
           controller: _controller,
           decoration: InputDecoration(
             hintText: "Enter ${widget.title} URL",
-            border: OutlineInputBorder(),
+            border: const OutlineInputBorder(),
             suffixIcon: IconButton(
-              icon: const Icon(Icons.open_in_browser,color: Colors.purple,),
+              icon: const Icon(
+                Icons.open_in_browser,
+                color: Colors.purple,
+              ),
               onPressed: _launchURL,
             ),
           ),

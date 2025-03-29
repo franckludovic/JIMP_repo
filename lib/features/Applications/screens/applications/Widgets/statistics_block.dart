@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
+import '../../../../../common/widgets/layout/matrix_layout.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../home/widgets/pieChardStats.dart';
@@ -15,116 +16,117 @@ class StatisticsBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
 
-            ///-- Applications Applied
-            JRoundedContainer(
-              width: 164.3,
-              height: 200,
-              backgroundColor: Colors.blueAccent,
-              child: Stack(
-                children: [
-                  // Background Question Mark
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Opacity(
-                      opacity: 0.2,
-                      child: Icon(
-                        Icons.send,
-                        size: 100,
-                        color: Colors.white,
+        ///-- Applications Applied
+      MatrixGrid(
+      crossCount: 2,
+        totalLenght: 2,
+        items: [
+          JRoundedContainer(
+            width: 164.3,
+            height: 200,
+            margin: EdgeInsets.only(right: JSizes.sm),
+            backgroundColor: Colors.blueAccent,
+            child: Stack(
+              children: [
+                // Background Question Mark
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Opacity(
+                    opacity: 0.2,
+                    child: Icon(
+                      Icons.send,
+                      size: 100,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+
+                // Texts
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        '56',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 70,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ),
 
-                  // Texts
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          '56',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 70,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      Text(
+                        'Application deposited',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
                         ),
-
-                        Text(
-                          'Application deposited',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-
+                ),
+              ],
             ),
 
-            SizedBox(width: JSizes.md),
+          ),
 
-
-            /// -- Interviews
-            JRoundedContainer(
-              width: 164.3,
-              height: 200,
-              backgroundColor: Colors.purple,
-              child: Stack(
-                children: [
-                  // Background Question Mark
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Opacity(
-                      opacity: 0.2,
-                      child: Icon(
-                        Icons.question_answer,
-                        size: 100,
-                        color: Colors.white,
-                      ),
-                    ),
+        /// -- Interviews
+        JRoundedContainer(
+          margin: EdgeInsets.only(left: JSizes.sm),
+          width: 164.3,
+          height: 200,
+          backgroundColor: Colors.purple,
+          child: Stack(
+            children: [
+              // Background Question Mark
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Opacity(
+                  opacity: 0.2,
+                  child: Icon(
+                    Icons.question_answer,
+                    size: 100,
+                    color: Colors.white,
                   ),
-
-                  // Texts
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          '03',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 70,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-
-                        Text(
-                          'Pending Interviews',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                ),
               ),
 
-            ),
+              // Texts
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      '03',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 70,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
 
-          ],
+                    Text(
+                      'Pending Interviews',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
         ),
+      ],
+
+    ),
 
         SizedBox(height: JSizes.md),
 

@@ -35,10 +35,21 @@ class SignupController extends GetxController {
   final educationLevel = TextEditingController();
   final schoolAttended = TextEditingController();
 
-  // Experience/Skills info (for step2)
+  final selfDescription = TextEditingController();
+  final resume = TextEditingController();
+  final opportunityType = ''.obs; // using an observable for dropdown value
+  final linkedin = TextEditingController();
+  final github = TextEditingController();
+  final portfolio = TextEditingController();
+  final jobCategory = "".obs;
+
+
   final jobTypePreference = TextEditingController();
 
-  /// A reactive list for the skill entries.
+  RxList<LanguageEntry> languages = RxList<LanguageEntry>();
+
+  RxList<String> hobbies = RxList<String>();
+
   RxList<SkillEntry> skillEntries = RxList<SkillEntry>();
 
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();

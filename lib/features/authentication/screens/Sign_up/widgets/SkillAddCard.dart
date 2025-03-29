@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
-
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 
 class SkillAddCard extends StatefulWidget {
   final VoidCallback onRemove; // Callback to remove this card
+  final void Function(String skill, int level, int cardIndex) onSkillChanged; // Callback for skill updates
+  final int cardIndex; // Index of this card in the list
 
-  const SkillAddCard({super.key, required this.onRemove});
-
+  const SkillAddCard({
+    super.key,
+    required this.onRemove,
+    required this.onSkillChanged,
+    required this.cardIndex,
+  });
 
   @override
   _SkillAddCardState createState() => _SkillAddCardState();
@@ -18,7 +23,7 @@ class SkillAddCard extends StatefulWidget {
 
 class _SkillAddCardState extends State<SkillAddCard> {
   int? selectedLevel;
-
+  String skillText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +56,15 @@ class _SkillAddCardState extends State<SkillAddCard> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            skillText = value;
+                          });
+                          // Notify parent of the change
+                          widget.onSkillChanged(skillText, selectedLevel ?? 0, widget.cardIndex);
+                        },
                         decoration: InputDecoration(
                           hintText: "Enter a skill",
-
                           border: InputBorder.none,
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -64,50 +75,45 @@ class _SkillAddCardState extends State<SkillAddCard> {
                 ),
               ),
               IconButton(
-                onPressed: widget.onRemove, // Calls parent function to remove
+                onPressed: widget.onRemove,
                 icon: const Icon(Iconsax.trash, size: 30, color: Colors.red),
               )
             ],
           ),
-
           const Divider(thickness: 2),
           SizedBox(height: JSizes.md),
-
           // Skill Level Selection
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Level:", style: Theme.of(context).textTheme.headlineSmall),
               SizedBox(width: JSizes.sm),
-
               // Skill Level Buttons (1 to 5)
               for (int i = 1; i <= 5; i++) ...[
                 GestureDetector(
-                  onTap: () => setState(() => selectedLevel = i),
+                  onTap: () {
+                    setState(() {
+                      selectedLevel = i;
+                    });
+                    // Notify parent of the level change
+                    widget.onSkillChanged(skillText, selectedLevel!, widget.cardIndex);
+                  },
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     curve: Curves.easeInOut,
-                    transform: selectedLevel == i
-                        ? Matrix4.identity().scaled(1.1)
-                        : Matrix4.identity(),
+                    transform: selectedLevel == i ? Matrix4.identity().scaled(1.1) : Matrix4.identity(),
                     child: JRoundedContainer(
                       width: 30,
                       height: 30,
-                      backgroundColor: selectedLevel == i
-                          ? JColors.primary
-                          : Colors.transparent,
-                      borderColor: selectedLevel == i
-                          ? JColors.primary
-                          : unselectedColor,
+                      backgroundColor: selectedLevel == i ? JColors.primary : Colors.transparent,
+                      borderColor: selectedLevel == i ? JColors.primary : unselectedColor,
                       showBorder: true,
                       borderWidth: 2,
                       child: Center(
                         child: Text(
                           "$i",
                           style: TextStyle(
-                            color: selectedLevel == i
-                                ? Colors.white
-                                : (dark ? JColors.darkGrey : JColors.darkerGrey),
+                            color: selectedLevel == i ? Colors.white : (dark ? JColors.darkGrey : JColors.darkerGrey),
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
@@ -120,11 +126,9 @@ class _SkillAddCardState extends State<SkillAddCard> {
               ],
             ],
           ),
-
-          SizedBox(height: JSizes.sm,)
+          SizedBox(height: JSizes.sm)
         ],
       ),
-
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class JTextArea extends StatelessWidget {
-  const JTextArea({
+  JTextArea({
     super.key,
     this.minAreaHeight = 7,
     this.hintText,
@@ -10,7 +10,8 @@ class JTextArea extends StatelessWidget {
     required this.label,
     this.maxAreaHeight = 7,
     this.backgroundcolor = Colors.transparent,
-  });
+    TextEditingController? controller,
+  }) : controller = controller ?? TextEditingController();
 
   final int minAreaHeight;
   final int maxAreaHeight;
@@ -19,7 +20,7 @@ class JTextArea extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final Color backgroundcolor;
-
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,8 @@ class JTextArea extends StatelessWidget {
       minLines: minAreaHeight,
       maxLines: maxAreaHeight,
       cursorColor: Colors.black,
-      style: TextStyle(color: Colors.black),
+      controller: controller,
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         filled: true,
         fillColor: backgroundcolor,
@@ -39,7 +41,6 @@ class JTextArea extends StatelessWidget {
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
       ),
-
     );
   }
 }

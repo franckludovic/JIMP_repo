@@ -8,10 +8,15 @@ import '../../../utils/constants/colors.dart';
 
 class DocumentUploadWidget extends StatefulWidget {
   final String title;
-  final documentType;
+  final String documentType;
+  final void Function(String filePath)? onFileUploaded; // Callback for file upload
 
-
-  const DocumentUploadWidget({super.key, this.title = "Upload Document", this.documentType = "Document type PDF, DOC, DOCX, PNG, JPEG, JPG" });
+  const DocumentUploadWidget({
+    super.key,
+    this.title = "Upload Document",
+    this.documentType = "Document type PDF, DOC, DOCX, PNG, JPEG, JPG",
+    this.onFileUploaded,
+  });
 
   @override
   State<DocumentUploadWidget> createState() => _DocumentUploadWidgetState();
@@ -30,6 +35,10 @@ class _DocumentUploadWidgetState extends State<DocumentUploadWidget> {
       setState(() {
         selectedFile = File(result.files.single.path!);
       });
+      // Notify parent about the selected file path
+      if (widget.onFileUploaded != null && selectedFile != null) {
+        widget.onFileUploaded!(selectedFile!.path);
+      }
     }
   }
 
@@ -50,7 +59,6 @@ class _DocumentUploadWidgetState extends State<DocumentUploadWidget> {
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
-
         GestureDetector(
           onTap: pickDocument,
           onLongPress: openDocument,
@@ -78,9 +86,7 @@ class _DocumentUploadWidgetState extends State<DocumentUploadWidget> {
             ),
           ),
         ),
-
         const SizedBox(height: 10),
-
         if (selectedFile != null)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,7 +95,7 @@ class _DocumentUploadWidgetState extends State<DocumentUploadWidget> {
                 "File Selected:",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Expanded(
                 child: Text(
                   selectedFile!.path.split('/').last,
