@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/helpers/network_manager.dart';
@@ -7,11 +8,9 @@ import 'package:project_bc_tuto/utils/popups/full_screen_loader.dart';
 import 'package:project_bc_tuto/utils/popups/loaders.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/verify_email.dart';
 
-
 import '../../../../data/repositories/authentication/authentication_repositories.dart';
 import '../../../../data/repositories/user/user_repositories.dart';
 import '../../../Applications/models/user_model.dart';
-
 
 class SignupController extends GetxController {
   static SignupController get instance => Get.find();
@@ -28,6 +27,7 @@ class SignupController extends GetxController {
   final password = TextEditingController();
   final phoneNumber = TextEditingController();
 
+  // Location and education (Step 2)
   final country = TextEditingController();
   final region = TextEditingController();
   final city = TextEditingController();
@@ -35,61 +35,99 @@ class SignupController extends GetxController {
   final educationLevel = TextEditingController();
   final schoolAttended = TextEditingController();
 
+  // Additional info (Step 3)
   final selfDescription = TextEditingController();
   final resume = TextEditingController();
-  final opportunityType = ''.obs; // using an observable for dropdown value
+  final opportunityType = ''.obs; // Observable for dropdown value
   final linkedin = TextEditingController();
   final github = TextEditingController();
   final portfolio = TextEditingController();
   final jobCategory = "".obs;
-
-
   final jobTypePreference = TextEditingController();
 
+  // Dynamic lists (Step 4)
   RxList<LanguageEntry> languages = RxList<LanguageEntry>();
-
   RxList<String> hobbies = RxList<String>();
-
   RxList<SkillEntry> skillEntries = RxList<SkillEntry>();
 
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
-  ///--Sign up
-  Future<void> signup() async {
+  /// Validates the required fields for a given step.
+  /// (Adjust validations as needed for your app.)
+  bool validateStep(int step) {
+    switch (step) {
+      case 1:
+        if (email.text.trim().isEmpty ||
+            firstName.text.trim().isEmpty ||
+            lastName.text.trim().isEmpty ||
+            username.text.trim().isEmpty ||
+            password.text.trim().isEmpty ||
+            phoneNumber.text.trim().isEmpty ||
+            country.text.trim().isEmpty ||
+            region.text.trim().isEmpty ||
+            city.text.trim().isEmpty ||
+            localAddress.text.trim().isEmpty ||
+            educationLevel.text.trim().isEmpty ||
+            schoolAttended.text.trim().isEmpty) {
+          return false;
+        }
+        break;
+      case 2:
+        if (jobTypePreference.text.trim().isEmpty || skillEntries.isEmpty) {
+          return false;
+        }
+        break;
+      case 3:
+        if (selfDescription.text.trim().isEmpty ||
+            opportunityType.value.trim().isEmpty ||
+            jobCategory.value.trim().isEmpty) {
+          return false;
+        }
+        break;
+      case 4:
+        if (languages.isEmpty) {
+          return false;
+        }
+        break;
+      default:
+        break;
+    }
+    return true;
+  }
+
+  ///-- Final Signup for Candidate (called on the last page)
+  Future<void> signupFinal() async {
     try {
-      // Start loading
       TFullScreenLoader.openLoadingDialog(
           'We are processing your information...', JImages.docerAnimation);
 
-      // Check internet connectivity
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         TFullScreenLoader.stopLoading();
         return;
       }
 
-      // Form validation
+      // Validate the entire form (if using a form)
       if (!signupFormKey.currentState!.validate()) {
         TFullScreenLoader.stopLoading();
         return;
       }
 
-      // Privacy policy check
       if (!privacyPolicy.value) {
         TLoaders.warningSnackBar(
           title: 'Accept Privacy Policy',
           message:
-          'In order to create account, you must accept to read and agree to the Privacy Policy & Terms of Use',
+          'To create an account, you must accept the Privacy Policy & Terms of Use',
         );
         TFullScreenLoader.stopLoading();
         return;
       }
 
-      // Register user using Firebase Authentication
+      // Register candidate using Firebase Authentication
       final userCredential = await AuthenticationRepository.instance
-          .registerWithEmailAndPAssword(email.text.trim(), password.text.trim());
+          .registerWithEmailAndPassword(email.text.trim(), password.text.trim());
 
-      // Build the new user model including all required and optional fields.
+      // Build the candidate model with all fields from the controller.
       final newUser = UserModel(
         id: userCredential.user!.uid,
         firstName: firstName.text.trim(),
@@ -106,30 +144,34 @@ class SignupController extends GetxController {
         schoolAttended: schoolAttended.text.trim(),
         profilePicture: "",
         skills: skillEntries.toList(),
-        selfDescription: "",
+        selfDescription: selfDescription.text.trim(),
         jobTypePreference: jobTypePreference.text.trim(),
-        languages: [],
-        hobbies: [],
-        resume: "",
-        linkedin: "",
-        github: "",
-        portfolio: "",
+        languages: languages.toList(),
+        hobbies: hobbies.toList(),
+        resume: resume.text.trim(),
+        linkedin: linkedin.text.trim(),
+        github: github.text.trim(),
+        portfolio: portfolio.text.trim(),
+        opportunityType: opportunityType.value,
+        jobCategory: jobCategory.value,
       );
 
-
+      // Save the candidate record in Firestore under "candidates"
       final userRepository = Get.put(UserRepository());
       await userRepository.saveUserRecord(newUser);
 
-      // Stop Loader
-      TFullScreenLoader.stopLoading();
+      // Alternatively, if you want to write directly:
+      await FirebaseFirestore.instance
+          .collection("candidates")
+          .doc(userCredential.user!.uid)
+          .set(newUser.toJson());
 
-      // Show success message
+      TFullScreenLoader.stopLoading();
       TLoaders.successSnackBar(
           title: 'Congratulations',
-          message: 'Your account has been created! Verify email to continue.');
+          message: 'Your account has been created! Verify your email to continue.');
 
-      // Navigate to email verification screen.
-      Get.to(() => const VerifyEmailScreen());
+      Get.to(() => VerifyEmailScreen(email: email.text.trim()));
     } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'OH Snap!', message: e.toString());

@@ -6,6 +6,7 @@ import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
 import '../../../../authentication/screens/login/login.dart';
+import '../../application_page_form/applyPage.dart';
 
 class JApplySaveButton extends StatelessWidget {
 
@@ -56,7 +57,7 @@ class JApplySaveButton extends StatelessWidget {
                   backgroundColor: JColors.primary,
                   side: const BorderSide(color: JColors.grey),
                 ),
-                onPressed: () => Get.to(() => CandidateLoginScreen()),
+                onPressed: () => Get.to(() =>  ApplyPage(requiresVerification: false,)),
                 child: isReveiw? Text("POST", style: TextStyle(fontSize: 25, fontFamily: 'Poppins')) :  Text("APPLY", style: TextStyle(fontSize: 25, fontFamily: 'Poppins'),)
             ),
           ),

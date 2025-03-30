@@ -8,6 +8,7 @@ import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import '../../../../common/widgets/custom_shapes/other_shapes/custom_divider.dart';
 import '../../../../common/widgets/sign_upButtons/signUpNavButtons.dart';
 import '../../../../utils/device/device_utility.dart';
+import '../../../../utils/popups/loaders.dart';
 import '../../../Applications/models/user_model.dart';
 import '../../controllers.onboarding/sign_up/sign_up_controller.dart';
 
@@ -145,7 +146,17 @@ class _CandidateRegisterScreen2State extends State<CandidateRegisterScreen2> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SignUpNavigationButtons(
-                onPressed: () => Get.to(() => CandidateRegisterScreen3())),
+                onPressed: () {
+                  if (controller.validateStep(2)) {
+                    // Proceed to next screen.
+                    Get.to(() => CandidateRegisterScreen3());
+                  } else {
+                    TLoaders.warningSnackBar(
+                      title: 'Missing Information',
+                      message: 'Please fill in all required fields before proceeding.',
+                    );
+                  }
+                }),
             Padding(
               padding: const EdgeInsets.only(
                   bottom: JSizes.spaceBtwSections, top: JSizes.md),

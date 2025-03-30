@@ -14,7 +14,7 @@ import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import 'package:project_bc_tuto/utils/constants/text_strings.dart';
-import 'package:project_bc_tuto/utils/device/device_utility.dart';
+
 
 import '../../controllers.onboarding/sign_up/sign_up_controller.dart';
 
@@ -581,15 +581,9 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                     backgroundColor: Colors.deepPurple,
                     minimumSize: const Size(double.infinity, 50),
                   ),
-                  onPressed: () {
-                    // Trigger final signup process (or navigate to success screen)
-                    Get.to(() => SuccessScreen(
-                      image: JImages.staticSuccessIllustration,
-                      title: JTexts.yourAccountCreatedTitle,
-                      subTitle: JTexts.yourAccountCreatedSubTitle,
-                      onPressed: () => Get.offAll(() => CandidateLoginScreen()),
-                    ));
-                  },
+
+
+                  onPressed: () => controller.signupFinal(),
                   child: const Text(
                     "FINISH",
                     style: TextStyle(color: Colors.white, fontSize: 18),

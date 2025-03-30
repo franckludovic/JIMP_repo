@@ -12,6 +12,7 @@ import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import '../../../../common/widgets/documents_cad/file_picker_card.dart';
 import '../../../../utils/constants/text_strings.dart';
 import '../../../../utils/device/device_utility.dart';
+import '../../../../utils/popups/loaders.dart';
 import '../../../../utils/validators/validation.dart';
 import '../../controllers.onboarding/sign_up/sign_up_controller.dart';
 
@@ -236,7 +237,17 @@ class _CandidateRegisterScreen1State extends State<CandidateRegisterScreen1> {
                 backgroundColor: JColors.primary,
                 minimumSize: const Size(double.infinity, 50),
               ),
-              onPressed: () => Get.to(() => const  CandidateRegisterScreen2()),
+              onPressed: () {
+                if (controller.validateStep(1)) {
+                  // Proceed to next screen.
+                  Get.to(() => CandidateRegisterScreen2());
+                } else {
+                  TLoaders.warningSnackBar(
+                    title: 'Missing Information',
+                    message: 'Please fill in all required fields before proceeding.',
+                  );
+                }
+              },
               child: const Text(
                 "Next Step",
                 style: TextStyle(color: Colors.white, fontSize: 18),

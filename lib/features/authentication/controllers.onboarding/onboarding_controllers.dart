@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
+import '../../Applications/guess_screens/main_landing_page/main_landing_page.dart';
 import '../../Applications/screens/type_user/type_user_page.dart';
 
 
@@ -25,7 +27,9 @@ class OnboardingController extends GetxController {
   ///update current index & jump to next page
   void nextPage() {
     if (currentPageIndex.value == 2){
-      Get.offAll( const JTypeUser());
+      final storage = GetStorage();
+      storage.write('isFirstTime', false);
+      Get.offAll( const LandingGuestPage());
     }else{
       int page = currentPageIndex.value + 1;
       pageController.jumpToPage(page);

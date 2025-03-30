@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../../utils/formatters/formatter.dart';
 
-
 class LanguageEntry {
   String language;
   int proficiency;
@@ -50,7 +49,6 @@ class SkillEntry {
   }
 }
 
-
 class UserModel {
   final String id;
 
@@ -82,6 +80,11 @@ class UserModel {
   String opportunityType;
   String jobCategory;
 
+  // Fields for ML and metadata
+  String userType; // For candidate, this is "candidate"
+  Timestamp createdAt;
+  Timestamp updatedAt;
+
   UserModel({
     required this.id,
     // Required fields
@@ -110,25 +113,17 @@ class UserModel {
     this.portfolio = '',
     this.opportunityType = '',
     this.jobCategory = '',
-  });
+    this.userType = 'candidate',
+    Timestamp? createdAt,
+    Timestamp? updatedAt,
+  })  : createdAt = createdAt ?? Timestamp.now(),
+        updatedAt = updatedAt ?? Timestamp.now();
 
   /// Helper function to get full name.
   String get fullName => '$firstName $lastName';
 
   /// Helper function to format phone number.
   String get formatedPhoneNo => TFormatter.formatPhoneNumber(phoneNumber);
-
-  /// Static function to split fullname into name parts.
-  static List<String> nameParts(fullName) => fullName.split(" ");
-
-  /// Static function to generate a username from the full name.
-  static String GenerateUsername(fullName) {
-    List<String> nameParts = fullName.split(" ");
-    String firstName = nameParts[0].toLowerCase();
-    String lastName = nameParts.length > 1 ? nameParts[1].toLowerCase() : "";
-    String camelCaseUserName = '$firstName$lastName';
-    return 'JIMP_$camelCaseUserName';
-  }
 
   /// Convert this model to a JSON map for Firebase.
   Map<String, dynamic> toJson() {
@@ -157,6 +152,9 @@ class UserModel {
       'Portfolio': portfolio,
       'OpportunityType': opportunityType,
       'JobCategory': jobCategory,
+      'UserType': userType,
+      'CreatedAt': createdAt,
+      'UpdatedAt': updatedAt,
     };
   }
 
@@ -179,14 +177,12 @@ class UserModel {
       educationLevel: data['EducationLevel'] ?? '',
       schoolAttended: data['SchoolAttended'] ?? '',
       skills: data['Skills'] != null
-          ? List<SkillEntry>.from(
-          (data['Skills'] as List).map((x) => SkillEntry.fromJson(x)))
+          ? List<SkillEntry>.from((data['Skills'] as List).map((x) => SkillEntry.fromJson(x)))
           : [],
       selfDescription: data['SelfDescription'] ?? '',
       jobTypePreference: data['JobTypePreference'] ?? '',
       languages: data['Languages'] != null
-          ? List<LanguageEntry>.from(
-          (data['Languages'] as List).map((x) => LanguageEntry.fromJson(x)))
+          ? List<LanguageEntry>.from((data['Languages'] as List).map((x) => LanguageEntry.fromJson(x)))
           : [],
       hobbies: List<String>.from(data['Hobbies'] ?? []),
       resume: data['Resume'] ?? '',
@@ -195,6 +191,9 @@ class UserModel {
       portfolio: data['Portfolio'] ?? '',
       opportunityType: data['OpportunityType'] ?? '',
       jobCategory: data['JobCategory'] ?? '',
+      userType: data['UserType'] ?? 'candidate',
+      createdAt: data['CreatedAt'] ?? Timestamp.now(),
+      updatedAt: data['UpdatedAt'] ?? Timestamp.now(),
     );
   }
 

@@ -8,7 +8,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:project_bc_tuto/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:project_bc_tuto/navigation_menu.dart';
 import 'package:project_bc_tuto/utils/exceptions/platform_exceptions.dart';
+import '../../../features/Applications/guess_screens/main_landing_page/main_landing_page.dart';
+
 import '../../../features/authentication/compamy_screens/login/login_company.dart';
+import '../../../features/authentication/screens/login/login.dart';
 import '../../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../../utils/exceptions/firebase_exceptions.dart';
 import '../../../utils/exceptions/format_exceptions.dart';
@@ -51,16 +54,21 @@ class AuthenticationRepository extends GetxController {
     //     : Get.offAll(const OnboardingScreen());
 
     deviceStorage.writeIfNull('isFirstTime', true);
+
     if (deviceStorage.read('isFirstTime') != true) {
 
       if (userType == "Company") {
         Get.offAll(const CompagnyLoginScreen());
       } else if (userType == "Candidate") {
-        Get.offAll(() => const CandidateNavigationMenu());
+        Get.offAll(() => const CandidateLoginScreen());
+      }else if (userType == null ){
+        Get.offAll(const LandingGuestPage());
       }
     }else {
       Get.offAll(const OnboardingScreen());
     }
+
+
   }
 
   /*--------Email and password Sign in----------------*/
@@ -69,9 +77,26 @@ class AuthenticationRepository extends GetxController {
 
 
   ///[EmailAuthentication] - Register
-  Future<UserCredential> registerWithEmailAndPAssword(String email, String password) async{
+  Future<UserCredential> registerWithEmailAndPassword(String email, String password) async{
     try{
       return await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    }on FirebaseAuthException catch (e){
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    }on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }catch (e) {
+      throw 'Something went Wrong. please try again';
+    }
+  }
+
+/// Mail verification
+  Future<void> sendEmailVerification() async {
+    try{
+      await _auth.currentUser?.sendEmailVerification();
     }on FirebaseAuthException catch (e){
       throw TFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {

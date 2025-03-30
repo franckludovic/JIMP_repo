@@ -12,6 +12,7 @@ import '../../../../common/widgets/link_input_fields/linkInputFields.dart';
 import '../../../../common/widgets/sign_upButtons/signUpNavButtons.dart';
 import '../../../../common/widgets/texts/textArea.dart';
 import '../../../../utils/device/device_utility.dart';
+import '../../../../utils/popups/loaders.dart';
 import '../../controllers.onboarding/sign_up/sign_up_controller.dart';
 
 class CandidateRegisterScreen3 extends StatefulWidget {
@@ -139,7 +140,17 @@ class _CandidateRegisterScreen3State extends State<CandidateRegisterScreen3> {
       mainAxisSize: MainAxisSize.min,
       children: [
         SignUpNavigationButtons(
-          onPressed: () => Get.to(() => const CandidateRegisterScreen4()),
+          onPressed: () {
+            if (controller.validateStep(3)) {
+              // Proceed to next screen.
+              Get.to(() => CandidateRegisterScreen4());
+            } else {
+              TLoaders.warningSnackBar(
+                title: 'Missing Information',
+                message: 'Please fill in all required fields before proceeding.',
+              );
+            }
+          },
         ),
         Padding(
           padding: const EdgeInsets.only(

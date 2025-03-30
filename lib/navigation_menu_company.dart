@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:project_bc_tuto/features/Applications/screens/main_landing_page/main_landing_page.dart';
 
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
@@ -48,5 +47,5 @@ class CompanyNavigationMenu extends StatelessWidget {
 class CompanyNavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [  CompanyHome(), /*const ChatHomeScreen()*/ const LandingPage(), const CompanyApplicationScreen(), const ApplicantsScreens(), const CompanyProfilePage()];
+  final screens = [  CompanyHome(), const ChatHomeScreen(), const CompanyApplicationScreen(), const ApplicantsScreens(), const CompanyProfilePage()];
 }

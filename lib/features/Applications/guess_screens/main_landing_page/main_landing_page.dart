@@ -3,7 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/layout/matrix_layout.dart';
-import 'package:project_bc_tuto/features/Applications/screens/main_landing_page/widget/benefit_chip.dart';
+import 'package:project_bc_tuto/features/Applications/guess_screens/main_landing_page/widget/benefit_chip.dart';
+
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import '../../../../common/widgets/job_and_internship_card/carousel_slider_interships.dart';
@@ -12,9 +13,11 @@ import '../../../../common/widgets/message_testimonies/testimonies_messages.dart
 import '../../../../common/widgets/message_testimonies/testimonis_carousel.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../personilization/screens/settings/settings.dart';
+import '../../screens/type_user/type_user_page.dart';
 
-class LandingPage extends StatelessWidget {
-  const LandingPage({super.key});
+
+class LandingGuestPage extends StatelessWidget {
+  const LandingGuestPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -286,9 +289,7 @@ class LandingPage extends StatelessWidget {
             alignment: WrapAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {
-                  // TODO: Sign Up
-                },
+                onPressed: () => Get.to(() => const JTypeUser()),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: JColors.primary,
                     padding: EdgeInsets.symmetric(horizontal: JSizes.lg, vertical: JSizes.md)

@@ -11,7 +11,7 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
 
-  //add widgets binbing
+  //add widgets binding
   final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
   //init local storage

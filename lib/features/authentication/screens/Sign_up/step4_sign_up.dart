@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import 'package:project_bc_tuto/utils/device/device_utility.dart';
+import '../../../../utils/popups/loaders.dart';
 import '../../../Applications/models/user_model.dart';
 import '../../compamy_screens/sign_up/widget/step_indicator.dart';
 import '../../../../common/widgets/custom_shapes/other_shapes/custom_divider.dart';
@@ -60,7 +61,17 @@ class _CandidateRegisterScreen4State extends State<CandidateRegisterScreen4> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SignUpNavigationButtons(
-            onPressed: () => Get.to(() => const CandidateRegisterScreen5()),
+            onPressed: () {
+              if (controller.validateStep(4)) {
+                // Proceed to next screen.
+                Get.to(() => CandidateRegisterScreen5());
+              } else {
+                TLoaders.warningSnackBar(
+                  title: 'Missing Information',
+                  message: 'Please fill in all required fields before proceeding.',
+                );
+              }
+            }
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: JSizes.spaceBtwSections, top: JSizes.md),

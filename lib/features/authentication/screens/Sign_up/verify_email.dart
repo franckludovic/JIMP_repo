@@ -8,12 +8,18 @@ import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
 import '../../../../utils/helpers/helper_functions.dart';
+import '../../controllers.onboarding/sign_up/verify_email_controller.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({super.key});
+  const VerifyEmailScreen({super.key, this.email});
+
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
+
+    final controller = Get.put(VerificationController());
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -40,7 +46,7 @@ class VerifyEmailScreen extends StatelessWidget {
                   textAlign: TextAlign.center),
               const SizedBox(height: JSizes.spaceBtwItems),
 
-              Text("Metatiel@gsky.com",
+              Text(email ?? '',
                   style: Theme.of(context).textTheme.labelLarge,
                   textAlign: TextAlign.center),
               const SizedBox(height: JSizes.spaceBtwItems),
