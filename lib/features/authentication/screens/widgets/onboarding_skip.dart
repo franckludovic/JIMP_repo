@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_bc_tuto/features/authentication/controllers.onboarding/onboarding_controllers.dart';
+import 'package:project_bc_tuto/features/authentication/controllers.onboarding/onboarding_controllers/onboarding_controllers.dart';
 
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/device/device_utility.dart';

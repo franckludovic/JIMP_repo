@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_bc_tuto/features/authentication/controllers.onboarding/onboarding_controllers.dart';
+import 'package:project_bc_tuto/features/authentication/controllers.onboarding/onboarding_controllers/onboarding_controllers.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/constants/text_strings.dart';
 

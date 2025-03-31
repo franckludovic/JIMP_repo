@@ -51,8 +51,6 @@ class SkillEntry {
 
 class UserModel {
   final String id;
-
-  // Required fields
   String firstName;
   String lastName;
   final String username;
@@ -80,14 +78,13 @@ class UserModel {
   String opportunityType;
   String jobCategory;
 
-  // Fields for ML and metadata
-  String userType; // For candidate, this is "candidate"
+
+  String userType;
   Timestamp createdAt;
   Timestamp updatedAt;
 
   UserModel({
     required this.id,
-    // Required fields
     required this.firstName,
     required this.lastName,
     required this.username,
@@ -124,6 +121,24 @@ class UserModel {
 
   /// Helper function to format phone number.
   String get formatedPhoneNo => TFormatter.formatPhoneNumber(phoneNumber);
+
+  ///Static function to split fullname and last name.
+  static List<String> nameParts(fullName) => fullName.split(" ");
+
+  ///Static function to generat a username from the full name
+  static String GenerateUsername(fullName) {
+    List<String> nameParts = fullName.split(" ");
+    String firstName = nameParts[0].toLowerCase();
+    String lastName = nameParts.length > 1 ? nameParts[1].toLowerCase() : "";
+
+    String camelCaseUserName =
+        '$firstName$lastName'; //combine forst and last name
+    String usernameWithPrefix =
+        'JIMP_$camelCaseUserName'; // add the Jimp prefix
+
+    return usernameWithPrefix;
+  }
+
 
   /// Convert this model to a JSON map for Firebase.
   Map<String, dynamic> toJson() {

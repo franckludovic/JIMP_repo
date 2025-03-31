@@ -27,6 +27,7 @@ class LoginController extends GetxController{
     super.onInit();
   }
 
+  /// -- Email and password SignIn
   Future<void> emailAndPasswordSignIN() async{
     try{
       TFullScreenLoader.openLoadingDialog("Logging you in...", JImages.docerAnimation);
@@ -60,6 +61,31 @@ class LoginController extends GetxController{
       AuthenticationRepository.instance.screenRedirect();
     }catch (e){
       TFullScreenLoader.stopLoading();
+      TLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
+    }
+  }
+
+
+  ///-- Google SignIn Authentication
+  Future<void> googleSignIn() async {
+    try{
+
+      TFullScreenLoader.openLoadingDialog('Loggin you in...', JImages.docerAnimation);
+
+
+      //Check Internet
+      final isConnected = await NetworkManager.instance.isConnected();
+      if(!isConnected){
+        TFullScreenLoader.stopLoading();
+        return;
+      }
+
+      //Google Authentication
+      final userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
+
+
+
+    }catch(e){
       TLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
     }
   }

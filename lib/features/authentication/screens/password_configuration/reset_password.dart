@@ -7,9 +7,12 @@ import 'package:project_bc_tuto/utils/constants/text_strings.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
+import '../../controllers.onboarding/forgot_password/forgot_password_controller.dart';
 
-class ResetPassword extends StatelessWidget {
-  const ResetPassword({super.key});
+class ResetPasswordScreen extends StatelessWidget {
+  const ResetPasswordScreen({super.key, required this.email});
+
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,12 @@ class ResetPassword extends StatelessWidget {
                   width: JHelperFunctions.screenWidth() * 0.6),
               const SizedBox(height: JSizes.spaceBtwSections),
 
-              ///Tittle and subtitle
+              ///Email, Tittle and subtitle
+              Text(email,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  textAlign: TextAlign.center),
+              const SizedBox(height: JSizes.spaceBtwItems),
+
               Text(JTexts.changeYourPasswordTitle,
                   style: Theme.of(context).textTheme.headlineMedium,
                   textAlign: TextAlign.center),
@@ -48,13 +56,13 @@ class ResetPassword extends StatelessWidget {
               SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                      onPressed: () => Get.to(() => const CandidateLoginScreen()), child: const Text(JTexts.done))),
+                      onPressed: () => Get.offAll(() => const  CandidateLoginScreen()), child: const Text(JTexts.done))),
               const SizedBox(height: JSizes.spaceBtwItems),
 
               SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                      onPressed: () {}, child: const Text(JTexts.resendEmail))),
+                      onPressed: () => ForgotPasswordController.instance.resendPasswordRestEmail(email), child: const Text(JTexts.resendEmail))),
             ],
           ),
         ),
