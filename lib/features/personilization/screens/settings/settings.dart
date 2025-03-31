@@ -5,6 +5,7 @@ import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/primary_header_conatiner.dart';
 import 'package:project_bc_tuto/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
+import 'package:project_bc_tuto/data/repositories/authentication/authentication_repositories.dart';
 import 'package:project_bc_tuto/features/Applications/screens/applications_applied/applied.dart';
 import 'package:project_bc_tuto/features/Applications/screens/notifications/notifications.dart';
 import 'package:project_bc_tuto/features/personilization/screens/address/address.dart';
@@ -188,7 +189,7 @@ class SettingScreen extends StatelessWidget {
                   SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => AuthenticationRepository.instance.logout(),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(vertical: JSizes.md),
                             backgroundColor: JColors.primary.withAlpha((0.8 * 255).toInt())

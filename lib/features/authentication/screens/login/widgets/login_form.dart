@@ -1,46 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/features/authentication/controllers.onboarding/login/login_controller.dart';
 
 import 'package:project_bc_tuto/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:project_bc_tuto/navigation_menu.dart';
+import 'package:project_bc_tuto/utils/validators/validation.dart';
 
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
 import '../../../../Applications/screens/application_page_form/applyPage.dart';
 import '../../Sign_up/step1_sign_up.dart';
 
-
 class JLoginForm extends StatelessWidget {
-
   const JLoginForm({
     super.key,
   });
 
-
   @override
   Widget build(BuildContext context) {
-    return Form(
+    final controller = Get.put(LoginController());
 
+    return Form(
+      key: controller.loginFormKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: JSizes.spaceBtwSections),
         child: Column(
           children: [
             ///email
             TextFormField(
+              controller: controller.email,
+              validator: (value) => TValidator.validateEmail(value),
               decoration: const InputDecoration(
                   prefixIcon: Icon(Iconsax.direct_right),
-                  labelText: JTexts.email
-              ),
+                  labelText: JTexts.email),
             ),
             const SizedBox(height: JSizes.spaceBtwInputFields),
 
             ///password
-            TextFormField(
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Iconsax.password_check),
-                labelText: JTexts.password,
-                suffixIcon: IconButton( onPressed: () {}, icon: const Icon(Iconsax.eye_slash)),
+            Obx(
+              () => TextFormField(
+                controller: controller.password,
+                validator: (value) =>
+                    TValidator.validateEmptyText('Password', value),
+                obscureText: controller.hidePassword.value,
+                expands: false,
+                decoration: InputDecoration(
+                    labelText: JTexts.password,
+                    prefixIcon: const Icon(Iconsax.password_check),
+                    suffixIcon: IconButton(
+                        onPressed: () => controller.hidePassword.value =
+                            !controller.hidePassword.value,
+                        icon: Icon(controller.hidePassword.value
+                            ? Iconsax.eye_slash
+                            : Iconsax.eye))),
               ),
             ),
             const SizedBox(height: JSizes.spaceBtwInputFields / 2),
@@ -52,21 +65,43 @@ class JLoginForm extends StatelessWidget {
                 /// remember me
                 Row(
                   children: [
-                    Checkbox(value: true, onChanged: (value){}), // Corrected onChanged
+                    Obx(() => Checkbox(
+                        value: controller.rememberMe.value,
+                        onChanged: (value) => controller.rememberMe.value =
+                            !controller.rememberMe.value)),
+                    // Corrected onChanged
                     const Text(JTexts.rememberMe),
                   ],
                 ),
+
                 /// forgot password
-                TextButton(onPressed: () => Get.to(() => const ForgetPassword()), child: const Text(JTexts.forgetPassword)),
+                TextButton(
+                    onPressed: () => Get.to(() => const ForgetPassword()),
+                    child: const Text(JTexts.forgetPassword)),
               ],
             ),
 
             ///sign in button
-            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const CandidateNavigationMenu()), child: Text(JTexts.signIn))),
+            SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: JSizes.md * 0.8)
+                  ),
+                    onPressed: () => controller.emailAndPasswordSignIN(),
+                    child: Text(
+                      'Log in',
+                      style: TextStyle(fontSize: 20, fontFamily: 'Poppins'),
+                    ))),
             const SizedBox(height: JSizes.spaceBtwItems),
 
             ///create account button
-            SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() => const CandidateRegisterScreen1()), child: Text(JTexts.createAccount))),
+            SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                    onPressed: () =>
+                        Get.to(() => const CandidateRegisterScreen1()),
+                    child: Text(JTexts.createAccount))),
           ],
         ),
       ),
