@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:project_bc_tuto/common/styles/spacing_styles.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
@@ -23,9 +24,7 @@ class SuccessScreen extends StatelessWidget {
             children: [
               ///image
 
-              Image(
-                  image: AssetImage(image),
-                  width: JHelperFunctions.screenWidth() * 0.6),
+              Lottie.asset(image, width: MediaQuery.of(context).size.width * 0.6),
               const SizedBox(height: JSizes.spaceBtwSections),
 
               ///Tittle and subtitle

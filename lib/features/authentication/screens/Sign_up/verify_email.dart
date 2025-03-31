@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/success_screen/success_screen.dart';
+import 'package:project_bc_tuto/data/repositories/authentication/authentication_repositories.dart';
 import 'package:project_bc_tuto/features/authentication/screens/login/login.dart';
 
 import '../../../../utils/constants/image_strings.dart';
@@ -18,14 +19,14 @@ class VerifyEmailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final controller = Get.put(VerificationController());
+    final controller = Get.put(VerifyEmailController());
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-              onPressed: () => Get.offAll(() => const CandidateLoginScreen()),
+              onPressed: () => AuthenticationRepository.instance.logout(),
               icon: const Icon(CupertinoIcons.clear))
         ],
       ),
@@ -60,19 +61,14 @@ class VerifyEmailScreen extends StatelessWidget {
               SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                      onPressed: () => Get.to(() => SuccessScreen(
-                        image: JImages.staticSuccessIllustration,
-                        title: JTexts.yourAccountCreatedTitle,
-                        subTitle: JTexts.yourAccountCreatedSubTitle,
-                        onPressed: () => Get.to(() => const CandidateLoginScreen()),
-                      )),
+                      onPressed: () => controller.checkEmailVerificationStatus(),
                       child: const Text(JTexts.jContinue))),
               const SizedBox(height: JSizes.spaceBtwItems),
 
               SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                      onPressed: () {}, child: const Text(JTexts.resendEmail))),
+                      onPressed: () => controller.sendEmailVerification(), child: const Text(JTexts.resendEmail))),
             ],
           ),
         ),

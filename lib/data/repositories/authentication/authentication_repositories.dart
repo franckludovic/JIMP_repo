@@ -5,8 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:project_bc_tuto/features/authentication/screens/Sign_up/verify_email.dart';
 import 'package:project_bc_tuto/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:project_bc_tuto/navigation_menu.dart';
+import 'package:project_bc_tuto/navigation_menu_company.dart';
 import 'package:project_bc_tuto/utils/exceptions/platform_exceptions.dart';
 import '../../../features/Applications/guess_screens/main_landing_page/main_landing_page.dart';
 
@@ -25,6 +27,7 @@ class AuthenticationRepository extends GetxController {
   ///variables
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
+  final userType = StorageService.getUserType();
 
 
   ///Called from main.dart app on launch
@@ -37,43 +40,52 @@ class AuthenticationRepository extends GetxController {
 
   ///Function to show relevant Screen
   screenRedirect() async {
-    //local storage
 
-    final userType = StorageService.getUserType();
-
-
-    if(kDebugMode) {
-      print("=============== Get Storage  =================");
-      print(deviceStorage.read('isFirstTime'));
-    }
+    final User? user = _auth.currentUser;
 
 
-    // deviceStorage.writeIfNull('isFirstTime', true);
-    // deviceStorage.read('isFirstTime') != true
-    //     ? Get.offAll(() => const CandidateNavigationMenu())
-    //     : Get.offAll(const OnboardingScreen());
 
-    deviceStorage.writeIfNull('isFirstTime', true);
-
-    if (deviceStorage.read('isFirstTime') != true) {
-
-      if (userType == "Company") {
-        Get.offAll(const CompagnyLoginScreen());
-      } else if (userType == "Candidate") {
-        Get.offAll(() => const CandidateLoginScreen());
-      }else if (userType == null ){
-        Get.offAll(const LandingGuestPage());
+    if(user != null){
+      if(user.emailVerified && userType == 'Candidate'){
+        Get.offAll(() => CandidateNavigationMenu());
+      }else if(user.emailVerified && userType == 'Company'){
+        Get.offAll(() => CompanyNavigationMenu());
+      }else {
+        Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email,));
       }
-    }else {
-      Get.offAll(const OnboardingScreen());
+    }else{
+      //local storage
+      deviceStorage.writeIfNull('isFirstTime', true);
+
+      if (deviceStorage.read('isFirstTime') != true) {
+
+        if (userType == "Company") {
+          Get.offAll(const CompagnyLoginScreen());
+        } else if (userType == "Candidate") {
+          Get.offAll(() => const CandidateLoginScreen());
+        }else if (userType == null ){
+          Get.offAll(const LandingGuestPage());
+        }
+      }else {
+        Get.offAll(const OnboardingScreen());
+      }
     }
+
+
+
+
 
 
   }
 
   /*--------Email and password Sign in----------------*/
 
-  ///[EmailAuthentication] - SignIn
+  ///[EmailAuthentication] - Login
+  // Future<UserCredential> loginWithEmailAndPassword (String email, String password) async {
+  //   try{
+  //     return await _auth.signInWithEmailAndPassword(email: email, password: password);
+  //   }on FirebaseAuthException(e.code).mess
+  // }
 
 
   ///[EmailAuthentication] - Register
@@ -128,8 +140,24 @@ class AuthenticationRepository extends GetxController {
 ///[FacebookAuthentication] - Facebook
 
 
+/*------------------------- -/end user Federated identity & social sign in--------------------------*/
 ///[Logout USer ] - valid for any authentication.
-
+Future<void> logout () async {
+  try{
+    await FirebaseAuth.instance.signOut();
+    userType == 'Company' ? Get.offAll(() => const CompagnyLoginScreen()) : Get.offAll(() => CandidateLoginScreen());
+  }on FirebaseAuthException catch (e) {
+    throw TFirebaseAuthException(e.code).message;
+  }on FirebaseException catch (e) {
+    throw TFirebaseException(e.code).message;
+  }on FormatException catch (_) {
+    throw const TFormatException();
+  }on PlatformException catch(e){
+    throw TPlatformException(e.code).message;
+  }catch (e) {
+    throw 'Something went wrong. Please try again';
+  }
+}
 
 ///[Delete USer] - Remove user Auth firebase Account.
 

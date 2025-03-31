@@ -35,7 +35,7 @@ class SignupController extends GetxController {
   final educationLevel = TextEditingController();
   final schoolAttended = TextEditingController();
 
-  // Additional info (Step 3)
+
   final selfDescription = TextEditingController();
   final resume = TextEditingController();
   final opportunityType = ''.obs; // Observable for dropdown value
@@ -45,7 +45,7 @@ class SignupController extends GetxController {
   final jobCategory = "".obs;
   final jobTypePreference = TextEditingController();
 
-  // Dynamic lists (Step 4)
+
   RxList<LanguageEntry> languages = RxList<LanguageEntry>();
   RxList<String> hobbies = RxList<String>();
   RxList<SkillEntry> skillEntries = RxList<SkillEntry>();
@@ -129,6 +129,7 @@ class SignupController extends GetxController {
 
       // Build the candidate model with all fields from the controller.
       final newUser = UserModel(
+        userType: 'Candidate',
         id: userCredential.user!.uid,
         firstName: firstName.text.trim(),
         lastName: lastName.text.trim(),

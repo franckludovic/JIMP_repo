@@ -21,17 +21,21 @@ class UserRepository extends GetxController {
   ///Function to save user data to firebase
   Future<void> saveUserRecord(UserModel user) async {
     try {
-      await _db.collection("Users").doc(user.id).set(user.toJson());
-    }on FirebaseException catch (e){
+
+      String collectionName = user.userType == "Company" ? "companies" : "candidates";
+
+      await _db.collection(collectionName).doc(user.id).set(user.toJson());
+    } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
-    }on FormatException catch (_) {
+    } on FormatException catch (_) {
       throw const TFormatException();
-    }on PlatformException catch (e) {
+    } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
-    }catch (e) {
+    } catch (e) {
       throw 'Something went wrong. Please try again';
     }
   }
+
 
 
 ///Function to fetch user detail based on id
