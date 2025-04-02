@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/helpers/network_manager.dart';
@@ -26,6 +25,7 @@ class SignupController extends GetxController {
   final username = TextEditingController();
   final password = TextEditingController();
   final phoneNumber = TextEditingController();
+  final profileUrl = TextEditingController();
 
   // Location and education (Step 2)
   final country = TextEditingController();
@@ -52,8 +52,7 @@ class SignupController extends GetxController {
 
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
-  /// Validates the required fields for a given step.
-  /// (Adjust validations as needed for your app.)
+
   bool validateStep(int step) {
     switch (step) {
       case 1:
@@ -95,7 +94,7 @@ class SignupController extends GetxController {
     return true;
   }
 
-  ///-- Final Signup for Candidate (called on the last page)
+
   Future<void> signupFinal() async {
     try {
       TFullScreenLoader.openLoadingDialog(
@@ -143,7 +142,7 @@ class SignupController extends GetxController {
         localAddress: localAddress.text.trim(),
         educationLevel: educationLevel.text.trim(),
         schoolAttended: schoolAttended.text.trim(),
-        profilePicture: "",
+        profilePicture: profileUrl.text.trim(),
         skills: skillEntries.toList(),
         selfDescription: selfDescription.text.trim(),
         jobTypePreference: jobTypePreference.text.trim(),
@@ -157,7 +156,7 @@ class SignupController extends GetxController {
         jobCategory: jobCategory.value,
       );
 
-      // Save the candidate record in Firestore under "candidates"
+
       final userRepository = Get.put(UserRepository());
       await userRepository.saveUserRecord(newUser);
 

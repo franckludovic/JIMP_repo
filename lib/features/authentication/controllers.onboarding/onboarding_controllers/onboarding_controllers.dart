@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../../Applications/guess_screens/main_landing_page/main_landing_page.dart';
-import '../../../Applications/screens/type_user/type_user_page.dart';
 
 
 class OnboardingController extends GetxController {

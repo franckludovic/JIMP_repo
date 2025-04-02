@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:project_bc_tuto/common/widgets/success_screen/success_screen.dart';
 import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/widget/description_page.dart';
+import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/term_and_conditions.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
-import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../utils/constants/image_strings.dart';
-import '../../../../utils/constants/text_strings.dart';
 import '../../../Applications/company_creens/company_details/widgets/company_detail_header.dart';
 import '../../controllers.onboarding/company_signup_controller/company_sign_up_controller.dart';
 
@@ -221,8 +219,8 @@ class CompanySignUpReview extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final branch = controller.branches[index];
                   final branchInfo =
-                      "${branch.address.country}, ${branch.address.region}, ${branch.address.city}, ${branch.address.street}, ${branch.address.postalCode}\n"
-                      "Email: ${branch.contactEmail}\nPhone: ${branch.phoneNumber}";
+                      "${branch.address.city}, ${branch.address.street}\n"
+                      "${branch.contactEmail}\nPhone: ${branch.phoneNumber}";
 
                   return Card(
                     margin: const EdgeInsets.symmetric(vertical: JSizes.sm),
@@ -256,9 +254,9 @@ class CompanySignUpReview extends StatelessWidget {
           children: [
             CompagnyDetailsHeader(
               title:"Review Your Information" ,
-                companyName: 'Google',
+                companyName: controller.logoUrl.text,
                 companyLogo: JImages.google,
-                companyProfileImage: JImages.googleProfileImage),
+                companyProfileImage: ''),
             SizedBox(
               height: JSizes.spaceBtwSections * 0.6,
             ),
@@ -276,6 +274,7 @@ class CompanySignUpReview extends StatelessWidget {
                   _buildHRInfoCard(),
                   // Branches Card
                   _buildBranchesCard(),
+                  TermandConditions(),
                   const SizedBox(height: JSizes.spaceBtwSections),
                   // Submit Button
                   Container(
@@ -286,14 +285,7 @@ class CompanySignUpReview extends StatelessWidget {
                         backgroundColor: Colors.blue,
                         minimumSize: const Size(double.infinity, 50),
                       ),
-                      onPressed: () {
-                        // Show success or final submission
-                        Get.to(() => SuccessScreen(
-                          image: JImages.staticSuccessIllustration,
-                          title: JTexts.yourAccountCreatedTitle,
-                          subTitle: JTexts.yourAccountCreatedSubTitle,
-                        ));
-                      },
+                      onPressed: () => controller.signupFinal(),
                       child: const Text(
                         "Create Account",
                         style: TextStyle(color: Colors.white, fontSize: 18),

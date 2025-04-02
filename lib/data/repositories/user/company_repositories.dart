@@ -7,7 +7,6 @@ import 'package:project_bc_tuto/utils/exceptions/firebase_exceptions.dart';
 import 'package:project_bc_tuto/utils/exceptions/format_exceptions.dart';
 import 'package:project_bc_tuto/utils/exceptions/platform_exceptions.dart';
 
-import '../../../features/Applications/models/user_model.dart';
 
 
 class CompanyRepository extends GetxController {

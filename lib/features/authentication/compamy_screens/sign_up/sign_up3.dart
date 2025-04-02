@@ -18,9 +18,6 @@ class CompanySignUpScreen3 extends StatelessWidget {
   const CompanySignUpScreen3({super.key});
 
 
-
-
-
   @override
   Widget build(BuildContext context) {
 
@@ -119,6 +116,7 @@ class CompanySignUpScreen3 extends StatelessWidget {
                   },
                 );
               }),
+
             ],
           ),
         ),

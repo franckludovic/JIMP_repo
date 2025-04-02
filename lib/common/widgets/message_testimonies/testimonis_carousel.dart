@@ -9,7 +9,6 @@ import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../custom_shapes/container_shapes/Cirular_shape.dart';
 
-import '../job_and_internship_card/intership_cards.dart';
 
 class MessageCarousel extends StatelessWidget {
   const MessageCarousel({

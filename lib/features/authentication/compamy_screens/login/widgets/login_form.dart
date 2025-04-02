@@ -7,7 +7,6 @@ import '../../../../../navigation_menu_company.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
 import '../../sign_up/sign_up1.dart';
-import '../../sign_up/sign_upReview.dart';
 
 
 class JLoginForm2 extends StatelessWidget {

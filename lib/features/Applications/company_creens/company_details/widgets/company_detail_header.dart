@@ -32,7 +32,10 @@ class CompagnyDetailsHeader extends StatelessWidget {
       children: [
         Stack(
           children: [
-            SizedBox(
+            Container(
+              decoration: BoxDecoration(
+                color: JColors.grey
+              ),
                 width: JDeviceUtils.getScreenWidth(context),
                 child: Image.asset(companyProfileImage)
             ),

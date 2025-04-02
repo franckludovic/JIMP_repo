@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/features/authentication/controllers.onboarding/forgot_password/forgot_password_controller.dart';
-import 'package:project_bc_tuto/features/authentication/screens/password_configuration/reset_password.dart';
 import 'package:project_bc_tuto/utils/validators/validation.dart';
 
 import '../../../../utils/constants/sizes.dart';

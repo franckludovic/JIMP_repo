@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/sign_up3.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
@@ -9,9 +7,7 @@ import '../../../../common/widgets/custom_wigets/jcustom_dropdown.dart';
 import '../../../../common/widgets/documents_cad/file_picker_card.dart';
 import '../../../../common/widgets/link_input_fields/linkInputFields.dart';
 import '../../../../common/widgets/sign_upButtons/signUpNavButtons.dart';
-import '../../../../common/widgets/texts/textArea.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/constants/text_strings.dart';
 import '../../../../utils/device/device_utility.dart';
 import '../../../../utils/popups/loaders.dart';
 import '../../../../utils/validators/validation.dart';

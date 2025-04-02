@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_bc_tuto/common/widgets/success_screen/success_screen.dart';
 import 'package:project_bc_tuto/data/repositories/authentication/authentication_repositories.dart';
-import 'package:project_bc_tuto/features/authentication/screens/login/login.dart';
 
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';

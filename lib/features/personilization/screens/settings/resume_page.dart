@@ -12,7 +12,7 @@ import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
 class ResumePage extends StatefulWidget {
-  const ResumePage({Key? key}) : super(key: key);
+  const ResumePage({super.key});
 
   @override
   State<ResumePage> createState() => _ResumePageState();
@@ -221,10 +221,12 @@ class _ResumePageState extends State<ResumePage> {
               .doc(uid)
               .get(),
           builder: (context, snapshot) {
-            if (!snapshot.hasData)
+            if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
-            if (!snapshot.data!.exists)
+            }
+            if (!snapshot.data!.exists) {
               return const Center(child: Text("No data found"));
+            }
 
             final data = snapshot.data!.data() as Map<String, dynamic>;
 

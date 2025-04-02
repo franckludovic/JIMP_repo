@@ -9,13 +9,13 @@ class JCustomDropDown extends StatelessWidget {
   final String? title;
 
   const JCustomDropDown({
-    Key? key,
+    super.key,
     required this.items,
     required this.value,
     required this.hint,
     required this.onChanged,
     this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

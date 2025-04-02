@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_bc_tuto/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 
 import 'bindings/bindings.dart';

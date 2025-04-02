@@ -1,4 +1,3 @@
-import 'package:fancy_password_field/fancy_password_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -151,7 +150,9 @@ class _CandidateRegisterScreen1State extends State<CandidateRegisterScreen1> {
 
                         // Profile Image Upload Button
 
-                        DocumentUploadWidget(title: 'Profile Picture', documentType: 'PNG, JPG'),
+                        DocumentUploadWidget(title: 'Profile Picture', documentType: 'PNG, JPG', onFileUploaded: (fileUrl) {
+                          controller.profileUrl.text = fileUrl;
+                        },),
 
 
                         const SizedBox(height: JSizes.md),

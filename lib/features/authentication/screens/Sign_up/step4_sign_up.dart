@@ -6,9 +6,7 @@ import 'package:project_bc_tuto/utils/device/device_utility.dart';
 import '../../../../utils/popups/loaders.dart';
 import '../../../Applications/models/user_model.dart';
 import '../../compamy_screens/sign_up/widget/step_indicator.dart';
-import '../../../../common/widgets/custom_shapes/other_shapes/custom_divider.dart';
 import '../../../../common/widgets/sign_upButtons/signUpNavButtons.dart';
-import '../../../../utils/constants/colors.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/step5_sign_up.dart';
 import '../../controllers.onboarding/sign_up/sign_up_controller.dart';
 

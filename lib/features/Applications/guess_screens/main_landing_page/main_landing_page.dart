@@ -12,7 +12,6 @@ import '../../../../common/widgets/job_and_internship_card/intership_cards.dart'
 import '../../../../common/widgets/message_testimonies/testimonies_messages.dart';
 import '../../../../common/widgets/message_testimonies/testimonis_carousel.dart';
 import '../../../../utils/constants/image_strings.dart';
-import '../../../personilization/screens/settings/settings.dart';
 import '../../screens/type_user/type_user_page.dart';
 
 

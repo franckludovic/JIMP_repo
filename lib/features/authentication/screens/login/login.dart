@@ -14,6 +14,7 @@ import '../../../../common/widgets/login_setup/social_buttons.dart';
 
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
+import '../Sign_up/step1_sign_up.dart';
 
 class CandidateLoginScreen extends StatelessWidget {
   const CandidateLoginScreen({super.key});
@@ -21,11 +22,7 @@ class CandidateLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: JAppbar(
-        title: Text("Candidate", style: Theme.of(context).textTheme.headlineLarge),
-        leadingIcon: Iconsax.arrow_left_3,
-        leadingOnPressed: () => Get.back(),
-      ),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(bottom:  JSizes.defaultSpace, left: JSizes.defaultSpace, right: JSizes.defaultSpace, top: 0),
@@ -35,14 +32,8 @@ class CandidateLoginScreen extends StatelessWidget {
               const JLoginHeader(),
 
                 ///form
-              const JLoginForm(),
+              JLoginForm(onPressed: () => Get.to(() => const CandidateRegisterScreen1()),),
 
-              ///divider
-              JFormDivider(dividerText: JTexts.orSignInWith.capitalize!),
-              const SizedBox(height: JSizes.spaceBtwSections),
-
-              ///footer 
-              const JSocialButtons()
             ],
           ),
         ),

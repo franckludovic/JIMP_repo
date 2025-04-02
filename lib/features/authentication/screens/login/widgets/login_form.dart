@@ -4,18 +4,18 @@ import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/features/authentication/controllers.onboarding/login/login_controller.dart';
 
 import 'package:project_bc_tuto/features/authentication/screens/password_configuration/forget_password.dart';
-import 'package:project_bc_tuto/navigation_menu.dart';
 import 'package:project_bc_tuto/utils/validators/validation.dart';
 
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
-import '../../../../Applications/screens/application_page_form/applyPage.dart';
 import '../../Sign_up/step1_sign_up.dart';
 
 class JLoginForm extends StatelessWidget {
   const JLoginForm({
-    super.key,
+    super.key, required this.onPressed,
   });
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -95,12 +95,10 @@ class JLoginForm extends StatelessWidget {
                     ))),
             const SizedBox(height: JSizes.spaceBtwItems),
 
-            ///create account button
             SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                    onPressed: () =>
-                        Get.to(() => const CandidateRegisterScreen1()),
+                    onPressed: onPressed,
                     child: Text(JTexts.createAccount))),
           ],
         ),

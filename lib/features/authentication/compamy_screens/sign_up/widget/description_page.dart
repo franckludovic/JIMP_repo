@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class DescriptionEditor extends StatelessWidget {
   final TextEditingController descriptionController;
 
   /// Pass in your existing controller.description
-  DescriptionEditor({Key? key, required this.descriptionController}) : super(key: key);
+  const DescriptionEditor({super.key, required this.descriptionController});
 
   @override
   Widget build(BuildContext context) {

@@ -70,7 +70,7 @@ class LoginController extends GetxController{
   Future<void> googleSignIn() async {
     try{
 
-      TFullScreenLoader.openLoadingDialog('Loggin you in...', JImages.docerAnimation);
+      TFullScreenLoader.openLoadingDialog('Logging you in...', JImages.docerAnimation);
 
 
       //Check Internet
@@ -82,7 +82,6 @@ class LoginController extends GetxController{
 
       //Google Authentication
       final userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
-
 
 
     }catch(e){

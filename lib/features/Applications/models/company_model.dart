@@ -108,13 +108,13 @@ class CompanyModel {
   final String phoneNumber1;
   final String phoneNumber2;
   final String description;
-  final List<String> companyCultureTags;
+
   final VerificationStatus verificationStatus;
   final String website;
   final String linkedinProfile;
   final String logoUrl;
-  final List<String> achievements;
-  final String employeeCount;
+  final String profileUrl;
+
   final Timestamp createdAt;
   final Timestamp updatedAt;
   final double mlMatchScore;
@@ -141,13 +141,13 @@ class CompanyModel {
     required this.phoneNumber1,
     required this.phoneNumber2,
     required this.description,
-    required this.companyCultureTags,
+
     required this.verificationStatus,
     required this.website,
     required this.linkedinProfile,
     required this.logoUrl,
-    required this.achievements,
-    required this.employeeCount,
+    required this.profileUrl,
+
     required this.mlMatchScore,
     this.aiRelevanceScore = 0.0,
     this.totalListings = 0,
@@ -180,7 +180,6 @@ class CompanyModel {
       phoneNumber1: json['phoneNumber1'] ?? '',
       phoneNumber2: json['phoneNumber2'] ?? '',
       description: json['description'] ?? '',
-      companyCultureTags: List<String>.from(json['companyCultureTags'] ?? []),
       verificationStatus: json['verificationStatus'] != null
           ? VerificationStatus.values.firstWhere(
               (e) =>
@@ -192,8 +191,7 @@ class CompanyModel {
       website: json['website'] ?? '',
       linkedinProfile: json['linkedinProfile'] ?? '',
       logoUrl: json['logoUrl'] ?? '',
-      achievements: List<String>.from(json['achievements'] ?? []),
-      employeeCount: json['employeeCount'] ?? '',
+      profileUrl: json['profileUrl'] ?? '',
       mlMatchScore: (json['mlMatchScore'] ?? 0.0).toDouble(),
       aiRelevanceScore: (json['aiRelevanceScore'] ?? 0.0).toDouble(),
       totalListings: json['totalListings'] ?? 0,
@@ -233,13 +231,12 @@ class CompanyModel {
         'phoneNumber1': phoneNumber1,
         'phoneNumber2': phoneNumber2,
         'description': description,
-        'companyCultureTags': companyCultureTags,
-        'verificationStatus': verificationStatus.toString(),
+
+        'verificationStatus': VerificationStatus.pending.name,
         'website': website,
         'linkedinProfile': linkedinProfile,
         'logoUrl': logoUrl,
-        'achievements': achievements,
-        'employeeCount': employeeCount,
+        'profileUrl': profileUrl,
         'mlMatchScore': mlMatchScore,
         'aiRelevanceScore': aiRelevanceScore,
         'totalListings': totalListings,
@@ -273,13 +270,11 @@ class CompanyModel {
         phoneNumber1: '',
         phoneNumber2: '',
         description: '',
-        companyCultureTags: [],
         verificationStatus: VerificationStatus.pending,
         website: '',
         linkedinProfile: '',
         logoUrl: '',
-        achievements: [],
-        employeeCount: '',
+        profileUrl: '',
         mlMatchScore: 0.0,
         aiRelevanceScore: 0.0,
         totalListings: 0,

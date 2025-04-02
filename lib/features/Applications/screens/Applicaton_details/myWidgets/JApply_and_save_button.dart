@@ -5,7 +5,6 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
-import '../../../../authentication/screens/login/login.dart';
 import '../../application_page_form/applyPage.dart';
 
 class JApplySaveButton extends StatelessWidget {

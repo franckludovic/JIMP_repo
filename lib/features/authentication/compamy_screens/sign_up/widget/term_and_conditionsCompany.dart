@@ -5,7 +5,8 @@ import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
-import '../../../controllers.onboarding/sign_up/sign_up_controller.dart';
+import '../../../controllers.onboarding/company_signup_controller/company_sign_up_controller.dart';
+
 
 class TermandConditions extends StatelessWidget {
   const TermandConditions({
@@ -17,7 +18,7 @@ class TermandConditions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = JHelperFunctions.isDarkMode(context);
-    final controller = Get.put(SignupController());
+    final controller = Get.put(CompanySignupController());
 
     return Row(
       children: [

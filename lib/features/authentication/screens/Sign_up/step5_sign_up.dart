@@ -5,15 +5,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/layout/matrix_layout.dart';
-import 'package:project_bc_tuto/common/widgets/success_screen/success_screen.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/term_and_conditions.dart';
 
-import 'package:project_bc_tuto/features/authentication/screens/login/login.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/step_indicator.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
-import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
-import 'package:project_bc_tuto/utils/constants/text_strings.dart';
 
 
 import '../../controllers.onboarding/sign_up/sign_up_controller.dart';

@@ -1,5 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
@@ -39,17 +39,20 @@ class AuthenticationRepository extends GetxController {
     final User? user = _auth.currentUser;
 
     if (user != null) {
-      //if the usr is logged in
-      if (user.emailVerified && userType == 'Candidate') {
+      final candidateDoc = await FirebaseFirestore.instance.collection('candidates').doc(user.uid).get();
+
+      if (candidateDoc.exists) {
         Get.offAll(() => CandidateNavigationMenu());
-      } else if (user.emailVerified && userType == 'Company') {
-        Get.offAll(() => CompanyNavigationMenu());
+
       } else {
-        Get.offAll(() => VerifyEmailScreen(
-              email: _auth.currentUser?.email,
-            ));
+
+        final companyDoc = await FirebaseFirestore.instance.collection('companies').doc(user.uid).get();
+
+        if (companyDoc.exists) {
+          Get.offAll(() => CompanyNavigationMenu());
+        }
       }
-    } else {
+    }else {
       //local storage
       deviceStorage.writeIfNull('isFirstTime', true);
 

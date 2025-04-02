@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_bc_tuto/data/repositories/user/company_repositories.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/helpers/network_manager.dart';
@@ -34,6 +33,8 @@ class CompanySignupController extends GetxController {
   final officialEmail = TextEditingController();
   final phoneNumber1 = TextEditingController();
   final phoneNumber2 = TextEditingController();
+  final logoUrl = TextEditingController();
+  final profileUrl = TextEditingController();
   RxList<CompanyBranch> branches = RxList<CompanyBranch>();
 
   // Screen 2: Business Verification & Contact
@@ -51,11 +52,6 @@ class CompanySignupController extends GetxController {
   final hrTitle = TextEditingController();
   final hrEmail = TextEditingController();
   final hrPhone = TextEditingController();
-
-  // Additional Info
-  RxList<String> companyCulture = RxList<String>();
-  RxList<String> achievements = RxList<String>();
-  final employeeCount = TextEditingController();
 
   bool validateStep1() => formKeyStep1.currentState!.validate();
 
@@ -76,10 +72,10 @@ class CompanySignupController extends GetxController {
         return;
       }
 
-      if (!validateStep4()) {
-        TFullScreenLoader.stopLoading();
-        return;
-      }
+      // if (!validateStep4()) {
+      //   TFullScreenLoader.stopLoading();
+      //   return;
+      // }
 
       if (!privacyPolicy.value) {
         TLoaders.warningSnackBar(
@@ -130,13 +126,11 @@ class CompanySignupController extends GetxController {
         phoneNumber1: phoneNumber1.text.trim(),
         phoneNumber2: phoneNumber2.text.trim(),
         description: description.text.trim(),
-        companyCultureTags: companyCulture.toList(),
         verificationStatus: VerificationStatus.pending,
         website: website.text.trim(),
         linkedinProfile: linkedinProfile.text.trim(),
-        logoUrl: '',
-        achievements: achievements.toList(),
-        employeeCount: employeeCount.text.trim(),
+        logoUrl: logoUrl.text.trim(),
+        profileUrl: profileUrl.text.trim(),
         mlMatchScore: 0.0,
         aiRelevanceScore: 0.0,
         totalListings: 0,
