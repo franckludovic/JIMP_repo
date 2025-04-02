@@ -7,6 +7,7 @@ import '../../../../../navigation_menu_company.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
 import '../../sign_up/sign_up1.dart';
+import '../../sign_up/sign_upReview.dart';
 
 
 class JLoginForm2 extends StatelessWidget {
@@ -64,7 +65,8 @@ class JLoginForm2 extends StatelessWidget {
             const SizedBox(height: JSizes.spaceBtwItems),
 
             ///create account button
-            SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() => const CompanySignupScreen()), child: Text(JTexts.createAccount))),
+            SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() =>  CompanySignUpScreen1()), child: Text(JTexts.createAccount))),
+            //SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() =>  CompanySignUpReview()), child: Text(JTexts.createAccount))),
           ],
         ),
       ),

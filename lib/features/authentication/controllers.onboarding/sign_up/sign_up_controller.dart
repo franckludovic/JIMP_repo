@@ -107,7 +107,7 @@ class SignupController extends GetxController {
         return;
       }
 
-      // Validate the entire form (if using a form)
+      // Validate the entire form ()
       if (!signupFormKey.currentState!.validate()) {
         TFullScreenLoader.stopLoading();
         return;
@@ -160,12 +160,6 @@ class SignupController extends GetxController {
       // Save the candidate record in Firestore under "candidates"
       final userRepository = Get.put(UserRepository());
       await userRepository.saveUserRecord(newUser);
-
-      // Alternatively, if you want to write directly:
-      await FirebaseFirestore.instance
-          .collection("candidates")
-          .doc(userCredential.user!.uid)
-          .set(newUser.toJson());
 
       TFullScreenLoader.stopLoading();
       TLoaders.successSnackBar(

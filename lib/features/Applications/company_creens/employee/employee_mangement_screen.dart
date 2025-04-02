@@ -292,6 +292,6 @@ class _EmployeeManagementScreenState extends State<EmployeeManagementScreen> {
 
   void _navigateToEdit() {
 
-    Get.to(() => const RecruiterInfo());
+    Get.to(() => const BranchInfo());
   }
 }

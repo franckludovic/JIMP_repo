@@ -14,60 +14,56 @@ class CompagnyDetailsHeader extends StatelessWidget {
     super.key,
     required this.companyName,
     required this.companyLogo,
-    required this.companyProfileImage,
+    required this.companyProfileImage, required this.title,
 
   });
 
   final String companyName;
   final String companyLogo;
   final String companyProfileImage;
+  final String title;
 
 
 
   @override
   Widget build(BuildContext context) {
     final dark = JHelperFunctions.isDarkMode(context);
-    return Container(
+    return Stack(
+      children: [
+        Stack(
+          children: [
+            SizedBox(
+                width: JDeviceUtils.getScreenWidth(context),
+                child: Image.asset(companyProfileImage)
+            ),
 
-      child: Stack(
+            Column(
+              children: [
 
-        children: [
-          Stack(
-            children: [
-              SizedBox(
-                  width: JDeviceUtils.getScreenWidth(context),
-                  child: Image.asset(companyProfileImage)
-              ),
-
-
-              Column(
-                children: [
-
-                  CompanyDetailsAppBar(),
-                  JRoundedContainer(
-                    height: 113,
-                    width: 113,
-                    margin: EdgeInsets.only(top: 140, right: 200),
-                    padding: const EdgeInsets.all(JSizes.sm),
-                    backgroundColor: dark ? JColors.darkGrey : JColors.grey,
-                    child: Center(
-                      child: SizedBox(
-                        width: 105,
-                        height: 105,
-                        child: JRoundedImage(
-                          imageUrl: companyLogo,
-                          applyImageRadius: true,
-                          fit: BoxFit.contain,
-                        ),
+                CompanyDetailsAppBar(title: title,),
+                JRoundedContainer(
+                  height: 113,
+                  width: 113,
+                  margin: EdgeInsets.only(top: 140, right: 200),
+                  padding: const EdgeInsets.all(JSizes.sm),
+                  backgroundColor: dark ? JColors.darkGrey : JColors.grey,
+                  child: Center(
+                    child: SizedBox(
+                      width: 105,
+                      height: 105,
+                      child: JRoundedImage(
+                        imageUrl: companyLogo,
+                        applyImageRadius: true,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

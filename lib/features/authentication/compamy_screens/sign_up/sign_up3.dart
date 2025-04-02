@@ -2,99 +2,142 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
-import 'package:project_bc_tuto/common/widgets/texts/textArea.dart';
 import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/sign_upReview.dart';
+import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/widget/add_branch.dart';
+import 'package:project_bc_tuto/utils/constants/sizes.dart';
+import 'package:project_bc_tuto/utils/popups/loaders.dart';
+
 import '../../../../common/widgets/sign_upButtons/signUpNavButtons.dart';
-import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/device/device_utility.dart';
-import '../../compamy_screens/sign_up/widget/step_indicator.dart';
+import '../../../../utils/validators/validation.dart';
+import '../../../Applications/models/company_model.dart';
+import '../../controllers.onboarding/company_signup_controller/company_sign_up_controller.dart';
+import '../../screens/Sign_up/widgets/step_indicator.dart';
 
-class CompanySignupScreen3 extends StatefulWidget {
-  const CompanySignupScreen3({super.key});
+class CompanySignUpScreen3 extends StatelessWidget {
+  const CompanySignUpScreen3({super.key});
 
-  @override
-  State<CompanySignupScreen3> createState() => _CompanyRegisterScreenState3();
-}
 
-class _CompanyRegisterScreenState3 extends State<CompanySignupScreen3> {
-  int currentStep = 2;
+
+
 
   @override
   Widget build(BuildContext context) {
+
+    int currentStep = 2;
+    final controller = Get.put(CompanySignupController());
     return Scaffold(
       appBar: JAppbar(
-        title: Text("Security & Authentication",
-            style: Theme.of(context).textTheme.headlineMedium),
+        title: Text(
+          "HR & Branch Information",
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        showBackArrow: true,
       ),
       body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(JSizes.defaultSpace),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        padding: const EdgeInsets.all(JSizes.spaceBtwItems),
+        child: Form(
+          key: controller.formKeyStep3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // HR Contact Information Section
+              Text("HR Contact Information", style: Theme.of(context).textTheme.headlineSmall),
+              const SizedBox(height: JSizes.spaceBtwInputFields),
+              TextFormField(
+                controller: controller.hrName,
+                decoration: const InputDecoration(labelText: "HR Name", prefixIcon: Icon(Iconsax.user)),
+                validator: (value) => TValidator.validateEmptyText('Hr Name', value),
+              ),
+              const SizedBox(height: JSizes.spaceBtwInputFields),
+              TextFormField(
+                controller: controller.hrTitle,
+                decoration: const InputDecoration(labelText: "HR Title", prefixIcon: Icon(Icons.badge) ),
+                validator: (value) => TValidator.validateEmptyText('Hr Title', value),
+              ),
+              const SizedBox(height: JSizes.spaceBtwInputFields),
+              TextFormField(
+                controller: controller.hrEmail,
+                decoration: const InputDecoration(labelText: "HR Email",  prefixIcon: Icon(Iconsax.direct)),
+                validator:(value) => TValidator.validateEmail(value)
+              ),
+              const SizedBox(height: JSizes.spaceBtwInputFields),
+              TextFormField(
+                controller: controller.hrPhone,
+                decoration: const InputDecoration(labelText: "HR Phone",  prefixIcon: Icon(Iconsax.call)),
+                validator:  (value) => TValidator.validatePhoneNumber(value),
+              ),
+              const SizedBox(height: JSizes.spaceBtwItems),
+              const Divider(),
+              const SizedBox(height: JSizes.spaceBtwItems),
+
+              // Branch Information Section
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  JTextArea(
-                      label: Text('Password'),
-                      maxAreaHeight: 1,
-                      minAreaHeight: 1,
-                      prefixIcon: Icon(Iconsax.password_check)),
-                  SizedBox(
-                    height: JSizes.spaceBtwSections * 0.8,
-                  ),
-                  JTextArea(
-                      label: Text('Confirm Password'),
-                      maxAreaHeight: 1,
-                      minAreaHeight: 1,
-                      prefixIcon: Icon(Iconsax.repeat)),
-                  SizedBox(
-                    height: JSizes.spaceBtwSections * 0.8,
-                  ),
-                  JTextArea(
-                      label: Text('Enter Postal Code'),
-                      maxAreaHeight: 1,
-                      minAreaHeight: 1,
-                      prefixIcon: Icon(Iconsax.personalcard)),
+                  Text("Branch Information", style: Theme.of(context).textTheme.headlineSmall),
+                  TextButton(
+                    onPressed: () {
 
-                  SizedBox(height: JSizes.spaceBtwSections * 4),
-
-
-                  Center(
-                    child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.all(JSizes.md),
+                      controller.branches.add(
+                        
+                        CompanyBranch(
+                          address: CompanyAddress(
+                            street: "",
+                            city: "",
+                            country: "",
+                            region: "",
+                            postalCode: "",
                           ),
-                            onPressed: () {},
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Send Verification Request", style: Theme.of(context).textTheme.titleLarge,),
-                                SizedBox(width: JSizes.sm,),
-                                Icon(Iconsax.tick_circle, color: Colors.green, size: 25,),
-                              ],
-                            )
+                          contactEmail: "",
+                          phoneNumber: "",
+                          contactName: "",
                         ),
+                      );
+                    },
+                    child: const Text("Add Branch"),
                   ),
-
-
-                  SizedBox(height: JSizes.spaceBtwSections),
-
                 ],
               ),
-            ),
-          ],
+              Obx(() {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: controller.branches.length,
+                  itemBuilder: (context, index) {
+                    return BranchCardWidget(
+                      index: index,
+                      branch: controller.branches[index],
+                      onChanged: (updatedBranch) {
+                        // Replace the branch at the given index with the updated branch.
+                        controller.branches[index] = updatedBranch;
+                      },
+                      onRemove: () {
+                        controller.branches.removeAt(index);
+                      },
+                    );
+                  },
+                );
+              }),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SignUpNavigationButtons(
-            onPressed: () => Get.to(() => CompanySignUpReview()),
-          ),
-
-          SizedBox(height: JSizes.md,),
-
+          SignUpNavigationButtons(onPressed: () {
+            if (controller.validateStep2()) {
+              // Proceed to next screen.
+              Get.to(() => CompanySignUpReview());
+            } else {
+              TLoaders.warningSnackBar(
+                title: 'Missing Information',
+                message: 'Please correctly fill in all required fields before proceeding.',
+              );
+            }
+          }),
+          SizedBox(height: JSizes.spaceBtwItems),
           Padding(
             padding: const EdgeInsets.only(
                 bottom: JSizes.spaceBtwSections, top: JSizes.md),
@@ -102,7 +145,8 @@ class _CompanyRegisterScreenState3 extends State<CompanySignupScreen3> {
                 bottom: JDeviceUtils.getBottomNavigationBarHeight(),
                 left: 0,
                 right: 0,
-                child: StepIndicator(currentIndex: currentStep, totalSteps: 4)),
+                child:
+                StepIndicator(currentIndex: currentStep, totalSteps: 4)),
           ),
         ],
       ),

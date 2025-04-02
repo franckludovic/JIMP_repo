@@ -8,8 +8,8 @@ import '../../../../../common/widgets/texts/section_heading.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../personilization/screens/profile/widgets/profile_menu.dart';
 
-class RecruiterInfo extends StatelessWidget {
-  const RecruiterInfo({super.key});
+class BranchInfo extends StatelessWidget {
+  const BranchInfo({super.key});
 
   @override
   Widget build(BuildContext context) {

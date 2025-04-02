@@ -28,8 +28,6 @@ class _CandidateRegisterScreen1State extends State<CandidateRegisterScreen1> {
   int currentStep = 0;
 
 
-
-
   @override
   Widget build(BuildContext context) {
 

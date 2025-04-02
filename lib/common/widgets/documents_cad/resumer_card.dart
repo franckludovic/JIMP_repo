@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
+
+import '../../../features/personilization/screens/settings/resume_page.dart';
 
 class JResumeCard extends StatelessWidget {
   const JResumeCard({
@@ -18,7 +22,7 @@ class JResumeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(JSizes.md),
+      padding: EdgeInsets.all(JSizes.md * 0.9),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(15),
@@ -40,7 +44,7 @@ class JResumeCard extends StatelessWidget {
               ),
             ],
           ),
-          IconButton(onPressed: () {}, icon: Icon(Iconsax.more, size: 35,)),
+          IconButton(onPressed: () => Get.to(() => const ResumePage()), icon: Icon(Icons.more_vert, size: 35,)),
         ],
       ),
     );

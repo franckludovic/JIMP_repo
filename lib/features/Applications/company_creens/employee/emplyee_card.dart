@@ -20,7 +20,7 @@ class EmployeeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(() => const RecruiterInfo()),
+      onTap: () => Get.to(() => const BranchInfo()),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(JSizes.sm),

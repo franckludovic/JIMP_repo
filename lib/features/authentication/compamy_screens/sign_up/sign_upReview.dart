@@ -1,175 +1,310 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:iconsax/iconsax.dart';
-import 'package:project_bc_tuto/common/widgets/Images/rounded_image.dart';
-import 'package:project_bc_tuto/common/widgets/companies/desciption_info_tile.dart';
-import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
-import 'package:project_bc_tuto/features/Applications/screens/company_details/widgets/Info_row.dart';
-import 'package:project_bc_tuto/features/Applications/screens/company_details/widgets/company_detail_header.dart';
-import 'package:project_bc_tuto/features/Applications/screens/company_details/widgets/company_detail_rating_subtitle.dart';
-import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/widget/recuiter_info.dart';
-import 'package:project_bc_tuto/utils/constants/colors.dart';
-import 'package:project_bc_tuto/utils/constants/image_strings.dart';
-import 'package:project_bc_tuto/utils/constants/text_strings.dart';
+import 'package:project_bc_tuto/common/widgets/success_screen/success_screen.dart';
+import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/widget/description_page.dart';
+import 'package:project_bc_tuto/utils/constants/sizes.dart';
+import '../../../../common/widgets/appbar/appbar.dart';
+import '../../../../utils/constants/image_strings.dart';
+import '../../../../utils/constants/text_strings.dart';
+import '../../../Applications/company_creens/company_details/widgets/company_detail_header.dart';
+import '../../controllers.onboarding/company_signup_controller/company_sign_up_controller.dart';
 
-import '../../../../common/widgets/success_screen/success_screen.dart';
-import '../../../../common/widgets/texts/section_heading.dart';
-import '../../../../utils/constants/sizes.dart';
-import 'add_recruiter.dart';
 
 class CompanySignUpReview extends StatelessWidget {
-  const CompanySignUpReview({super.key});
+  CompanySignUpReview({super.key});
+
+  final controller = Get.put(CompanySignupController());
+
+
+  void _showEditDialog(BuildContext context, String fieldLabel, RxString rxValue) {
+    final TextEditingController dialogController =
+    TextEditingController(text: rxValue.value);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Edit $fieldLabel"),
+          content: TextField(
+            controller: dialogController,
+            decoration: InputDecoration(hintText: "Enter new $fieldLabel"),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                rxValue.value = dialogController.text;
+                Navigator.of(context).pop();
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  void _showEditDialogString(BuildContext context, String fieldLabel, TextEditingController textController) {
+    final TextEditingController dialogController =
+    TextEditingController(text: textController.text);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Edit $fieldLabel"),
+          content: TextField(
+            controller: dialogController,
+            decoration: InputDecoration(hintText: "Enter new $fieldLabel"),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                textController.text = dialogController.text;
+                Navigator.of(context).pop();
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  Widget _buildReviewRow(String fieldLabel, dynamic value, {TextEditingController? controllerForString}) {
+    final String displayValue;
+    final VoidCallback editCallback;
+
+
+    if (value is RxString) {
+      displayValue = value.value;
+      editCallback = () => _showEditDialog(Get.context!, fieldLabel, value);
+    }
+    // If it's a string from a TextEditingController:
+    else if (value is String && controllerForString != null) {
+      displayValue = value;
+      editCallback = () => _showEditDialogString(Get.context!, fieldLabel, controllerForString);
+    }
+    // If something else (fallback)
+    else {
+      displayValue = value?.toString() ?? '';
+      editCallback = () {};
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Text(
+              "$fieldLabel: $displayValue",
+              style: const TextStyle(fontSize: 15),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Iconsax.edit, color: Colors.blue),
+            onPressed: editCallback,
+          ),
+        ],
+      ),
+    );
+  }
+
+
+  Widget _buildMainInfoCard() {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: JSizes.sm),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(JSizes.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Company Information",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
+            ),
+            const SizedBox(height: JSizes.sm),
+            // Company Info
+            _buildReviewRow("Company Name", controller.companyName.text, controllerForString: controller.companyName),
+            DescriptionEditor(descriptionController: controller.description),
+            _buildReviewRow("Official Email", controller.officialEmail.text, controllerForString: controller.officialEmail),
+            _buildReviewRow("Phone Number1", controller.phoneNumber1.text, controllerForString: controller.phoneNumber1),
+            _buildReviewRow("Phone Number2", controller.phoneNumber2.text, controllerForString: controller.phoneNumber2),
+            _buildReviewRow("Country", controller.country.text, controllerForString: controller.country),
+            _buildReviewRow("Region", controller.region.text, controllerForString: controller.region),
+            _buildReviewRow("City", controller.city.text, controllerForString: controller.city),
+            _buildReviewRow("Postal Code", controller.postalCode.text, controllerForString: controller.postalCode),
+            _buildReviewRow("Local Address", controller.localAddress.text, controllerForString: controller.localAddress),
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSecondInfoCard() {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: JSizes.sm),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(JSizes.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Additional Information",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
+            ),
+            const SizedBox(height: JSizes.sm),
+            _buildReviewRow("Company Size", controller.companySize),
+            _buildReviewRow("Opportunity Type", controller.opportunityType),
+            _buildReviewRow("Opportunity Category", controller.opportunityCategory),
+            _buildReviewRow("Industry", controller.industry),
+            _buildReviewRow("Registration Number", controller.registrationNumber.text, controllerForString: controller.registrationNumber),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHRInfoCard() {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: JSizes.sm),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(JSizes.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("HR Contact Information",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
+            ),
+            const SizedBox(height: JSizes.sm),
+            _buildReviewRow("HR Name", controller.hrName.text, controllerForString: controller.hrName),
+            _buildReviewRow("HR Title", controller.hrTitle.text, controllerForString: controller.hrTitle),
+            _buildReviewRow("HR Email", controller.hrEmail.text, controllerForString: controller.hrEmail),
+            _buildReviewRow("HR Phone", controller.hrPhone.text, controllerForString: controller.hrPhone),
+          ],
+        ),
+      ),
+    );
+  }
+
+
+  Widget _buildBranchesCard() {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: JSizes.sm),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(JSizes.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Branches", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const SizedBox(height: JSizes.sm),
+            Obx(() {
+              if (controller.branches.isEmpty) {
+                return const Text("No branches added yet.");
+              }
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: controller.branches.length,
+                itemBuilder: (context, index) {
+                  final branch = controller.branches[index];
+                  final branchInfo =
+                      "${branch.address.country}, ${branch.address.region}, ${branch.address.city}, ${branch.address.street}, ${branch.address.postalCode}\n"
+                      "Email: ${branch.contactEmail}\nPhone: ${branch.phoneNumber}";
+
+                  return Card(
+                    margin: const EdgeInsets.symmetric(vertical: JSizes.sm),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    child: ListTile(
+                      title: Text("Branch ${index + 1}", style: const TextStyle(fontWeight: FontWeight.bold)),
+                      subtitle: Text(branchInfo),
+                      trailing: IconButton(
+                        icon: const Icon(Iconsax.edit, color: Colors.blue),
+                        onPressed: () {
+
+                        },
+                      ),
+                    ),
+                  );
+                },
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //appBar: JAppbar(title: const Text()),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CompagnyDetailsHeader(
+              title:"Review Your Information" ,
                 companyName: 'Google',
                 companyLogo: JImages.google,
                 companyProfileImage: JImages.googleProfileImage),
             SizedBox(
               height: JSizes.spaceBtwSections * 0.6,
             ),
-            CompanyRatingSubTitle(
-              companyName: 'Google',
-              country: 'Cameroon',
-              region: 'Littoral',
-              town: 'Douala',
-              quater: 'Bonanjo',
-              isRated: false,
-            ),
-            SizedBox(height: JSizes.spaceBtwSections),
-            ContactInfo(),
-            SizedBox(height: JSizes.spaceBtwSections),
-            InfoTile(
-              title: "About the Company : ",
-              titleSize: 25,
-              spacing: JSizes.sm,
-              textBody:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            ),
-            SizedBox(height: JSizes.spaceBtwSections),
-            Divider(
-              thickness: 3,
-              indent: 20,
-              endIndent: 20,
-            ),
-            const SizedBox(
-              height: JSizes.spaceBtwItems,
-            ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: JSizes.sm),
-              child: JSectionHeading(
-                title: "View Recruiter Info",
-                showActonButton: false,
-              ),
-            ),
-            const SizedBox(
-              height: JSizes.spaceBtwItems,
-            ),
-            JRoundedContainer(
-              margin: EdgeInsets.all(JSizes.md),
-              padding: EdgeInsets.all(JSizes.sm),
-              backgroundColor: JColors.lightContainer,
+              padding: const EdgeInsets.all(JSizes.md),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          JRoundedImage(
-                            imageUrl: JImages.user3,
-                            width: 80,
-                            height: 80,
-                            borderRadius: 100,
-                          ),
-                          SizedBox(
-                            width: JSizes.sm,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Elsa Luciens",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text("Senior Engineer",
-                                  style: TextStyle(
-                                    color: JColors.darkGrey,
-                                    fontSize: 18,
-                                    fontFamily: "Poppins",
-                                  )),
-                              Text("ID : GNX001235",
-                                  style: TextStyle(
-                                    color: JColors.primary,
-                                    fontSize: 15,
-                                    fontFamily: "Poppins",
-                                  )),
-                            ],
-                          )
-                        ],
+
+                  // Company Info Card
+                  _buildMainInfoCard(),
+                  // addiyional info
+                  _buildSecondInfoCard(),
+                  // HR Info Card
+                  _buildHRInfoCard(),
+                  // Branches Card
+                  _buildBranchesCard(),
+                  const SizedBox(height: JSizes.spaceBtwSections),
+                  // Submit Button
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: JSizes.sm),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        minimumSize: const Size(double.infinity, 50),
                       ),
-                      IconButton(
-                          onPressed: () => Get.to(() => RecruiterInfo()),
-                          icon: Icon(
-                            Iconsax.arrow_right_3,
-                            size: 30,
-                            color: JColors.black,
-                          ))
-                    ],
-                  )
+                      onPressed: () {
+                        // Show success or final submission
+                        Get.to(() => SuccessScreen(
+                          image: JImages.staticSuccessIllustration,
+                          title: JTexts.yourAccountCreatedTitle,
+                          subTitle: JTexts.yourAccountCreatedSubTitle,
+                        ));
+                      },
+                      child: const Text(
+                        "Create Account",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-
-            ///add new recruiter and view current recruiters
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: JSizes.lg, horizontal: JSizes.md),
-                child: ElevatedButton(
-                  onPressed: () => Get.to(() => const AddRecruiterForm()),
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(JSizes.md),
-                    textStyle: TextStyle(color: JColors.black, fontSize: 18, fontFamily: "Poppins"),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text("Recruiter"),
-                      Icon(Iconsax.add, size: 30,),
-                    ],
-                  ),
-                ),
-              ),
-            )
           ],
         ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(JSizes.lg),
-        child: SizedBox(
-            height: 60,
-            child: ElevatedButton(
-                onPressed: () => Get.to(() => SuccessScreen(
-                      image: JImages.staticSuccessIllustration,
-                      title: JTexts.yourAccountCreatedTitle,
-                      subTitle: JTexts.yourAccountCreatedSubTitle,
-                    )),
-                child: Text(
-                  "Create Account",
-                  style: TextStyle(fontSize: 20, fontFamily: "Poppins"),
-                ))),
       ),
     );
   }

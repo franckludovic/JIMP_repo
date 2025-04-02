@@ -8,8 +8,10 @@ import '../../../../../utils/device/device_utility.dart';
 
 class CompanyDetailsAppBar extends StatelessWidget {
   const CompanyDetailsAppBar({
-    super.key,
+    super.key, required this.title,
   });
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +27,14 @@ class CompanyDetailsAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ///logo heading
+
           Row(
             children: [
-              GestureDetector( onTap: () => Get.back(), child: Icon(Iconsax.arrow_left_3, color: JColors.black, size: 55)),
+              GestureDetector( onTap: () => Get.back(), child: Icon(Iconsax.arrow_left_3, color: JColors.black, size: 35)),
               SizedBox(width: JSizes.md),
-              Text("Google", style: TextStyle(fontFamily: 'Poppins', fontSize: 38, fontWeight: FontWeight.bold, color: JColors.primary),),
+              Text(title, style: Theme.of(context).textTheme.headlineMedium!.apply(color: Colors.black)),
             ],
           ),
-          Row(
-            ///modify
-            children: [
-              Icon(Iconsax.more_24, color: JColors.black, size:40 ,),
-            ],
-          )
         ],
       ),
     );

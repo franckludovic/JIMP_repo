@@ -1,0 +1,289 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+enum VerificationStatus { pending, verified, rejected }
+
+class CompanyAddress {
+  final String street;
+  final String city;
+  final String country;
+  final String region;
+  final String postalCode;
+
+  CompanyAddress({
+    required this.street,
+    required this.city,
+    required this.country,
+    required this.region,
+    required this.postalCode,
+  });
+
+  factory CompanyAddress.fromJson(Map<String, dynamic> json) => CompanyAddress(
+        street: json['street'] ?? '',
+        city: json['city'] ?? '',
+        country: json['country'] ?? '',
+        region: json['region'] ?? '',
+        postalCode: json['postalCode'] ?? '',
+      );
+
+  Map<String, dynamic> toJson() => {
+        'street': street,
+        'city': city,
+        'country': country,
+        'region': region,
+        'postalCode': postalCode,
+      };
+}
+
+class CompanyBranch {
+  final CompanyAddress address;
+  final String contactEmail;
+  final String phoneNumber;
+  final String contactName;
+
+  CompanyBranch({
+    required this.address,
+    required this.contactEmail,
+    required this.phoneNumber,
+    required this.contactName,
+  });
+
+  factory CompanyBranch.fromJson(Map<String, dynamic> json) => CompanyBranch(
+        address: CompanyAddress.fromJson(json['address'] ?? {}),
+        contactEmail: json['contactEmail'] ?? '',
+        phoneNumber: json['phoneNumber'] ?? '',
+        contactName: json['contactName'] ?? '',
+      );
+
+  Map<String, dynamic> toJson() => {
+        'address': address.toJson(),
+        'contactEmail': contactEmail,
+        'contactName': contactName,
+        'phoneNumber': phoneNumber,
+      };
+}
+
+class HRContact {
+  final String name;
+  final String title;
+  final String email;
+  final String phone;
+
+  HRContact({
+    required this.name,
+    required this.title,
+    required this.email,
+    required this.phone,
+  });
+
+  factory HRContact.fromJson(Map<String, dynamic> json) => HRContact(
+        name: json['name'] ?? '',
+        title: json['title'] ?? '',
+        email: json['email'] ?? '',
+        phone: json['phone'] ?? '',
+      );
+
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'title': title,
+        'email': email,
+        'phone': phone,
+      };
+}
+
+class CompanyModel {
+  final String id;
+  final String userType;
+  final String companyName;
+  final String size;
+  final CompanyAddress headquarters;
+  final String industry;
+  final String registrationNumber;
+  final String businessLicenseUrl;
+  final String password;
+  final Set<String> opportunityTypes;
+  final String opportunityCategory;
+  final HRContact hrContact;
+  final List<CompanyBranch> branches;
+  final String officialEmail;
+  final String phoneNumber1;
+  final String phoneNumber2;
+  final String description;
+  final List<String> companyCultureTags;
+  final VerificationStatus verificationStatus;
+  final String website;
+  final String linkedinProfile;
+  final String logoUrl;
+  final List<String> achievements;
+  final String employeeCount;
+  final Timestamp createdAt;
+  final Timestamp updatedAt;
+  final double mlMatchScore;
+  final double aiRelevanceScore;
+  final int totalListings;
+  final double averageRating;
+  final int ratingCount;
+
+  CompanyModel({
+    this.userType = 'Company',
+    required this.id,
+    required this.companyName,
+    required this.size,
+    required this.headquarters,
+    required this.industry,
+    required this.registrationNumber,
+    required this.businessLicenseUrl,
+    required this.password,
+    required this.opportunityTypes,
+    required this.opportunityCategory,
+    required this.hrContact,
+    required this.branches,
+    required this.officialEmail,
+    required this.phoneNumber1,
+    required this.phoneNumber2,
+    required this.description,
+    required this.companyCultureTags,
+    required this.verificationStatus,
+    required this.website,
+    required this.linkedinProfile,
+    required this.logoUrl,
+    required this.achievements,
+    required this.employeeCount,
+    required this.mlMatchScore,
+    this.aiRelevanceScore = 0.0,
+    this.totalListings = 0,
+    this.averageRating = 0.0,
+    this.ratingCount = 0,
+    Timestamp? createdAt,
+    Timestamp? updatedAt,
+  })  : createdAt = createdAt ?? Timestamp.now(),
+        updatedAt = updatedAt ?? Timestamp.now();
+
+  factory CompanyModel.fromJson(Map<String, dynamic> json) {
+    return CompanyModel(
+      id: json['id'] ?? '',
+      userType: json['userType'] ?? 'Company',
+      companyName: json['companyName'] ?? '',
+      size: json['size'] ?? '',
+      headquarters: CompanyAddress.fromJson(json['headquarters'] ?? {}),
+      industry: json['industry'] ?? '',
+      registrationNumber: json['registrationNumber'] ?? '',
+      businessLicenseUrl: json['businessLicenseUrl'] ?? '',
+      password: json['password'] ?? '',
+      opportunityTypes: Set<String>.from(json['opportunityTypes'] ?? []),
+      opportunityCategory: json['opportunityCategory'] ?? '',
+      hrContact: HRContact.fromJson(json['hrContact'] ?? {}),
+      branches: (json['branches'] as List?)
+              ?.map((e) => CompanyBranch.fromJson(e))
+              .toList() ??
+          [],
+      officialEmail: json['officialEmail'] ?? '',
+      phoneNumber1: json['phoneNumber1'] ?? '',
+      phoneNumber2: json['phoneNumber2'] ?? '',
+      description: json['description'] ?? '',
+      companyCultureTags: List<String>.from(json['companyCultureTags'] ?? []),
+      verificationStatus: json['verificationStatus'] != null
+          ? VerificationStatus.values.firstWhere(
+              (e) =>
+                  e.toString().split('.').last.toLowerCase() ==
+                  json['verificationStatus'].toString().toLowerCase(),
+              orElse: () => VerificationStatus.pending,
+            )
+          : VerificationStatus.pending,
+      website: json['website'] ?? '',
+      linkedinProfile: json['linkedinProfile'] ?? '',
+      logoUrl: json['logoUrl'] ?? '',
+      achievements: List<String>.from(json['achievements'] ?? []),
+      employeeCount: json['employeeCount'] ?? '',
+      mlMatchScore: (json['mlMatchScore'] ?? 0.0).toDouble(),
+      aiRelevanceScore: (json['aiRelevanceScore'] ?? 0.0).toDouble(),
+      totalListings: json['totalListings'] ?? 0,
+      averageRating: (json['averageRating'] ?? 0.0).toDouble(),
+      ratingCount: json['ratingCount'] ?? 0,
+      createdAt:
+          json['createdAt'] is Timestamp ? json['createdAt'] : Timestamp.now(),
+      updatedAt:
+          json['updatedAt'] is Timestamp ? json['updatedAt'] : Timestamp.now(),
+    );
+  }
+
+  factory CompanyModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> doc) {
+    final data = doc.data();
+    if (data == null) {
+      throw Exception("Document data is null for ID: ${doc.id}");
+    }
+    return CompanyModel.fromJson({...data, 'id': doc.id});
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'userType': userType,
+        'companyName': companyName,
+        'size': size,
+        'headquarters': headquarters.toJson(),
+        'industry': industry,
+        'registrationNumber': registrationNumber,
+        'businessLicenseUrl': businessLicenseUrl,
+        'password': password,
+        'opportunityTypes': opportunityTypes.toList(),
+        'opportunityCategory': opportunityCategory,
+        'hrContact': hrContact.toJson(),
+        'branches': branches.map((e) => e.toJson()).toList(),
+        'officialEmail': officialEmail,
+        'phoneNumber1': phoneNumber1,
+        'phoneNumber2': phoneNumber2,
+        'description': description,
+        'companyCultureTags': companyCultureTags,
+        'verificationStatus': verificationStatus.toString(),
+        'website': website,
+        'linkedinProfile': linkedinProfile,
+        'logoUrl': logoUrl,
+        'achievements': achievements,
+        'employeeCount': employeeCount,
+        'mlMatchScore': mlMatchScore,
+        'aiRelevanceScore': aiRelevanceScore,
+        'totalListings': totalListings,
+        'averageRating': averageRating,
+        'ratingCount': ratingCount,
+        'createdAt': createdAt,
+        'updatedAt': updatedAt,
+      };
+
+  static CompanyModel empty() => CompanyModel(
+        id: '',
+        userType: 'Company',
+        companyName: '',
+        size: '',
+        headquarters: CompanyAddress(
+          street: '',
+          city: '',
+          country: '',
+          region: '',
+          postalCode: '',
+        ),
+        industry: '',
+        registrationNumber: '',
+        businessLicenseUrl: '',
+        password: '',
+        opportunityTypes: {},
+        opportunityCategory: '',
+        hrContact: HRContact(name: '', title: '', email: '', phone: ''),
+        branches: [],
+        officialEmail: '',
+        phoneNumber1: '',
+        phoneNumber2: '',
+        description: '',
+        companyCultureTags: [],
+        verificationStatus: VerificationStatus.pending,
+        website: '',
+        linkedinProfile: '',
+        logoUrl: '',
+        achievements: [],
+        employeeCount: '',
+        mlMatchScore: 0.0,
+        aiRelevanceScore: 0.0,
+        totalListings: 0,
+        averageRating: 0.0,
+        ratingCount: 0,
+      );
+}
