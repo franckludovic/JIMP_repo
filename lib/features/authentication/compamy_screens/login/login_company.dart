@@ -13,6 +13,8 @@ import '../../../../common/widgets/login_setup/social_buttons.dart';
 
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
+import '../../screens/login/widgets/login_form.dart';
+import '../sign_up/sign_up1.dart';
 
 class CompagnyLoginScreen extends StatelessWidget {
   const CompagnyLoginScreen({super.key});
@@ -20,11 +22,7 @@ class CompagnyLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: JAppbar(
-        title: Text("Company", style: Theme.of(context).textTheme.headlineLarge),
-        leadingIcon: Iconsax.arrow_left_3,
-        leadingOnPressed: () => Get.back(),
-      ),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(bottom:  JSizes.defaultSpace, left: JSizes.defaultSpace, right: JSizes.defaultSpace, top: 0),
@@ -34,14 +32,9 @@ class CompagnyLoginScreen extends StatelessWidget {
               const JLoginHeader2(),
 
                 ///form
-              const JLoginForm2(),
+              JLoginForm(onPressed: () => Get.to(() => CompanySignUpScreen1()),),
 
-              ///divider
-              JFormDivider(dividerText: JTexts.orSignInWith.capitalize!),
-              const SizedBox(height: JSizes.spaceBtwSections),
 
-              ///footer
-              const JSocialButtons()
             ],
           ),
         ),

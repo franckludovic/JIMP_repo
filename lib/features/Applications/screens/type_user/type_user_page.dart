@@ -5,7 +5,6 @@ import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 
 import '../../../../common/widgets/Type_user/selection_type_user_card.dart';
 import '../../../../data/repositories/storage_device.dart';
-import '../../../../navigation_menu.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
@@ -64,7 +63,7 @@ class JTypeUser extends StatelessWidget {
                       // Save user type
                       await StorageService.saveUserType("Company");
                       // Navigate
-                      Get.offAll(() => const CompagnyLoginScreen());
+                      Get.to(() => const CompagnyLoginScreen());
                     },
                   ),
 
@@ -78,7 +77,7 @@ class JTypeUser extends StatelessWidget {
                       // Save user type
                       await StorageService.saveUserType("Candidate");
                       // Navigate
-                      Get.offAll(() => const CandidateLoginScreen());
+                      Get.to(() => const CandidateLoginScreen());
                     },
                   ),
 

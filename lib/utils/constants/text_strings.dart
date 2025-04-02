@@ -51,7 +51,8 @@ class JTexts {
 
 
   // -- Authentication Headings
-  static const String loginTitle = "Welcome back,";
+  static const String loginTitleCandidate = "Welcome back Candidate,";
+  static const String loginTitleCompany = "Welcome back Sir,";
   static const String loginSubTitle = "Discover Limitless Choices and Unmatched Convenience.";
   static const String signupTitle = "Create your account";
   static const String forgetPasswordTitle = "Forget password";
