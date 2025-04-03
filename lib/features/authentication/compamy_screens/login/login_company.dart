@@ -15,6 +15,7 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
 import '../../screens/login/widgets/login_form.dart';
 import '../sign_up/sign_up1.dart';
+import '../sign_up/sign_upReview.dart';
 
 class CompagnyLoginScreen extends StatelessWidget {
   const CompagnyLoginScreen({super.key});
@@ -28,12 +29,12 @@ class CompagnyLoginScreen extends StatelessWidget {
           padding: EdgeInsets.only(bottom:  JSizes.defaultSpace, left: JSizes.defaultSpace, right: JSizes.defaultSpace, top: 0),
           child: Column(
             children: [
-              ///login title and subtitle
+
               const JLoginHeader2(),
 
                 ///form
               JLoginForm(onPressed: () => Get.to(() => CompanySignUpScreen1()),),
-
+              //JLoginForm(onPressed: () => Get.to(() => CompanySignUpReview()),),
 
             ],
           ),

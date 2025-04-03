@@ -17,7 +17,7 @@ import '../../screens/Sign_up/widgets/step_indicator.dart';
 class CompanySignUpScreen1 extends StatelessWidget {
   CompanySignUpScreen1({super.key});
 
-  final List<String> employeeCounts = [
+  static List<String> companySize = [
     'Small (~499)',
     'Medium (500 ~ 1000)',
     'Large (1001 ~)'
@@ -200,9 +200,9 @@ class CompanySignUpScreen1 extends StatelessWidget {
                         Obx(
                           () => JCustomDropDown(
                             title: 'Company Size(Employees) :',
-                            items: employeeCounts.isEmpty
+                            items: companySize.isEmpty
                                 ? ['Select an option']
-                                : employeeCounts,
+                                : companySize,
                             value: controller.companySize.value.isEmpty
                                 ? null
                                 : controller.companySize.value,

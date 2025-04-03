@@ -6,7 +6,6 @@ import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/
 import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/widget/add_branch.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import 'package:project_bc_tuto/utils/popups/loaders.dart';
-
 import '../../../../common/widgets/sign_upButtons/signUpNavButtons.dart';
 import '../../../../utils/device/device_utility.dart';
 import '../../../../utils/validators/validation.dart';

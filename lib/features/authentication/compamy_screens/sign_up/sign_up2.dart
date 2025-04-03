@@ -15,10 +15,10 @@ import '../../controllers.onboarding/company_signup_controller/company_sign_up_c
 import '../../screens/Sign_up/widgets/step_indicator.dart';
 
 class CompanySignupScreen2 extends StatelessWidget {
-   CompanySignupScreen2({super.key});
+   const CompanySignupScreen2({super.key});
 
 
-  final List<String> industries = [
+  static List<String> industries = [
     "Technology", "Healthcare",
     "Finance", "Education",
     "Retail", "Hospitality",
@@ -45,14 +45,14 @@ class CompanySignupScreen2 extends StatelessWidget {
 
 
 
-   final List<String> opportunityType = [
+   static List<String> opportunityType = [
      'Internship',
      'Job',
      'Hybrid'
    ];
 
 
-   final List<String> opportunityCategory = [
+   static List<String> opportunityCategory = [
      'Full-time',
      'Part-time',
      'Contract',
@@ -131,7 +131,7 @@ class CompanySignupScreen2 extends StatelessWidget {
                     const SizedBox(height: JSizes.spaceBtwInputFields),
 
                     Obx(() => JCustomDropDown(
-                      title: 'Company Size(Employees) :',
+                      title: 'Opportunity offered :',
                       items: opportunityType.isEmpty ? ['Select an option'] : opportunityType,
                       value: controller.opportunityType.value.isEmpty ? null : controller.opportunityType.value,
                       hint: "Select opportunity type",
