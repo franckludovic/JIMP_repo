@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/features/personilization/controllers/user_controller.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/image_strings.dart';
@@ -13,6 +14,7 @@ class JUserProfileTile extends StatelessWidget {
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return ListTile(
       leading: JCircularImage(
         image: JImages.user3,
@@ -21,8 +23,8 @@ class JUserProfileTile extends StatelessWidget {
         padding: 0,
 
       ),
-      title: Text('Metatron', style: Theme.of(context).textTheme.headlineMedium!.apply(color: JColors.white)),
-      subtitle: Text('Metatron@gmail.com', style: Theme.of(context).textTheme.bodyMedium!.apply(color: JColors.white)),
+      title: Text(controller.user?.fullName ?? 'Guest', style: Theme.of(context).textTheme.headlineMedium!.apply(color: JColors.white)),
+      subtitle: Text(controller.user?.email ?? '', style: Theme.of(context).textTheme.bodyMedium!.apply(color: JColors.white)),
       trailing: IconButton(onPressed: onPressed, icon: Icon(Iconsax.edit, color: JColors.white)),
     );
   }
