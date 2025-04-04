@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/Images/Jcircular_image.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
+import 'package:project_bc_tuto/features/personilization/screens/profile/widgets/change_name.dart';
 import 'package:project_bc_tuto/features/personilization/screens/profile/widgets/profile_menu.dart';
 import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
+
+import '../../controllers/user_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
+
     return Scaffold(
       appBar: JAppbar(
         title: Text("Profile"),
@@ -40,8 +47,8 @@ class ProfileScreen extends StatelessWidget {
               const JSectionHeading(title: "Profile information", showActonButton: false),
               const SizedBox(height: JSizes.spaceBtwItems),
 
-              JProfileMenu(title: 'Name', value: 'Elsa Luciens', onPressed: () {},),
-              JProfileMenu(title: 'Username', value: 'Entropy', onPressed: () {},),
+              JProfileMenu(title: 'Name', value: controller.user?.fullName ?? '', onPressed: () => Get.to(() => const ChangeName()),),
+              JProfileMenu(title: 'Username', value: controller.user?.username ?? '', onPressed: () {},),
 
               const SizedBox(height: JSizes.spaceBtwItems),
               const Divider(),
@@ -50,9 +57,9 @@ class ProfileScreen extends StatelessWidget {
               const JSectionHeading(title: "Persomal information", showActonButton: false),
               const SizedBox(height: JSizes.spaceBtwItems),
 
-              JProfileMenu(title: 'User_id', value: '7896545', icon: Iconsax.copy, onPressed: () {},),
-              JProfileMenu(title: 'E-mails', value: 'elsascarlet@gmail.com', onPressed: () {},),
-              JProfileMenu(title: 'Phone number', value: '+237 677 88 99 22', onPressed: () {},),
+              JProfileMenu(title: 'User_id', value: controller.user?.id ?? '', icon: Iconsax.copy, onPressed: () {},),
+              JProfileMenu(title: 'E-mails', value: controller.user?.email ?? '', onPressed: () {},),
+              JProfileMenu(title: 'Phone number', value: controller.user?.phoneNumber ?? '', onPressed: () {},),
               JProfileMenu(title: 'Gender', value: 'Genderless', onPressed: () {},),
               JProfileMenu(title: 'Date of birth', value: '10 *&!#, 1000 ', onPressed: () {},),
 
@@ -61,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
 
               Center(
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () => controller.deleteAccountWarning(),
                     child: const Text("Close Account", style: TextStyle(color: Colors.red, fontSize: 20)),
                 ),
               )
@@ -75,4 +82,5 @@ class ProfileScreen extends StatelessWidget {
   }
 
 }
+
 

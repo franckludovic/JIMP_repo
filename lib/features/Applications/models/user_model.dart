@@ -78,7 +78,6 @@ class UserModel {
   String opportunityType;
   String jobCategory;
 
-
   String userType;
   Timestamp createdAt;
   Timestamp updatedAt;
@@ -122,23 +121,86 @@ class UserModel {
   /// Helper function to format phone number.
   String get formatedPhoneNo => TFormatter.formatPhoneNumber(phoneNumber);
 
-  ///Static function to split fullname and last name.
+  /// Static function to split full name.
   static List<String> nameParts(fullName) => fullName.split(" ");
 
-  ///Static function to generat a username from the full name
+  /// Static function to generate a username from full name.
   static String GenerateUsername(fullName) {
-    List<String> nameParts = fullName.split(" ");
-    String firstName = nameParts[0].toLowerCase();
-    String lastName = nameParts.length > 1 ? nameParts[1].toLowerCase() : "";
-
-    String camelCaseUserName =
-        '$firstName$lastName'; //combine forst and last name
-    String usernameWithPrefix =
-        'JIMP_$camelCaseUserName'; // add the Jimp prefix
-
-    return usernameWithPrefix;
+    List<String> parts = fullName.split(" ");
+    String firstName = parts.isNotEmpty ? parts[0].toLowerCase() : '';
+    String lastName = parts.length > 1 ? parts[1].toLowerCase() : '';
+    return '${firstName + lastName}';
   }
 
+  /// Creates a copy of the current UserModel with the given fields replaced.
+  UserModel copyWith({
+    String? id,
+    String? firstName,
+    String? lastName,
+    String? username,
+    String? email,
+    String? phoneNumber,
+    String? password,
+    String? country,
+    String? region,
+    String? city,
+    String? localAddress,
+    String? educationLevel,
+    String? schoolAttended,
+    String? profilePicture,
+    List<SkillEntry>? skills,
+    String? selfDescription,
+    String? jobTypePreference,
+    List<LanguageEntry>? languages,
+    List<String>? hobbies,
+    String? resume,
+    String? linkedin,
+    String? github,
+    String? portfolio,
+    String? opportunityType,
+    String? jobCategory,
+    String? userType,
+    Timestamp? createdAt,
+    Timestamp? updatedAt,
+  }) {
+    final updatedFirst = firstName ?? this.firstName;
+    final updatedLast = lastName ?? this.lastName;
+    // Regenerate username if either firstName or lastName is updated.
+    final updatedUsername = (firstName != null || lastName != null)
+        ? UserModel.GenerateUsername("$updatedFirst $updatedLast")
+        : this.username;
+
+    return UserModel(
+      id: id ?? this.id,
+      firstName: updatedFirst,
+      lastName: updatedLast,
+      username: username ?? updatedUsername,
+      email: email ?? this.email,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      password: password ?? this.password,
+      country: country ?? this.country,
+      region: region ?? this.region,
+      city: city ?? this.city,
+      localAddress: localAddress ?? this.localAddress,
+      educationLevel: educationLevel ?? this.educationLevel,
+      schoolAttended: schoolAttended ?? this.schoolAttended,
+      profilePicture: profilePicture ?? this.profilePicture,
+      skills: skills ?? this.skills,
+      selfDescription: selfDescription ?? this.selfDescription,
+      jobTypePreference: jobTypePreference ?? this.jobTypePreference,
+      languages: languages ?? this.languages,
+      hobbies: hobbies ?? this.hobbies,
+      resume: resume ?? this.resume,
+      linkedin: linkedin ?? this.linkedin,
+      github: github ?? this.github,
+      portfolio: portfolio ?? this.portfolio,
+      opportunityType: opportunityType ?? this.opportunityType,
+      jobCategory: jobCategory ?? this.jobCategory,
+      userType: userType ?? this.userType,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 
   /// Convert this model to a JSON map for Firebase.
   Map<String, dynamic> toJson() {
@@ -174,7 +236,8 @@ class UserModel {
   }
 
   /// Create a [UserModel] from a Firestore document snapshot.
-  factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
+  factory UserModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     return UserModel(
       id: document.id,
@@ -192,12 +255,14 @@ class UserModel {
       educationLevel: data['EducationLevel'] ?? '',
       schoolAttended: data['SchoolAttended'] ?? '',
       skills: data['Skills'] != null
-          ? List<SkillEntry>.from((data['Skills'] as List).map((x) => SkillEntry.fromJson(x)))
+          ? List<SkillEntry>.from(
+              (data['Skills'] as List).map((x) => SkillEntry.fromJson(x)))
           : [],
       selfDescription: data['SelfDescription'] ?? '',
       jobTypePreference: data['JobTypePreference'] ?? '',
       languages: data['Languages'] != null
-          ? List<LanguageEntry>.from((data['Languages'] as List).map((x) => LanguageEntry.fromJson(x)))
+          ? List<LanguageEntry>.from(
+              (data['Languages'] as List).map((x) => LanguageEntry.fromJson(x)))
           : [],
       hobbies: List<String>.from(data['Hobbies'] ?? []),
       resume: data['Resume'] ?? '',
@@ -214,18 +279,18 @@ class UserModel {
 
   /// Create an empty [UserModel] (for initialization).
   static UserModel empty() => UserModel(
-    id: '',
-    firstName: '',
-    lastName: '',
-    username: '',
-    email: '',
-    phoneNumber: '',
-    password: '',
-    country: '',
-    region: '',
-    city: '',
-    localAddress: '',
-    educationLevel: '',
-    schoolAttended: '',
-  );
+        id: '',
+        firstName: '',
+        lastName: '',
+        username: '',
+        email: '',
+        phoneNumber: '',
+        password: '',
+        country: '',
+        region: '',
+        city: '',
+        localAddress: '',
+        educationLevel: '',
+        schoolAttended: '',
+      );
 }
