@@ -240,7 +240,7 @@ class CompanySignUpReview extends StatelessWidget {
     IconButton(
     icon: const Icon(Iconsax.edit, color: Colors.blue),
     onPressed: editCallback,
-    ),
+          ),
     ],
     ),
     );
@@ -320,7 +320,7 @@ class CompanySignUpReview extends StatelessWidget {
     );
   }
 
-  /// Card for branches.
+
   Widget _buildBranchesCard() {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: JSizes.sm),
@@ -362,11 +362,22 @@ class CompanySignUpReview extends StatelessWidget {
                 },
               );
             }),
+            ElevatedButton.icon(
+              onPressed: () {
+                // Call your controller's addBranch logic
+              },
+              icon: const Icon(Icons.add),
+              label: const Text("Add Branch"),
+              style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12)),
+            )
           ],
+
         ),
       ),
     );
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -380,8 +391,8 @@ class CompanySignUpReview extends StatelessWidget {
                   title: "Review Your Information",
 
                   companyName: controller.logoUrl.text,
-                  companyLogo: JImages.google,
-                  companyProfileImage: "",
+                  companyLogo: controller.logoUrl.text,
+                  companyProfileImage: controller.profileUrl.text,
                 ),
                 SizedBox(height: JSizes.spaceBtwSections * 0.6),
                 Padding(

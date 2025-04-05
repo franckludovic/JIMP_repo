@@ -15,6 +15,8 @@ class CompagnyDetailsHeader extends StatelessWidget {
     required this.companyName,
     required this.companyLogo,
     required this.companyProfileImage, required this.title,
+    this.logourl,
+    this.profileurl,
 
   });
 
@@ -22,6 +24,9 @@ class CompagnyDetailsHeader extends StatelessWidget {
   final String companyLogo;
   final String companyProfileImage;
   final String title;
+  final Image? logourl;
+  final Image? profileurl;
+
 
 
 
@@ -37,7 +42,7 @@ class CompagnyDetailsHeader extends StatelessWidget {
                 color: JColors.grey
               ),
                 width: JDeviceUtils.getScreenWidth(context),
-                child: Image.asset(companyProfileImage)
+                child: Image.network(companyProfileImage)
             ),
 
             Column(
@@ -55,6 +60,7 @@ class CompagnyDetailsHeader extends StatelessWidget {
                       width: 105,
                       height: 105,
                       child: JRoundedImage(
+                        isNetworkImage: true,
                         imageUrl: companyLogo,
                         applyImageRadius: true,
                         fit: BoxFit.contain,

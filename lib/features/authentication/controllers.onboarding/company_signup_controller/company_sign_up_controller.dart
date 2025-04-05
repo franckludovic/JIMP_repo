@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:project_bc_tuto/data/repositories/user/company_repositories.dart';
@@ -5,8 +6,16 @@ import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/helpers/network_manager.dart';
 import 'package:project_bc_tuto/utils/popups/full_screen_loader.dart';
 import 'package:project_bc_tuto/utils/popups/loaders.dart';
-import '../../../../data/repositories/authentication/authentication_repositories.dart';
-import '../../../Applications/models/company_model.dart';
+import 'package:project_bc_tuto/data/repositories/authentication/authentication_repositories.dart';
+import 'package:project_bc_tuto/features/Applications/models/company_model.dart';
+
+
+// MOD: Import image picker and Cloudinary service package
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
+
+import '../../../../services/cloudinary.dart';
 import '../../screens/Sign_up/verify_email.dart';
 
 class CompanySignupController extends GetxController {
@@ -54,23 +63,58 @@ class CompanySignupController extends GetxController {
   final hrPhone = TextEditingController();
 
   bool validateStep1() => formKeyStep1.currentState!.validate();
-
   bool validateStep2() => formKeyStep2.currentState!.validate();
-
   bool validateStep3() => formKeyStep3.currentState!.validate();
-
   bool validateStep4() => formKeyStep4.currentState!.validate();
+
+  // MOD: Instance of ImagePicker and CloudinaryService
+  final ImagePicker _picker = ImagePicker();
+  final CloudinaryService _cloudinaryService = CloudinaryService();
+
+  // MOD: Method to pick and upload a logo image.
+  Future<void> pickLogoImage() async {
+    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+      String? url = await _cloudinaryService.uploadImage(imageFile);
+      if (url != null) {
+        logoUrl.text = url;
+        update(); // Trigger UI update if needed.
+      }
+    }
+  }
+
+  //new thing added
+  void updateBranch(int index, CompanyBranch newBranch) {
+    if (index >= 0 && index < branches.length) {
+      branches[index] = newBranch;
+      update(); // GetX update notification
+    }
+  }
+
+  // MOD: Method to pick and upload a profile image.
+  Future<void> pickProfileImage() async {
+    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+      String? url = await _cloudinaryService.uploadImage(imageFile);
+      if (url != null) {
+        profileUrl.text = url;
+        update(); // Trigger UI update if needed.
+      }
+    }
+  }
 
   Future<void> signupFinal() async {
     try {
       TFullScreenLoader.openLoadingDialog('We are processing your information...', JImages.docerAnimation);
 
       final isConnected = await NetworkManager.instance.isConnected();
-
       if (!isConnected) {
         TFullScreenLoader.stopLoading();
         return;
       }
+
 
       // if (!validateStep4()) {
       //   TFullScreenLoader.stopLoading();
@@ -80,19 +124,14 @@ class CompanySignupController extends GetxController {
       if (!privacyPolicy.value) {
         TLoaders.warningSnackBar(
           title: 'Accept Privacy Policy',
-          message:
-              'To create an account, you must accept the Privacy Policy & Terms of Use',
+          message: 'To create an account, you must accept the Privacy Policy & Terms of Use',
         );
         TFullScreenLoader.stopLoading();
         return;
       }
 
       final userCredential = await AuthenticationRepository.instance
-          .registerWithEmailAndPassword(
-              officialEmail.text.trim(),
-          password.text.trim()
-      );
-
+          .registerWithEmailAndPassword(officialEmail.text.trim(), password.text.trim());
 
       final headquartersAddress = CompanyAddress(
         street: localAddress.text.trim(),
@@ -106,13 +145,11 @@ class CompanySignupController extends GetxController {
         id: userCredential.user!.uid,
         companyName: companyName.text.trim(),
         size: companySize.value.trim(),
-        // value from dropdown
         headquarters: headquartersAddress,
         industry: industry.value.trim(),
         registrationNumber: registrationNumber.text.trim(),
         businessLicenseUrl: businessLicense.text.trim(),
-        password: password.text.trim(),
-        // Handle security separately
+        password: password.text.trim(), // Note: Consider secure password handling.
         opportunityTypes: {opportunityType.value.trim()},
         opportunityCategory: opportunityCategory.value.trim(),
         hrContact: HRContact(
@@ -129,8 +166,8 @@ class CompanySignupController extends GetxController {
         verificationStatus: VerificationStatus.pending,
         website: website.text.trim(),
         linkedinProfile: linkedinProfile.text.trim(),
-        logoUrl: logoUrl.text.trim(),
-        profileUrl: profileUrl.text.trim(),
+        logoUrl: logoUrl.text.trim(),      // Image URL from Cloudinary
+        profileUrl: profileUrl.text.trim(),  // Image URL from Cloudinary
         mlMatchScore: 0.0,
         aiRelevanceScore: 0.0,
         totalListings: 0,
@@ -144,8 +181,7 @@ class CompanySignupController extends GetxController {
       TFullScreenLoader.stopLoading();
       TLoaders.successSnackBar(
         title: 'Congratulations',
-        message:
-            'Your company account has been created! Verify your email to continue.',
+        message: 'Your company account has been created! Verify your email to continue.',
       );
 
       Get.to(() => VerifyEmailScreen(email: officialEmail.text.trim()));

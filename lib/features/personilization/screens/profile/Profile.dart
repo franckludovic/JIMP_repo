@@ -34,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
                 width: double.infinity,
                 child: Column(
                   children: [
-                    JCircularImage(image: JImages.user2, width: 100, height: 100),
+                    CircleAvatar( backgroundImage:AssetImage(JImages.user2) , radius: 70, ),
                     TextButton(onPressed: () {}, child: const Text("Change profile picture")),
                   ],
                 ),
