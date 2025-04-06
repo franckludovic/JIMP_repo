@@ -83,6 +83,13 @@ class JImages {
   static String uploadingCompletedAnimation = "assets/images/animations/uploading-done.json";
   static String tickCongratulationsConfettiAnimation = "assets/images/animations/tick-confetti.json";
 
+  //new animations
+  static String  candidateSearch = "assets/images/animations/17210af1-88da-43d0-b09b-bc923f1a5c39_candidateSearch.json";
+  static String  testLottie1 = "assets/images/animations/d149a2d3-dfe1-4a88-b8ba-24cb4160e392.json";
+  static String  testLottie2 = "assets/images/animations/024bf0ad-391a-41b3-9315-f0f02f8d744e.json";
+
+
+
   // -- Category Icons
   static const String sportIcon = "assets/icons/categories/icons8-bowling-64.png";
   static const String clothIcon = "assets/icons/categories/icons8-tailors-dummy-64.png";

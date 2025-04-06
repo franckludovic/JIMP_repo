@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -8,6 +7,7 @@ import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import '../../../../common/widgets/custom_wigets/jcustom_dropdown.dart';
 import '../../../../utils/constants/image_strings.dart';
+import '../../../Applications/models/company_model.dart';
 import '../../controllers.onboarding/company_signup_controller/company_sign_up_controller.dart';
 import '../../../Applications/company_creens/company_details/widgets/company_detail_header.dart';
 import '../../screens/Sign_up/widgets/term_and_conditions.dart';
@@ -18,8 +18,10 @@ class CompanySignUpReview extends StatelessWidget {
   final CompanySignupController controller = Get.put(CompanySignupController());
 
   /// Opens a dialog to edit an RxString field.
-  void _showEditDialog(BuildContext context, String fieldLabel, RxString rxValue) {
-    final TextEditingController dialogController = TextEditingController(text: rxValue.value);
+  void _showEditDialog(
+      BuildContext context, String fieldLabel, RxString rxValue) {
+    final TextEditingController dialogController =
+        TextEditingController(text: rxValue.value);
     showDialog(
       context: context,
       builder: (context) {
@@ -49,8 +51,10 @@ class CompanySignUpReview extends StatelessWidget {
   }
 
   /// Opens a dialog to edit a plain string field using its TextEditingController.
-  void _showEditDialogString(BuildContext context, String fieldLabel, TextEditingController textController) {
-    final TextEditingController dialogController = TextEditingController(text: textController.text);
+  void _showEditDialogString(BuildContext context, String fieldLabel,
+      TextEditingController textController) {
+    final TextEditingController dialogController =
+        TextEditingController(text: textController.text);
     showDialog(
       context: context,
       builder: (context) {
@@ -80,7 +84,8 @@ class CompanySignUpReview extends StatelessWidget {
   }
 
   /// Dropdown dialog for Opportunity Type.
-  void _showDropDownDialogOT(BuildContext context, String fieldLabel, RxString rxValue) {
+  void _showDropDownDialogOT(
+      BuildContext context, String fieldLabel, RxString rxValue) {
     controller.opportunityType.value = rxValue.value;
     showDialog(
       context: context,
@@ -88,18 +93,18 @@ class CompanySignUpReview extends StatelessWidget {
         return AlertDialog(
           title: Text("Edit $fieldLabel"),
           content: Obx(() => JCustomDropDown(
-            title: 'Opportunity Type:',
-            items: CompanySignupScreen2.opportunityType.isEmpty
-                ? ['Select an option']
-                : CompanySignupScreen2.opportunityType,
-            value: controller.opportunityType.value.isEmpty
-                ? null
-                : controller.opportunityType.value,
-            hint: "Select Category",
-            onChanged: (val) {
-              if (val != null) controller.opportunityType.value = val;
-            },
-          )),
+                title: 'Opportunity Type:',
+                items: CompanySignupScreen2.opportunityType.isEmpty
+                    ? ['Select an option']
+                    : CompanySignupScreen2.opportunityType,
+                value: controller.opportunityType.value.isEmpty
+                    ? null
+                    : controller.opportunityType.value,
+                hint: "Select Category",
+                onChanged: (val) {
+                  if (val != null) controller.opportunityType.value = val;
+                },
+              )),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -119,8 +124,8 @@ class CompanySignUpReview extends StatelessWidget {
     );
   }
 
-
-  void _showDropDownDialogCS(BuildContext context, String fieldLabel, RxString rxValue) {
+  void _showDropDownDialogCS(
+      BuildContext context, String fieldLabel, RxString rxValue) {
     controller.companySize.value = rxValue.value;
     showDialog(
       context: context,
@@ -128,18 +133,18 @@ class CompanySignUpReview extends StatelessWidget {
         return AlertDialog(
           title: Text("Edit $fieldLabel"),
           content: Obx(() => JCustomDropDown(
-            title: 'Company Size:',
-            items: CompanySignUpScreen1.companySize.isEmpty
-                ? ['Select an option']
-                : CompanySignUpScreen1.companySize,
-            value: controller.companySize.value.isEmpty
-                ? null
-                : controller.companySize.value,
-            hint: "Select Company Size",
-            onChanged: (val) {
-              if (val != null) controller.companySize.value = val;
-            },
-          )),
+                title: 'Company Size:',
+                items: CompanySignUpScreen1.companySize.isEmpty
+                    ? ['Select an option']
+                    : CompanySignUpScreen1.companySize,
+                value: controller.companySize.value.isEmpty
+                    ? null
+                    : controller.companySize.value,
+                hint: "Select Company Size",
+                onChanged: (val) {
+                  if (val != null) controller.companySize.value = val;
+                },
+              )),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -160,7 +165,8 @@ class CompanySignUpReview extends StatelessWidget {
   }
 
   /// Dropdown dialog for Opportunity Category.
-  void _showDropDownDialogOC(BuildContext context, String fieldLabel, RxString rxValue) {
+  void _showDropDownDialogOC(
+      BuildContext context, String fieldLabel, RxString rxValue) {
     controller.opportunityCategory.value = rxValue.value;
     showDialog(
       context: context,
@@ -168,18 +174,18 @@ class CompanySignUpReview extends StatelessWidget {
         return AlertDialog(
           title: Text("Edit $fieldLabel"),
           content: Obx(() => JCustomDropDown(
-            title: 'Category offered:',
-            items: CompanySignupScreen2.opportunityCategory.isEmpty
-                ? ['Select an option']
-                : CompanySignupScreen2.opportunityCategory,
-            value: controller.opportunityCategory.value.isEmpty
-                ? null
-                : controller.opportunityCategory.value,
-            hint: "Select Category",
-            onChanged: (val) {
-              if (val != null) controller.opportunityCategory.value = val;
-            },
-          )),
+                title: 'Category offered:',
+                items: CompanySignupScreen2.opportunityCategory.isEmpty
+                    ? ['Select an option']
+                    : CompanySignupScreen2.opportunityCategory,
+                value: controller.opportunityCategory.value.isEmpty
+                    ? null
+                    : controller.opportunityCategory.value,
+                hint: "Select Category",
+                onChanged: (val) {
+                  if (val != null) controller.opportunityCategory.value = val;
+                },
+              )),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -201,48 +207,52 @@ class CompanySignUpReview extends StatelessWidget {
 
   /// Builds a review row that displays "Field Label: Value" with an edit icon.
   /// For RxString fields, pass the RxString; for plain string fields, pass the string value and the controller.
-  Widget _buildReviewRow(String fieldLabel, dynamic value, {TextEditingController? controllerForString}) {
+  Widget _buildReviewRow(String fieldLabel, dynamic value,
+      {TextEditingController? controllerForString}) {
     final String displayValue;
     final VoidCallback editCallback;
 
     if (value is RxString && fieldLabel == "Opportunity Type") {
       displayValue = value.value;
-      editCallback = () => _showDropDownDialogOT(Get.context!, fieldLabel, value);
-
+      editCallback =
+          () => _showDropDownDialogOT(Get.context!, fieldLabel, value);
     } else if (value is RxString && fieldLabel == "Opportunity Category") {
-    displayValue = value.value;
-    editCallback = () => _showDropDownDialogOC(Get.context!, fieldLabel, value);
+      displayValue = value.value;
+      editCallback =
+          () => _showDropDownDialogOC(Get.context!, fieldLabel, value);
     } else if (value is RxString && fieldLabel == "Company Size") {
-    displayValue = value.value;
-    editCallback = () => _showDropDownDialogCS(Get.context!, fieldLabel, value);
+      displayValue = value.value;
+      editCallback =
+          () => _showDropDownDialogCS(Get.context!, fieldLabel, value);
     } else if (value is RxString) {
-    displayValue = value.value;
-    editCallback = () => _showEditDialog(Get.context!, fieldLabel, value);
+      displayValue = value.value;
+      editCallback = () => _showEditDialog(Get.context!, fieldLabel, value);
     } else if (value is String && controllerForString != null) {
-    displayValue = value;
-    editCallback = () => _showEditDialogString(Get.context!, fieldLabel, controllerForString);
+      displayValue = value;
+      editCallback = () =>
+          _showEditDialogString(Get.context!, fieldLabel, controllerForString);
     } else {
-    displayValue = value?.toString() ?? '';
-    editCallback = () {};
+      displayValue = value?.toString() ?? '';
+      editCallback = () {};
     }
 
     return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Row(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-    Expanded(
-    child: Text(
-    "$fieldLabel: $displayValue",
-    style: const TextStyle(fontSize: 15),
-    ),
-    ),
-    IconButton(
-    icon: const Icon(Iconsax.edit, color: Colors.blue),
-    onPressed: editCallback,
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Text(
+              "$fieldLabel: $displayValue",
+              style: const TextStyle(fontSize: 15),
+            ),
           ),
-    ],
-    ),
+          IconButton(
+            icon: const Icon(Iconsax.edit, color: Colors.blue),
+            onPressed: editCallback,
+          ),
+        ],
+      ),
     );
   }
 
@@ -256,19 +266,29 @@ class CompanySignUpReview extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Company Information", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const Text("Company Information",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: JSizes.sm),
-            _buildReviewRow("Company Name", controller.companyName.text, controllerForString: controller.companyName),
+            _buildReviewRow("Company Name", controller.companyName.text,
+                controllerForString: controller.companyName),
             // Assuming DescriptionEditor is a widget that edits description and updates controller.description.
             DescriptionEditor(descriptionController: controller.description),
-            _buildReviewRow("Official Email", controller.officialEmail.text, controllerForString: controller.officialEmail),
-            _buildReviewRow("Phone Number1", controller.phoneNumber1.text, controllerForString: controller.phoneNumber1),
-            _buildReviewRow("Phone Number2", controller.phoneNumber2.text, controllerForString: controller.phoneNumber2),
-            _buildReviewRow("Country", controller.country.text, controllerForString: controller.country),
-            _buildReviewRow("Region", controller.region.text, controllerForString: controller.region),
-            _buildReviewRow("City", controller.city.text, controllerForString: controller.city),
-            _buildReviewRow("Postal Code", controller.postalCode.text, controllerForString: controller.postalCode),
-            _buildReviewRow("Local Address", controller.localAddress.text, controllerForString: controller.localAddress),
+            _buildReviewRow("Official Email", controller.officialEmail.text,
+                controllerForString: controller.officialEmail),
+            _buildReviewRow("Phone Number1", controller.phoneNumber1.text,
+                controllerForString: controller.phoneNumber1),
+            _buildReviewRow("Phone Number2", controller.phoneNumber2.text,
+                controllerForString: controller.phoneNumber2),
+            _buildReviewRow("Country", controller.country.text,
+                controllerForString: controller.country),
+            _buildReviewRow("Region", controller.region.text,
+                controllerForString: controller.region),
+            _buildReviewRow("City", controller.city.text,
+                controllerForString: controller.city),
+            _buildReviewRow("Postal Code", controller.postalCode.text,
+                controllerForString: controller.postalCode),
+            _buildReviewRow("Local Address", controller.localAddress.text,
+                controllerForString: controller.localAddress),
           ],
         ),
       ),
@@ -285,13 +305,17 @@ class CompanySignUpReview extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Additional Information", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const Text("Additional Information",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: JSizes.sm),
             _buildReviewRow("Company Size", controller.companySize),
             _buildReviewRow("Opportunity Type", controller.opportunityType),
-            _buildReviewRow("Opportunity Category", controller.opportunityCategory),
+            _buildReviewRow(
+                "Opportunity Category", controller.opportunityCategory),
             _buildReviewRow("Industry", controller.industry),
-            _buildReviewRow("Registration Number", controller.registrationNumber.text, controllerForString: controller.registrationNumber),
+            _buildReviewRow(
+                "Registration Number", controller.registrationNumber.text,
+                controllerForString: controller.registrationNumber),
           ],
         ),
       ),
@@ -308,17 +332,23 @@ class CompanySignUpReview extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("HR Contact Information", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const Text("HR Contact Information",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: JSizes.sm),
-            _buildReviewRow("HR Name", controller.hrName.text, controllerForString: controller.hrName),
-            _buildReviewRow("HR Title", controller.hrTitle.text, controllerForString: controller.hrTitle),
-            _buildReviewRow("HR Email", controller.hrEmail.text, controllerForString: controller.hrEmail),
-            _buildReviewRow("HR Phone", controller.hrPhone.text, controllerForString: controller.hrPhone),
+            _buildReviewRow("HR Name", controller.hrName.text,
+                controllerForString: controller.hrName),
+            _buildReviewRow("HR Title", controller.hrTitle.text,
+                controllerForString: controller.hrTitle),
+            _buildReviewRow("HR Email", controller.hrEmail.text,
+                controllerForString: controller.hrEmail),
+            _buildReviewRow("HR Phone", controller.hrPhone.text,
+                controllerForString: controller.hrPhone),
           ],
         ),
       ),
     );
   }
+
 
 
   Widget _buildBranchesCard() {
@@ -330,7 +360,8 @@ class CompanySignUpReview extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Branches", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const Text("Branches",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: JSizes.sm),
             Obx(() {
               if (controller.branches.isEmpty) {
@@ -342,42 +373,179 @@ class CompanySignUpReview extends StatelessWidget {
                 itemCount: controller.branches.length,
                 itemBuilder: (context, index) {
                   final branch = controller.branches[index];
-                  final branchInfo =
-                      "${branch.address.city}, ${branch.address.street}\nEmail: ${branch.contactEmail}\nPhone: ${branch.phoneNumber}";
                   return Card(
                     margin: const EdgeInsets.symmetric(vertical: JSizes.sm),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
                     child: ListTile(
-                      title: Text("Branch ${index + 1}", style: const TextStyle(fontWeight: FontWeight.bold)),
-                      subtitle: Text(branchInfo),
+                      title: Text("Branch ${index + 1}",
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                      subtitle: Text(
+                          "${branch.address.city}, ${branch.address.street}\n"
+                              "${branch.contactEmail}\n"
+                              "Phone: ${branch.phoneNumber}"),
                       trailing: IconButton(
                         icon: const Icon(Iconsax.edit, color: Colors.blue),
-                        onPressed: () {
-                          // Navigate to branch detail page for editing
-                          // Example: Get.to(() => BranchDetailPage(branchIndex: index));
-                        },
+                        onPressed: () => _showEditDialogBox(context, index, branch),
                       ),
                     ),
                   );
                 },
               );
             }),
-            ElevatedButton.icon(
-              onPressed: () {
-                // Call your controller's addBranch logic
-              },
-              icon: const Icon(Icons.add),
-              label: const Text("Add Branch"),
-              style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12)),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: JSizes.md, vertical: JSizes.md * 0.6),
+                ),
+                onPressed: () => controller.addNewBranch(),
+                icon: const Icon(Icons.add),
+                label: const Text("Add Branch"),
+              ),
             )
           ],
-
         ),
       ),
     );
   }
 
+  void _showEditDialogBox(BuildContext context, int index, CompanyBranch branch) {
+    final controller = Get.find<CompanySignupController>();
 
+    // Create controllers with current values
+    final countryController = TextEditingController(text: branch.address.country);
+    final regionController = TextEditingController(text: branch.address.region);
+    final cityController = TextEditingController(text: branch.address.city);
+    final streetController = TextEditingController(text: branch.address.street);
+    final postalController = TextEditingController(text: branch.address.postalCode);
+    final emailController = TextEditingController(text: branch.contactEmail);
+    final phoneController = TextEditingController(text: branch.phoneNumber);
+    final nameController = TextEditingController(text: branch.contactName);
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text("Edit Branch"),
+            IconButton(
+              onPressed: () {
+                controller.removeBranch(index);
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.delete, color: Colors.red),
+            )
+          ],
+        ),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: nameController,
+                decoration: const InputDecoration(labelText: "Contact Name"),
+              ),
+              const SizedBox(height: JSizes.spaceBtwInputFields),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: countryController,
+                      decoration: const InputDecoration(labelText: "Country"),
+                    ),
+                  ),
+                  const SizedBox(width: JSizes.md),
+                  Expanded(
+                    child: TextFormField(
+                      controller: regionController,
+                      decoration: const InputDecoration(labelText: "Region"),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: JSizes.spaceBtwInputFields),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: cityController,
+                      decoration: const InputDecoration(labelText: "City"),
+                    ),
+                  ),
+                  const SizedBox(width: JSizes.md),
+                  Expanded(
+                    child: TextFormField(
+                      controller: streetController,
+                      decoration: const InputDecoration(labelText: "Street"),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: JSizes.spaceBtwInputFields),
+              TextFormField(
+                controller: postalController,
+                decoration: const InputDecoration(labelText: "Postal Code"),
+              ),
+              const SizedBox(height: JSizes.spaceBtwInputFields),
+              TextFormField(
+                controller: emailController,
+                decoration: const InputDecoration(labelText: "Contact Email"),
+              ),
+              const SizedBox(height: JSizes.spaceBtwInputFields),
+              TextFormField(
+                controller: phoneController,
+                decoration: const InputDecoration(labelText: "Phone Number"),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("Cancel"),
+              ),
+
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: JSizes.md, vertical: JSizes.md * 0.6),
+                ),
+                onPressed: () {
+                  final updatedBranch = CompanyBranch(
+                    address: CompanyAddress(
+                      country: countryController.text,
+                      region: regionController.text,
+                      city: cityController.text,
+                      street: streetController.text,
+                      postalCode: postalController.text,
+                    ),
+                    contactEmail: emailController.text,
+                    phoneNumber: phoneController.text,
+                    contactName: nameController.text,
+                  );
+                  controller.updateBranch(index, updatedBranch);
+                  Navigator.pop(context);
+                },
+                child: const Text("Save Changes"),
+              ),
+            ],
+          ),
+          // TextButton(
+          //   onPressed: () {
+          //     controller.removeBranch(index);
+          //     Navigator.pop(context);
+          //   },
+          //   child: const Text("Delete", style: TextStyle(color: Colors.red)),
+          // ),
+
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -389,7 +557,6 @@ class CompanySignUpReview extends StatelessWidget {
               children: [
                 CompagnyDetailsHeader(
                   title: "Review Your Information",
-
                   companyName: controller.logoUrl.text,
                   companyLogo: controller.logoUrl.text,
                   companyProfileImage: controller.profileUrl.text,
@@ -407,7 +574,8 @@ class CompanySignUpReview extends StatelessWidget {
                       TermandConditions(),
                       const SizedBox(height: JSizes.spaceBtwSections),
                       Container(
-                        margin: const EdgeInsets.symmetric(horizontal: JSizes.sm),
+                        margin:
+                            const EdgeInsets.symmetric(horizontal: JSizes.sm),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(

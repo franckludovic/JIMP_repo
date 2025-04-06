@@ -84,13 +84,39 @@ class CompanySignupController extends GetxController {
     }
   }
 
-  //new thing added
   void updateBranch(int index, CompanyBranch newBranch) {
     if (index >= 0 && index < branches.length) {
       branches[index] = newBranch;
-      update(); // GetX update notification
+      update();
     }
   }
+
+  void removeBranch(int index) {
+    if (index >= 0 && index < branches.length) {
+      branches.removeAt(index);
+      update();
+    }
+  }
+
+  void addNewBranch() {
+    branches.add(
+        CompanyBranch(
+          address: CompanyAddress(
+            street: '',
+            city: '',
+            region: '',
+            country: '',
+            postalCode: '',
+          ),
+          contactName: '',
+          contactEmail: '',
+          phoneNumber: '',
+        )
+    );
+  }
+
+
+
 
   // MOD: Method to pick and upload a profile image.
   Future<void> pickProfileImage() async {

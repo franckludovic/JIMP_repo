@@ -1,18 +1,16 @@
+
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
+
 import '../../../../../utils/validators/validation.dart';
 import '../../../../Applications/models/company_model.dart';
-
 
 class BranchCardWidget extends StatefulWidget {
   final int index;
   final CompanyBranch branch;
   final ValueChanged<CompanyBranch> onChanged;
   final VoidCallback onRemove;
-  final bool isEditable;
-  final bool isInDialog;
-  final VoidCallback? onSave;
 
   const BranchCardWidget({
     super.key,
@@ -20,9 +18,6 @@ class BranchCardWidget extends StatefulWidget {
     required this.branch,
     required this.onChanged,
     required this.onRemove,
-    this.isEditable = false,
-    this.isInDialog = false,
-    this.onSave,
   });
 
   @override
@@ -30,60 +25,55 @@ class BranchCardWidget extends StatefulWidget {
 }
 
 class _BranchCardWidgetState extends State<BranchCardWidget> {
-  late TextEditingController _countryController;
-  late TextEditingController _regionController;
-  late TextEditingController _cityController;
-  late TextEditingController _streetController;
-  late TextEditingController _postalCodeController;
-  late TextEditingController _contactEmailController;
-  late TextEditingController _phoneController;
-  late TextEditingController _contactNameController;
+  late TextEditingController countryController;
+  late TextEditingController regionController;
+  late TextEditingController cityController;
+  late TextEditingController localAddressController;
+  late TextEditingController postalCodeController;
+  late TextEditingController contactEmailController;
+  late TextEditingController phoneNumberController;
+  late TextEditingController contactNameController;
 
   @override
   void initState() {
     super.initState();
-    _initializeControllers();
+    countryController = TextEditingController(text: widget.branch.address.country);
+    regionController = TextEditingController(text: widget.branch.address.region);
+    cityController = TextEditingController(text: widget.branch.address.city);
+    localAddressController = TextEditingController(text: widget.branch.address.street);
+    postalCodeController = TextEditingController(text: widget.branch.address.postalCode);
+    contactEmailController = TextEditingController(text: widget.branch.contactEmail);
+    phoneNumberController = TextEditingController(text: widget.branch.phoneNumber);
+    contactNameController = TextEditingController(text: widget.branch.contactName);
   }
 
-  void _initializeControllers() {
-    _countryController = TextEditingController(text: widget.branch.address.country);
-    _regionController = TextEditingController(text: widget.branch.address.region);
-    _cityController = TextEditingController(text: widget.branch.address.city);
-    _streetController = TextEditingController(text: widget.branch.address.street);
-    _postalCodeController = TextEditingController(text: widget.branch.address.postalCode);
-    _contactEmailController = TextEditingController(text: widget.branch.contactEmail);
-    _phoneController = TextEditingController(text: widget.branch.phoneNumber);
-    _contactNameController = TextEditingController(text: widget.branch.contactName);
-  }
-
-  void _saveChanges() {
-    final updatedBranch = CompanyBranch(
-      address: CompanyAddress(
-        street: _streetController.text.trim(),
-        city: _cityController.text.trim(),
-        region: _regionController.text.trim(),
-        country: _countryController.text.trim(),
-        postalCode: _postalCodeController.text.trim(),
-      ),
-      contactEmail: _contactEmailController.text.trim(),
-      phoneNumber: _phoneController.text.trim(),
-      contactName: _contactNameController.text.trim(),
+  void _updateBranch() {
+    final updatedAddress = CompanyAddress(
+      street: localAddressController.text.trim(),
+      city: cityController.text.trim(),
+      country: countryController.text.trim(),
+      region: regionController.text.trim(),
+      postalCode: postalCodeController.text.trim(),
     );
-
+    final updatedBranch = CompanyBranch(
+      address: updatedAddress,
+      contactEmail: contactEmailController.text.trim(),
+      phoneNumber: phoneNumberController.text.trim(),
+      contactName: contactNameController.text.trim(),
+    );
     widget.onChanged(updatedBranch);
-    widget.onSave?.call();
   }
 
   @override
   void dispose() {
-    _countryController.dispose();
-    _regionController.dispose();
-    _cityController.dispose();
-    _streetController.dispose();
-    _postalCodeController.dispose();
-    _contactEmailController.dispose();
-    _phoneController.dispose();
-    _contactNameController.dispose();
+    countryController.dispose();
+    regionController.dispose();
+    cityController.dispose();
+    localAddressController.dispose();
+    postalCodeController.dispose();
+    contactEmailController.dispose();
+    contactNameController.dispose();
+    phoneNumberController.dispose();
     super.dispose();
   }
 
@@ -96,149 +86,84 @@ class _BranchCardWidgetState extends State<BranchCardWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header Section
-            _buildHeader(),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Branch ${widget.index + 1}", style: Theme.of(context).textTheme.headlineMedium),
+                IconButton(
+                  onPressed: widget.onRemove,
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                )
+              ],
+            ),
             const SizedBox(height: JSizes.spaceBtwItems),
+            TextFormField(
+              controller: contactNameController,
+              decoration: const InputDecoration(labelText: "Contact Name", prefixIcon: Icon(Iconsax.user)),
+              validator: (value) => TValidator.validateEmptyText('Contact Name', value),
+            ),
 
-            // Input Fields
-            _buildContactNameField(),
             const SizedBox(height: JSizes.spaceBtwInputFields),
-            _buildLocationFields(),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: countryController,
+                    decoration: const InputDecoration(labelText: "Country"),
+                    onChanged: (_) => _updateBranch(),
+                  ),
+                ),
+                const SizedBox(width: JSizes.md),
+                Expanded(
+                  child: TextFormField(
+                    controller: regionController,
+                    decoration: const InputDecoration(labelText: "Region/State"),
+                    onChanged: (_) => _updateBranch(),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: JSizes.spaceBtwInputFields),
-            _buildAddressFields(),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: cityController,
+                    decoration: const InputDecoration(labelText: "City"),
+                    onChanged: (_) => _updateBranch(),
+                  ),
+                ),
+                const SizedBox(width: JSizes.md),
+                Expanded(
+                  child: TextFormField(
+                    controller: localAddressController,
+                    decoration: const InputDecoration(labelText: "Local Address"),
+                    onChanged: (_) => _updateBranch(),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: JSizes.spaceBtwInputFields),
-            _buildPostalCodeField(),
+            TextFormField(
+              controller: postalCodeController,
+              decoration: const InputDecoration(labelText: "Postal Code"),
+              onChanged: (_) => _updateBranch(),
+            ),
             const SizedBox(height: JSizes.spaceBtwInputFields),
-            _buildContactInfoFields(),
-
-            // Action Buttons
-            if (widget.isEditable) _buildActionButtons(),
+            TextFormField(
+              controller: contactEmailController,
+              decoration: const InputDecoration(labelText: "Contact Email"),
+              onChanged: (_) => _updateBranch(),
+            ),
+            const SizedBox(height: JSizes.spaceBtwInputFields),
+            TextFormField(
+              controller: phoneNumberController,
+              decoration: const InputDecoration(labelText: "Contact Phone"),
+              onChanged: (_) => _updateBranch(),
+            ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text("Branch ${widget.index + 1}", style: Theme.of(context).textTheme.headlineMedium),
-        if (!widget.isInDialog && widget.isEditable)
-          IconButton(
-            icon: const Icon(Icons.delete, color: Colors.red),
-            onPressed: widget.onRemove,
-          ),
-      ],
-    );
-  }
-
-  Widget _buildContactNameField() {
-    return TextFormField(
-      controller: _contactNameController,
-      decoration: const InputDecoration(
-        labelText: "Contact Name",
-        prefixIcon: Icon(Iconsax.user),
-      ),
-      enabled: widget.isEditable,
-      validator: (value) => TValidator.validateEmptyText('Contact Name', value),
-    );
-  }
-
-  Widget _buildLocationFields() {
-    return Row(
-      children: [
-        Expanded(
-          child: TextFormField(
-            controller: _countryController,
-            decoration: const InputDecoration(labelText: "Country"),
-            enabled: widget.isEditable,
-          ),
-        ),
-        const SizedBox(width: JSizes.md),
-        Expanded(
-          child: TextFormField(
-            controller: _regionController,
-            decoration: const InputDecoration(labelText: "Region/State"),
-            enabled: widget.isEditable,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAddressFields() {
-    return Row(
-      children: [
-        Expanded(
-          child: TextFormField(
-            controller: _cityController,
-            decoration: const InputDecoration(labelText: "City"),
-            enabled: widget.isEditable,
-          ),
-        ),
-        const SizedBox(width: JSizes.md),
-        Expanded(
-          child: TextFormField(
-            controller: _streetController,
-            decoration: const InputDecoration(labelText: "Street Address"),
-            enabled: widget.isEditable,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildPostalCodeField() {
-    return TextFormField(
-      controller: _postalCodeController,
-      decoration: const InputDecoration(labelText: "Postal Code"),
-      enabled: widget.isEditable,
-    );
-  }
-
-  Widget _buildContactInfoFields() {
-    return Column(
-      children: [
-        TextFormField(
-          controller: _contactEmailController,
-          decoration: const InputDecoration(labelText: "Contact Email"),
-          enabled: widget.isEditable,
-        ),
-        const SizedBox(height: JSizes.spaceBtwInputFields),
-        TextFormField(
-          controller: _phoneController,
-          decoration: const InputDecoration(labelText: "Contact Phone"),
-          enabled: widget.isEditable,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildActionButtons() {
-    return Padding(
-      padding: const EdgeInsets.only(top: JSizes.spaceBtwItems),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          if (widget.isInDialog)
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text("Cancel"),
-            ),
-          const SizedBox(width: JSizes.md),
-          ElevatedButton(
-            onPressed: () {
-              if (widget.isInDialog) {
-                _saveChanges();
-                Navigator.of(context).pop();
-              } else {
-                _saveChanges();
-              }
-            },
-            child: Text(widget.isInDialog ? "Save Changes" : "Save"),
-          ),
-        ],
       ),
     );
   }

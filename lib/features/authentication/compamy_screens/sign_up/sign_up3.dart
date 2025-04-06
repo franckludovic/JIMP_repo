@@ -124,7 +124,7 @@ class CompanySignUpScreen3 extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           SignUpNavigationButtons(onPressed: () {
-            if (controller.validateStep2()) {
+            if (controller.validateStep3()) {
               // Proceed to next screen.
               Get.to(() => CompanySignUpReview());
             } else {
