@@ -7,6 +7,7 @@ class MatrixGrid extends StatelessWidget {
   final int crossCount;
   final double crossSpacing;
   final double mainSpacing;
+  final bool isScrollable;
 
 
   const MatrixGrid({
@@ -16,6 +17,8 @@ class MatrixGrid extends StatelessWidget {
     this.crossCount =2,
     this.crossSpacing = 0.8,
     this.mainSpacing = 0.8,
+    this.isScrollable = false,
+
 
   });
 
@@ -26,7 +29,7 @@ class MatrixGrid extends StatelessWidget {
 
     return GridView.count(
 
-      physics: const NeverScrollableScrollPhysics(),
+      physics: isScrollable ?  NeverScrollableScrollPhysics() :  AlwaysScrollableScrollPhysics(),
 
 
       shrinkWrap: true,

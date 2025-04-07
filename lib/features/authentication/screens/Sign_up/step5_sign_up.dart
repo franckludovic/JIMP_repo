@@ -33,6 +33,86 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
   int currentStep = 4;
   final SignupController controller = Get.find<SignupController>();
 
+  Future<List<LanguageEntry>?> showLanguageDialog(BuildContext context, List<LanguageEntry> currentLanguages) async {
+    final TextEditingController languageController = TextEditingController();
+    int selectedProficiency = 1;
+
+    return await showDialog<List<LanguageEntry>>(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) => AlertDialog(
+            title: const Text('Add Language'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: languageController,
+                  decoration: const InputDecoration(
+                    labelText: 'Enter a Language',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text('Proficiency:'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [1, 2, 3].map((level) {
+                    return Row(
+                      children: [
+                        Radio<int>(
+                          value: level,
+                          groupValue: selectedProficiency,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedProficiency = value!;
+                            });
+                          },
+                        ),
+                        Text('$level'),
+                      ],
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final newLang = languageController.text.trim();
+                  if (newLang.isEmpty) return;
+
+                  final List<LanguageEntry> result = List.from(currentLanguages);
+
+                  final index = result.indexWhere(
+                        (l) => l.language.toLowerCase() == newLang.toLowerCase(),
+                  );
+
+                  if (index != -1) {
+                    // Update proficiency if changed
+                    if (result[index].proficiency != selectedProficiency) {
+                      result[index] = LanguageEntry(language: newLang, proficiency: selectedProficiency);
+                    }
+                  } else {
+                    // Add new language
+                    result.add(LanguageEntry(language: newLang, proficiency: selectedProficiency));
+                  }
+
+                  Navigator.pop(context, result);
+                },
+                child: const Text('Save'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
 
   void showEditDialog({
     required String fieldName,
@@ -66,6 +146,23 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget buildLanguageChips() {
+    return Wrap(
+      spacing: 3,
+      runSpacing: 3,
+      children: controller.languages.map((entry) {
+        return Chip(
+          padding: EdgeInsets.all(JSizes.xxs),
+          label: Text('${entry.language} (Lv${entry.proficiency})'),
+          deleteIcon: const Icon(Icons.close),
+          onDeleted: () {
+            controller.languages.remove(entry);
+          },
+        );
+      }).toList(),
     );
   }
 
@@ -297,7 +394,7 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                   ],
                 ),
               ),
-              const SizedBox(height: JSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems * 0.2),
               // Basic Information Card
               buildInfoCard(context, [
                 buildEditableInfoRow(
@@ -365,7 +462,7 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                   },
                 ),
               ]),
-              const SizedBox(height: JSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems * 0.2),
               // Location & Education Card (with separate dialogs for each field)
               buildInfoCard(context, [
                 buildEditableInfoRow(
@@ -465,7 +562,7 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                   },
                 ),
               ]),
-              const SizedBox(height: JSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems * 0.2),
               // Opportunity Section
               buildInfoCard(context, [
                 Obx(() => buildEditableInfoRow(
@@ -504,7 +601,7 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                   },
                 )),
               ]),
-              const SizedBox(height: JSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems * 0.2),
               // Self Description & Resume Card
               buildInfoCard(context, [
                 buildEditableInfoRow(
@@ -548,7 +645,7 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                 ),
               ]),
 
-              const SizedBox(height: JSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems * 0.2),
 
               buildLargeInfoCard(context, [
 
@@ -617,72 +714,65 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
               ]),
 
 
-              const SizedBox(height: JSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems * 0.2),
               // Skills Section
-             MatrixGrid(
-               totalLenght: 2,
-                 crossSpacing: 10,
-                 items: [
-                   buildInfoCard(context, [
-                     Text(
-                       "Hobbies:",
-                       style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.black),
-                     ),
-                     Text(
-                       controller.hobbies.isNotEmpty
-                           ? controller.hobbies.join(" | ")
-                           : "No hobbies provided",
-                       style: const TextStyle(color: Colors.black),
-                     ),
-                     IconButton(
-                       icon: const Icon(Iconsax.edit, size: 18, color: JColors.primary),
-                       onPressed: () {
-                         // Open dialog to edit hobbies (for simplicity, a comma-separated list)
-                         showEditDialog(
-                           fieldName: "Hobbies",
-                           currentValue: controller.hobbies.join(", "),
-                           onUpdate: (newValue) {
-                             setState(() {
-                               controller.hobbies.value = newValue.split(",").map((s) => s.trim()).toList();
-                             });
-                           },
-                           multiline: true,
-                         );
-                       },
-                     ),
-                   ]),
+              buildLargeInfoCard(context, [
+                Text(
+                  "Hobbies:",
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.black),
+                ),
+                Text(
+                  controller.hobbies.isNotEmpty
+                      ? controller.hobbies.join(" | ")
+                      : "No hobbies provided",
+                  style: const TextStyle(color: Colors.black),
+                ),
+                IconButton(
+                  icon: const Icon(Iconsax.edit, size: 18, color: JColors.primary),
+                  onPressed: () {
+                    // Open dialog to edit hobbies (for simplicity, a comma-separated list)
+                    showEditDialog(
+                      fieldName: "Hobbies",
+                      currentValue: controller.hobbies.join(", "),
+                      onUpdate: (newValue) {
+                        setState(() {
+                          controller.hobbies.value = newValue.split(",").map((s) => s.trim()).toList();
+                        });
+                      },
+                      multiline: true,
+                    );
+                  },
+                ),
+              ]),
 
 
-                   // Languages Section
-                   buildInfoCard(context, [
-                     Text(
-                       "Languages:",
-                       style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.black),
-                     ),
-                     Text(
-                       controller.languages.isNotEmpty
-                           ? controller.languages
-                           .map((l) => "${l.language} (Lvl ${l.proficiency})")
-                           .join(" | ")
-                           : "No languages provided",
-                       style: const TextStyle(color: Colors.black),
-                     ),
-                     IconButton(
-                       icon: const Icon(Iconsax.edit, size: 18, color: JColors.primary),
-                       onPressed: () {
-                         // You can implement a dialog to edit languages if needed.
-                         Get.snackbar("Edit Languages", "Implement language editing dialog here");
-                       },
-                     ),
-                   ]),
-                 ]
-             ),
+              const SizedBox(height: JSizes.spaceBtwItems * 0.2),
+
+              // Languages Section
+              buildLargeInfoCard(context, [
+                Text(
+                  "Languages:",
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.black),
+                ),
+                Obx(() => buildLanguageChips()),
+
+                IconButton(
+                  icon: const Icon(Iconsax.edit, color: JColors.primary, size: 18),
+                  onPressed: () async {
+                    final updatedLanguages = await showLanguageDialog(context, controller.languages.toList());
+                    if (updatedLanguages != null) {
+                      controller.languages.assignAll(updatedLanguages);
+                    }
+                  },
+                )
+
+              ]),
 
 
-              const SizedBox(height: JSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems * 0.2),
               // Terms & Conditions
               const TermandConditions(),
-              const SizedBox(height: JSizes.spaceBtwItems),
+              const SizedBox(height: JSizes.spaceBtwItems * 0.2),
               // Finish Button
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),

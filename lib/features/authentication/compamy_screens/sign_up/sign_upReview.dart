@@ -6,8 +6,14 @@ import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/
 import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/sign_up2.dart';
 import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/widget/description_page.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
+import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
+import '../../../../common/image_picker/imagepickerDialog.dart';
+import '../../../../common/widgets/Images/rounded_image.dart';
 import '../../../../common/widgets/custom_wigets/jcustom_dropdown.dart';
+import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';
+import '../../../../utils/device/device_utility.dart';
+import '../../../Applications/company_creens/company_details/widgets/company_details_appbar.dart';
 import '../../../Applications/models/company_model.dart';
 import '../../controllers.onboarding/company_signup_controller/company_sign_up_controller.dart';
 import '../../../Applications/company_creens/company_details/widgets/company_detail_header.dart';
@@ -39,8 +45,8 @@ class CompanySignUpReview extends StatelessWidget {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: JSizes.md, horizontal: JSizes.md)
-              ),
+                  padding: EdgeInsets.symmetric(
+                      vertical: JSizes.md, horizontal: JSizes.md)),
               onPressed: () {
                 rxValue.value = dialogController.text;
                 controller.update();
@@ -51,6 +57,31 @@ class CompanySignUpReview extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  Widget _buildProfilePlaceholder() {
+    return Container(
+      width: double.infinity,
+      height: 300,
+      color: JColors.grey,
+      child: const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('No Profile Image', style: TextStyle(color: Colors.black)),
+          Icon(Icons.image_not_supported_rounded, color: Colors.black),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLogoPlaceholder() {
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('Logo', style: TextStyle(color: Colors.black)),
+        Icon(Icons.image_not_supported_rounded, color: Colors.black),
+      ],
     );
   }
 
@@ -75,8 +106,8 @@ class CompanySignUpReview extends StatelessWidget {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: JSizes.md, horizontal: JSizes.md)
-              ),
+                  padding: EdgeInsets.symmetric(
+                      vertical: JSizes.md, horizontal: JSizes.md)),
               onPressed: () {
                 textController.text = dialogController.text;
                 controller.update();
@@ -119,8 +150,8 @@ class CompanySignUpReview extends StatelessWidget {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: JSizes.md, horizontal: JSizes.md)
-              ),
+                  padding: EdgeInsets.symmetric(
+                      vertical: JSizes.md, horizontal: JSizes.md)),
               onPressed: () {
                 rxValue.value = controller.opportunityType.value;
                 controller.update();
@@ -162,8 +193,8 @@ class CompanySignUpReview extends StatelessWidget {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: JSizes.md, horizontal: JSizes.md)
-              ),
+                  padding: EdgeInsets.symmetric(
+                      vertical: JSizes.md, horizontal: JSizes.md)),
               onPressed: () {
                 rxValue.value = controller.companySize.value;
                 controller.update();
@@ -206,8 +237,8 @@ class CompanySignUpReview extends StatelessWidget {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: JSizes.md, horizontal: JSizes.md)
-              ),
+                  padding: EdgeInsets.symmetric(
+                      vertical: JSizes.md, horizontal: JSizes.md)),
               onPressed: () {
                 rxValue.value = controller.opportunityCategory.value;
                 controller.update();
@@ -365,8 +396,6 @@ class CompanySignUpReview extends StatelessWidget {
     );
   }
 
-
-
   Widget _buildBranchesCard() {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: JSizes.sm),
@@ -398,11 +427,12 @@ class CompanySignUpReview extends StatelessWidget {
                           style: const TextStyle(fontWeight: FontWeight.bold)),
                       subtitle: Text(
                           "${branch.address.city}, ${branch.address.street}\n"
-                              "${branch.contactEmail}\n"
-                              "Phone: ${branch.phoneNumber}"),
+                          "${branch.contactEmail}\n"
+                          "Phone: ${branch.phoneNumber}"),
                       trailing: IconButton(
                         icon: const Icon(Iconsax.edit, color: Colors.blue),
-                        onPressed: () => _showEditDialogBox(context, index, branch),
+                        onPressed: () =>
+                            _showEditDialogBox(context, index, branch),
                       ),
                     ),
                   );
@@ -413,7 +443,8 @@ class CompanySignUpReview extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: JSizes.md, vertical: JSizes.md * 0.6),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: JSizes.md, vertical: JSizes.md * 0.6),
                 ),
                 onPressed: () => controller.addNewBranch(),
                 icon: const Icon(Icons.add),
@@ -426,15 +457,18 @@ class CompanySignUpReview extends StatelessWidget {
     );
   }
 
-  void _showEditDialogBox(BuildContext context, int index, CompanyBranch branch) {
+  void _showEditDialogBox(
+      BuildContext context, int index, CompanyBranch branch) {
     final controller = Get.find<CompanySignupController>();
 
     // Create controllers with current values
-    final countryController = TextEditingController(text: branch.address.country);
+    final countryController =
+        TextEditingController(text: branch.address.country);
     final regionController = TextEditingController(text: branch.address.region);
     final cityController = TextEditingController(text: branch.address.city);
     final streetController = TextEditingController(text: branch.address.street);
-    final postalController = TextEditingController(text: branch.address.postalCode);
+    final postalController =
+        TextEditingController(text: branch.address.postalCode);
     final emailController = TextEditingController(text: branch.contactEmail);
     final phoneController = TextEditingController(text: branch.phoneNumber);
     final nameController = TextEditingController(text: branch.contactName);
@@ -528,10 +562,10 @@ class CompanySignUpReview extends StatelessWidget {
                 onPressed: () => Navigator.pop(context),
                 child: const Text("Cancel"),
               ),
-
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: JSizes.md, vertical: JSizes.md * 0.6),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: JSizes.md, vertical: JSizes.md * 0.6),
                 ),
                 onPressed: () {
                   final updatedBranch = CompanyBranch(
@@ -560,7 +594,6 @@ class CompanySignUpReview extends StatelessWidget {
           //   },
           //   child: const Text("Delete", style: TextStyle(color: Colors.red)),
           // ),
-
         ],
       ),
     );
@@ -568,17 +601,102 @@ class CompanySignUpReview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = JHelperFunctions.isDarkMode(context);
     return Scaffold(
       body: GetBuilder<CompanySignupController>(
         builder: (controller) {
           return SingleChildScrollView(
             child: Column(
               children: [
-                CompagnyDetailsHeader(
-                  title: "Review Your Information",
-                  companyName: controller.logoUrl.text,
-                  companyLogo: controller.logoUrl.text,
-                  companyProfileImage: controller.profileUrl.text,
+                Stack(
+                  children: [
+                    // Background Profile Image or Placeholder
+                    controller.profileUrl.text.isNotEmpty
+                        ? SizedBox(
+                            width: double.infinity,
+                            height: 300,
+                            child: Image.network(
+                              controller.profileUrl.text,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  _buildProfilePlaceholder(),
+                            ),
+                          )
+                        : _buildProfilePlaceholder(),
+
+                    // Foreground Elements
+                    Column(
+                      children: [
+                        CompanyDetailsAppBar(
+                            title: controller.companyName.text),
+
+                        // Positioned Logo & Edit Icon
+                        Stack(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 140, left: 16),
+                              width: 113,
+                              height: 113,
+                              decoration: BoxDecoration(
+                                color: dark ? JColors.darkGrey : JColors.grey,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: Center(
+                                child: controller.logoUrl.text.isNotEmpty
+                                    ? JRoundedImage(
+                                        isNetworkImage: true,
+                                        imageUrl: controller.logoUrl.text,
+                                        applyImageRadius: true,
+                                        fit: BoxFit.contain,
+                                      )
+                                    : _buildLogoPlaceholder(),
+                              ),
+                            ),
+
+                            // Edit Icon for Logo
+                            Positioned(
+                              bottom: -10,
+                              left: 85,
+                              child: IconButton(
+                                icon: const Icon(Iconsax.edit,
+                                    color: JColors.primary, size: 30),
+                                onPressed: () => showDialog(
+                                  context: context,
+                                  builder: (_) => ImageUploadDialog(
+                                    title: "Upload Logo",
+                                    onUploadConfirmed: (url) {
+                                      controller.logoUrl.text = url;
+                                      controller.update();
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+
+                    // Edit Icon for Profile Banner
+                    Positioned(
+                      bottom: 60,
+                      right: 10,
+                      child: IconButton(
+                        icon: const Icon(Iconsax.edit,
+                            color: JColors.primary, size: 30),
+                        onPressed: () => showDialog(
+                          context: context,
+                          builder: (_) => ImageUploadDialog(
+                            title: "Upload Profile Image",
+                            onUploadConfirmed: (url) {
+                              controller.profileUrl.text = url;
+                              controller.update();
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: JSizes.spaceBtwSections * 0.6),
                 Padding(

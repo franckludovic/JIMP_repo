@@ -1,29 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../../utils/formatters/formatter.dart';
 
-class LanguageEntry {
-  String language;
-  int proficiency;
-
-  LanguageEntry({
-    required this.language,
-    required this.proficiency,
-  });
-
-  Map<String, dynamic> toJson() {
-    return {
-      'Language': language,
-      'Proficiency': proficiency,
-    };
-  }
-
-  factory LanguageEntry.fromJson(Map<String, dynamic> json) {
-    return LanguageEntry(
-      language: json['Language'] ?? '',
-      proficiency: json['Proficiency'] ?? 1,
-    );
-  }
-}
 
 
 

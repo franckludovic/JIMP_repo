@@ -35,7 +35,7 @@ class CompagnyLoginScreen extends StatelessWidget {
 
                 ///form
               JLoginForm(onPressed: () => Get.to(() => CompanySignUpScreen1()),),
-              //JLoginForm(onPressed: () => Get.to(() => CompanySignUpScreen3()),),
+              //JLoginForm(onPressed: () => Get.to(() => CompanySignUpReview()),),
 
             ],
           ),
