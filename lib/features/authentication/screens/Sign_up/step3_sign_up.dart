@@ -64,6 +64,7 @@ class _CandidateRegisterScreen3State extends State<CandidateRegisterScreen3> {
             children: [
               // Self Description (bound to controller.selfDescription)
               JTextArea(
+
                 hintText:
                 "Brief Description just to know you and your career objectives and dream",
                 label: const Text("Self Description"),
@@ -87,7 +88,7 @@ class _CandidateRegisterScreen3State extends State<CandidateRegisterScreen3> {
                     child: Obx(() => CustomDropDown(
                         label: "Opportunity Type",
                         value: controller.opportunityType.value,
-                        items: const ["Job", "Internship"],
+                        items: const ["Job", "Internship", 'Contract', 'Hybrid'],
                         onChanged: (val) {
                           if (val != null) controller.opportunityType.value = val;
                         },
@@ -101,7 +102,7 @@ class _CandidateRegisterScreen3State extends State<CandidateRegisterScreen3> {
                     child: Obx(() => CustomDropDown(
                         label: "Category",
                         value: controller.jobCategory.value,
-                        items: const ["Full Time", "Part Time"],
+                        items: const ["Full Time", "Part Time", 'Contract', 'Hybrid'],
                         onChanged: (val) {
                           if (val != null) controller.jobCategory.value = val;
                         },

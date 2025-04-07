@@ -25,29 +25,7 @@ class LanguageEntry {
   }
 }
 
-class SkillEntry {
-  String skill;
-  int level;
 
-  SkillEntry({
-    required this.skill,
-    required this.level,
-  });
-
-  Map<String, dynamic> toJson() {
-    return {
-      'Skill': skill,
-      'Level': level,
-    };
-  }
-
-  factory SkillEntry.fromJson(Map<String, dynamic> json) {
-    return SkillEntry(
-      skill: json['Skill'] ?? '',
-      level: json['Level'] ?? 1,
-    );
-  }
-}
 
 enum VerificationStatus { pending, verified, rejected }
 

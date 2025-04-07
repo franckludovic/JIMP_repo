@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/sign_up1.dart';
 import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/sign_up2.dart';
 import 'package:project_bc_tuto/features/authentication/compamy_screens/sign_up/widget/description_page.dart';
@@ -36,7 +37,10 @@ class CompanySignUpReview extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
               child: const Text("Cancel"),
             ),
-            TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: JSizes.md, horizontal: JSizes.md)
+              ),
               onPressed: () {
                 rxValue.value = dialogController.text;
                 controller.update();
@@ -69,7 +73,10 @@ class CompanySignUpReview extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
               child: const Text("Cancel"),
             ),
-            TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: JSizes.md, horizontal: JSizes.md)
+              ),
               onPressed: () {
                 textController.text = dialogController.text;
                 controller.update();
@@ -110,7 +117,10 @@ class CompanySignUpReview extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
               child: const Text("Cancel"),
             ),
-            TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: JSizes.md, horizontal: JSizes.md)
+              ),
               onPressed: () {
                 rxValue.value = controller.opportunityType.value;
                 controller.update();
@@ -150,7 +160,10 @@ class CompanySignUpReview extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
               child: const Text("Cancel"),
             ),
-            TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: JSizes.md, horizontal: JSizes.md)
+              ),
               onPressed: () {
                 rxValue.value = controller.companySize.value;
                 controller.update();
@@ -191,7 +204,10 @@ class CompanySignUpReview extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
               child: const Text("Cancel"),
             ),
-            TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: JSizes.md, horizontal: JSizes.md)
+              ),
               onPressed: () {
                 rxValue.value = controller.opportunityCategory.value;
                 controller.update();
@@ -430,12 +446,15 @@ class CompanySignUpReview extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text("Edit Branch"),
-            IconButton(
-              onPressed: () {
-                controller.removeBranch(index);
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.delete, color: Colors.red),
+            JRoundedContainer(
+              backgroundColor: Colors.red.withAlpha((0.2 * 255).toInt()),
+              child: IconButton(
+                onPressed: () {
+                  controller.removeBranch(index);
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.delete, color: Colors.red),
+              ),
             )
           ],
         ),

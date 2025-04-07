@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/layout/matrix_layout.dart';
+import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/skillAddDialog.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/term_and_conditions.dart';
 
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/step_indicator.dart';
@@ -12,6 +13,12 @@ import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
 
+import '../../../../common/image_picker/imagepickerDialog.dart';
+import '../../../../common/widgets/custom_wigets/custom_dropDown.dart';
+import '../../../../common/widgets/custom_wigets/customdropdow_dialog.dart';
+import '../../../../common/widgets/documents_cad/file_picker_dialog.dart';
+import '../../../Applications/models/company_model.dart';
+import '../../../Applications/models/user_model.dart';
 import '../../controllers.onboarding/sign_up/sign_up_controller.dart';
 
 
@@ -26,8 +33,7 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
   int currentStep = 4;
   final SignupController controller = Get.find<SignupController>();
 
-  /// Generic helper to show an edit dialog.
-  /// [multiline] when true uses a multi-line TextField.
+
   void showEditDialog({
     required String fieldName,
     required String currentValue,
@@ -49,6 +55,9 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
           ),
           const SizedBox(height: 20),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: JSizes.md, vertical: JSizes.md * 0.6)
+            ),
             onPressed: () {
               onUpdate(dialogController.text);
               Get.back();
@@ -60,12 +69,73 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
     );
   }
 
+  void showCustomDropdownDialog({
+    required BuildContext context,
+    required String initialValue,
+    required List<String> options,
+    required Function(String selectedValue) onSave,
+  }) {
+    String selected = initialValue;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Select an Option'),
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return CustomDropDown(
+                label: "Choose",
+                value: selected,
+                items: options,
+                onChanged: (value) {
+                  if (value != null) {
+                    setState(() {
+                      selected = value;
+                    });
+                  }
+                },
+              );
+            },
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                onSave(selected); // Send selected value to controller
+                Navigator.pop(context);
+              },
+              child: const Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<List<SkillEntry>?> showSkillDialog(BuildContext context) {
+    return showDialog<List<SkillEntry>>(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: SkillDialogContent(),
+        );
+      },
+    );
+  }
+
+
   /// Helper widget for an editable info row.
   Widget buildEditableInfoRow({
     required IconData leadingIcon,
     required String label,
     required String value,
     required VoidCallback onEdit,
+    bool isOneLine = true,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -74,13 +144,13 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
           Icon(leadingIcon, size: 20, color: Colors.deepPurple),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(
-              "$label: $value",
-              style: const TextStyle(fontSize: 14, color: Colors.black),
-            ),
+            child: isOneLine
+                ?Text(overflow: TextOverflow.ellipsis, maxLines: 1, "$label: $value", style: const TextStyle(fontSize: 14, color: Colors.black),)
+
+                :Text("$label: $value", style: const TextStyle(fontSize: 14, color: Colors.black),),
           ),
           IconButton(
-            icon: const Icon(Icons.edit, size: 18, color: JColors.primary),
+            icon: const Icon(Iconsax.edit, size: 18, color: JColors.primary),
             onPressed: onEdit,
           ),
         ],
@@ -146,29 +216,26 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                       children: [
                         CircleAvatar(
                           radius: 80,
+                          backgroundImage: NetworkImage(controller.profileUrl.text),
                           backgroundColor: Colors.grey[300],
-                          child: controller.email.text.isNotEmpty
-                              ? const Text(
-                            "Profile",
-                            style: TextStyle(color: Colors.black),
-                          )
-                              : const Text("No Image"),
+                          child: controller.profileUrl.text.isNotEmpty ? null : const Text("No Image", style: TextStyle(color: Colors.black),),
                         ),
                         Positioned(
                           bottom: -10,
                           right: 0,
-                          child: IconButton(
-                            icon: const Icon(Iconsax.edit),
-                            onPressed: () {
-                              showEditDialog(
-                                fieldName: "Profile Picture URL",
-                                currentValue: "",
-                                onUpdate: (newValue) {
-                                  // Update profile picture URL accordingly.
-                                  Get.snackbar("Updated", "Profile picture updated");
+                          child: // Where you want to trigger the image upload
+                          IconButton(
+                            icon: const Icon(Iconsax.edit, color: JColors.primary,),
+                            onPressed: () => showDialog(
+                              context: context,
+                              builder: (_) => ImageUploadDialog(
+                                title: "Upload Profile Image",
+                                onUploadConfirmed: (url) {
+                                  // Update your controller here
+                                  controller.profileUrl.value = url as TextEditingValue;
                                 },
-                              );
-                            },
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -401,43 +468,47 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
               const SizedBox(height: JSizes.spaceBtwItems),
               // Opportunity Section
               buildInfoCard(context, [
-                buildEditableInfoRow(
+                Obx(() => buildEditableInfoRow(
                   leadingIcon: Icons.work,
                   label: "Opportunity Type",
                   value: controller.opportunityType.value,
                   onEdit: () {
-                    showEditDialog(
-                      fieldName: "Opportunity Type",
-                      currentValue: controller.opportunityType.value,
-                      onUpdate: (newValue) {
-                        setState(() {
-                          controller.opportunityType.value = newValue;
-                        });
+                    CustomDropdownDialog.show(
+                      context: context,
+                      title: "Opportunity Type",
+                      label: "Select type",
+                      initialValue: controller.opportunityType.value,
+                      options: ['Internship', 'Job', 'Hybrid'],
+                      onSave: (selectedValue) {
+                        controller.opportunityType.value = selectedValue;
                       },
                     );
                   },
-                ),
-                buildEditableInfoRow(
-                  leadingIcon: Icons.category,
+                )),
+
+                Obx(() => buildEditableInfoRow(
+                  leadingIcon:  Icons.category,
                   label: "Job Category",
                   value: controller.jobCategory.value,
                   onEdit: () {
-                    showEditDialog(
-                      fieldName: "Job Category",
-                      currentValue: controller.jobCategory.value,
-                      onUpdate: (newValue) {
-                        setState(() {
-                          controller.jobCategory.value = newValue;
-                        });
+                    CustomDropdownDialog.show(
+                      context: context,
+                      title: "Job Category",
+                      label: "Select Category",
+                      initialValue: controller.jobCategory.value,
+                      options: ['Full Time', 'Part Time', 'Contract', 'Hybrid' ],
+                      onSave: (selectedValue) {
+                        controller.jobCategory.value = selectedValue;
                       },
                     );
                   },
-                ),
+                )),
               ]),
               const SizedBox(height: JSizes.spaceBtwItems),
               // Self Description & Resume Card
               buildInfoCard(context, [
                 buildEditableInfoRow(
+                  isOneLine: false,
                   leadingIcon: Icons.text_snippet,
                   label: "Self Description",
                   value: controller.selfDescription.text.isNotEmpty
@@ -456,23 +527,24 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                     );
                   },
                 ),
-                buildEditableInfoRow(
-                  leadingIcon: Icons.upload_file,
-                  label: "Resume",
-                  value: controller.resume.text.isNotEmpty
-                      ? controller.resume.text
-                      : "Not provided",
-                  onEdit: () {
-                    showEditDialog(
-                      fieldName: "Resume URL",
-                      currentValue: controller.resume.text,
-                      onUpdate: (newValue) {
-                        setState(() {
-                          controller.resume.text = newValue;
-                        });
-                      },
-                    );
-                  },
+                SizedBox(
+                  width: double.infinity,
+                  child: buildEditableInfoRow(
+                    leadingIcon: Icons.upload_file,
+                    label: "Resume",
+                    value: controller.resume.text.isNotEmpty
+                        ? controller.resume.text
+                        : "Not provided",
+                    onEdit: () {
+                      DocumentUploadDialog.show(
+                        context: context,
+                        title: "Upload Resume",
+                        onSave: (filePath) {
+                          controller.resume.text = filePath;
+                        },
+                      );
+                    },
+                  ),
                 ),
               ]),
 
@@ -480,25 +552,67 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
 
               buildLargeInfoCard(context, [
 
-                Text(
-                  "Skills:",
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.black),
-                ),
-                Text(
-                  controller.skillEntries.isNotEmpty
-                      ? controller.skillEntries
-                      .map((s) => "${s.skill} (Lvl ${s.level})")
-                      .join(" | ")
-                      : "No skills provided",
-                  style: const TextStyle(color: Colors.black),
-                ),
+                Obx(() => Wrap(
+                  spacing: 5,
+                  runSpacing: 5,
+                  children: controller.skillEntries.map((entry) {
+                    return InputChip(
+
+                      label: Text("${entry.skill} (Lvl ${entry.level})", style: TextStyle(color: Colors.black, fontFamily: 'Poppins'),),
+                        onDeleted: () async {
+                          final shouldDelete = await showDialog<bool>(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: const Text("Remove Skill"),
+                              content: Text("Are you sure you want to remove '${entry.skill}'?"),
+                              actions: [
+                                OutlinedButton(style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: JSizes.md , vertical: JSizes.md * 0.6)), onPressed: () => Navigator.pop(context, false), child: const Text("Cancel", style: TextStyle(color: JColors.secondary, fontFamily: 'Poppins'),)),
+                                ElevatedButton(style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: JSizes.md , vertical: JSizes.md * 0.6)), onPressed: () => Navigator.pop(context, true), child: const Text("Remove", style: TextStyle(fontFamily: 'Poppins'))),
+                              ],
+                            ),
+                          );
+
+                          if (shouldDelete == true) {
+                            controller.skillEntries.remove(entry);
+                          }
+                        },
+                        deleteIcon: const Icon(Icons.close, size: 16, color: Colors.red,),
+                      backgroundColor: Colors.grey.shade200,
+                    );
+                  }).toList(),
+                )),
+
+
                 IconButton(
-                  icon: const Icon(Icons.edit, size: 18, color: JColors.primary),
-                  onPressed: () {
-                    // You can implement a dialog to edit skills if needed.
-                    // For simplicity, we display a snackbar.
-                    Get.snackbar("Edit Skills", "Implement skill editing dialog here");
-                  },
+                  icon: const Icon(Iconsax.edit, size: 18, color: JColors.primary),
+                    onPressed: () async {
+                      final result = await showSkillDialog(context);
+                      if (result != null && result.isNotEmpty) {
+                        for (final newSkill in result) {
+                          final index = controller.skillEntries.indexWhere(
+                                (s) => s.skill.toLowerCase().trim() == newSkill.skill.toLowerCase().trim(),
+                          );
+
+                          if (index != -1) {
+                            // If the skill already exists, only update if the level is different
+                            if (controller.skillEntries[index].level != newSkill.level) {
+                              controller.skillEntries[index] = newSkill;
+                            }
+                          } else {
+                            // If it's a new skill, add it
+                            controller.skillEntries.add(newSkill);
+                          }
+                        }
+
+                        controller.skillEntries.refresh();
+                      }
+
+
+                    }
+
+
+
+
                 ),
               ]),
 
@@ -521,7 +635,7 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                        style: const TextStyle(color: Colors.black),
                      ),
                      IconButton(
-                       icon: const Icon(Icons.edit, size: 18, color: JColors.primary),
+                       icon: const Icon(Iconsax.edit, size: 18, color: JColors.primary),
                        onPressed: () {
                          // Open dialog to edit hobbies (for simplicity, a comma-separated list)
                          showEditDialog(
@@ -554,7 +668,7 @@ class _CandidateRegisterScreen5State extends State<CandidateRegisterScreen5> {
                        style: const TextStyle(color: Colors.black),
                      ),
                      IconButton(
-                       icon: const Icon(Icons.edit, size: 18, color: JColors.primary),
+                       icon: const Icon(Iconsax.edit, size: 18, color: JColors.primary),
                        onPressed: () {
                          // You can implement a dialog to edit languages if needed.
                          Get.snackbar("Edit Languages", "Implement language editing dialog here");

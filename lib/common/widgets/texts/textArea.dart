@@ -29,7 +29,6 @@ class JTextArea extends StatelessWidget {
       maxLines: maxAreaHeight,
       cursorColor: Colors.black,
       controller: controller,
-      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         filled: true,
         fillColor: backgroundcolor,

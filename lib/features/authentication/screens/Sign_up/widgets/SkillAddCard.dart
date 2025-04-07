@@ -6,15 +6,18 @@ import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 
 class SkillAddCard extends StatefulWidget {
-  final VoidCallback onRemove; // Callback to remove this card
-  final void Function(String skill, int level, int cardIndex) onSkillChanged; // Callback for skill updates
-  final int cardIndex; // Index of this card in the list
+  final VoidCallback onRemove;
+  final void Function(String skill, int level, int cardIndex) onSkillChanged;
+  final int cardIndex;
+
+
 
   const SkillAddCard({
     super.key,
     required this.onRemove,
     required this.onSkillChanged,
     required this.cardIndex,
+
   });
 
   @override
@@ -24,6 +27,7 @@ class SkillAddCard extends StatefulWidget {
 class _SkillAddCardState extends State<SkillAddCard> {
   int? selectedLevel;
   String skillText = '';
+  bool isDialog = false;
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +107,8 @@ class _SkillAddCardState extends State<SkillAddCard> {
                     curve: Curves.easeInOut,
                     transform: selectedLevel == i ? Matrix4.identity().scaled(1.1) : Matrix4.identity(),
                     child: JRoundedContainer(
-                      width: 30,
-                      height: 30,
+                      width: 25,
+                      height: 25,
                       backgroundColor: selectedLevel == i ? JColors.primary : Colors.transparent,
                       borderColor: selectedLevel == i ? JColors.primary : unselectedColor,
                       showBorder: true,

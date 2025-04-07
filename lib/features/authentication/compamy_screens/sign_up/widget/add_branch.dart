@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
 import '../../../../../utils/validators/validation.dart';
@@ -91,9 +92,12 @@ class _BranchCardWidgetState extends State<BranchCardWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Branch ${widget.index + 1}", style: Theme.of(context).textTheme.headlineMedium),
-                IconButton(
-                  onPressed: widget.onRemove,
-                  icon: const Icon(Icons.delete, color: Colors.red),
+                JRoundedContainer(
+                  backgroundColor: Colors.red.withAlpha((0.2 * 255).toInt()),
+                  child: IconButton(
+                    onPressed: widget.onRemove,
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                  ),
                 )
               ],
             ),

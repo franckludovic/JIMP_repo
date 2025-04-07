@@ -41,12 +41,12 @@ class ImageUploadWidget extends StatefulWidget {
   final IconData prefixIcon;
 
   const ImageUploadWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.onUploadCompleted,
     this.hintText = "PNG, JPEG, JPG accepted",
     this.prefixIcon = Icons.image,
-  }) : super(key: key);
+  });
 
   @override
   State<ImageUploadWidget> createState() => _ImageUploadWidgetState();
