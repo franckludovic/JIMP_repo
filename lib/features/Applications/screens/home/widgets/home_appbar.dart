@@ -29,11 +29,15 @@ class HomeAppbar extends StatelessWidget {
               child: SizedBox(
                   width: 60,
                   height: 60,
-                  child: JRoundedImage(
-                    imageUrl: JImages.user3,
-                    height: 60,
+                  child:  JRoundedImage(
+                    isNetworkImage: true,
+                    imageUrl: controller.user?.profilePicture ?? '',
                     width: 60,
-                  ))),
+                    borderRadius: 60,
+                    applyImageRadius: true,
+                  ),
+              )
+          ),
           SizedBox(width: JSizes.md),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

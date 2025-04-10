@@ -59,25 +59,23 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(JSizes.defaultSpace),
                 child: Column(
                   children: [
-                       Container(
-                         child: Column(
-                           children: [
-                             ///headings
-                             const JSectionHeading(
-                               title: "Popular Categories",
-                               showActonButton: false,
-                               textColor: JColors.primary,
-                             ),
-                             const SizedBox(height: JSizes.spaceBtwItems),
+                       Column(
+                         children: [
+                           ///headings
+                           const JSectionHeading(
+                             title: "Popular Categories",
+                             showActonButton: false,
+                             textColor: JColors.primary,
+                           ),
+                           const SizedBox(height: JSizes.spaceBtwItems),
 
-                             ///categories
+                           ///categories
 
-                             JhomeCategories(),
+                           JhomeCategories(),
 
-                             const SizedBox(height: JSizes.spaceBtwSections),
+                           const SizedBox(height: JSizes.spaceBtwSections),
 
-                           ],
-                         ),
+                         ],
                        )  ,
 
                     JSectionHeading(title: "Statistics : ", showActonButton: false,),

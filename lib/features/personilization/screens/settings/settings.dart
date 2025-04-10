@@ -10,6 +10,7 @@ import 'package:project_bc_tuto/features/Applications/screens/applications_appli
 import 'package:project_bc_tuto/features/Applications/screens/notifications/notifications.dart';
 import 'package:project_bc_tuto/features/personilization/screens/address/address.dart';
 import 'package:project_bc_tuto/features/personilization/screens/profile/Profile.dart';
+import 'package:project_bc_tuto/features/personilization/screens/settings/skill%20card%20drawer.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 
 import '../../../../common/widgets/Percentage indicator/circular_pencentage_indicator.dart';
@@ -20,12 +21,14 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../Applications/screens/ongoing_contracts/contract_page.dart';
 import '../../../Applications/screens/proposals_page/proposal_page.dart';
 import '../../../Applications/screens/type_user/type_user_page.dart';
+import '../../controllers/user_controller.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -56,34 +59,15 @@ class SettingScreen extends StatelessWidget {
               padding: const EdgeInsets.all(JSizes.defaultSpace),
               child: Column(
                 children: [
-                  JResumeCard(title: "Resume", fileName: "Franck's Resume"),
+                  JResumeCard(title: "Resume", fileName: "${controller.user?.username ?? ""}'s Resume"),
                   const SizedBox(height: JSizes.spaceBtwSections),
 
                   JSectionHeading(title: "Skills", onPressed: () {}),
-                  JSkillsCard(
-                    skills: [
-                      JCircularSkillIndicator(
-                          percentage: 0.8,
-                          textPercent: '85%',
-                          bottomText: 'Python',
-                          progressColor: Colors.greenAccent),
-                      JCircularSkillIndicator(
-                          percentage: 0.2,
-                          textPercent: '20%',
-                          bottomText: 'React Js',
-                          progressColor: Colors.redAccent),
-                      JCircularSkillIndicator(
-                          percentage: 0.6,
-                          textPercent: '60%',
-                          bottomText: 'Java',
-                          progressColor: Colors.purple),
-                      JCircularSkillIndicator(
-                          percentage: 0.5,
-                          textPercent: '40%',
-                          bottomText: 'Flutter programing',
-                          progressColor: Colors.blue),
-                    ],
-                  ),
+
+                  Obx(() => CandidateSkillsList(
+                    skills: controller.user!.skills, // assuming skillEntries is your RxList<SkillEntry>
+                  )),
+
                   const SizedBox(height: JSizes.spaceBtwSections),
 
                   ///Account Settings

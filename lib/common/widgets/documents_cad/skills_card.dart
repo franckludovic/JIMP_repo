@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_bc_tuto/common/widgets/Percentage%20indicator/circular_pencentage_indicator.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
 
@@ -6,7 +7,7 @@ class JSkillsCard extends StatelessWidget {
   const JSkillsCard({super.key,
     required this.skills});
 
-  final List<Widget> skills;
+  final List<JCircularSkillIndicator> skills;
   @override
   Widget build(BuildContext context) {
     return SizedBox(

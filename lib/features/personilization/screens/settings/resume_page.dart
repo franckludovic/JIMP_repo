@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -10,6 +11,9 @@ import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/features/authentication/screens/Sign_up/widgets/step_indicator.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
+
+import '../../../../common/image_picker/imagepickerDialog.dart';
+import '../../controllers/user_controller.dart';
 
 class ResumePage extends StatefulWidget {
   const ResumePage({super.key});
@@ -23,8 +27,7 @@ class _ResumePageState extends State<ResumePage> {
   final String collectionName = "candidates";
   final String uid = FirebaseAuth.instance.currentUser!.uid;
 
-  /// Helper method to show an edit dialog.
-  /// When updated, the field in Firestore is updated.
+
   void showEditDialog({
     required String fieldName,
     required String currentValue,
@@ -194,6 +197,7 @@ class _ResumePageState extends State<ResumePage> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return Scaffold(
       appBar: JAppbar(
         title: const Text('Your Resume'),
@@ -201,7 +205,7 @@ class _ResumePageState extends State<ResumePage> {
           IconButton(
             icon: const Icon(Icons.picture_as_pdf),
             onPressed: () async {
-              // Generate and share PDF when pressed.
+
               DocumentSnapshot doc = await FirebaseFirestore.instance
                   .collection(collectionName)
                   .doc(uid)
@@ -236,47 +240,62 @@ class _ResumePageState extends State<ResumePage> {
                 children: [
                   // Profile Section
                   Container(
-                    width: 200,
+                    width: double.infinity,
                     padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
-                        CircleAvatar(
-                          radius: 80,
-                          backgroundColor: Colors.grey[300],
-                          child: data['ProfilePicture'] != null &&
-                                  data['ProfilePicture'] != ""
-                              ? CircleAvatar(
+                        Stack(
+                          children: [
+                            Column(
+                              children: [
+                                CircleAvatar(
                                   radius: 80,
-                                  backgroundImage:
-                                      NetworkImage(data['ProfilePicture']),
-                                )
-                              : const Text("No Image"),
+                                  backgroundColor: Colors.grey[300],
+                                  child: data['ProfilePicture'] != null &&
+                                          data['ProfilePicture'] != ""
+                                      ? Obx( () => CircleAvatar(
+                                            radius: 80,
+                                            backgroundImage:
+                                               NetworkImage(controller.user?.profilePicture ?? ''),
+                                          ),
+                                      )
+                                      : const Text("No Image"),
+                                ),
+                                SizedBox(height: JSizes.md,)
+                              ],
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: 10,
+                              child: IconButton(
+                                icon: const Icon(Iconsax.edit,
+                                    color: JColors.primary, size: 30),
+                                onPressed: () => showDialog(
+                                  context: context,
+                                  builder: (_) => ImageUploadDialog(
+                                    title: "Upload Profile Image",
+                                    onUploadConfirmed: (url) {
+                                      controller.user?.profilePicture = url;
+                                      controller.update();
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          "${data['FirstName']} ${data['LastName']}",
+                          controller.user?.fullName ?? "",
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 5),
-                        Text(data['Email'] ?? "",
+                        Text(
+                            controller.user?.email ?? "",
                             style: const TextStyle(
                                 fontSize: 16, color: Colors.grey)),
                         const SizedBox(height: 10),
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            showEditDialog(
-                              fieldName: "Profile Picture URL",
-                              currentValue: data['ProfilePicture'] ?? "",
-                              onUpdate: (newValue) async {
-                                await _updateField("ProfilePicture", newValue);
-                                setState(() {});
-                              },
-                            );
-                          },
-                          icon: const Icon(Icons.edit),
-                          label: const Text("Edit Picture"),
-                        ),
                       ],
                     ),
                   ),
