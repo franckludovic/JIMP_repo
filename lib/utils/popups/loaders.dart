@@ -5,7 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import '../constants/colors.dart';
 import '../helpers/helper_functions.dart';
 
-class TLoaders {
+class JLoaders {
   static hideSnackBar() => ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
 
   static customToast({required message}) {

@@ -16,8 +16,7 @@ class UserRepository extends GetxController {
   ///Function to save user data to firebase
   Future<void> saveUserRecord(UserModel user) async {
     try {
-      String collectionName =
-          user.userType == "Company" ? "companies" : "candidates";
+      String collectionName = "candidates";
 
       await _db.collection(collectionName).doc(user.id).set(user.toJson());
     } on FirebaseException catch (e) {

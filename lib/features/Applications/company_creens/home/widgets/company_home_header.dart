@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:project_bc_tuto/features/personilization/controllers/company_controller.dart';
 import '../../../../../common/widgets/Images/rounded_image.dart';
 import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import '../../../../../common/widgets/notifications/notifications_icon.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../../personilization/controllers/user_controller.dart';
 
 
 class CompanyHomeHeader extends StatelessWidget {
@@ -15,6 +19,7 @@ class CompanyHomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CompanyController());
     return SizedBox(
       height: 300,
       child: Stack(
@@ -27,7 +32,7 @@ class CompanyHomeHeader extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.yellow,
                 image: DecorationImage(
-                  image: AssetImage(JImages.googleProfileImage),
+                  image: NetworkImage(controller.user?.profileUrl.toString() ?? ''),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -49,7 +54,7 @@ class CompanyHomeHeader extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Google", style: Theme.of(context).textTheme.headlineLarge,),
+                        Text(controller.user?.companyName ?? '', style: Theme.of(context).textTheme.headlineLarge,),
                         NotificationCounterIcon(onPressed: () {})
 
                       ],
@@ -61,13 +66,7 @@ class CompanyHomeHeader extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.only(right: 10),
-              child: JRoundedContainer(
-                backgroundColor: JColors.darkGrey,
-                height: 100,
-                width: 100,
-                radius: 100,
-                child: JRoundedImage(imageUrl: JImages.google),
-              ),
+              child: JRoundedImage(applyImageRadius: true, width: 100, height: 100, borderRadius: 100 ,isNetworkImage: true, imageUrl: controller.user?.logoUrl ?? ''),
             ),
           ),
         ],

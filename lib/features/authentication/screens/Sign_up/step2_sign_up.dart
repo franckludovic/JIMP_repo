@@ -151,7 +151,7 @@ class _CandidateRegisterScreen2State extends State<CandidateRegisterScreen2> {
                     // Proceed to next screen.
                     Get.to(() => CandidateRegisterScreen3());
                   } else {
-                    TLoaders.warningSnackBar(
+                    JLoaders.warningSnackBar(
                       title: 'Missing Information',
                       message: 'Please fill in all required fields before proceeding.',
                     );

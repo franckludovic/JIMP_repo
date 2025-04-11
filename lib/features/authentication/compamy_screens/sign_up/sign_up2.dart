@@ -168,7 +168,7 @@ class CompanySignupScreen2 extends StatelessWidget {
                 // Proceed to next screen.
                 Get.to(() => CompanySignUpScreen3());
               } else {
-                TLoaders.warningSnackBar(
+                JLoaders.warningSnackBar(
                   title: 'Missing Information',
                   message: 'Please correctly fill in all required fields before proceeding.',
                 );

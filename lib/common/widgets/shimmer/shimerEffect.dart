@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../constants/colors.dart';
+import '../../../utils/constants/colors.dart';
 
 class JShimmerEffect extends StatelessWidget {
   const

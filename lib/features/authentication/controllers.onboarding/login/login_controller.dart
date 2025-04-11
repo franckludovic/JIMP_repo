@@ -61,7 +61,7 @@ class LoginController extends GetxController{
       AuthenticationRepository.instance.screenRedirect();
     }catch (e){
       TFullScreenLoader.stopLoading();
-      TLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
+      JLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
     }
   }
 
@@ -85,7 +85,7 @@ class LoginController extends GetxController{
 
 
     }catch(e){
-      TLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
+      JLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
     }
   }
 }

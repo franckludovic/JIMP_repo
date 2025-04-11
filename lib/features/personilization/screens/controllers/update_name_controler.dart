@@ -55,11 +55,11 @@ class UpdateNameController extends GetxController {
       await userController.updateUserDetails(updatedUser);
 
       TFullScreenLoader.stopLoading();
-      TLoaders.successSnackBar(title: 'Congratulations!', message: 'Your Name has been updated');
+      JLoaders.successSnackBar(title: 'Congratulations!', message: 'Your Name has been updated');
       Get.to(() => const ProfileScreen());
     } catch (e) {
       TFullScreenLoader.stopLoading();
-      TLoaders.errorSnackBar(title: 'Oh snap!', message: e.toString());
+      JLoaders.errorSnackBar(title: 'Oh snap!', message: e.toString());
     }
   }
 }

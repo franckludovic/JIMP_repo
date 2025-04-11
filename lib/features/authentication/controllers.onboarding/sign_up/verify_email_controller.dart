@@ -24,11 +24,11 @@ class VerifyEmailController extends GetxController {
   sendEmailVerification() async {
     try {
       await AuthenticationRepository.instance.sendEmailVerification();
-      TLoaders.successSnackBar(
+      JLoaders.successSnackBar(
           title: "Email sent",
           message: 'Please check you Mail box and verify your email.');
     } catch (e) {
-      TLoaders.errorSnackBar(title: "Oh snap", message: e.toString());
+      JLoaders.errorSnackBar(title: "Oh snap", message: e.toString());
     }
   }
 

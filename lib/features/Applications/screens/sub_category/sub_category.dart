@@ -5,6 +5,7 @@ import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/job_and_internship_card/intership_cards.dart';
+import '../../../../common/widgets/job_and_internship_card/vertical_Application.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 
 class SubCategoryScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class SubCategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: JAppbar(
-        title: Text("DataBase"),
+        title: Text("Technology", style: Theme.of(context).textTheme.headlineMedium,),
         showBackArrow: true,
       ),
       body: SingleChildScrollView(
@@ -50,7 +51,7 @@ class SubCategoryScreen extends StatelessWidget {
                       itemCount: 4,
                       scrollDirection: Axis.horizontal,
                       separatorBuilder: (context, index) => const SizedBox(width: JSizes.spaceBtwItems,),
-                      itemBuilder: (context, index) => const JApplicationsCardVertical()),
+                      itemBuilder: (context, index) =>VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', jobType: 'Internship', )),
                       //itemBuilder: (context, index) => const JApplicationsCardHorizontal()),
                   )
                 ],

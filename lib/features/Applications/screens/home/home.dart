@@ -16,6 +16,8 @@ import '../../../../common/widgets/job_and_internship_card/intership_cards.dart'
 
 import '../../../../common/widgets/texts/section_heading.dart';
 
+import '../../../../uploadcategories.dart';
+import '../../../../uploadsubcategories.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../personilization/screens/settings/settings.dart';
@@ -48,6 +50,7 @@ class HomeScreen extends StatelessWidget {
 
                   ///Searchbar
                   JSearchContainer(text: "Search for an Opportunity", onTap: () => Get.to(() => const SearchBody()), ),
+                 // JSearchContainer(text: "Search for an Opportunity", onTap: () => Get.to(() => const UploadSubCategoriesPage()), ),
 
 
                 ],
@@ -79,7 +82,6 @@ class HomeScreen extends StatelessWidget {
                        )  ,
 
                     JSectionHeading(title: "Statistics : ", showActonButton: false,),
-                    const SizedBox(height: JSizes.spaceBtwItems),
 
                     StatisticsBlock(),
 

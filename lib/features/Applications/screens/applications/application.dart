@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/search_container.dart';
+import 'package:project_bc_tuto/common/widgets/scrollable_container/category_scrolable.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
+import 'package:project_bc_tuto/features/Applications/controllers/category_controller.dart';
 import 'package:project_bc_tuto/features/Applications/screens/applications/Widgets/category.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/appbar/tab_bar.dart';
@@ -31,8 +33,9 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categories = CategoryController.instance.featuredCategories;
     return DefaultTabController(
-      length: 6,
+      length: categories.length,
       child: Scaffold(
         appBar: JAppbar(
           title: Text('Applications',
@@ -111,20 +114,11 @@ class Application extends StatelessWidget {
 
 
                   ///tabs
-                  bottom: const JTabBar(
-                    tabs: [
-                      Tab(child: Text("Data Analyst")),
-                      Tab(child: Text("Designer")),
-                      Tab(child: Text("Mechanic")),
-                      Tab(child: Text("Accountant")),
-                      Tab(child: Text("DB Administrator")),
-                      Tab(child: Text("Network Administrator")),
-                    ],
-                  ),
+                  bottom: JTabBar(tabs: categories.map((category) => Tab(child: Text(category.name))).toList()),
                 ),
               ];
             },
-            body: TabBarView( children: [JCategory(), JCategory(), JCategory(), JCategory(), JCategory(), JCategory(),]
+            body: TabBarView( children: categories.map((category) => JCategoryTab(category: category)).toList()
             )
         ),
       ),

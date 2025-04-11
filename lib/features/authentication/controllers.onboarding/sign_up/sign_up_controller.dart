@@ -113,7 +113,7 @@ class SignupController extends GetxController {
       }
 
       if (!privacyPolicy.value) {
-        TLoaders.warningSnackBar(
+        JLoaders.warningSnackBar(
           title: 'Accept Privacy Policy',
           message:
           'To create an account, you must accept the Privacy Policy & Terms of Use',
@@ -161,14 +161,14 @@ class SignupController extends GetxController {
       await userRepository.saveUserRecord(newUser);
 
       TFullScreenLoader.stopLoading();
-      TLoaders.successSnackBar(
+      JLoaders.successSnackBar(
           title: 'Congratulations',
           message: 'Your account has been created! Verify your email to continue.');
 
       Get.to(() => VerifyEmailScreen(email: email.text.trim()));
     } catch (e) {
       TFullScreenLoader.stopLoading();
-      TLoaders.errorSnackBar(title: 'OH Snap!', message: e.toString());
+      JLoaders.errorSnackBar(title: 'OH Snap!', message: e.toString());
     }
   }
 }

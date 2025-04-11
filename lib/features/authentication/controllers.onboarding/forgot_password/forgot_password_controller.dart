@@ -42,12 +42,12 @@ class ForgotPasswordController extends GetxController {
       //remove scuccess screen
       TFullScreenLoader.stopLoading();
 
-      TLoaders.successSnackBar(title: 'Email sent', message: 'Email Link sent to rest your password'.tr);
+      JLoaders.successSnackBar(title: 'Email sent', message: 'Email Link sent to rest your password'.tr);
 
       //Redirect
       Get.to(() => ResetPasswordScreen(email: email.text.trim(),));
     }catch (e) {
-      TLoaders.errorSnackBar(title: 'Oh snap', message: e.toString());
+      JLoaders.errorSnackBar(title: 'Oh snap', message: e.toString());
 
     }
   }
@@ -76,10 +76,10 @@ class ForgotPasswordController extends GetxController {
       //remove scuccess screen
       TFullScreenLoader.stopLoading();
 
-      TLoaders.successSnackBar(title: 'Email sent', message: 'Email Link sent to rest your password'.tr);
+      JLoaders.successSnackBar(title: 'Email sent', message: 'Email Link sent to rest your password'.tr);
 
     }catch (e) {
-      TLoaders.errorSnackBar(title: 'Oh snap', message: e.toString());
+      JLoaders.errorSnackBar(title: 'Oh snap', message: e.toString());
 
     }
   }

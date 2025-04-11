@@ -26,7 +26,7 @@ class CompanyHomeStats extends StatelessWidget {
                 backgroundColor: Colors.blueAccent,
                 child: Stack(
                   children: [
-                    // Background Question Mark
+
                     Positioned(
                       bottom: 0,
                       right: 0,

@@ -13,6 +13,8 @@ import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
 import '../../../../common/image_picker/imagepickerDialog.dart';
+import '../../../Applications/models/user_model.dart';
+import '../../../authentication/screens/Sign_up/widgets/skillAddDialog.dart';
 import '../../controllers/user_controller.dart';
 
 class ResumePage extends StatefulWidget {
@@ -22,10 +24,106 @@ class ResumePage extends StatefulWidget {
   State<ResumePage> createState() => _ResumePageState();
 }
 
+
+
 class _ResumePageState extends State<ResumePage> {
   int currentStep = 5;
   final String collectionName = "candidates";
   final String uid = FirebaseAuth.instance.currentUser!.uid;
+
+  Future<List<LanguageEntry>?> showLanguageDialog(BuildContext context, List<LanguageEntry> currentLanguages) async {
+    final TextEditingController languageController = TextEditingController();
+    int selectedProficiency = 1;
+
+    return await showDialog<List<LanguageEntry>>(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) => AlertDialog(
+            title: const Text('Add Language'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: languageController,
+                  decoration: const InputDecoration(
+                    labelText: 'Enter a Language',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text('Proficiency:'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [1, 2, 3].map((level) {
+                    return Row(
+                      children: [
+                        Radio<int>(
+                          value: level,
+                          groupValue: selectedProficiency,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedProficiency = value!;
+                            });
+                          },
+                        ),
+                        Text('$level'),
+                      ],
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final newLang = languageController.text.trim();
+                  if (newLang.isEmpty) return;
+
+                  final List<LanguageEntry> result = List.from(currentLanguages);
+
+                  final index = result.indexWhere(
+                        (l) => l.language.toLowerCase() == newLang.toLowerCase(),
+                  );
+
+                  if (index != -1) {
+                    // Update proficiency if changed
+                    if (result[index].proficiency != selectedProficiency) {
+                      result[index] = LanguageEntry(language: newLang, proficiency: selectedProficiency);
+                    }
+                  } else {
+                    // Add new language
+                    result.add(LanguageEntry(language: newLang, proficiency: selectedProficiency));
+                  }
+
+                  Navigator.pop(context, result);
+                },
+                child: const Text('Save'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<List<SkillEntry>?> showSkillDialog(BuildContext context) {
+    return showDialog<List<SkillEntry>>(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: SkillDialogContent(),
+        );
+      },
+    );
+  }
+
 
 
   void showEditDialog({
@@ -50,7 +148,11 @@ class _ResumePageState extends State<ResumePage> {
           ),
           const SizedBox(height: 20),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: JSizes.md, vertical: JSizes.md * 0.6)
+            ),
             onPressed: () async {
+              
               await onUpdate(dialogController.text);
               Get.back();
             },
@@ -61,6 +163,22 @@ class _ResumePageState extends State<ResumePage> {
     );
   }
 
+  Widget buildLanguageChips() {
+    return Wrap(
+      spacing: 3,
+      runSpacing: 3,
+      children: UserController.instance.user!.languages.map((entry) {
+        return Chip(
+          padding: EdgeInsets.all(JSizes.xxs),
+          label: Text('${entry.language} (Lv${entry.proficiency})'),
+          deleteIcon: const Icon(Icons.close),
+          onDeleted: () {
+            UserController.instance.user!.languages.remove(entry);
+          },
+        );
+      }).toList(),
+    );
+  }
   /// Helper widget for an editable info row.
   Widget buildEditableInfoRow({
     required IconData icon,
@@ -75,11 +193,11 @@ class _ResumePageState extends State<ResumePage> {
           Icon(icon, size: 20, color: Colors.deepPurple),
           const SizedBox(width: 10),
           Expanded(
-            child: Text("$label: $value",
+            child: Text("$label $value",
                 style: const TextStyle(fontSize: 14, color: Colors.black)),
           ),
           IconButton(
-            icon: const Icon(Icons.edit, size: 18, color: JColors.primary),
+            icon: const Icon(Iconsax.edit, size: 20, color: JColors.primary),
             onPressed: () {
               showEditDialog(
                 fieldName: label,
@@ -97,6 +215,7 @@ class _ResumePageState extends State<ResumePage> {
   /// Helper widget to build a section card.
   Widget buildSectionCard(String title, List<Widget> children) {
     return Container(
+      width: double.infinity,
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -205,7 +324,6 @@ class _ResumePageState extends State<ResumePage> {
           IconButton(
             icon: const Icon(Icons.picture_as_pdf),
             onPressed: () async {
-
               DocumentSnapshot doc = await FirebaseFirestore.instance
                   .collection(collectionName)
                   .doc(uid)
@@ -253,15 +371,20 @@ class _ResumePageState extends State<ResumePage> {
                                   backgroundColor: Colors.grey[300],
                                   child: data['ProfilePicture'] != null &&
                                           data['ProfilePicture'] != ""
-                                      ? Obx( () => CircleAvatar(
+                                      ? Obx(
+                                          () => CircleAvatar(
                                             radius: 80,
-                                            backgroundImage:
-                                               NetworkImage(controller.user?.profilePicture ?? ''),
+                                            backgroundImage: NetworkImage(
+                                                controller
+                                                        .user?.profilePicture ??
+                                                    ''),
                                           ),
-                                      )
+                                        )
                                       : const Text("No Image"),
                                 ),
-                                SizedBox(height: JSizes.md,)
+                                SizedBox(
+                                  height: JSizes.md,
+                                )
                               ],
                             ),
                             Positioned(
@@ -291,15 +414,14 @@ class _ResumePageState extends State<ResumePage> {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 5),
-                        Text(
-                            controller.user?.email ?? "",
+                        Text(controller.user?.email ?? "",
                             style: const TextStyle(
                                 fontSize: 16, color: Colors.grey)),
                         const SizedBox(height: 10),
                       ],
                     ),
                   ),
-                  const SizedBox(height: JSizes.spaceBtwItems),
+                  const SizedBox(height: JSizes.spaceBtwItems * 0.3),
                   // Basic Information Section
                   buildSectionCard("Basic Information", [
                     buildEditableInfoRow(
@@ -328,17 +450,23 @@ class _ResumePageState extends State<ResumePage> {
                         setState(() {});
                       },
                     ),
+                  ]),
+
+                  buildSectionCard('Description', [
                     buildEditableInfoRow(
-                      icon: Icons.lock,
-                      label: "Password",
-                      value: "********",
+                      icon: Icons.text_snippet,
+                      label: "",
+                      value: data['SelfDescription'] != null &&
+                              data['SelfDescription'].toString().isNotEmpty
+                          ? data['SelfDescription']
+                          : "Not provided",
                       onEdit: (newValue) async {
-                        await _updateField("Password", newValue);
+                        await _updateField("SelfDescription", newValue);
                         setState(() {});
                       },
                     ),
                   ]),
-                  const SizedBox(height: JSizes.spaceBtwItems),
+                  const SizedBox(height: JSizes.spaceBtwItems * 0.3),
                   // Location & Education Section
                   buildSectionCard("Location & Education", [
                     buildEditableInfoRow(
@@ -379,14 +507,24 @@ class _ResumePageState extends State<ResumePage> {
                     ),
                     buildEditableInfoRow(
                       icon: Icons.school,
-                      label: "Education",
-                      value:
-                          "${data['EducationLevel']} at ${data['SchoolAttended']}",
+                      label: "School attended",
+                      value: "${data['SchoolAttended']}",
+                      onEdit: (newValue) async {
+                        await _updateField("SchoolAttended", newValue);
+                        setState(() {});
+                      },
+                    ),
+
+                    buildEditableInfoRow(
+                      icon: Icons.school,
+                      label: "Latest Certificate",
+                      value: "${data['EducationLevel']} ",
                       onEdit: (newValue) async {
                         await _updateField("EducationLevel", newValue);
                         setState(() {});
                       },
                     ),
+
                     buildEditableInfoRow(
                       icon: Icons.business,
                       label: "Job Preference",
@@ -397,7 +535,7 @@ class _ResumePageState extends State<ResumePage> {
                       },
                     ),
                   ]),
-                  const SizedBox(height: JSizes.spaceBtwItems),
+                  const SizedBox(height: JSizes.spaceBtwItems * 0.3),
                   // Opportunity Section
                   buildSectionCard("Opportunity", [
                     buildEditableInfoRow(
@@ -419,56 +557,129 @@ class _ResumePageState extends State<ResumePage> {
                       },
                     ),
                   ]),
-                  const SizedBox(height: JSizes.spaceBtwItems),
-                  // Self Description & Resume Section
-                  buildSectionCard("Profile Details", [
-                    buildEditableInfoRow(
-                      icon: Icons.text_snippet,
-                      label: "Self Description",
-                      value: data['SelfDescription'] != null &&
-                              data['SelfDescription'].toString().isNotEmpty
-                          ? data['SelfDescription']
-                          : "Not provided",
-                      onEdit: (newValue) async {
-                        await _updateField("SelfDescription", newValue);
-                        setState(() {});
-                      },
-                    ),
-                    buildEditableInfoRow(
-                      icon: Icons.upload_file,
-                      label: "Resume",
-                      value: data['Resume'] != null &&
-                              data['Resume'].toString().isNotEmpty
-                          ? data['Resume']
-                          : "Not provided",
-                      onEdit: (newValue) async {
-                        await _updateField("Resume", newValue);
-                        setState(() {});
-                      },
-                    ),
-                  ]),
-                  const SizedBox(height: JSizes.spaceBtwItems),
+                  const SizedBox(height: JSizes.spaceBtwItems * 0.3),
+
+
+                  const SizedBox(height: JSizes.spaceBtwItems * 0.3),
                   // Skills Section
                   buildSectionCard("Skills", [
-                    Text(
-                      data['Skills'] != null &&
-                              (data['Skills'] as List).isNotEmpty
-                          ? (data['Skills'] as List)
-                              .map((s) => s.toString())
-                              .join(" | ")
-                          : "No skills provided",
-                      style: const TextStyle(fontSize: 14, color: Colors.black),
-                    ),
+                    Obx(() => Wrap(
+                          spacing: 5,
+                          runSpacing: 5,
+                          children: controller.user!.skills.map((entry) {
+                            return InputChip(
+                              label: Text(
+                                "${entry.skill} (Lvl ${entry.level})",
+                                style: TextStyle(
+                                    color: Colors.black, fontFamily: 'Poppins'),
+                              ),
+                              onDeleted: () async {
+                                final shouldDelete = await showDialog<bool>(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    title: const Text("Remove Skill"),
+                                    content: Text(
+                                        "Are you sure you want to remove '${entry.skill}'?"),
+                                    actions: [
+                                      OutlinedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: JSizes.md,
+                                                  vertical: JSizes.md * 0.6)),
+                                          onPressed: () =>
+                                              Navigator.pop(context, false),
+                                          child: const Text(
+                                            "Cancel",
+                                            style: TextStyle(
+                                                color: JColors.secondary,
+                                                fontFamily: 'Poppins'),
+                                          )),
+                                      ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: JSizes.md,
+                                                  vertical: JSizes.md * 0.6)),
+                                          onPressed: () =>
+                                              Navigator.pop(context, true),
+                                          child: const Text("Remove",
+                                              style: TextStyle(
+                                                  fontFamily: 'Poppins'))),
+                                    ],
+                                  ),
+                                );
+
+                                if (shouldDelete == true) {
+                                  controller.user!.skills.remove(entry);
+                                }
+                              },
+                              deleteIcon: const Icon(
+                                Icons.close,
+                                size: 16,
+                                color: Colors.red,
+                              ),
+                              backgroundColor: Colors.grey.shade200,
+                            );
+                          }).toList(),
+                        )),
                     IconButton(
-                      icon: const Icon(Icons.edit,
-                          size: 18, color: JColors.primary),
-                      onPressed: () {
-                        Get.snackbar("Edit Skills",
-                            "Implement skill editing dialog here");
+                        icon: const Icon(Iconsax.edit,
+                            size: 18, color: JColors.primary),
+                        onPressed: () async {
+                          final result = await showSkillDialog(context);
+                          if (result != null && result.isNotEmpty) {
+                            for (final newSkill in result) {
+                              final index = controller.user!.skills.indexWhere(
+                                (s) =>
+                                    s.skill.toLowerCase().trim() ==
+                                    newSkill.skill.toLowerCase().trim(),
+                              );
+
+                              if (index != -1) {
+                                // If the skill already exists, only update if the level is different
+                                if (controller.user!.skills[index].level !=
+                                    newSkill.level) {
+                                  controller.user!.skills[index] = newSkill;
+                                }
+                              } else {
+                                // If it's a new skill, add it
+                                controller.user!.skills.add(newSkill);
+                              }
+                            }
+
+                            controller.user!.skills.refresh();
+                          }
+                        }),
+                  ]),
+
+
+
+                  buildSectionCard('Languages', [
+                    Obx(() => Wrap(
+                      spacing: 3,
+                      runSpacing: 3,
+                      children: controller.user!.languages.map((entry) {
+                        return Chip(
+                          padding: EdgeInsets.all(JSizes.xxs),
+                          label: Text('${entry.language} (Lv${entry.proficiency})'),
+                          deleteIcon: const Icon(Icons.close),
+                          onDeleted: () {
+                            controller.user!.languages.remove(entry);
+                          },
+                        );
+                      }).toList(),
+                    )),
+                    IconButton(
+                      icon: const Icon(Iconsax.edit, color: JColors.primary, size: 18),
+                      onPressed: () async {
+                        final updatedLanguages = await showLanguageDialog(context, controller.user!.languages.toList());
+                        if (updatedLanguages != null) {
+                          controller.user!.languages.assignAll(updatedLanguages);
+                        }
                       },
                     ),
                   ]),
-                  const SizedBox(height: JSizes.spaceBtwItems),
+
+                  const SizedBox(height: JSizes.spaceBtwItems * 0.3),
                   // Hobbies Section
                   buildSectionCard("Hobbies", [
                     Text(
@@ -479,7 +690,7 @@ class _ResumePageState extends State<ResumePage> {
                       style: const TextStyle(fontSize: 14, color: Colors.black),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.edit,
+                      icon: const Icon(Iconsax.edit,
                           size: 18, color: JColors.primary),
                       onPressed: () {
                         showEditDialog(
@@ -502,9 +713,9 @@ class _ResumePageState extends State<ResumePage> {
                       },
                     ),
                   ]),
-                  const SizedBox(height: JSizes.spaceBtwItems),
+                  const SizedBox(height: JSizes.spaceBtwItems * 0.3),
 
-                  const SizedBox(height: JSizes.spaceBtwItems),
+                  const SizedBox(height: JSizes.spaceBtwItems * 0.3),
                   // Finish Button
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
@@ -540,4 +751,8 @@ class _ResumePageState extends State<ResumePage> {
       ),
     );
   }
+}
+
+extension on List<SkillEntry> {
+  void refresh() {}
 }

@@ -9,19 +9,21 @@ import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import 'package:project_bc_tuto/utils/popups/full_screen_loader.dart';
 import 'package:project_bc_tuto/utils/popups/loaders.dart';
+import '../../../data/repositories/user/company_repositories.dart';
 import '../../../data/repositories/user/user_repositories.dart';
 import '../../../utils/helpers/network_manager.dart';
+import '../../Applications/models/company_model.dart';
 import '../../authentication/screens/login/login.dart';
 import '../screens/profile/widgets/re_authenticate_user_login_form.dart';
 
-class UserController extends GetxController {
-  static UserController get instance => Get.find();
+class CompanyController extends GetxController {
+  static CompanyController get instance => Get.find();
 
 
-  final UserRepository userRepository = Get.put(UserRepository());
+  final CompanyRepository companyRepository = Get.put(CompanyRepository());
 
   // Reactive variable to hold user data.
-  final Rxn<UserModel> _user = Rxn<UserModel>();
+  final Rxn<CompanyModel> _user = Rxn<CompanyModel>();
 
   final hidePassword =false.obs;
   final verifyEmail = TextEditingController();
@@ -33,7 +35,7 @@ class UserController extends GetxController {
   final profileLoading = false.obs;
 
   // Getter for accessing current user.
-  UserModel? get user => _user.value;
+  CompanyModel? get user => _user.value;
 
   @override
   void onInit() {
@@ -41,12 +43,11 @@ class UserController extends GetxController {
     loadUserData();
   }
 
-  /// Safely updates the user's name using the copyWith method on UserModel.
-  void updateUserName(String first, String last) {
+  /// Safely updates the user's name using the copyWith method on CompanyModel.
+  void updateUserName(String first) {
     if (_user.value != null) {
       _user.value = _user.value!.copyWith(
-        firstName: first,
-        lastName: last,
+        companyName: first,
       );
     }
   }
@@ -57,13 +58,13 @@ class UserController extends GetxController {
       profileLoading.value = true;
       final uid = FirebaseAuth.instance.currentUser?.uid;
       if (uid == null) {
-        _user.value = UserModel.empty();
+        _user.value = CompanyModel.empty();
         profileLoading.value = false;
         return;
       }
 
       // Fetch user record from repository (this may include cached values)
-      final userRecord = await userRepository.fetchUserDetails();
+      final userRecord = await companyRepository.fetchUserDetails();
 
       // Determine the correct collection based on userType.
       final collectionName = userRecord.userType.toLowerCase() == "company"
@@ -77,9 +78,9 @@ class UserController extends GetxController {
           .get();
 
       if (doc.exists) {
-        _user.value = UserModel.fromSnapshot(doc);
+        _user.value = CompanyModel.fromSnapshot(doc);
       } else {
-        _user.value = UserModel.empty();
+        _user.value = CompanyModel.empty();
       }
     } catch (e) {
       JLoaders.warningSnackBar(
@@ -92,7 +93,7 @@ class UserController extends GetxController {
   }
 
   /// Saves user record to the appropriate Firestore collection.
-  Future<void> saveUserRecord(UserModel user) async {
+  Future<void> saveUserRecord(CompanyModel user) async {
     try {
       final collectionName = user.userType.toLowerCase() == "company"
           ? "companies"
@@ -109,7 +110,7 @@ class UserController extends GetxController {
   }
 
   /// Updates user document and local reactive model.
-  Future<void> updateUserDetails(UserModel updatedUser) async {
+  Future<void> updateUserDetails(CompanyModel updatedUser) async {
     try {
       final collectionName = updatedUser.userType.toLowerCase() == "company"
           ? "companies"

@@ -6,7 +6,7 @@ import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/text_strings.dart';
-import 'package:project_bc_tuto/utils/effects/shimerEffect.dart';
+import 'package:project_bc_tuto/common/widgets/shimmer/shimerEffect.dart';
 import '../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../common/widgets/notifications/notifications_icon.dart';
 import '../../../../../common/widgets/Images/rounded_image.dart';
@@ -27,15 +27,21 @@ class HomeAppbar extends StatelessWidget {
                 Scaffold.of(context).openDrawer(); // Open Drawer
               },
               child: SizedBox(
-                  width: 60,
-                  height: 60,
-                  child:  JRoundedImage(
-                    isNetworkImage: true,
-                    imageUrl: controller.user?.profilePicture ?? '',
-                    width: 60,
-                    borderRadius: 60,
-                    applyImageRadius: true,
-                  ),
+                width: 60,
+                height: 60,
+                child: Obx(() {
+                  if (controller.profileLoading.value) {
+                    return const JShimmerEffect(width: 60, height: 60);
+                  } else {
+                    return JRoundedImage(
+                      isNetworkImage: true,
+                      imageUrl: controller.user?.profilePicture ?? '',
+                      width: 60,
+                      borderRadius: 60,
+                      applyImageRadius: true,
+                    );
+                  }
+                }),
               )
           ),
           SizedBox(width: JSizes.md),

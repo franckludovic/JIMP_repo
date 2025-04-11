@@ -1,67 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/rounded_container.dart';
-import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
+import 'package:project_bc_tuto/features/Applications/models/categorie_model.dart';
 
-import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/image_strings.dart';
+import '../../../utils/constants/sizes.dart';
+import '../job_and_internship_card/intership_cards.dart';
+import '../job_and_internship_card/vertical_Application.dart';
+import '../layout/grid_layout.dart';
+import '../texts/section_heading.dart';
 
 class JCategoryTab extends StatelessWidget {
-  final List<Map<String, dynamic>> categories;
-
-  const JCategoryTab({super.key, required this.categories});
+  final CategoryModel category;
+  const JCategoryTab({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
-    final dark = JHelperFunctions.isDarkMode(context);
-    return JRoundedContainer(
-      width: MediaQuery.of(context).size.width * 0.9,
-      //width: JSizes.mobileScreenSize.toDouble(),
-      height: 100,
-      showBorder: true,
-      backgroundColor: JColors.lightGrey,
-      radius: 25,
-      borderWidth: 3,
-      borderColor:dark ? JColors.darkGrey : JColors.grey,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: categories.map((category) {
-            return GestureDetector(
-              onTap: () {},
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: category["color"],
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.black, width: 2),
-                      ),
-                      child: Icon(
-                        category["icon"],
-                        color: Colors.white,
-                        size: 28,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      category["name"],
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }).toList(),
+    return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(JSizes.defaultSpace),
+          child: Column(
+            children: [
+              /// -- Brands
+              HorizontalJInternshipCard(companyLogo: JImages.nvidia,companyName: "Nvidia",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"],  completionDate: DateTime(2023, 12, 15),),
+              HorizontalJInternshipCard(companyLogo: JImages.nvidia,companyName: "Nvidia",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"],  completionDate: DateTime(2023, 12, 15),),
+              HorizontalJInternshipCard(companyLogo: JImages.nvidia,companyName: "Nvidia",duration: "8 - 9 month",jobTitle: "Database admin", location: "Douala",skills: ["C#", "java", "C"],  completionDate: DateTime(2023, 12, 15),),
+              /// -- Products
+              JSectionHeading(title: 'You might like', onPressed: () {}),
+              const SizedBox(height: JSizes.spaceBtwItems),
+
+              JGridLayout(
+                itemCount: 4,
+                itemBuilder: (_, index) => VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', jobType: 'Internship', )),
+
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
