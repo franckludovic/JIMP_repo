@@ -38,7 +38,7 @@ class SignupController extends GetxController {
 
   final selfDescription = TextEditingController();
   final resume = TextEditingController();
-  final opportunityType = ''.obs; // Observable for dropdown value
+  final opportunityType = ''.obs;
   final linkedin = TextEditingController();
   final github = TextEditingController();
   final portfolio = TextEditingController();

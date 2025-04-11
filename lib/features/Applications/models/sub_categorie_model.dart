@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class SubCategoryModel {
   final String id;
   final String name;
-  final String parentCategory; // Use main category name or ID
+  final String parentCategory;
 
   SubCategoryModel({
     required this.id,

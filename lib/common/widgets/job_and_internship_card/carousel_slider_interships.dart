@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
+import 'package:project_bc_tuto/features/Applications/controllers/intership_carousel_controller.dart';
 
 import '../../../features/Applications/controllers/home_controller.dart';
 import '../../../utils/constants/colors.dart';
@@ -22,7 +23,7 @@ class InternshipCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HomeController());
+    final controller = Get.put(IntershipCarouselController());
 
     return GestureDetector(
       onTap: onTap,

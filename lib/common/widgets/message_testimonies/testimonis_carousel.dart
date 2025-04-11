@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/message_testimonies/testimonies_messages.dart';
 
 import '../../../features/Applications/controllers/home_controller.dart';
+import '../../../features/Applications/controllers/intership_carousel_controller.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../custom_shapes/container_shapes/Cirular_shape.dart';
@@ -22,7 +23,7 @@ class MessageCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HomeController());
+    final controller = Get.put(IntershipCarouselController());
 
     return GestureDetector(
       onTap: onTap,

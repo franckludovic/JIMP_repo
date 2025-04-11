@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 /// An enum for verification status (if needed for postings).
 enum VerificationStatus { pending, verified, rejected }
 
-/// A simple address model (shared if needed in posting, e.g. for job location).
+/// A simple address model (shared for job location).
 class Address {
   final String street;
   final String city;
@@ -41,7 +41,7 @@ class PostingModel {
   /// Unique identifier for the posting.
   final String id;
 
-  /// The company ID creating this posting (can be auto-filled from company profile).
+  /// The company ID creating this posting.
   final String companyId;
 
   /// Opportunity type: "Job", "Internship", or "Contract"
@@ -53,39 +53,43 @@ class PostingModel {
   /// Opportunity description.
   final String jobDescription;
 
-  /// Location name/address (can be free-form).
+  /// Location (free-form address or location name).
   final String location;
 
-  /// Employment type: e.g., "Remote", "Onsite", "Hybrid"
-  final String employmentType;
+  /// Employment mode: "Remote", "Onsite", or "Hybrid"
+  final String employmentMode;
+
+  final String? jobCategory;
+  final List<String> subcategories;
+  final String? timeFrame;
+  final String? educationLevel;
+  final String? languageRequirements;
+
 
   /// Experience level: e.g., "Entry Level", "Mid Level", "High Level"
   final String experienceLevel;
 
-  /// Salary details – For Job/Contract; for Internship, you may use a stipend.
+  /// Salary details: For jobs/contracts (stipend for internships).
   final String? salaryRange;
 
   /// Benefits and perks information (optional).
   final String? benefits;
 
-  /// Time frame for the opportunity, such as start and end dates.
+  /// Time frame for the opportunity – start and end dates (if applicable).
   final DateTime? startDate;
   final DateTime? endDate;
 
   /// Application deadline.
   final DateTime deadline;
 
-  /// Application process details
+  /// Application process details.
   final String howToApply;
   final String? requiredDocuments;
   final int? applicationQuota;
   final String? selectionProcess;
 
 
-  final String aboutCompany;
-  final String? teamDepartment;
-
-
+  /// Additional posting info (optional but recommended).
   final String? equalOpportunityStatement;
   final String? workAuthorizationRequirements;
   final DateTime? expectedStartDate;
@@ -93,12 +97,14 @@ class PostingModel {
   final String? internalReferenceCode;
   final String? contactEmail;
 
-  /// Internship-specific fields (optional; only used when opportunityType is "Internship")
+  /// Internship-specific fields (optional; only applicable for internships).
   final String? duration; // e.g., "3 months", "6 months"
-  final bool? academicCredit; // Available or not
-  final bool? returnOfferPotential; // Yes or No
-  final String? trainingProvided; // e.g., "Technical Workshops", "Soft Skills Training", etc.
-  final bool? projectPortfolio; // Will measurable projects be built?
+  final bool? academicCredit;
+  final bool? returnOfferPotential;
+  final String? trainingProvided;
+  final bool? projectPortfolio;
+
+  /// New field: Employment mode is already added above.
 
   /// Metadata
   final VerificationStatus verificationStatus;
@@ -107,14 +113,19 @@ class PostingModel {
 
   PostingModel({
     required this.id,
+    required this.subcategories,
     required this.companyId,
     required this.opportunityType,
     required this.jobTitle,
     required this.jobDescription,
     required this.location,
-    required this.employmentType,
+    required this.employmentMode,
     required this.experienceLevel,
     this.salaryRange,
+    this.jobCategory,
+    this.timeFrame,
+    this.educationLevel,
+    this.languageRequirements,
     this.benefits,
     this.startDate,
     this.endDate,
@@ -123,8 +134,6 @@ class PostingModel {
     this.requiredDocuments,
     this.applicationQuota,
     this.selectionProcess,
-    required this.aboutCompany,
-    this.teamDepartment,
     this.equalOpportunityStatement,
     this.workAuthorizationRequirements,
     this.expectedStartDate,
@@ -142,7 +151,7 @@ class PostingModel {
   })  : createdAt = createdAt ?? Timestamp.now(),
         updatedAt = updatedAt ?? Timestamp.now();
 
-  /// Converts the PostingModel instance to JSON.
+  /// Converts this PostingModel instance to a JSON map.
   Map<String, dynamic> toJson() => {
     'id': id,
     'companyId': companyId,
@@ -150,19 +159,22 @@ class PostingModel {
     'jobTitle': jobTitle,
     'jobDescription': jobDescription,
     'location': location,
-    'employmentType': employmentType,
+    'employmentMode': employmentMode,
     'experienceLevel': experienceLevel,
     'salaryRange': salaryRange,
     'benefits': benefits,
     'startDate': startDate,
     'endDate': endDate,
     'deadline': deadline,
+    'jobCategory': jobCategory,
+    'subCategory':subcategories,
+    'timeFrame': timeFrame,
+    'educationLevel': educationLevel,
+    'languageRequirements': languageRequirements,
     'howToApply': howToApply,
     'requiredDocuments': requiredDocuments,
     'applicationQuota': applicationQuota,
     'selectionProcess': selectionProcess,
-    'aboutCompany': aboutCompany,
-    'teamDepartment': teamDepartment,
     'equalOpportunityStatement': equalOpportunityStatement,
     'workAuthorizationRequirements': workAuthorizationRequirements,
     'expectedStartDate': expectedStartDate,
@@ -179,7 +191,7 @@ class PostingModel {
     'updatedAt': updatedAt,
   };
 
-  /// Creates a PostingModel from JSON.
+  /// Creates a PostingModel from a JSON map.
   factory PostingModel.fromJson(Map<String, dynamic> json) {
     return PostingModel(
       id: json['id'] ?? '',
@@ -188,10 +200,14 @@ class PostingModel {
       jobTitle: json['jobTitle'] ?? '',
       jobDescription: json['jobDescription'] ?? '',
       location: json['location'] ?? '',
-      employmentType: json['employmentType'] ?? '',
+      employmentMode: json['employmentMode'] ?? '',
       experienceLevel: json['experienceLevel'] ?? '',
       salaryRange: json['salaryRange'],
       benefits: json['benefits'],
+      jobCategory: json['jobCategory'],
+      timeFrame: json['timeFrame'],
+      educationLevel: json['educationLevel'],
+      languageRequirements: json['languageRequirements'],
       startDate: json['startDate'] is Timestamp ? (json['startDate'] as Timestamp).toDate() : null,
       endDate: json['endDate'] is Timestamp ? (json['endDate'] as Timestamp).toDate() : null,
       deadline: json['deadline'] is Timestamp ? (json['deadline'] as Timestamp).toDate() : DateTime.now(),
@@ -199,8 +215,7 @@ class PostingModel {
       requiredDocuments: json['requiredDocuments'],
       applicationQuota: json['applicationQuota'],
       selectionProcess: json['selectionProcess'],
-      aboutCompany: json['aboutCompany'] ?? '',
-      teamDepartment: json['teamDepartment'],
+      subcategories: List<String>.from(json['subCategory'] ?? []),
       equalOpportunityStatement: json['equalOpportunityStatement'],
       workAuthorizationRequirements: json['workAuthorizationRequirements'],
       expectedStartDate: json['expectedStartDate'] is Timestamp ? (json['expectedStartDate'] as Timestamp).toDate() : null,

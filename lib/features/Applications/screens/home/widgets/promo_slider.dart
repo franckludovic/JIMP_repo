@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_bc_tuto/features/Applications/controllers/home_controller.dart';
+import 'package:project_bc_tuto/features/Applications/controllers/intership_carousel_controller.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 
 import '../../../../../common/widgets/custom_shapes/container_shapes/Cirular_shape.dart';
@@ -17,7 +18,7 @@ class PromoSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HomeController());
+    final controller = Get.put(IntershipCarouselController());
 
     return Column(
       children: [

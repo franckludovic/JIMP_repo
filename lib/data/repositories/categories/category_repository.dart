@@ -31,8 +31,6 @@ class CategoryRepository extends GetxController{
     }
   }
 
-  ///get all sub categories
-  
 
   ///upload categories to the cloud firebase
 }
