@@ -26,7 +26,7 @@ class PostingController extends GetxController {
   final experienceLevel = ''.obs; //
 
   final salaryRange = TextEditingController();
-  final benefits = TextEditingController();
+  RxList<String> benefits = <String>[].obs;
 
 
   final startDate = TextEditingController();
@@ -146,7 +146,7 @@ class PostingController extends GetxController {
         employmentMode: employmentMode.value,
         experienceLevel: experienceLevel.value,
         salaryRange: salaryRange.text.trim(),
-        benefits: benefits.text.trim(),
+        benefits: benefits,
         startDate: parsedStartDate,
         endDate: parsedEndDate,
         deadline: parsedDeadline,
@@ -173,6 +173,10 @@ class PostingController extends GetxController {
 
       final postingRepository = Get.put((PostingRepository()));
       await postingRepository.createPosting(posting);
+
+      await CompanyRepository.instance.incrementTotalListings(
+        AuthenticationRepository.instance.authUser?.uid ?? '',
+      );
 
       TFullScreenLoader.stopLoading();
       JLoaders.successSnackBar(

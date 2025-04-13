@@ -4,6 +4,7 @@ import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/date%20picker/customdatepicker.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 import 'package:project_bc_tuto/features/Applications/company_creens/posting_creations/posting_review_page.dart';
+import 'package:project_bc_tuto/features/Applications/company_creens/posting_creations/widgets/benefitscard.dart';
 import 'package:project_bc_tuto/features/Applications/company_creens/posting_creations/widgets/customTextfileds.dart';
 import 'package:project_bc_tuto/features/Applications/company_creens/posting_creations/widgets/tagInpusts.dart';
 import 'package:project_bc_tuto/common/widgets/custom_wigets/jcustom_dropdown.dart';
@@ -39,6 +40,19 @@ class _JobCreationPageState extends State<JobCreationPage> {
     'Internship',
     'Contract'
   ];
+
+
+  static const List<String> benefitOptions = [
+    'Health Insurance',
+    'Paid Time Off',
+    'Retirement Plan',
+    'Flexible Hours',
+    'Remote Work Options',
+    'Performance Bonuses',
+    'Training & Development',
+    'Relocation Assistance'
+  ];
+
 
   static const List<String> employmentMode = ["Remote", "Onsite", "Hybrid"];
 
@@ -345,6 +359,64 @@ class _JobCreationPageState extends State<JobCreationPage> {
 
                 const SizedBox(height: JSizes.spaceBtwSections),
 
+                // Benefits Section in the form:
+                const JSectionHeading(title: "Benefits (Optional)", showActonButton: false),
+                const SizedBox(height: JSizes.spaceBtwItems),
+                MultiSelectChip(
+                  maxSelection: 10,
+                  options: benefitOptions,
+                  // Pass the current selected benefits from the controller.
+                  selectedOptions: controller.benefits.toList(),
+                  onSelectionChanged: (selected) {
+                    controller.benefits.assignAll(selected);
+                  },
+                ),
+
+                Row(
+                  children: [
+                    Text("Selected Benefits:", style: Theme.of(context).textTheme.bodyMedium),
+                    IconButton(
+                      icon: Icon(Icons.add, color: Colors.blue),
+                      onPressed: () async {
+                        // Open a dialog to enter a custom benefit
+                        final customBenefit = await showDialog<String>(
+                          context: context,
+                          builder: (context) {
+                            final textController = TextEditingController();
+                            return AlertDialog(
+                              title: const Text("Add Custom Benefit"),
+                              content: TextField(
+                                controller: textController,
+                                decoration: const InputDecoration(hintText: "Enter benefit"),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text("Cancel"),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Your custom benefits has been Added")),);
+                                    Navigator.pop(context, textController.text.trim());
+                                  },
+                                  child: const Text("Add"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        if (customBenefit != null && customBenefit.isNotEmpty) {
+                          // Add the custom benefit if it's not already selected.
+                          if (!controller.benefits.contains(customBenefit)) {
+                            controller.benefits.add(customBenefit);
+                          }
+                        }
+                      },
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: JSizes.spaceBtwSections),
 
                 Obx(() => JCustomDropDown(
                       title: "Frequency:",
@@ -417,6 +489,26 @@ class _JobCreationPageState extends State<JobCreationPage> {
                 ),
                 const SizedBox(height: JSizes.spaceBtwSections),
                 // Application Quota Field
+
+                Obx(() {
+                  // Show salary range only if the opportunity is Job or Contract.
+                  if (controller.opportunityType.value == "Job" || controller.opportunityType.value == "Contract") {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const JSectionHeading(title: "Salary Range", showActonButton: false),
+                        const SizedBox(height: 6),
+                        CustomTextField(
+                          controller: controller.salaryRange,
+                          hint: "Enter salary range",
+                        ),
+                        const SizedBox(height: JSizes.spaceBtwSections),
+                      ],
+                    );
+                  }
+                  return const SizedBox.shrink();
+                }),
+
 
                 const JSectionHeading(
                     title: "Maximum available places or spot",

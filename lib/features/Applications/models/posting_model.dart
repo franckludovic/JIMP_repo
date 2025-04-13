@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// An enum for verification status (if needed for postings).
 enum VerificationStatus { pending, verified, rejected }
+enum ApplicationStatus { notApplied, applied, accepted, rejected }
+enum ApplicationActivityStatus { active, expired }
 
 /// A simple address model (shared for job location).
 class Address {
@@ -74,7 +76,7 @@ class PostingModel {
   final String? salaryRange;
 
   /// Benefits and perks information (optional).
-  final String? benefits;
+  final List<String> benefits;
 
   /// Time frame for the opportunity – start and end dates (if applicable).
   final DateTime? startDate;
@@ -106,6 +108,8 @@ class PostingModel {
 
   /// Metadata
   final VerificationStatus verificationStatus;
+  final ApplicationStatus applicationStatus;
+  final ApplicationActivityStatus applicationActivityStatus;
   final Timestamp createdAt;
   final Timestamp updatedAt;
 
@@ -124,7 +128,7 @@ class PostingModel {
     this.tags,
     this.educationLevel,
     this.languageRequirements,
-    this.benefits,
+    this.benefits = const [],
     this.startDate,
     this.endDate,
     required this.deadline,
@@ -142,6 +146,8 @@ class PostingModel {
     this.projectPortfolio,
     required this.requiredSkills,
     this.verificationStatus = VerificationStatus.pending,
+    this.applicationStatus = ApplicationStatus.notApplied,
+    this.applicationActivityStatus = ApplicationActivityStatus.active,
     Timestamp? createdAt,
     Timestamp? updatedAt,
   })  : createdAt = createdAt ?? Timestamp.now(),
@@ -180,6 +186,8 @@ class PostingModel {
     'trainingProvided': trainingProvided,
     'projectPortfolio': projectPortfolio,
     'verificationStatus': verificationStatus.name,
+    'applicationStatus': applicationStatus.name,
+    'applicationActivityStatus': applicationActivityStatus.name,
     'createdAt': createdAt,
     'updatedAt': updatedAt,
   };
@@ -196,7 +204,7 @@ class PostingModel {
       employmentMode: json['employmentMode'] ?? '',
       experienceLevel: json['experienceLevel'] ?? '',
       salaryRange: json['salaryRange'],
-      benefits: json['benefits'],
+      benefits: json['benefits'] != null ? List<String>.from(json['benefits']) : [],
       jobCategory: json['jobCategory'],
       educationLevel: json['educationLevel'],
       languageRequirements: json['languageRequirements'],
@@ -224,6 +232,18 @@ class PostingModel {
             (e) => e.name.toLowerCase() ==
             (json['verificationStatus'] ?? 'pending').toString().toLowerCase(),
         orElse: () => VerificationStatus.pending,
+      ),
+      applicationStatus: ApplicationStatus.values.firstWhere(
+            (e) =>
+        e.name.toLowerCase() ==
+            (json['applicationStatus'] ?? 'notApplied').toString().toLowerCase(),
+        orElse: () => ApplicationStatus.notApplied,
+      ),
+      applicationActivityStatus: ApplicationActivityStatus.values.firstWhere(
+            (e) =>
+        e.name.toLowerCase() ==
+            (json['applicationActivityStatus'] ?? 'active').toString().toLowerCase(),
+        orElse: () => ApplicationActivityStatus.active,
       ),
     );
   }

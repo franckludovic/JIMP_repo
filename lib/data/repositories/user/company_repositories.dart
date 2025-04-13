@@ -134,4 +134,21 @@ class CompanyRepository extends GetxController {
     }
   }
 
+  Future<void> incrementTotalListings(String companyId) async {
+    try {
+      await _db.collection("companies").doc(companyId).update({
+        'totalListings': FieldValue.increment(1),
+      });
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong while updating the listing count';
+    }
+  }
+
+
 }
