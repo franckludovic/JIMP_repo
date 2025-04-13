@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -9,20 +8,16 @@ import 'package:project_bc_tuto/utils/exceptions/platform_exceptions.dart';
 
 import '../authentication/authentication_repositories.dart';
 
-
-
 class CompanyRepository extends GetxController {
   static CompanyRepository get instance => Get.find();
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  ///Function to save user data to firebase
-  Future<void> saveUserRecord(CompanyModel user) async {
+  /// Function to save company data to Firestore.
+  Future<void> saveUserRecord(CompanyModel company) async {
     try {
-
-      String collectionName = "companies" ;
-
-      await _db.collection(collectionName).doc(user.id).set(user.toJson());
+      String collectionName = "companies";
+      await _db.collection(collectionName).doc(company.id).set(company.toJson());
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -34,6 +29,7 @@ class CompanyRepository extends GetxController {
     }
   }
 
+  /// Fetch company details based on the authenticated company's ID.
   Future<CompanyModel> fetchUserDetails() async {
     try {
       final documentSnapshot = await _db
@@ -56,10 +52,28 @@ class CompanyRepository extends GetxController {
     }
   }
 
-  ///function to update user data in firebase.
-  Future<void> updateUserDetails(CompanyModel updateUser) async {
+  /// Fetch full CompanyModel by ID
+  Future<CompanyModel> fetchCompanyById(String companyId) async {
     try {
-      await _db.collection("companies").doc(updateUser.id).update(updateUser.toJson());
+      final doc = await _db.collection('companies').doc(companyId).get();
+      if (doc.exists) {
+        return CompanyModel.fromSnapshot(doc);
+      } else {
+        throw 'Company not found';
+      }
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong while fetching company details';
+    }
+  }
+
+  /// Update company data in Firestore.
+  Future<void> updateUserDetails(CompanyModel updatedCompany) async {
+    try {
+      await _db.collection("companies").doc(updatedCompany.id).update(updatedCompany.toJson());
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -71,7 +85,7 @@ class CompanyRepository extends GetxController {
     }
   }
 
-  ///update any field in specific User Collection
+  /// Update a single field in a company's document (if needed).
   Future<void> updateSingleField(Map<String, dynamic> json) async {
     try {
       await _db.collection("companies").doc().update(json);
@@ -86,10 +100,10 @@ class CompanyRepository extends GetxController {
     }
   }
 
-  ///Function to remove company
-  Future<void> removeUserRecord(String userId) async {
+  /// Remove a company's record from Firestore.
+  Future<void> removeUserRecord(String companyId) async {
     try {
-      await _db.collection("companies").doc(userId).delete();
+      await _db.collection("companies").doc(companyId).delete();
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -101,9 +115,23 @@ class CompanyRepository extends GetxController {
     }
   }
 
+  /// Fetch all branches for a given company.
+  Future<List<CompanyBranch>> fetchCompanyBranches(String companyId) async {
+    try {
+      final doc = await _db.collection('companies').doc(companyId).get();
+      if (doc.exists) {
+        final company = CompanyModel.fromSnapshot(doc);
+        return company.branches;
+      } else {
+        throw 'Company not found';
+      }
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong while fetching branches';
+    }
+  }
 
-
-///Function to fetch user detail based on id
-///function to update user data in firebase.
-///update any field in specific User Collection
 }

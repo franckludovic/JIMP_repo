@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:project_bc_tuto/features/Applications/models/posting_model.dart';
 import 'package:project_bc_tuto/utils/exceptions/firebase_exceptions.dart';
 import 'package:project_bc_tuto/utils/exceptions/format_exceptions.dart';
-import 'package:project_bc_tuto/utils/exceptions/platform_exceptions.dart';
+
+import '../user/company_repositories.dart';
+
 
 class PostingRepository extends GetxController {
   static PostingRepository get instance => Get.find();
@@ -13,8 +15,6 @@ class PostingRepository extends GetxController {
   /// Creates a new posting in the appropriate collection.
   Future<void> createPosting(PostingModel posting) async {
     try {
-      // Here, we assume all postings are saved under the "postings" collection.
-      // Optionally, you could organize them by company if needed.
       await _db.collection('postings').add(posting.toJson());
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
@@ -64,4 +64,8 @@ class PostingRepository extends GetxController {
       throw 'Something went wrong. Please try again. ${e.toString()}';
     }
   }
+
+
+
+
 }

@@ -16,12 +16,14 @@ class JApplicationHeader extends StatelessWidget {
     required this.internshipName,
     required this.companyLogo,
     this.onTapLogo,
+    this.isNetworkImage,
   });
 
   final String companyName;
   final String internshipName;
   final String companyLogo;
   final VoidCallback? onTapLogo;
+  final bool? isNetworkImage;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +43,8 @@ class JApplicationHeader extends StatelessWidget {
                 SizedBox(height: 4),
                 JApplicationTitleText(
                   title: internshipName,
-                  textSize: 30,
-                  maxLines: 2,
+                  textSize: 25,
+                  maxLines: 3,
 
                 ),
               ],
@@ -63,6 +65,7 @@ class JApplicationHeader extends StatelessWidget {
                 child: GestureDetector(
                   onTap: onTapLogo,
                   child: JRoundedImage(
+                    isNetworkImage: isNetworkImage ?? false,
                     imageUrl: companyLogo,
                     applyImageRadius: true,
                     fit: BoxFit.contain,

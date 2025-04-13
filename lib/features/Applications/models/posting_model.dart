@@ -61,7 +61,8 @@ class PostingModel {
 
   final String? jobCategory;
   final List<String> subcategories;
-  final String? timeFrame;
+  final List<String>? tags;
+
   final String? educationLevel;
   final String? languageRequirements;
 
@@ -80,31 +81,28 @@ class PostingModel {
   final DateTime? endDate;
 
   /// Application deadline.
-  final DateTime deadline;
+  final DateTime? deadline;
 
   /// Application process details.
-  final String howToApply;
+
   final String? requiredDocuments;
   final int? applicationQuota;
   final String? selectionProcess;
 
 
-  /// Additional posting info (optional but recommended).
-  final String? equalOpportunityStatement;
   final String? workAuthorizationRequirements;
   final DateTime? expectedStartDate;
   final DateTime? postingExpirationDate;
-  final String? internalReferenceCode;
   final String? contactEmail;
 
   /// Internship-specific fields (optional; only applicable for internships).
-  final String? duration; // e.g., "3 months", "6 months"
+  final String? duration; 
   final bool? academicCredit;
   final bool? returnOfferPotential;
   final String? trainingProvided;
   final bool? projectPortfolio;
+  final List<String> requiredSkills;
 
-  /// New field: Employment mode is already added above.
 
   /// Metadata
   final VerificationStatus verificationStatus;
@@ -123,28 +121,26 @@ class PostingModel {
     required this.experienceLevel,
     this.salaryRange,
     this.jobCategory,
-    this.timeFrame,
+    this.tags,
     this.educationLevel,
     this.languageRequirements,
     this.benefits,
     this.startDate,
     this.endDate,
     required this.deadline,
-    required this.howToApply,
     this.requiredDocuments,
     this.applicationQuota,
     this.selectionProcess,
-    this.equalOpportunityStatement,
     this.workAuthorizationRequirements,
     this.expectedStartDate,
     this.postingExpirationDate,
-    this.internalReferenceCode,
     this.contactEmail,
     this.duration,
     this.academicCredit,
     this.returnOfferPotential,
     this.trainingProvided,
     this.projectPortfolio,
+    required this.requiredSkills,
     this.verificationStatus = VerificationStatus.pending,
     Timestamp? createdAt,
     Timestamp? updatedAt,
@@ -153,7 +149,6 @@ class PostingModel {
 
   /// Converts this PostingModel instance to a JSON map.
   Map<String, dynamic> toJson() => {
-    'id': id,
     'companyId': companyId,
     'opportunityType': opportunityType,
     'jobTitle': jobTitle,
@@ -165,21 +160,19 @@ class PostingModel {
     'benefits': benefits,
     'startDate': startDate,
     'endDate': endDate,
+    'tags':tags,
+    'requiredSkills': requiredSkills,
     'deadline': deadline,
     'jobCategory': jobCategory,
     'subCategory':subcategories,
-    'timeFrame': timeFrame,
     'educationLevel': educationLevel,
     'languageRequirements': languageRequirements,
-    'howToApply': howToApply,
     'requiredDocuments': requiredDocuments,
     'applicationQuota': applicationQuota,
     'selectionProcess': selectionProcess,
-    'equalOpportunityStatement': equalOpportunityStatement,
     'workAuthorizationRequirements': workAuthorizationRequirements,
     'expectedStartDate': expectedStartDate,
     'postingExpirationDate': postingExpirationDate,
-    'internalReferenceCode': internalReferenceCode,
     'contactEmail': contactEmail,
     'duration': duration,
     'academicCredit': academicCredit,
@@ -205,28 +198,28 @@ class PostingModel {
       salaryRange: json['salaryRange'],
       benefits: json['benefits'],
       jobCategory: json['jobCategory'],
-      timeFrame: json['timeFrame'],
       educationLevel: json['educationLevel'],
       languageRequirements: json['languageRequirements'],
       startDate: json['startDate'] is Timestamp ? (json['startDate'] as Timestamp).toDate() : null,
       endDate: json['endDate'] is Timestamp ? (json['endDate'] as Timestamp).toDate() : null,
       deadline: json['deadline'] is Timestamp ? (json['deadline'] as Timestamp).toDate() : DateTime.now(),
-      howToApply: json['howToApply'] ?? '',
       requiredDocuments: json['requiredDocuments'],
       applicationQuota: json['applicationQuota'],
       selectionProcess: json['selectionProcess'],
       subcategories: List<String>.from(json['subCategory'] ?? []),
-      equalOpportunityStatement: json['equalOpportunityStatement'],
       workAuthorizationRequirements: json['workAuthorizationRequirements'],
       expectedStartDate: json['expectedStartDate'] is Timestamp ? (json['expectedStartDate'] as Timestamp).toDate() : null,
       postingExpirationDate: json['postingExpirationDate'] is Timestamp ? (json['postingExpirationDate'] as Timestamp).toDate() : null,
-      internalReferenceCode: json['internalReferenceCode'],
       contactEmail: json['contactEmail'],
       duration: json['duration'],
       academicCredit: json['academicCredit'],
       returnOfferPotential: json['returnOfferPotential'],
       trainingProvided: json['trainingProvided'],
       projectPortfolio: json['projectPortfolio'],
+      requiredSkills: json['requiredSkills'] != null
+          ? List<String>.from(json['requiredSkills'] as List)
+          : [],
+      tags: json['tags'] != null ? List<String>.from(json['tags'] as List) : [],
       verificationStatus: VerificationStatus.values.firstWhere(
             (e) => e.name.toLowerCase() ==
             (json['verificationStatus'] ?? 'pending').toString().toLowerCase(),
