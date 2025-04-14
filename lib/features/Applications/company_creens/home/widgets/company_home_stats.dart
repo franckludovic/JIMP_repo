@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_bc_tuto/features/personilization/controllers/company_controller.dart';
 
 import '../../../../../common/widgets/custom_shapes/container_shapes/rounded_container.dart';
 import '../../../../../utils/constants/colors.dart';
@@ -14,6 +17,7 @@ class CompanyHomeStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CompanyController());
     return SizedBox(
       child: Column(
         children: [
@@ -45,9 +49,9 @@ class CompanyHomeStats extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children:  [
                           Text(
-                            '56',
+                            '${controller.user?.totalListings ?? ''}',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 50,

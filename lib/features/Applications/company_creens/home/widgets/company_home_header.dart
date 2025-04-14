@@ -30,7 +30,7 @@ class CompanyHomeHeader extends StatelessWidget {
               height: 250,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.yellow,
+                color: Colors.transparent,
                 image: DecorationImage(
                   image: NetworkImage(controller.user?.profileUrl.toString() ?? ''),
                   fit: BoxFit.cover,

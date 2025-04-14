@@ -26,7 +26,7 @@ class JCompanySortableApplications extends StatelessWidget {
 
         const SizedBox(height: JSizes.spaceBtwSections,),
         /// applications
-        JGridLayout(itemCount: 16, crossAxisCount: 1, mainAxisExtend: 260, itemBuilder: (_, index) => JobPostCard())
+        //JGridLayout(itemCount: 16, crossAxisCount: 1, mainAxisExtend: 260, itemBuilder: (_, index) => JobPostCard())
       ],
     );
   }

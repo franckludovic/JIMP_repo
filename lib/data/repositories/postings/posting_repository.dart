@@ -4,6 +4,7 @@ import 'package:project_bc_tuto/features/Applications/models/posting_model.dart'
 import 'package:project_bc_tuto/utils/exceptions/firebase_exceptions.dart';
 import 'package:project_bc_tuto/utils/exceptions/format_exceptions.dart';
 
+import '../authentication/authentication_repositories.dart';
 import '../user/company_repositories.dart';
 
 
@@ -11,6 +12,7 @@ class PostingRepository extends GetxController {
   static PostingRepository get instance => Get.find();
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final String? companyId = AuthenticationRepository.instance.authUser?.uid;
 
   /// Creates a new posting in the appropriate collection.
   Future<void> createPosting(PostingModel posting) async {
@@ -38,7 +40,41 @@ class PostingRepository extends GetxController {
     }
   }
 
-  /// Fetches a posting by ID.
+  ///fetch all postings
+  Future<List<PostingModel>> fetchAllPostings() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance.collection('postings').get();
+      // Convert each document snapshot into a PostingModel object
+      final postings = snapshot.docs
+          .map((doc) => PostingModel.fromSnapshot(doc))
+          .toList();
+      return postings;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong while fetching postings: ${e.toString()}';
+    }
+  }
+
+  /// Fetches all postings made by a specific company.
+  Future<List<PostingModel>> fetchPostingsByCompany(String companyId) async {
+    try {
+      final snapshot = await _db
+          .collection('postings')
+          .where('companyId', isEqualTo: companyId)
+          .get();
+      final postings = snapshot.docs
+          .map((doc) => PostingModel.fromSnapshot(doc))
+          .toList();
+      return postings;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again. ${e.toString()}';
+    }
+  }
+
+  /// Fetches a posting by its ID.
   Future<PostingModel> fetchPosting(String postingId) async {
     try {
       final doc = await _db.collection('postings').doc(postingId).get();
@@ -65,7 +101,15 @@ class PostingRepository extends GetxController {
     }
   }
 
-
+  // In your controller:
+  void updatePostings(PostingModel posting, {String? newJobTitle, /* other fields */}) async {
+    final updatedPostings = posting.copyWith(
+      jobTitle: newJobTitle ?? posting.jobTitle,
+      // other fields updated accordingly
+    );
+    await PostingRepository.instance.updatePosting(updatedPostings);
+  }
 
 
 }
+

@@ -1,121 +1,63 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// An enum for verification status (if needed for postings).
-enum VerificationStatus { pending, verified, rejected }
+/// Enums for application status and activity status.
 enum ApplicationStatus { notApplied, applied, accepted, rejected }
 enum ApplicationActivityStatus { active, expired }
+enum VerificationStatus { pending, verified, rejected }
 
-/// A simple address model (shared for job location).
-class Address {
-  final String street;
-  final String city;
-  final String country;
-  final String region;
-  final String postalCode;
-
-  Address({
-    required this.street,
-    required this.city,
-    required this.country,
-    required this.region,
-    required this.postalCode,
-  });
-
-  factory Address.fromJson(Map<String, dynamic> json) => Address(
-    street: json['street'] ?? '',
-    city: json['city'] ?? '',
-    country: json['country'] ?? '',
-    region: json['region'] ?? '',
-    postalCode: json['postalCode'] ?? '',
-  );
-
-  Map<String, dynamic> toJson() => {
-    'street': street,
-    'city': city,
-    'country': country,
-    'region': region,
-    'postalCode': postalCode,
-  };
-}
-
-/// PostingModel represents a job/internship/contract posting by a company.
 class PostingModel {
-  /// Unique identifier for the posting.
   final String id;
-
-  /// The company ID creating this posting.
   final String companyId;
-
-  /// Opportunity type: "Job", "Internship", or "Contract"
   final String opportunityType;
-
-  /// Job/Position title.
   final String jobTitle;
-
-  /// Opportunity description.
   final String jobDescription;
-
-  /// Location (free-form address or location name).
   final String location;
-
-  /// Employment mode: "Remote", "Onsite", or "Hybrid"
   final String employmentMode;
-
-  final String? jobCategory;
-  final List<String> subcategories;
-  final List<String>? tags;
-
-  final String? educationLevel;
-  final String? languageRequirements;
-
-
-  /// Experience level: e.g., "Entry Level", "Mid Level", "High Level"
   final String experienceLevel;
-
-  /// Salary details: For jobs/contracts (stipend for internships).
   final String? salaryRange;
-
-  /// Benefits and perks information (optional).
-  final List<String> benefits;
-
-  /// Time frame for the opportunity – start and end dates (if applicable).
+  final List<String> benefits; // List of benefits chosen
+  final String frequency;
   final DateTime? startDate;
   final DateTime? endDate;
-
-  /// Application deadline.
-  final DateTime? deadline;
-
-  /// Application process details.
-
+  final DateTime deadline;
   final String? requiredDocuments;
   final int? applicationQuota;
   final String? selectionProcess;
 
-
-  final String? workAuthorizationRequirements;
+  final String workAuthorizationRequirements;
+  final String contactEmail;
   final DateTime? expectedStartDate;
   final DateTime? postingExpirationDate;
-  final String? contactEmail;
 
-  /// Internship-specific fields (optional; only applicable for internships).
-  final String? duration; 
-  final bool? academicCredit;
-  final bool? returnOfferPotential;
-  final String? trainingProvided;
-  final bool? projectPortfolio;
+  // Internship-specific fields
+  final String? duration;
+  final bool academicCredit;
+  final bool returnOfferPotential;
+  final String trainingProvided;
+  final bool projectPortfolio;
+
+  // Additional fields
+  final String jobCategory;
+  final List<String> subcategories;
+  final String educationLevel;
+  final String languageRequirements;
+  final List<String> tags;
   final List<String> requiredSkills;
+  final String preferredRequirements;
+  final String minimumRequirements;
+  final String additionalInfo;
 
-
-  /// Metadata
-  final VerificationStatus verificationStatus;
+  // Application tracking fields
   final ApplicationStatus applicationStatus;
-  final ApplicationActivityStatus applicationActivityStatus;
+  final ApplicationActivityStatus activityStatus;
+
+  final VerificationStatus verificationStatus;
   final Timestamp createdAt;
   final Timestamp updatedAt;
 
   PostingModel({
     required this.id,
-    required this.subcategories,
     required this.companyId,
     required this.opportunityType,
     required this.jobTitle,
@@ -124,37 +66,50 @@ class PostingModel {
     required this.employmentMode,
     required this.experienceLevel,
     this.salaryRange,
-    this.jobCategory,
-    this.tags,
-    this.educationLevel,
-    this.languageRequirements,
-    this.benefits = const [],
+    List<String>? benefits,
+    required this.frequency,
     this.startDate,
     this.endDate,
     required this.deadline,
     this.requiredDocuments,
     this.applicationQuota,
     this.selectionProcess,
-    this.workAuthorizationRequirements,
+    required this.workAuthorizationRequirements,
+    required this.contactEmail,
     this.expectedStartDate,
     this.postingExpirationDate,
-    this.contactEmail,
+    // Internship fields:
     this.duration,
-    this.academicCredit,
-    this.returnOfferPotential,
-    this.trainingProvided,
-    this.projectPortfolio,
-    required this.requiredSkills,
-    this.verificationStatus = VerificationStatus.pending,
+    this.academicCredit = false,
+    this.returnOfferPotential = false,
+    this.trainingProvided = '',
+    this.projectPortfolio = false,
+    // Additional fields:
+    required this.jobCategory,
+    List<String>? subcategories,
+    required this.educationLevel,
+    required this.languageRequirements,
+    List<String>? tags,
+    List<String>? requiredSkills,
+    this.preferredRequirements = '',
+    this.minimumRequirements = '',
+    this.additionalInfo = '',
+    // Application tracking:
     this.applicationStatus = ApplicationStatus.notApplied,
-    this.applicationActivityStatus = ApplicationActivityStatus.active,
+    this.activityStatus = ApplicationActivityStatus.active,
+    this.verificationStatus = VerificationStatus.pending,
     Timestamp? createdAt,
     Timestamp? updatedAt,
-  })  : createdAt = createdAt ?? Timestamp.now(),
+  })  : benefits = benefits ?? <String>[],
+        subcategories = subcategories ?? <String>[],
+        tags = tags ?? <String>[],
+        requiredSkills = requiredSkills ?? <String>[],
+        createdAt = createdAt ?? Timestamp.now(),
         updatedAt = updatedAt ?? Timestamp.now();
 
   /// Converts this PostingModel instance to a JSON map.
   Map<String, dynamic> toJson() => {
+    'id': id,
     'companyId': companyId,
     'opportunityType': opportunityType,
     'jobTitle': jobTitle,
@@ -164,87 +119,105 @@ class PostingModel {
     'experienceLevel': experienceLevel,
     'salaryRange': salaryRange,
     'benefits': benefits,
+    'frequency': frequency,
     'startDate': startDate,
     'endDate': endDate,
-    'tags':tags,
-    'requiredSkills': requiredSkills,
     'deadline': deadline,
-    'jobCategory': jobCategory,
-    'subCategory':subcategories,
-    'educationLevel': educationLevel,
-    'languageRequirements': languageRequirements,
     'requiredDocuments': requiredDocuments,
     'applicationQuota': applicationQuota,
     'selectionProcess': selectionProcess,
     'workAuthorizationRequirements': workAuthorizationRequirements,
+    'contactEmail': contactEmail,
     'expectedStartDate': expectedStartDate,
     'postingExpirationDate': postingExpirationDate,
-    'contactEmail': contactEmail,
     'duration': duration,
     'academicCredit': academicCredit,
     'returnOfferPotential': returnOfferPotential,
     'trainingProvided': trainingProvided,
     'projectPortfolio': projectPortfolio,
-    'verificationStatus': verificationStatus.name,
+    'jobCategory': jobCategory,
+    'subcategories': subcategories,
+    'educationLevel': educationLevel,
+    'languageRequirements': languageRequirements,
+    'tags': tags,
+    'requiredSkills': requiredSkills,
+    'preferredRequirements': preferredRequirements,
+    'minimumRequirements': minimumRequirements,
+    'additionalInfo': additionalInfo,
     'applicationStatus': applicationStatus.name,
-    'applicationActivityStatus': applicationActivityStatus.name,
+    'activityStatus': activityStatus.name,
+    'verificationStatus': verificationStatus.name,
     'createdAt': createdAt,
     'updatedAt': updatedAt,
   };
 
   /// Creates a PostingModel from a JSON map.
   factory PostingModel.fromJson(Map<String, dynamic> json) {
+    // Utility function to parse a field that should be a List<String>
+    List<String> parseStringList(dynamic field) {
+      if (field == null) return [];
+      if (field is String) return [field];
+      if (field is Iterable) return List<String>.from(field);
+      return [];
+    }
+
     return PostingModel(
-      id: json['id'] ?? '',
-      companyId: json['companyId'] ?? '',
-      opportunityType: json['opportunityType'] ?? '',
-      jobTitle: json['jobTitle'] ?? '',
-      jobDescription: json['jobDescription'] ?? '',
-      location: json['location'] ?? '',
-      employmentMode: json['employmentMode'] ?? '',
-      experienceLevel: json['experienceLevel'] ?? '',
-      salaryRange: json['salaryRange'],
-      benefits: json['benefits'] != null ? List<String>.from(json['benefits']) : [],
-      jobCategory: json['jobCategory'],
-      educationLevel: json['educationLevel'],
-      languageRequirements: json['languageRequirements'],
-      startDate: json['startDate'] is Timestamp ? (json['startDate'] as Timestamp).toDate() : null,
-      endDate: json['endDate'] is Timestamp ? (json['endDate'] as Timestamp).toDate() : null,
-      deadline: json['deadline'] is Timestamp ? (json['deadline'] as Timestamp).toDate() : DateTime.now(),
-      requiredDocuments: json['requiredDocuments'],
-      applicationQuota: json['applicationQuota'],
-      selectionProcess: json['selectionProcess'],
-      subcategories: List<String>.from(json['subCategory'] ?? []),
-      workAuthorizationRequirements: json['workAuthorizationRequirements'],
-      expectedStartDate: json['expectedStartDate'] is Timestamp ? (json['expectedStartDate'] as Timestamp).toDate() : null,
-      postingExpirationDate: json['postingExpirationDate'] is Timestamp ? (json['postingExpirationDate'] as Timestamp).toDate() : null,
-      contactEmail: json['contactEmail'],
-      duration: json['duration'],
-      academicCredit: json['academicCredit'],
-      returnOfferPotential: json['returnOfferPotential'],
-      trainingProvided: json['trainingProvided'],
-      projectPortfolio: json['projectPortfolio'],
-      requiredSkills: json['requiredSkills'] != null
-          ? List<String>.from(json['requiredSkills'] as List)
-          : [],
-      tags: json['tags'] != null ? List<String>.from(json['tags'] as List) : [],
+        id: json['id'] ?? '',
+        companyId: json['companyId'] ?? '',
+        opportunityType: json['opportunityType'] ?? '',
+        jobTitle: json['jobTitle'] ?? '',
+        jobDescription: json['jobDescription'] ?? '',
+        workAuthorizationRequirements: json['workAuthorizationRequirements'] ?? '',
+        contactEmail: json['contactEmail'] ?? '',
+        location: json['location'] ?? '',
+        employmentMode: json['employmentMode'] ?? '',
+        experienceLevel: json['experienceLevel'] ?? '',
+        salaryRange: json['salaryRange'], // optional string field
+        benefits: parseStringList(json['benefits']),
+        frequency: json['frequency'] ?? '',
+        startDate: json['startDate'] is Timestamp
+            ? (json['startDate'] as Timestamp).toDate()
+            : null,
+        endDate: json['endDate'] is Timestamp
+            ? (json['endDate'] as Timestamp).toDate()
+            : null,
+        deadline: json['deadline'] is Timestamp
+            ? (json['deadline'] as Timestamp).toDate()
+            : DateTime.now(),
+        requiredDocuments: json['requiredDocuments'],
+        applicationQuota: json['applicationQuota'],
+        selectionProcess: json['selectionProcess'],
+      subcategories: parseStringList(json['subcategories']),
+      jobCategory: json['jobCategory'] ?? '',
+      educationLevel: json['educationLevel'] ?? '',
+      languageRequirements: json['languageRequirements'] ?? '',
+      tags: parseStringList(json['tags']),
+      requiredSkills: parseStringList(json['requiredSkills']),
+      preferredRequirements: json['preferredRequirements'] ?? '',
+      minimumRequirements: json['minimumRequirements'] ?? '',
+      additionalInfo: json['additionalInfo'] ?? '',
+      applicationStatus: ApplicationStatus.values.firstWhere(
+            (e) => e.name.toLowerCase() ==
+            (json['applicationStatus'] ?? 'notApplied').toString().toLowerCase(),
+        orElse: () => ApplicationStatus.notApplied,
+      ),
+      activityStatus: ApplicationActivityStatus.values.firstWhere(
+            (e) => e.name.toLowerCase() ==
+            (json['activityStatus'] ?? 'active').toString().toLowerCase(),
+        orElse: () => ApplicationActivityStatus.active,
+      ),
       verificationStatus: VerificationStatus.values.firstWhere(
             (e) => e.name.toLowerCase() ==
             (json['verificationStatus'] ?? 'pending').toString().toLowerCase(),
         orElse: () => VerificationStatus.pending,
       ),
-      applicationStatus: ApplicationStatus.values.firstWhere(
-            (e) =>
-        e.name.toLowerCase() ==
-            (json['applicationStatus'] ?? 'notApplied').toString().toLowerCase(),
-        orElse: () => ApplicationStatus.notApplied,
-      ),
-      applicationActivityStatus: ApplicationActivityStatus.values.firstWhere(
-            (e) =>
-        e.name.toLowerCase() ==
-            (json['applicationActivityStatus'] ?? 'active').toString().toLowerCase(),
-        orElse: () => ApplicationActivityStatus.active,
-      ),
+      createdAt: json['createdAt'] is Timestamp
+          ? json['createdAt']
+          : Timestamp.now(),
+      updatedAt: json['updatedAt'] is Timestamp
+          ? json['updatedAt']
+          : Timestamp.now(),
+
     );
   }
 
@@ -255,5 +228,94 @@ class PostingModel {
       throw Exception("Document data is null for ID: ${doc.id}");
     }
     return PostingModel.fromJson({...data, 'id': doc.id});
+  }
+
+  /// Creates a copy of the current PostingModel with overridden fields.
+  PostingModel copyWith({
+    String? id,
+    String? companyId,
+    String? opportunityType,
+    String? jobTitle,
+    String? jobDescription,
+    String? location,
+    String? employmentMode,
+    String? experienceLevel,
+    String? salaryRange,
+    List<String>? benefits,
+    String? frequency,
+    DateTime? startDate,
+    DateTime? endDate,
+    DateTime? deadline,
+    String? requiredDocuments,
+    int? applicationQuota,
+    String? selectionProcess,
+    String? workAuthorizationRequirements,
+    String? contactEmail,
+    DateTime? expectedStartDate,
+    DateTime? postingExpirationDate,
+    String? duration,
+    bool? academicCredit,
+    bool? returnOfferPotential,
+    String? trainingProvided,
+    bool? projectPortfolio,
+    String? jobCategory,
+    List<String>? subcategories,
+    String? educationLevel,
+    String? languageRequirements,
+    List<String>? tags,
+    List<String>? requiredSkills,
+    String? preferredRequirements,
+    String? minimumRequirements,
+    String? additionalInfo,
+    ApplicationStatus? applicationStatus,
+    ApplicationActivityStatus? activityStatus,
+    VerificationStatus? verificationStatus,
+    Timestamp? createdAt,
+    Timestamp? updatedAt,
+  }) {
+    return PostingModel(
+      id: id ?? this.id,
+      companyId: companyId ?? this.companyId,
+      opportunityType: opportunityType ?? this.opportunityType,
+      jobTitle: jobTitle ?? this.jobTitle,
+      jobDescription: jobDescription ?? this.jobDescription,
+      location: location ?? this.location,
+      employmentMode: employmentMode ?? this.employmentMode,
+      experienceLevel: experienceLevel ?? this.experienceLevel,
+      salaryRange: salaryRange ?? this.salaryRange,
+      benefits: benefits ?? this.benefits,
+      frequency: frequency ?? this.frequency,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      deadline: deadline ?? this.deadline,
+      requiredDocuments: requiredDocuments ?? this.requiredDocuments,
+      applicationQuota: applicationQuota ?? this.applicationQuota,
+      selectionProcess: selectionProcess ?? this.selectionProcess,
+      workAuthorizationRequirements:
+      workAuthorizationRequirements ?? this.workAuthorizationRequirements,
+      contactEmail: contactEmail ?? this.contactEmail,
+      expectedStartDate: expectedStartDate ?? this.expectedStartDate,
+      postingExpirationDate:
+      postingExpirationDate ?? this.postingExpirationDate,
+      duration: duration ?? this.duration,
+      academicCredit: academicCredit ?? this.academicCredit,
+      returnOfferPotential: returnOfferPotential ?? this.returnOfferPotential,
+      trainingProvided: trainingProvided ?? this.trainingProvided,
+      projectPortfolio: projectPortfolio ?? this.projectPortfolio,
+      jobCategory: jobCategory ?? this.jobCategory,
+      subcategories: subcategories ?? this.subcategories,
+      educationLevel: educationLevel ?? this.educationLevel,
+      languageRequirements: languageRequirements ?? this.languageRequirements,
+      tags: tags ?? this.tags,
+      requiredSkills: requiredSkills ?? this.requiredSkills,
+      preferredRequirements: preferredRequirements ?? this.preferredRequirements,
+      minimumRequirements: minimumRequirements ?? this.minimumRequirements,
+      additionalInfo: additionalInfo ?? this.additionalInfo,
+      applicationStatus: applicationStatus ?? this.applicationStatus,
+      activityStatus: activityStatus ?? this.activityStatus,
+      verificationStatus: verificationStatus ?? this.verificationStatus,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
   }
 }

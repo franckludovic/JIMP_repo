@@ -21,12 +21,12 @@ class JCompanyCategory extends StatelessWidget {
           padding: const EdgeInsets.all(JSizes.defaultSpace),
           child: Column(
             children: [
-              JGridLayout(
-                itemCount: 5,
-                mainAxisExtend: 250,
-                crossAxisCount: 1,
-                itemBuilder: (_, index) => JobPostCard(),
-              ),
+              // JGridLayout(
+              //   itemCount: 5,
+              //   mainAxisExtend: 250,
+              //   crossAxisCount: 1,
+              //   itemBuilder: (_, index) => JobPostCard(),
+              // ),
               const SizedBox(height: JSizes.spaceBtwItems),
 
 

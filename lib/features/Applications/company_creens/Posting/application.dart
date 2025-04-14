@@ -3,15 +3,18 @@ import 'package:get/get.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/search_container.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
+import 'package:project_bc_tuto/data/repositories/postings/posting_repository.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/appbar/tab_bar.dart';
 
 
 import '../../../../common/widgets/layout/grid_layout.dart';
 import '../../../../common/widgets/notifications/notifications_icon.dart';
+import '../../../../data/repositories/authentication/authentication_repositories.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../authentication/compamy_screens/login/login_company.dart';
+import '../../controllers/posting_controller.dart';
 import '../all_jobs/all_application.dart';
 import 'Widgets/postings.dart';
 import 'Widgets/companycategory.dart';
@@ -22,6 +25,11 @@ class CompanyApplicationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final PostingController controller = Get.put(PostingController());
+    final PostingRepository postingRepository = Get.put(PostingRepository());
+
+
     return DefaultTabController(
       length: 6,
       child: Scaffold(
@@ -69,12 +77,20 @@ class CompanyApplicationScreen extends StatelessWidget {
                                 onPressed: () => Get.to(() => AllPostings()),
                               ),
                               SizedBox(height: JSizes.spaceBtwItems * 0.7),
-                              JGridLayout(
-                                itemCount: 5,
-                                mainAxisExtend: 250,
-                                crossAxisCount: 1,
-                                itemBuilder: (_, index) => JobPostCard(),
-                              ),
+                              Obx(() {
+                                // Use the length of posts for the grid
+                                return JGridLayout(
+                                  itemCount: controller.companyPosts.length,
+                                  mainAxisExtend: 250,
+                                  crossAxisCount: 1,
+                                  itemBuilder: (_, index) {
+                                    final posting = controller.companyPosts[index];
+                                    return JobPostCard(
+                                      posting: posting,
+                                    );
+                                  },
+                                );
+                              }),
                               SizedBox(height: JSizes.spaceBtwSections),
                             ],
                           ),
