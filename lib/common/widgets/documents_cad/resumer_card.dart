@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
 
+import '../../../features/Applications/models/user_model.dart';
 import '../../../features/personilization/screens/settings/resume_page.dart';
 
 class JResumeCard extends StatelessWidget {
@@ -10,11 +11,13 @@ class JResumeCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.fileName,
-    this.backgroundColor = JColors.primary,
+    this.backgroundColor = JColors.primary, required this.user,
+
   });
 
   final String title;
   final String fileName;
+  final UserModel user;
   final Color backgroundColor;
 
   @override
@@ -42,7 +45,7 @@ class JResumeCard extends StatelessWidget {
               ),
             ],
           ),
-          IconButton(onPressed: () => Get.to(() => const ResumePage()), icon: Icon(Icons.more_vert, size: 35,)),
+          IconButton(onPressed: () => Get.to(() => ResumePage(user: user,)), icon: Icon(Icons.more_vert, size: 35,)),
         ],
       ),
     );

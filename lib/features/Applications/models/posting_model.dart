@@ -1,5 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:project_bc_tuto/features/Applications/models/quizModel.dart';
 
 /// Enums for application status and activity status.
 enum ApplicationStatus { notApplied, applied, accepted, rejected }
@@ -9,6 +11,8 @@ enum VerificationStatus { pending, verified, rejected }
 class PostingModel {
   final String id;
   final String companyId;
+  final String companyLogo;
+  final String companyName;
   final String opportunityType;
   final String jobTitle;
   final String jobDescription;
@@ -16,7 +20,7 @@ class PostingModel {
   final String employmentMode;
   final String experienceLevel;
   final String? salaryRange;
-  final List<String> benefits; // List of benefits chosen
+  final List<String> benefits;
   final String frequency;
   final DateTime? startDate;
   final DateTime? endDate;
@@ -48,17 +52,25 @@ class PostingModel {
   final String minimumRequirements;
   final String additionalInfo;
 
-  // Application tracking fields
+  final QuizModel? verificationQuiz;
+  final bool quizRequired;
+  final int quizVersion;
+  final DateTime? quizUpdatedAt;
+  final int quizTimeLimit; // Minutes
+  final bool quizProctored;
+  final bool quizActive;
+
   final ApplicationStatus applicationStatus;
   final ApplicationActivityStatus activityStatus;
-
   final VerificationStatus verificationStatus;
   final Timestamp createdAt;
   final Timestamp updatedAt;
 
   PostingModel({
     required this.id,
+    required this.companyName,
     required this.companyId,
+    required this.companyLogo,
     required this.opportunityType,
     required this.jobTitle,
     required this.jobDescription,
@@ -94,6 +106,13 @@ class PostingModel {
     this.preferredRequirements = '',
     this.minimumRequirements = '',
     this.additionalInfo = '',
+    this.verificationQuiz,
+    this.quizRequired = false,
+    this.quizVersion = 1,
+    this.quizUpdatedAt,
+    this.quizTimeLimit = 30,
+    this.quizProctored = false,
+    this.quizActive = true,
     // Application tracking:
     this.applicationStatus = ApplicationStatus.notApplied,
     this.activityStatus = ApplicationActivityStatus.active,
@@ -105,12 +124,18 @@ class PostingModel {
         tags = tags ?? <String>[],
         requiredSkills = requiredSkills ?? <String>[],
         createdAt = createdAt ?? Timestamp.now(),
-        updatedAt = updatedAt ?? Timestamp.now();
+        updatedAt = updatedAt ?? Timestamp.now(),
+        assert( !quizRequired || verificationQuiz != null, 'Cannot require quiz without providing verificationQuiz',),
+        assert(quizTimeLimit >= 0,'Time limit cannot be negative',);
+
+
 
   /// Converts this PostingModel instance to a JSON map.
   Map<String, dynamic> toJson() => {
     'id': id,
     'companyId': companyId,
+    'companyLogo': companyLogo,
+    'companyName': companyName,
     'opportunityType': opportunityType,
     'jobTitle': jobTitle,
     'jobDescription': jobDescription,
@@ -144,6 +169,13 @@ class PostingModel {
     'preferredRequirements': preferredRequirements,
     'minimumRequirements': minimumRequirements,
     'additionalInfo': additionalInfo,
+    'verificationQuiz': verificationQuiz?.toJson(),
+    'quizRequired': quizRequired,
+    'quizVersion': quizVersion,
+    'quizUpdatedAt': quizUpdatedAt,
+    'quizTimeLimit': quizTimeLimit,
+    'quizProctored': quizProctored,
+    'quizActive': quizActive,
     'applicationStatus': applicationStatus.name,
     'activityStatus': activityStatus.name,
     'verificationStatus': verificationStatus.name,
@@ -163,6 +195,8 @@ class PostingModel {
 
     return PostingModel(
         id: json['id'] ?? '',
+        companyLogo: json['companyLogo'] ?? '',
+        companyName: json['companyName'] ?? '',
         companyId: json['companyId'] ?? '',
         opportunityType: json['opportunityType'] ?? '',
         jobTitle: json['jobTitle'] ?? '',
@@ -175,6 +209,7 @@ class PostingModel {
         salaryRange: json['salaryRange'], // optional string field
         benefits: parseStringList(json['benefits']),
         frequency: json['frequency'] ?? '',
+        duration: json['duration'] ?? '',
         startDate: json['startDate'] is Timestamp
             ? (json['startDate'] as Timestamp).toDate()
             : null,
@@ -196,6 +231,16 @@ class PostingModel {
       preferredRequirements: json['preferredRequirements'] ?? '',
       minimumRequirements: json['minimumRequirements'] ?? '',
       additionalInfo: json['additionalInfo'] ?? '',
+      quizRequired: json['quizRequired'] ?? false,
+      quizVersion: json['quizVersion'] ?? 1,
+      quizUpdatedAt: json['quizUpdatedAt']?.toDate(),
+      quizTimeLimit: json['quizTimeLimit'] ?? 30,
+      quizProctored: json['quizProctored'] ?? false,
+      quizActive: json['quizActive'] ?? true,
+      verificationQuiz: json['verificationQuiz'] != null
+          ? QuizModel.fromJson(json['verificationQuiz'])
+          : null,
+
       applicationStatus: ApplicationStatus.values.firstWhere(
             (e) => e.name.toLowerCase() ==
             (json['applicationStatus'] ?? 'notApplied').toString().toLowerCase(),
@@ -234,6 +279,8 @@ class PostingModel {
   PostingModel copyWith({
     String? id,
     String? companyId,
+    String? companyLogo,
+    String? companyName,
     String? opportunityType,
     String? jobTitle,
     String? jobDescription,
@@ -276,6 +323,8 @@ class PostingModel {
     return PostingModel(
       id: id ?? this.id,
       companyId: companyId ?? this.companyId,
+      companyLogo: companyLogo ?? this.companyLogo,
+      companyName: companyName ?? this.companyName,
       opportunityType: opportunityType ?? this.opportunityType,
       jobTitle: jobTitle ?? this.jobTitle,
       jobDescription: jobDescription ?? this.jobDescription,

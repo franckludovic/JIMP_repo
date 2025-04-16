@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_bc_tuto/features/Applications/screens/proposals_page/proposal_page.dart';
+import 'package:project_bc_tuto/features/personilization/controllers/company_controller.dart';
 
 import '../../../data/repositories/authentication/authentication_repositories.dart';
 import '../../../data/repositories/postings/posting_repository.dart';
@@ -11,12 +12,15 @@ import '../../../utils/helpers/network_manager.dart';
 import '../../../utils/popups/full_screen_loader.dart';
 import '../../../utils/popups/loaders.dart';
 import '../../Applications/models/posting_model.dart';
+import '../models/quizModel.dart';
 import '../models/sub_categorie_model.dart';
 
 class PostingController extends GetxController {
   static PostingController get instance => Get.find();
   final RxList<PostingModel> postings = <PostingModel>[].obs;
   final String? companyId = AuthenticationRepository.instance.authUser?.uid;
+  final companyController = Get.put(CompanyController());
+  final company = CompanyController.instance.user;
 
   @override
   void onInit() {
@@ -28,6 +32,10 @@ class PostingController extends GetxController {
   // TextEditingControllers for standard fields
   final jobTitle = TextEditingController();
   final jobDescription = TextEditingController();
+
+   QuizModel? quiz;
+   final timeLimit = TextEditingController();
+   final quizRequired = TextEditingController();
 
   // Observable strings for dropdown fields
   final employmentMode = ''.obs; //
@@ -76,6 +84,8 @@ class PostingController extends GetxController {
   final RxString selectedBranchAddress = ''.obs;
   final RxString selectedLocationAddress = ''.obs;
 
+  final String postingId = FirebaseFirestore.instance.collection('postings').doc().id;
+
   Future<void> loadBranchesForCompany(String companyId) async {
     try {
       final company =
@@ -123,6 +133,23 @@ class PostingController extends GetxController {
         return;
       }
 
+
+
+
+      if (quizRequired.text.trim().toLowerCase() == 'true') {
+        if (quiz == null || quiz!.questions.isEmpty) {
+          JLoaders.errorSnackBar(title: 'Quiz Error', message: 'Please provide a valid quiz.');
+          TFullScreenLoader.stopLoading();
+          return;
+        }
+
+        if (timeLimit.text.trim().isEmpty) {
+          JLoaders.errorSnackBar(title: 'Quiz Error', message: 'Please specify a time limit for the quiz.');
+          TFullScreenLoader.stopLoading();
+          return;
+        }
+      }
+
       // Parse the date fields (implement your own parsing logic or use a date formatter)
       DateTime? parsedStartDate = DateTime.tryParse(startDate.text.trim());
       DateTime? parsedEndDate = DateTime.tryParse(endDate.text.trim());
@@ -137,8 +164,10 @@ class PostingController extends GetxController {
 
       // Construct the PostingModel using data from the controller.
       final posting = PostingModel(
-          id: '',
+          id: postingId,
           companyId: AuthenticationRepository.instance.authUser?.uid ?? '',
+          companyLogo: company?.logoUrl.trim() ?? '',
+          companyName: company?.companyName ?? '',
           opportunityType: opportunityType.value,
           jobTitle: jobTitle.text.trim(),
           subcategories: selectedSubCategories,
@@ -173,7 +202,13 @@ class PostingController extends GetxController {
           frequency: frequency.value,
           additionalInfo: additionalInfo.text.trim(),
           minimumRequirements: minimumRequirements.text.trim(),
-          preferredRequirements: preferredRequirements.text.trim());
+          preferredRequirements: preferredRequirements.text.trim(),
+          verificationQuiz: quiz,
+          quizTimeLimit: int.tryParse(timeLimit.text.trim()) ?? 0,
+          quizRequired: quizRequired.text.trim().toLowerCase() == 'true',
+
+      );
+
 
       final postingRepository = Get.put((PostingRepository()));
       await postingRepository.createPosting(posting);
@@ -187,6 +222,35 @@ class PostingController extends GetxController {
         title: 'Congratulations',
         message: 'Your post has been completed.',
       );
+
+      @override
+      void dispose() {
+        jobTitle.dispose();
+        jobDescription.dispose();
+        timeLimit.dispose();
+        quizRequired.dispose();
+        salaryRange.dispose();
+        startDate.dispose();
+        endDate.dispose();
+        deadline.dispose();
+        requiredDocuments.dispose();
+        applicationQuota.dispose();
+        selectionProcess.dispose();
+        workAuthorizationRequirements.dispose();
+        expectedStartDate.dispose();
+        postingExpirationDate.dispose();
+        contactEmail.dispose();
+        duration.dispose();
+        trainingProvided.dispose();
+        timeFrame.dispose();
+        languageRequirements.dispose();
+        preferredRequirements.dispose();
+        minimumRequirements.dispose();
+        additionalInfo.dispose();
+
+        super.dispose();
+      }
+
 
       Get.to(() => ProposalPage());
     } catch (e) {

@@ -56,7 +56,7 @@ class JApplySaveButton extends StatelessWidget {
                   backgroundColor: JColors.primary,
                   side: const BorderSide(color: JColors.grey),
                 ),
-                onPressed: () => Get.to(() =>  ApplyPage(requiresVerification: false,)),
+                onPressed: (){},
                 child: isReveiw? Text("POST", style: TextStyle(fontSize: 25, fontFamily: 'Poppins')) :  Text("APPLY", style: TextStyle(fontSize: 25, fontFamily: 'Poppins'),)
             ),
           ),

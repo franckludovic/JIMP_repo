@@ -18,7 +18,10 @@ import '../../../authentication/screens/Sign_up/widgets/skillAddDialog.dart';
 import '../../controllers/user_controller.dart';
 
 class ResumePage extends StatefulWidget {
-  const ResumePage({super.key});
+  const ResumePage({super.key, required this.user, this.isReadOnly = false});
+
+  final UserModel user;
+  final bool isReadOnly;
 
   @override
   State<ResumePage> createState() => _ResumePageState();
@@ -29,7 +32,12 @@ class ResumePage extends StatefulWidget {
 class _ResumePageState extends State<ResumePage> {
   int currentStep = 5;
   final String collectionName = "candidates";
-  final String uid = FirebaseAuth.instance.currentUser!.uid;
+  late final String uid;
+  @override
+  void initState() {
+    super.initState();
+    uid = widget.user.id; // This allows the company to see the candidate’s info
+  }
 
   Future<List<LanguageEntry>?> showLanguageDialog(BuildContext context, List<LanguageEntry> currentLanguages) async {
     final TextEditingController languageController = TextEditingController();
@@ -181,6 +189,7 @@ class _ResumePageState extends State<ResumePage> {
   }
   /// Helper widget for an editable info row.
   Widget buildEditableInfoRow({
+    isReadOnly = false,
     required IconData icon,
     required String label,
     required String value,
@@ -196,7 +205,7 @@ class _ResumePageState extends State<ResumePage> {
             child: Text("$label $value",
                 style: const TextStyle(fontSize: 14, color: Colors.black)),
           ),
-          IconButton(
+          if (!isReadOnly) IconButton(
             icon: const Icon(Iconsax.edit, size: 20, color: JColors.primary),
             onPressed: () {
               showEditDialog(
@@ -316,7 +325,6 @@ class _ResumePageState extends State<ResumePage> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = UserController.instance;
     return Scaffold(
       appBar: JAppbar(
         title: const Text('Your Resume'),
@@ -371,15 +379,13 @@ class _ResumePageState extends State<ResumePage> {
                                   backgroundColor: Colors.grey[300],
                                   child: data['ProfilePicture'] != null &&
                                           data['ProfilePicture'] != ""
-                                      ? Obx(
-                                          () => CircleAvatar(
+                                      ?  CircleAvatar(
                                             radius: 80,
                                             backgroundImage: NetworkImage(
-                                                controller
-                                                        .user?.profilePicture ??
+                                                widget.user.profilePicture ??
                                                     ''),
-                                          ),
-                                        )
+                                          )
+
                                       : const Text("No Image"),
                                 ),
                                 SizedBox(
@@ -398,8 +404,7 @@ class _ResumePageState extends State<ResumePage> {
                                   builder: (_) => ImageUploadDialog(
                                     title: "Upload Profile Image",
                                     onUploadConfirmed: (url) {
-                                      controller.user?.profilePicture = url;
-                                      controller.update();
+                                      widget.user.profilePicture = url;
                                     },
                                   ),
                                 ),
@@ -409,12 +414,12 @@ class _ResumePageState extends State<ResumePage> {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          controller.user?.fullName ?? "",
+                          widget.user.fullName,
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 5),
-                        Text(controller.user?.email ?? "",
+                        Text(widget.user.email,
                             style: const TextStyle(
                                 fontSize: 16, color: Colors.grey)),
                         const SizedBox(height: 10),
@@ -563,10 +568,10 @@ class _ResumePageState extends State<ResumePage> {
                   const SizedBox(height: JSizes.spaceBtwItems * 0.3),
                   // Skills Section
                   buildSectionCard("Skills", [
-                    Obx(() => Wrap(
+                     Wrap(
                           spacing: 5,
                           runSpacing: 5,
-                          children: controller.user!.skills.map((entry) {
+                          children: widget.user.skills.map((entry) {
                             return InputChip(
                               label: Text(
                                 "${entry.skill} (Lvl ${entry.level})",
@@ -609,7 +614,7 @@ class _ResumePageState extends State<ResumePage> {
                                 );
 
                                 if (shouldDelete == true) {
-                                  controller.user!.skills.remove(entry);
+                                  widget.user.skills.remove(entry);
                                 }
                               },
                               deleteIcon: const Icon(
@@ -620,7 +625,7 @@ class _ResumePageState extends State<ResumePage> {
                               backgroundColor: Colors.grey.shade200,
                             );
                           }).toList(),
-                        )),
+                        ),
                     IconButton(
                         icon: const Icon(Iconsax.edit,
                             size: 18, color: JColors.primary),
@@ -628,7 +633,7 @@ class _ResumePageState extends State<ResumePage> {
                           final result = await showSkillDialog(context);
                           if (result != null && result.isNotEmpty) {
                             for (final newSkill in result) {
-                              final index = controller.user!.skills.indexWhere(
+                              final index = widget.user.skills.indexWhere(
                                 (s) =>
                                     s.skill.toLowerCase().trim() ==
                                     newSkill.skill.toLowerCase().trim(),
@@ -636,17 +641,17 @@ class _ResumePageState extends State<ResumePage> {
 
                               if (index != -1) {
                                 // If the skill already exists, only update if the level is different
-                                if (controller.user!.skills[index].level !=
+                                if (widget.user.skills[index].level !=
                                     newSkill.level) {
-                                  controller.user!.skills[index] = newSkill;
+                                  widget.user.skills[index] = newSkill;
                                 }
                               } else {
                                 // If it's a new skill, add it
-                                controller.user!.skills.add(newSkill);
+                                widget.user.skills.add(newSkill);
                               }
                             }
 
-                            controller.user!.skills.refresh();
+                            widget.user.skills.refresh();
                           }
                         }),
                   ]),
@@ -654,26 +659,26 @@ class _ResumePageState extends State<ResumePage> {
 
 
                   buildSectionCard('Languages', [
-                    Obx(() => Wrap(
+                    Wrap(
                       spacing: 3,
                       runSpacing: 3,
-                      children: controller.user!.languages.map((entry) {
+                      children: widget.user.languages.map((entry) {
                         return Chip(
                           padding: EdgeInsets.all(JSizes.xxs),
                           label: Text('${entry.language} (Lv${entry.proficiency})'),
                           deleteIcon: const Icon(Icons.close),
                           onDeleted: () {
-                            controller.user!.languages.remove(entry);
+                            widget.user.languages.remove(entry);
                           },
                         );
                       }).toList(),
-                    )),
+                    ),
                     IconButton(
                       icon: const Icon(Iconsax.edit, color: JColors.primary, size: 18),
                       onPressed: () async {
-                        final updatedLanguages = await showLanguageDialog(context, controller.user!.languages.toList());
+                        final updatedLanguages = await showLanguageDialog(context, widget.user.languages.toList());
                         if (updatedLanguages != null) {
-                          controller.user!.languages.assignAll(updatedLanguages);
+                          widget.user.languages.assignAll(updatedLanguages);
                         }
                       },
                     ),

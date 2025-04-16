@@ -17,6 +17,7 @@ class JCircularImage extends StatelessWidget {
     this.width = 56,
     this.height = 56,
     this.padding = JSizes.sm,
+    this.errorWiget,
   });
 
   final BoxFit? fit;
@@ -25,6 +26,7 @@ class JCircularImage extends StatelessWidget {
   final Color? overlayColor;
   final Color? backgroundColor;
   final double width, height, padding;
+  final Widget? errorWiget;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class JCircularImage extends StatelessWidget {
             color: overlayColor,
             imageUrl: image,
             progressIndicatorBuilder: (context, url, downloadProgress) => const JShimmerEffect(width: 55, height: 55, radius: 55,),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+            errorWidget: (context, url, error) => errorWiget ??  const Icon(Icons.error)  ,
           )
               :Image(
             fit: fit,

@@ -150,5 +150,17 @@ class CompanyRepository extends GetxController {
     }
   }
 
+  Future<List<CompanyModel>> fetchAllCompanies(String companyId) async {
+    try {
+      final snapshot = await _db.collection('companies').get();
+      final companies = snapshot.docs.map((doc) => CompanyModel.fromSnapshot(doc)).toList();
+      return companies;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again. ${e.toString()}';
+    }
+  }
+
 
 }

@@ -22,8 +22,8 @@ class JUserProfileTile extends StatelessWidget {
       leading: JRoundedImage(
         isNetworkImage: true,
         imageUrl: controller.user?.profilePicture ?? '',
-        width: 60,
-        borderRadius: 60,
+        width: 55,
+        borderRadius: 55,
         applyImageRadius: true,
       ),
 

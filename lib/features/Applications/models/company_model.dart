@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../../utils/formatters/formatter.dart';
 
 
-
-
 enum VerificationStatus { pending, verified, rejected }
 
 class CompanyAddress {
@@ -159,7 +157,7 @@ class CompanyModel {
         updatedAt = updatedAt ?? Timestamp.now();
 
   /// Returns the full name by combining firstName and lastName.
-  String get fullName => companyName; // Adjust this if you want a different combination
+  String get fullName => companyName;
 
   /// Converts the model to JSON.
   Map<String, dynamic> toJson() => {

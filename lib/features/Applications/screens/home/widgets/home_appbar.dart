@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -27,8 +28,8 @@ class HomeAppbar extends StatelessWidget {
                 Scaffold.of(context).openDrawer(); // Open Drawer
               },
               child: SizedBox(
-                width: 60,
-                height: 60,
+                width: 57,
+                height: 57,
                 child: Obx(() {
                   if (controller.profileLoading.value) {
                     return const JShimmerEffect(width: 60, height: 60);

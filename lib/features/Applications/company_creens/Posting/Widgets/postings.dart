@@ -46,7 +46,7 @@ class JobPostCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(CompanyController());
-    final controllerss = Get.put(PostingController());
+    final postingController = Get.put(PostingController());
 
     return JRoundedContainer(
       height: 250,
@@ -138,7 +138,7 @@ class JobPostCard extends StatelessWidget {
                         "Are you sure you want to delete this posting?",
                         confirm: ElevatedButton(
                           onPressed: () {
-                            controllerss.deletePosting(posting.id);
+                            postingController.deletePosting(posting.id);
                             Get.back();
                           },
                           child: const Text("Delete"),

@@ -16,7 +16,7 @@ class JUserInterviewCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(() => ApplicantsDetails(isSheduled: true,)),
+      //onTap: () => Get.to(() => ApplicantsDetails(isSheduled: true,)),
       child: JRoundedContainer(
         padding: EdgeInsets.symmetric(horizontal: JSizes.md * 0.8, ),
         showBorder: true,

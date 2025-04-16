@@ -112,7 +112,7 @@ class HomeScreen extends StatelessWidget {
 
                     const SizedBox(height: JSizes.spaceBtwItems),
 
-                    SearchAndPastCardInternship(),
+                    HorizontalPostCard(),
 
 
 

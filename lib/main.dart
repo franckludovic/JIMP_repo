@@ -5,7 +5,9 @@ import 'package:get_storage/get_storage.dart';
 import 'app.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'data/repositories/applicant/applicant_repository.dart';
 import 'data/repositories/authentication/authentication_repositories.dart';
+import 'features/Applications/controllers/applicant_controller.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -25,8 +27,9 @@ Future<void> main() async {
         (FirebaseApp value) => Get.put(AuthenticationRepository()),
   );
   //init authentication
-
   runApp(const App());
+
+
 }
 
 

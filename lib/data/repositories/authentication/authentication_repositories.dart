@@ -10,6 +10,7 @@ import 'package:project_bc_tuto/features/authentication/screens/onboarding/onboa
 import 'package:project_bc_tuto/navigation_menu.dart';
 import 'package:project_bc_tuto/navigation_menu_company.dart';
 import 'package:project_bc_tuto/utils/exceptions/platform_exceptions.dart';
+import 'package:project_bc_tuto/utils/local_storage/storage_utility.dart';
 import '../../../features/Applications/guess_screens/main_landing_page/main_landing_page.dart';
 
 import '../../../features/authentication/compamy_screens/login/login_company.dart';
@@ -40,6 +41,9 @@ class AuthenticationRepository extends GetxController {
   ///Function to show relevant Screen
   screenRedirect() async {
     final User? user = _auth.currentUser;
+
+
+    await JLocalStorage.init(user!.uid);
 
     if (user != null) {
       final candidateDoc = await FirebaseFirestore.instance.collection('candidates').doc(user.uid).get();

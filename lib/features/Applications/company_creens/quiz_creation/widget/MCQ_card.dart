@@ -1,58 +1,122 @@
 import 'package:flutter/material.dart';
-import 'package:project_bc_tuto/utils/constants/sizes.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import '../../../controllers/quizfull_controller_builder.dart';
+import '../../../models/quizModel.dart';
 
 class McqQuestionCard extends StatefulWidget {
-  final int questionIndex;
-  final VoidCallback onRemove; // In case you want a remove button
+  final VoidCallback onRemove;
+  final ValueChanged<QuizQuestion?> onChanged;
 
   const McqQuestionCard({
     super.key,
-    required this.questionIndex,
     required this.onRemove,
+    required this.onChanged,
   });
 
   @override
-  State<McqQuestionCard> createState() => _McqQuestionCardState();
+  State<McqQuestionCard> createState() => McqQuestionCardState();
 }
 
-class _McqQuestionCardState extends State<McqQuestionCard> {
+class McqQuestionCardState extends State<McqQuestionCard> {
   final TextEditingController _questionController = TextEditingController();
-
-  // Four option text controllers
+  final controller = Get.put(QuizBuilderController());
   final List<TextEditingController> _optionControllers = List.generate(
-    4,
-        (index) => TextEditingController(),
+    4, (index) => TextEditingController(),
   );
+  final List<bool> _isOptionCorrect = [false, false, false, false];
 
-  // Track which option is correct. If -1, none is correct.
-  int _correctOptionIndex = -1;
+  @override
+  void initState() {
+    super.initState();
+    _addListeners();
+  }
 
-  void _handleCheckboxChanged(int index) {
+  void _addListeners() {
+    void notifyParent() => widget.onChanged(getQuestionData());
+
+    _questionController.addListener(notifyParent);
+    for (var controller in _optionControllers) {
+      controller.addListener(notifyParent);
+    }
+  }
+
+  void _handleCheckboxChanged(int index, bool? value) {
     setState(() {
-      _correctOptionIndex = index;
+      _isOptionCorrect[index] = value ?? false;
     });
+    widget.onChanged(getQuestionData());
+  }
+
+  QuizQuestion? getQuestionData() {
+    final questionText = _questionController.text.trim();
+    final options = _optionControllers.map((c) => c.text.trim()).toList();
+    final correctAnswers = _isOptionCorrect
+        .asMap()
+        .entries
+        .where((e) => e.value)
+        .map((e) => options[e.key])
+        .toList();
+
+    if (questionText.isEmpty ||
+        options.any((o) => o.isEmpty) ||
+        correctAnswers.isEmpty) {
+      return null;
+    }
+
+    return QuizQuestion(
+      id: '${DateTime.now().millisecondsSinceEpoch}',
+      questionText: questionText,
+      type: QuestionType.multipleChoice,
+      options: options,
+      correctAnswers: correctAnswers,
+      points: 1,
+    );
+  }
+
+  @override
+  void dispose() {
+    _questionController.dispose();
+    for (var controller in _optionControllers) {
+      controller.dispose();
+    }
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      color: Colors.grey.shade900, // or your theme color
+      color: Colors.grey.shade900,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Question label
-            const Text(
-              "Question Text",
-              style: TextStyle(color: Colors.white70),
+            // Header
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Multiple Choice Question",
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  onPressed: widget.onRemove,
+                ),
+              ],
             ),
+            const SizedBox(height: 12),
+
+            const Text("Question Text", style: TextStyle(color: Colors.white70)),
             const SizedBox(height: 4),
-            // Question text field
             TextField(
               controller: _questionController,
-              maxLines: 1,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: "Enter question text",
@@ -60,74 +124,56 @@ class _McqQuestionCardState extends State<McqQuestionCard> {
                 filled: true,
                 fillColor: Colors.grey.shade800,
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.transparent),
                   borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
                 ),
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
 
-            // Option fields
-            for (int i = 0; i < 4; i++) ...[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Option label (e.g., "Option 1")
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Option ${i + 1}",
-                          style: const TextStyle(color: Colors.white70),
-                        ),
-                        const SizedBox(height: 4),
-                        TextField(
-                          controller: _optionControllers[i],
-                          style: const TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                            hintText: "Enter answer option",
-                            hintStyle: const TextStyle(color: Colors.white54),
-                            filled: true,
-                            fillColor: Colors.grey.shade800,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  // Checkbox to mark correct answer
-                  Container(
-                    padding: EdgeInsets.only(top: JSizes.lg),
-                    child: Checkbox(
-                      value: _correctOptionIndex == i,
-                      onChanged: (bool? value) {
-                        _handleCheckboxChanged(i);
-                      },
-                      checkColor: Colors.white,
-                      activeColor: Colors.blue,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-            ],
-
-            // Optional remove button if you want to remove this card
-            Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                icon: const Icon(Icons.delete, color: Colors.red),
-                onPressed: widget.onRemove,
-              ),
-            ),
+            ...List.generate(4, (index) => _buildOptionField(index)),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildOptionField(int index) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Option ${index + 1}", style: const TextStyle(color: Colors.white70)),
+          const SizedBox(height: 4),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _optionControllers[index],
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: "Enter option text",
+                    hintStyle: const TextStyle(color: Colors.white54),
+                    filled: true,
+                    fillColor: Colors.grey.shade800,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Checkbox(
+                value: _isOptionCorrect[index],
+                onChanged: (value) => _handleCheckboxChanged(index, value),
+                checkColor: Colors.white,
+                activeColor: Colors.blue,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
 import 'package:project_bc_tuto/common/widgets/custom_shapes/container_shapes/primary_header_conatiner.dart';
+import 'package:project_bc_tuto/common/widgets/documents_cad/resumer_card2.dart';
 import 'package:project_bc_tuto/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 import 'package:project_bc_tuto/data/repositories/authentication/authentication_repositories.dart';
+import 'package:project_bc_tuto/features/Applications/models/user_model.dart';
 import 'package:project_bc_tuto/features/Applications/screens/applications_applied/applied.dart';
 import 'package:project_bc_tuto/features/Applications/screens/notifications/notifications.dart';
 import 'package:project_bc_tuto/features/personilization/screens/address/address.dart';
@@ -24,10 +26,11 @@ import '../../../Applications/screens/type_user/type_user_page.dart';
 import '../../controllers/user_controller.dart';
 
 class SettingScreen extends StatelessWidget {
-  const SettingScreen({super.key});
+  const SettingScreen({super.key,});
 
   @override
   Widget build(BuildContext context) {
+
     final controller = UserController.instance;
     return Scaffold(
       body: SingleChildScrollView(
@@ -59,7 +62,7 @@ class SettingScreen extends StatelessWidget {
               padding: const EdgeInsets.all(JSizes.defaultSpace),
               child: Column(
                 children: [
-                  JResumeCard(title: "Resume", fileName: "${controller.user?.username ?? ""}'s Resume"),
+                  JResumeCard2(title: "Resume", fileName: "${controller.user?.username ?? ""}'s Resume",),
                   const SizedBox(height: JSizes.spaceBtwSections),
 
                   JSectionHeading(title: "Skills", onPressed: () {}),

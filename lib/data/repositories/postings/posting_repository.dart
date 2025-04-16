@@ -56,6 +56,18 @@ class PostingRepository extends GetxController {
     }
   }
 
+  Future<List<PostingModel>> getFavoritePostings(List<String> ponstingId) async {
+    try {
+      final snapshot = await FirebaseFirestore.instance.collection('postings').where(FieldPath.documentId, whereIn: ponstingId).get();
+      
+      return snapshot.docs.map((querySnapshot) => PostingModel.fromSnapshot(querySnapshot)).toList();
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong while fetching postings: ${e.toString()}';
+    }
+  }
+
   /// Fetches all postings made by a specific company.
   Future<List<PostingModel>> fetchPostingsByCompany(String companyId) async {
     try {

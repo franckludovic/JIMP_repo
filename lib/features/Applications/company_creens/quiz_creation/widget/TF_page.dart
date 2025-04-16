@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:project_bc_tuto/features/Applications/company_creens/quiz_creation/widget/TF_card.dart';
+import 'package:project_bc_tuto/features/Applications/controllers/posting_controller.dart';
+import 'package:project_bc_tuto/services/quiz_services.dart';
 import '../../../../../utils/constants/sizes.dart';
-import 'TF_card.dart';
-
+import '../../../controllers/quizfull_controller_builder.dart';
+import '../../../models/quizModel.dart';
 
 class TrueFalseTabPage extends StatefulWidget {
   const TrueFalseTabPage({super.key});
@@ -12,72 +15,107 @@ class TrueFalseTabPage extends StatefulWidget {
 }
 
 class _TrueFalseTabPageState extends State<TrueFalseTabPage> {
-  final List<Widget> _tfQuestions = [];
+  // Controllers for quiz metadata
+  final TextEditingController _quizTitleController = TextEditingController();
+  final QuizBuilderController _quizController = QuizBuilderController.instance;
+
+
+  // List to store the current state (QuizQuestion) for each T/F question card.
+  List<QuizQuestion?> _questions = [];
+
+  // Get QuizService instance
+  final QuizService _quizService = Get.find();
 
   @override
   void initState() {
     super.initState();
-    // Initialize with 5 questions by default
-    for (int i = 0; i < 5; i++) {
-      _tfQuestions.add(_buildQuestionCard(i + 1));
-    }
+    // Initialize with 5 empty questions.
+    _questions = List.generate(5, (_) => null);
   }
 
+  /// Builds a True/False question card for a given index.
   Widget _buildQuestionCard(int index) {
     return TfQuestionCard(
       questionIndex: index,
       onRemove: () => _removeQuestion(index),
+      onChanged: (QuizQuestion? updatedQuestion) {
+        setState(() {
+          _questions[index] = updatedQuestion;
+        });
+        debugPrint("Question $index updated: $updatedQuestion");
+      },
     );
   }
 
+  /// Adds a new empty question card.
   void _addQuestion() {
     setState(() {
-      int nextIndex = _tfQuestions.length + 1;
-      _tfQuestions.add(_buildQuestionCard(nextIndex));
+      _questions.add(null);
     });
   }
 
+  /// Removes the question at the specified index.
   void _removeQuestion(int index) {
-    if (_tfQuestions.length <= 1) {
-      // Optionally prevent removal if there's only one question left
+    if (_questions.length <= 1) {
+      // Prevent removal if there's only one question left.
       return;
     }
     setState(() {
-      _tfQuestions.removeAt(index - 1);
+      _questions.removeAt(index);
     });
   }
 
-  void _submitQuestions() {
-    // Process or validate the T/F questions
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("True/False questions submitted!")),
-    );
+  /// Resets the quiz form.
+  void _resetForm() {
+    setState(() {
+      _quizTitleController.clear();
+      _questions.clear();
+      _questions = List.generate(5, (_) => null);
+    });
   }
+
+  /// Validates and submits the True/False quiz.
+  Future<void> _submitQuestions() async {
+    if (_questions.any((q) => q == null)) {
+      Get.snackbar('Error', 'Please complete all questions');
+      return;
+    }
+
+    // Add each valid question to the central controller
+    for (var question in _questions) {
+      if (question != null) {
+        _quizController.addQuestion(question);
+      }
+    }
+
+    Get.snackbar('Success', 'Questions added to the quiz!');
+    _resetForm();
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
-      color: Colors.black87,
+      color: Colors.black87, // Set your background color here.
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Scrollable list of T/F question cards
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: _tfQuestions,
-                ),
+              child: ListView.builder(
+                itemCount: _questions.length,
+                itemBuilder: (context, index) => _buildQuestionCard(index),
               ),
             ),
             const SizedBox(height: 16),
-            // Row with "Add Question" & "Submit"
+            // Row with "Add Question" and "Submit" buttons.
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(JSizes.md),
+                    padding: const EdgeInsets.all(JSizes.md),
                   ),
                   onPressed: _addQuestion,
                   icon: const Icon(Icons.add),
@@ -85,7 +123,7 @@ class _TrueFalseTabPageState extends State<TrueFalseTabPage> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(JSizes.md),
+                    padding: const EdgeInsets.all(JSizes.md),
                   ),
                   onPressed: _submitQuestions,
                   child: const Text("Submit"),

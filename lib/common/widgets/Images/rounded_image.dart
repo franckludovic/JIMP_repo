@@ -1,23 +1,27 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/sizes.dart';
+import '../shimmer/shimerEffect.dart';
 
 class JRoundedImage extends StatelessWidget {
   const JRoundedImage({
     super.key,
-    this.width,
-    this.height,
+    this.width = 55,
+    this.height = 55,
     required this.imageUrl,
     this.applyImageRadius = true,
     this.border,
     this.backgroundColor,
     this.fit = BoxFit.cover,
-    this.padding, // Remove left padding
+    this.padding,
     this.isNetworkImage = false,
     this.onPressed,
     this.borderRadius = JSizes.md,
+    this.errorWidget,
   });
 
+  final Widget? errorWidget;
   final double? width, height;
   final String imageUrl;
   final bool applyImageRadius;
@@ -41,18 +45,23 @@ class JRoundedImage extends StatelessWidget {
           border: border,
           color: backgroundColor,
           borderRadius: BorderRadius.circular(borderRadius),
-          image: DecorationImage( // Optional: Use background image directly
-            image: isNetworkImage
-                ? NetworkImage(imageUrl)
-                : AssetImage(imageUrl) as ImageProvider,
-            fit: fit,
-          ),
         ),
         child: ClipRRect(
-          borderRadius: applyImageRadius ? BorderRadius.circular(borderRadius) : BorderRadius.zero,
-          child: Image(
-            fit: fit,
-            image: isNetworkImage ? NetworkImage(imageUrl) : AssetImage(imageUrl) as ImageProvider,
+          borderRadius: BorderRadius.circular(borderRadius),
+          child: SizedBox(
+            width: width,
+            height: height,
+            child: isNetworkImage
+                ? CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: fit,
+              placeholder: (context, url) => const JShimmerEffect(width: 55, height: 55, radius: 55),
+              errorWidget: (context, url, error) => errorWidget ?? const Icon(Icons.error),
+            )
+                : Image.asset(
+              imageUrl,
+              fit: fit,
+            ),
           ),
         ),
       ),

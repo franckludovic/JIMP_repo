@@ -9,12 +9,12 @@ import 'package:project_bc_tuto/features/Applications/screens/applications/Widge
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/appbar/tab_bar.dart';
 
-
+import '../../../../common/widgets/job_and_internship_card/final_vertical_postings_card.dart';
 import '../../../../common/widgets/job_and_internship_card/vertical_Application.dart';
+
 ///import 'package:project_bc_tuto/utils/constants/image_strings.dart';
 ///import '../../../../common/widgets/companies/compagny_cards.dart';
 ///import '../../../../common/widgets/layout/application_grid_layout.dart';
-
 
 import '../../../../common/widgets/companies/compagny_cardsV2.dart';
 import '../../../../common/widgets/custom_shapes/other_shapes/custom_divider.dart';
@@ -23,6 +23,7 @@ import '../../../../common/widgets/notifications/notifications_icon.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../controllers/posting_controller.dart';
 import '../Brands/all_brands.dart';
 import '../Brands/brand_product.dart';
 import '../all_product/all_application.dart';
@@ -33,6 +34,7 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PostingController postingController = Get.put(PostingController());
     final categories = CategoryController.instance.featuredCategories;
     return DefaultTabController(
       length: categories.length,
@@ -64,7 +66,7 @@ class Application extends StatelessWidget {
                         ///Searh bar
                         SizedBox(height: JSizes.spaceBtwItems),
                         GestureDetector(
-                          onTap:() => Get.to(() => const  SearchBody()),
+                          onTap: () => Get.to(() => const SearchBody()),
                           child: JSearchContainer(
                               text: 'Search in Hub',
                               showBorder: true,
@@ -77,7 +79,8 @@ class Application extends StatelessWidget {
                         JSectionHeading(
                             title: 'Feature Companies',
                             showActonButton: true,
-                            onPressed: ()  => Get.to(() => const AllBrandsScreen())),
+                            onPressed: () =>
+                                Get.to(() => const AllBrandsScreen())),
                         const SizedBox(height: JSizes.spaceBtwItems / 1.5),
 
                         ///compagnies grid
@@ -88,41 +91,69 @@ class Application extends StatelessWidget {
                                 itemCount: 4,
                                 mainAxisExtend: 80,
                                 itemBuilder: (_, index) {
-                                  return JCompagnyCard2(showBorder: true, onTap: () => Get.to(() => const BrandProduct()),);
-                                }
-                            ),
+                                  return JCompagnyCard2(
+                                    showBorder: true,
+                                    onTap: () =>
+                                        Get.to(() => const BrandProduct()),
+                                  );
+                                }),
 
-                            SizedBox(height: JSizes.spaceBtwSections * 0.7 ,),
+                            SizedBox(
+                              height: JSizes.spaceBtwSections * 0.7,
+                            ),
 
                             //Divider(thickness: 5 ),
                             JDivider(),
 
+                            JSectionHeading(
+                                title: 'Popular Internships',
+                                onPressed: () =>
+                                    Get.to(() => AllApplications())),
 
-                            JSectionHeading(title: 'Popular Internships', onPressed: () => Get.to(() => AllApplications())),
+                            SizedBox(
+                              height: JSizes.spaceBtwItems * 0.7,
+                            ),
 
-                            SizedBox(height: JSizes.spaceBtwItems * 0.7,),
 
-                            JGridLayout(itemCount: 14,crossAxisCount: 2, itemBuilder: (_, index) => VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', jobType: 'Internship', )),
+                            Obx(() {
 
-                            SizedBox(height: JSizes.spaceBtwSections,),
+                              final posts = postingController.posts;
+                              final latestPosting = posts.length >= 5 ? posts.sublist(0, 5) : posts;
+                              return JGridLayout(
+                                  itemCount: latestPosting.length,
+                                  crossAxisCount: 2,
+                                  itemBuilder: (_, index) {
+                                    final posting = latestPosting[index];
+                                    return VerticalPostingCard(
+                                      posting: posting,
+                                    );
+                                  }
+                              );
+                              },
+                            ),
+
+                            SizedBox(
+                              height: JSizes.spaceBtwSections,
+                            ),
                           ],
                         )
                       ],
                     ),
                   ),
 
-
-
                   ///tabs
-                  bottom: JTabBar(tabs: categories.map((category) => Tab(child: Text(category.name))).toList()),
+                  bottom: JTabBar(
+                      tabs: categories
+                          .map((category) => Tab(child: Text(category.name)))
+                          .toList()),
                 ),
               ];
             },
-            body: TabBarView( children: categories.map((category) => JCategoryTab(category: category)).toList()
-            )
-        ),
+            body: TabBarView(
+                children: categories
+                    .map((category) => JCategoryTab(category: category))
+                    .toList())),
       ),
     );
   }
 }
-
