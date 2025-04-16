@@ -150,7 +150,7 @@ class CompanyRepository extends GetxController {
     }
   }
 
-  Future<List<CompanyModel>> fetchAllCompanies(String companyId) async {
+  Future<List<CompanyModel>> fetchAllCompanies() async {
     try {
       final snapshot = await _db.collection('companies').get();
       final companies = snapshot.docs.map((doc) => CompanyModel.fromSnapshot(doc)).toList();

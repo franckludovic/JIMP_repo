@@ -6,6 +6,7 @@ import 'package:project_bc_tuto/common/widgets/scrollable_container/category_scr
 import 'package:project_bc_tuto/common/widgets/texts/section_heading.dart';
 import 'package:project_bc_tuto/features/Applications/controllers/category_controller.dart';
 import 'package:project_bc_tuto/features/Applications/screens/applications/Widgets/category.dart';
+import 'package:project_bc_tuto/features/personilization/controllers/company_controller.dart';
 import 'package:project_bc_tuto/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/appbar/tab_bar.dart';
 
@@ -87,16 +88,24 @@ class Application extends StatelessWidget {
 
                         Column(
                           children: [
-                            JGridLayout(
-                                itemCount: 4,
-                                mainAxisExtend: 80,
-                                itemBuilder: (_, index) {
-                                  return JCompagnyCard2(
-                                    showBorder: true,
-                                    onTap: () =>
-                                        Get.to(() => const BrandProduct()),
-                                  );
-                                }),
+                            Obx(() {
+                              final CompanyController companyController = Get.put(CompanyController());
+                              final company = companyController.company;
+                              final latestCompany = company.length >= 4 ? company.sublist(0, 4) : company;
+                              return JGridLayout(
+                                  itemCount: latestCompany.length,
+                                  mainAxisExtend: 80,
+                                  itemBuilder: (_, index) {
+                                   final companies = latestCompany[index];
+                                    return JCompagnyCard2(
+                                      company:companies,
+                                      showBorder: true,
+                                      onTap: () => Get.to(() =>  BrandProduct(company: companies)),
+                                    );
+                                  });
+
+
+                            }),
 
                             SizedBox(
                               height: JSizes.spaceBtwSections * 0.7,

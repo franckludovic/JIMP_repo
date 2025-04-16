@@ -42,6 +42,7 @@ class HorizontalJPostingCard extends StatelessWidget {
     final isDark = JHelperFunctions.isDarkMode(context);
     final controller = Get.put(PostingController());
 
+
     final time = posting.deadline.difference(DateTime.now()).inHours.isLowerThan(1) ;
 
     return GestureDetector(

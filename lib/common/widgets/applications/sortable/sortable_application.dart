@@ -1,36 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
-import '../../../../utils/constants/image_strings.dart';
+import 'package:project_bc_tuto/features/Applications/models/company_model.dart';
+import '../../../../features/Applications/controllers/posting_controller.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../job_and_internship_card/vertical_Application.dart';
+import '../../job_and_internship_card/final_vertical_postings_card.dart';
 import '../../layout/grid_layout.dart';
 
 class JSortableApplications extends StatelessWidget {
   const JSortableApplications({
-    super.key, this.saves = false,
-  });
+    Key? key,
+    this.saves = false,
+    required this.company,
+  }) : super(key: key);
 
   final bool saves;
+  final CompanyModel company;
 
   @override
   Widget build(BuildContext context) {
+    final PostingController controller = Get.put(PostingController());
+
+    // Fetch postings for the company
+    controller.loadCompanyPostings(company.id);
+
     return Column(
       children: [
-        ///DropDown
+        // DropDown
         DropdownButtonFormField(
-          decoration: InputDecoration(
-              prefixIcon: Icon(Iconsax.sort)
-          ),
+          decoration: const InputDecoration(prefixIcon: Icon(Iconsax.sort)),
           onChanged: (value) {},
-          items: ['Name', 'Higher Price', 'Lower Price', 'Sale', 'Newest', 'Popularity'].map((option) => DropdownMenuItem(value:option, child: Text(option))).toList(),
-
+          items: [
+            'Name',
+            'Higher Price',
+            'Lower Price',
+            'Sale',
+            'Newest',
+            'Popularity'
+          ]
+              .map((option) =>
+              DropdownMenuItem(value: option, child: Text(option)))
+              .toList(),
         ),
-
-        const SizedBox(height: JSizes.spaceBtwSections,),
-        /// applications
-        JGridLayout(itemCount: 16, itemBuilder: (_, index) => VerticalJInternshipCard(companyLogo: JImages.nvidia, companyName: 'Nvidia', internshipTitle: "Database Engineer",location: 'Douala', jobType: 'Internship', saved: saves, ),
-    )
+        const SizedBox(height: JSizes.spaceBtwSections),
+        // Applications
+        Obx(() {
+          return JGridLayout(
+            itemCount: controller.companyPosts.length,
+            crossAxisCount: 2,
+            itemBuilder: (_, index) {
+              final posting = controller.companyPosts[index];
+              return VerticalPostingCard(posting: posting);
+            },
+          );
+        }),
       ],
     );
   }

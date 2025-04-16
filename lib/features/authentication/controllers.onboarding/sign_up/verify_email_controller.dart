@@ -62,9 +62,7 @@ class VerifyEmailController extends GetxController {
             image: JImages.successfullyRegisterAnimation,
             title: JTexts.yourAccountCreatedTitle,
             subTitle: JTexts.yourAccountCreatedSubTitle,
-            onPressed: () => Get.off(
-                  () => AuthenticationRepository.instance.screenRedirect(),
-            )
+            onPressed: () => Get.offAll(() => AuthenticationRepository.instance.screenRedirect(),)
         ),
       );
     }

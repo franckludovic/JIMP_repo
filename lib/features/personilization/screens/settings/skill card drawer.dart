@@ -1,22 +1,22 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:project_bc_tuto/utils/constants/colors.dart';
 import 'package:project_bc_tuto/utils/constants/sizes.dart';
-
 import '../../../../common/widgets/Percentage indicator/circular_pencentage_indicator.dart';
 import '../../../../common/widgets/pop_up/pop_up.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 import '../../../Applications/models/user_model.dart';
 
-
-/// A simple candidate skills list widget that takes a list of SkillEntry objects,
-/// displays each as a SkillCard using JCircularSkillIndicator, and generates a random
-/// color for each progress bar.
+/// A candidate skills list widget that takes a list of SkillEntry objects and a candidate ID.
 class CandidateSkillsList extends StatelessWidget {
   final List<SkillEntry> skills; // List of skills
+  final String candidateId;      // Candidate document ID in Firestore
 
-  const CandidateSkillsList({super.key, required this.skills});
+  const CandidateSkillsList({
+    Key? key,
+    required this.skills,
+    required this.candidateId,
+  }) : super(key: key);
 
   Color _generateRandomColor() {
     final random = Random();
@@ -30,7 +30,6 @@ class CandidateSkillsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // If there are no skills, display a fallback message.
     if (skills.isEmpty) {
       return const Text("No skills provided");
     }
@@ -40,7 +39,7 @@ class CandidateSkillsList extends StatelessWidget {
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        physics: const NeverScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         itemCount: skills.length,
         itemBuilder: (context, index) {
           final skill = skills[index];
@@ -54,10 +53,12 @@ class CandidateSkillsList extends StatelessWidget {
               JCircularSkillIndicator(
                 percentage: percentage,
                 textPercent: textPercent,
-                bottomText: skill.skill,
+                bottomText: skill.skill, // The skill name
                 progressColor: progressColor,
+                candidateId: candidateId, // Pass the candidate ID
+                skillName: skill.skill,   // Pass the skill name used in Firestore
               ),
-              const SizedBox(width: JSizes.xs,)
+              const SizedBox(width: JSizes.xs),
             ],
           );
         },

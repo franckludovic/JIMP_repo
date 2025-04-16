@@ -22,6 +22,7 @@ class PostingController extends GetxController {
   final companyController = Get.put(CompanyController());
   final company = CompanyController.instance.user;
 
+
   @override
   void onInit() {
     super.onInit();
@@ -346,7 +347,7 @@ class PostingController extends GetxController {
   RxList<PostingModel> companyPosts = <PostingModel>[].obs;
 
 
-  // Method to load all postings
+  // Method to load all postingsd
   Future<void> fetchPosts() async {
     try {
       final postingsFetch = await PostingRepository.instance.fetchAllPostings();
@@ -356,13 +357,12 @@ class PostingController extends GetxController {
     }
   }
 
-  // To fetch postings by company:
-  void loadCompanyPostings(String companyId) async {
+  Future<void> loadCompanyPostings(String companyId) async {
     try {
       final companyPostsFetch = await PostingRepository.instance.fetchPostingsByCompany(companyId);
       companyPosts.assignAll(companyPostsFetch);
     } catch (e) {
-      // Handle error
+      JLoaders.errorSnackBar(title: 'Oh snap', message: e.toString());
     }
   }
 

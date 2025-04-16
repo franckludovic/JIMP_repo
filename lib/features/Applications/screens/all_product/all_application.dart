@@ -16,12 +16,12 @@ class AllApplications extends StatelessWidget {
         title: Text('Popular Applications',),
         showBackArrow: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(JSizes.defaultSpace),
-          child: JSortableApplications(saves: saves,),
-        ),
-      ),
+      // body: SingleChildScrollView(
+      //   child: Padding(
+      //     padding: const EdgeInsets.all(JSizes.defaultSpace),
+      //     child: JSortableApplications(saves: saves,),
+      //   ),
+      // ),
     );
   }
 }

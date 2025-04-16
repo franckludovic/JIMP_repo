@@ -42,25 +42,31 @@ class AuthenticationRepository extends GetxController {
   screenRedirect() async {
     final User? user = _auth.currentUser;
 
-
-    await JLocalStorage.init(user!.uid);
-
     if (user != null) {
-      final candidateDoc = await FirebaseFirestore.instance.collection('candidates').doc(user.uid).get();
+      // Initialize local storage only when a valid user exists
+      await JLocalStorage.init(user.uid);
+
+      // Check if the user has a candidate record in Firestore
+      final candidateDoc = await FirebaseFirestore.instance
+          .collection('candidates')
+          .doc(user.uid)
+          .get();
 
       if (candidateDoc.exists) {
         Get.offAll(() => CandidateNavigationMenu());
-
       } else {
-
-        final companyDoc = await FirebaseFirestore.instance.collection('companies').doc(user.uid).get();
+        // If candidate record does not exist, check for company record
+        final companyDoc = await FirebaseFirestore.instance
+            .collection('companies')
+            .doc(user.uid)
+            .get();
 
         if (companyDoc.exists) {
           Get.offAll(() => CompanyNavigationMenu());
         }
       }
-    }else {
-      //local storage
+    } else {
+      // Handle the case when the user is not authenticated
       deviceStorage.writeIfNull('isFirstTime', true);
 
       if (deviceStorage.read('isFirstTime') != true) {
@@ -76,6 +82,7 @@ class AuthenticationRepository extends GetxController {
       }
     }
   }
+
 
   /*--------Email and password Sign in----------------*/
 

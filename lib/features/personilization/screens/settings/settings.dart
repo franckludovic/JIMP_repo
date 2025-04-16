@@ -68,7 +68,7 @@ class SettingScreen extends StatelessWidget {
                   JSectionHeading(title: "Skills", onPressed: () {}),
 
                   Obx(() => CandidateSkillsList(
-                    skills: controller.user!.skills, // assuming skillEntries is your RxList<SkillEntry>
+                    skills: controller.user!.skills, candidateId: controller.user!.id,
                   )),
 
                   const SizedBox(height: JSizes.spaceBtwSections),

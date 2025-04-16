@@ -86,6 +86,7 @@ class PostingRepository extends GetxController {
     }
   }
 
+
   /// Fetches a posting by its ID.
   Future<PostingModel> fetchPosting(String postingId) async {
     try {

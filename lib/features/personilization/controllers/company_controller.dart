@@ -41,6 +41,7 @@ class CompanyController extends GetxController {
   void onInit() {
     super.onInit();
     loadUserData();
+    fetchCompany();
   }
 
   /// Safely updates the user's name using the copyWith method on CompanyModel.
@@ -49,6 +50,20 @@ class CompanyController extends GetxController {
       _user.value = _user.value!.copyWith(
         companyName: first,
       );
+    }
+  }
+
+
+  ///fetch all companies
+  final CompanyRepository companyfetch = Get.put(CompanyRepository());
+  RxList<CompanyModel> company = <CompanyModel>[].obs;
+
+  Future<void> fetchCompany() async {
+    try {
+      final allCompanyFetch = await CompanyRepository.instance.fetchAllCompanies();
+      company.assignAll(allCompanyFetch);
+    } catch (e) {
+      JLoaders.errorSnackBar(title: 'Oh snap', message: e.toString());
     }
   }
 
