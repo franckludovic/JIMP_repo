@@ -189,7 +189,7 @@ class _ResumePageState extends State<ResumePage> {
   }
   /// Helper widget for an editable info row.
   Widget buildEditableInfoRow({
-    isReadOnly = false,
+    isReadOnly = true,
     required IconData icon,
     required String label,
     required String value,

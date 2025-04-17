@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:project_bc_tuto/common/widgets/Images/rounded_image.dart';
 import 'package:project_bc_tuto/common/widgets/Percentage%20indicator/line_percentage_indicator.dart';
 import 'package:project_bc_tuto/common/widgets/appbar/appbar.dart';
@@ -19,6 +20,8 @@ import '../../../../data/repositories/applicant/applicant_repository.dart';
 import '../../controllers/applicant_controller.dart';
 import '../../models/applicant_model.dart';
 import '../../models/user_model.dart';
+
+
 
 /// Helper function to compute elapsed time in a friendly format.
 String getTimeAgo(DateTime date) {
@@ -53,6 +56,85 @@ Future<String?> getJobTitleById(String jobId) async {
   }
 }
 
+Future<DateTime?> showScheduleDialog(BuildContext context, ApplicantModel applicant) async {
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController timeController = TextEditingController();
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
+
+  return await showDialog<DateTime>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text("Schedule Interview"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: dateController,
+              readOnly: true,
+              decoration: InputDecoration(labelText: "Pick a date"),
+              onTap: () async {
+                final picked = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now().add(Duration(days: 1)),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2100),
+                );
+                if (picked != null) {
+                  selectedDate = picked;
+                  dateController.text = picked.toLocal().toString().split(' ')[0];
+                }
+              },
+            ),
+            SizedBox(height: JSizes.spaceBtwInputFields),
+            TextField(
+              controller: timeController,
+              readOnly: true,
+              decoration: InputDecoration(labelText: "Pick a time"),
+              onTap: () async {
+                final picked = await showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                );
+                if (picked != null) {
+                  selectedTime = picked;
+                  timeController.text = picked.format(context);
+                }
+              },
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(null), // explicitly return null
+            child: Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () {
+              if (selectedDate != null && selectedTime != null) {
+                final combined = DateTime(
+                  selectedDate!.year,
+                  selectedDate!.month,
+                  selectedDate!.day,
+                  selectedTime!.hour,
+                  selectedTime!.minute,
+                );
+                Navigator.of(context).pop(combined); // return the datetime
+              } else {
+                Get.snackbar("Missing Info", "Please select both date and time.");
+              }
+            },
+            child: Text("Confirm"),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
+
 class ApplicantsDetails extends StatelessWidget {
   final ApplicantModel applicant;
   final bool isSheduled;
@@ -65,6 +147,7 @@ class ApplicantsDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final applicantController = Get.put(ApplicantController());
     final dark = JHelperFunctions.isDarkMode(context);
     // Determine match percentage: if matchScore is provided use it, otherwise default to 0.75.
     final double matchPercent = (applicant.matchScore ?? 0.75);
@@ -145,7 +228,7 @@ class ApplicantsDetails extends StatelessWidget {
                         ),
                         // Applied time (calculated from appliedAt)
                         Text(
-                          "Applied ${getTimeAgo(applicant.appliedAt.toDate())}",
+                          "Applied ${getTimeAgo(applicant.appliedAt!)}",
                           style: TextStyle(
                             color: JColors.darkGrey,
                             fontSize: 15,
@@ -239,23 +322,63 @@ class ApplicantsDetails extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(
                         horizontal: JSizes.md * 0.9,
                         vertical: JSizes.md * 0.8,
                       ),
-                      backgroundColor: Colors.green,
-                      side: BorderSide(color: Colors.green),
+                      backgroundColor: JColors.primary,
+                      side: BorderSide(color: JColors.primary),
                     ),
                     onPressed: () {
-                      // Navigate to messaging screen or open chat functionality
+                      ApplicantController.instance.updateApplicationStatus(
+                        applicantId: applicant.id,
+                        newStatus: ApplicantApplicationStatus.accepted,
+                      );
+                      Get.snackbar('Accepted Application ', 'You successfully Accepted this application.',
+                          snackPosition: SnackPosition.BOTTOM);
                     },
+
                     child: Text(
-                      "Message",
-                      style: TextStyle(fontSize: 20, fontFamily: 'Poppins'),
+                      "ACCEPT",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: JColors.black,
+                        fontFamily: 'Poppins',
+                      ),
                     ),
                   ),
+
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: JSizes.md * 0.9,
+                        vertical: JSizes.md * 0.8,
+                      ),
+                      backgroundColor: JColors.error,
+                      side: BorderSide(color: JColors.error),
+                    ),
+                    onPressed: () {
+                      ApplicantController.instance.updateApplicationStatus(
+                        applicantId: applicant.id,
+                        newStatus: ApplicantApplicationStatus.rejected,
+                      );
+                      Get.snackbar('Rejected Application', 'You successfully Rejected this application.',
+                          snackPosition: SnackPosition.BOTTOM);
+                    },
+
+                    child: Text(
+                      "REJECT",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: JColors.black,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ),
+
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(
@@ -265,53 +388,60 @@ class ApplicantsDetails extends StatelessWidget {
                       backgroundColor: JColors.grey,
                       side: BorderSide(color: JColors.grey),
                     ),
-                    onPressed: () {
-                      // Schedule or Cancel Interview action
+                    onPressed: () async {
+                      if (isSheduled) {
+                        // Cancel interview
+                        final controller = ApplicantController.instance;
+                        controller.updateApplicationStatus(
+                          applicantId: applicant.id,
+                          newStatus: ApplicantApplicationStatus.pending,
+                        );
+                        Get.snackbar("Interview Canceled", "Status reset to Pending");
+                      } else {
+                        final DateTime? selectedDate = await showScheduleDialog(context, applicant);
+                        if (selectedDate != null) {
+                          ApplicantController.instance.scheduleInterview(
+                            applicantId: applicant.id,
+                            scheduledDateTime: selectedDate,
+                          );
+                          Get.snackbar('Interview Scheduled', 'You successfully scheduled an interview.',
+                              snackPosition: SnackPosition.BOTTOM);
+                        }
+                      }
                     },
                     child: isSheduled
-                        ? Text(
-                      "Cancel Interview",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: JColors.error,
-                        fontFamily: 'Poppins',
-                      ),
-                    )
-                        : Text(
-                      "Schedule Interview",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: JColors.black,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
+                        ? Text("Cancel Interview",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: JColors.error,
+                            fontFamily: 'Poppins'))
+                        : Text("Interview",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: JColors.black,
+                            fontFamily: 'Poppins')),
                   ),
                 ],
               ),
               SizedBox(height: JSizes.spaceBtwItems),
               // Accept Button
-              Center(
+              SizedBox(
+                width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(
-                      horizontal: JSizes.xxl * 1.5,
+                      horizontal: JSizes.md * 0.3,
                       vertical: JSizes.md * 0.8,
                     ),
-                    backgroundColor: JColors.primary,
-                    side: BorderSide(color: JColors.primary),
+                    backgroundColor: Colors.green,
+                    side: BorderSide(color: Colors.green),
                   ),
                   onPressed: () {
-                    final controller = ApplicantController.instance;
-                    controller.updateApplicationStatus(applicant.id, ApplicantApplicationStatus.accepted);
+                    // Navigate to messaging screen or open chat functionality
                   },
-
                   child: Text(
-                    "ACCEPT",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: JColors.black,
-                      fontFamily: 'Poppins',
-                    ),
+                    "Message",
+                    style: TextStyle(fontSize: 20, fontFamily: 'Poppins'),
                   ),
                 ),
               ),

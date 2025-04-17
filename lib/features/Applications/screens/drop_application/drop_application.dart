@@ -31,7 +31,7 @@ class DropApplicationScreen extends StatelessWidget {
           child: Column(
             children: [
               ///item in the cart
-              const JCardListviewItem(showAddRemoveButtons: false),
+             // const JCardListviewItem(showAddRemoveButtons: false),
               const SizedBox(height: JSizes.spaceBtwSections),
 
               /// coupon textfield

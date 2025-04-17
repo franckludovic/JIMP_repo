@@ -23,6 +23,7 @@ class ApplicantController extends GetxController {
   final RxString errorMessage = ''.obs;
 
   final String? companyId = AuthenticationRepository.instance.authUser?.uid;
+
   // Use this key if you have a form for additional inputs (e.g., cover letter, quiz answers).
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -57,7 +58,8 @@ class ApplicantController extends GetxController {
 
     isLoading.value = true;
     errorMessage.value = '';
-    TFullScreenLoader.openLoadingDialog('Submitting your application...', JImages.docerAnimation);
+    TFullScreenLoader.openLoadingDialog(
+        'Submitting your application...', JImages.docerAnimation);
 
     try {
       final isConnected = await NetworkManager.instance.isConnected();
@@ -84,7 +86,8 @@ class ApplicantController extends GetxController {
     } catch (e) {
       TFullScreenLoader.stopLoading();
       errorMessage.value = e.toString();
-      JLoaders.errorSnackBar(title: 'Application Error', message: errorMessage.value);
+      JLoaders.errorSnackBar(
+          title: 'Application Error', message: errorMessage.value);
     } finally {
       isLoading.value = false;
     }
@@ -101,7 +104,8 @@ class ApplicantController extends GetxController {
   }) async {
     isLoading.value = true;
     errorMessage.value = '';
-    TFullScreenLoader.openLoadingDialog('Submitting your quiz answers...', JImages.docerAnimation);
+    TFullScreenLoader.openLoadingDialog(
+        'Submitting your quiz answers...', JImages.docerAnimation);
 
     try {
       await _repository.updateQuizSubmission(
@@ -130,7 +134,8 @@ class ApplicantController extends GetxController {
 
   void loadApplicantByCompany(String companyId) async {
     try {
-      final applicantFetch = await ApplicantRepository.instance.fetchApplicantsByCompanyId(companyId);
+      final applicantFetch = await ApplicantRepository.instance
+          .fetchApplicantsByCompanyId(companyId);
 
       applicants.assignAll(applicantFetch);
     } catch (e) {
@@ -157,9 +162,8 @@ class ApplicantController extends GetxController {
   }
 
 
-
-
-  Future<ApplicantModel?> getApplicantForJob(String jobId, String userId) async {
+  Future<ApplicantModel?> getApplicantForJob(String jobId,
+      String userId) async {
     final doc = await FirebaseFirestore.instance
         .collection('applicants')
         .where('jobId', isEqualTo: jobId)
@@ -173,20 +177,51 @@ class ApplicantController extends GetxController {
     return null;
   }
 
-  Future<void> updateApplicationStatus(String applicantId, ApplicantApplicationStatus newStatus) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection('applicants')
-          .doc(applicantId)
-          .update({'status': newStatus.name});
+  final RxList<ApplicantModel> applications = <ApplicantModel>[].obs;
+  final applicantRepo = Get.put(ApplicantRepository());
 
-      // Optionally show success feedback
-      JLoaders.successSnackBar(title: 'Status Updated', message: 'Application marked as ${newStatus.name}.');
+  // Load user applications
+  void loadUserApplications(String userId) {
+    applications.bindStream(
+        applicantRepo.getUserApplications(userId)
+    );
+  }
+
+  // Company: Update application status
+  Future<void> updateApplicationStatus({
+    required String applicantId,
+    required ApplicantApplicationStatus newStatus,
+    DateTime? interviewDate,
+  }) async {
+    try {
+      await applicantRepo.updateApplicationStatus(
+        applicantId: applicantId,
+        status: newStatus,
+        interviewDate: interviewDate != null
+            ? Timestamp.fromDate(interviewDate)
+            : null,
+      );
+      JLoaders.successSnackBar(title: 'Status Updated', message: '');
     } catch (e) {
-      JLoaders.errorSnackBar(title: 'Error', message: 'Failed to update application status.');
+      JLoaders.errorSnackBar(title: 'Update Failed', message: e.toString());
     }
   }
 
+  void scheduleInterview({
+    required String applicantId,
+    required DateTime scheduledDateTime,
+  }) async {
+    try {
+      await ApplicantRepository.instance.updateApplicationStatus(
+        applicantId: applicantId,
+        status: ApplicantApplicationStatus.interviewScheduled,
+        interviewDate: Timestamp.fromDate(scheduledDateTime),
+      );
+      Get.snackbar("Success", "Interview scheduled for ${scheduledDateTime.toLocal()}");
+    } catch (e) {
+      Get.snackbar("Error", "Failed to schedule interview: $e");
+    }
+  }
 
 
   @override
@@ -194,4 +229,6 @@ class ApplicantController extends GetxController {
     // Dispose of any controllers or focus nodes if needed.
     super.dispose();
   }
+
+
 }
